@@ -1,11 +1,18 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "qiyueshiyi/laravel-qiyueshiyi",
+    "description": "A simple blog.",
+    "keywords": ["blog", "cms", "laravel", "luff"],
     "license": "MIT",
     "type": "project",
+    "homepage": "https://coding.net/u/qiyueshiyi/p/Laravel-qiyueshiyi/git",
+    "authors": [
+        {
+            "name": "Luff Luo",
+            "email": "qiyueshiyi@outlook.com"
+        }
+    ],
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
     },
