@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\MenuRouteMatched;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->loadViewsFrom(resource_path('views/admin'), 'admin');
+
+        $this->app['events']->subscribe(MenuRouteMatched::class);
     }
 
     /**
