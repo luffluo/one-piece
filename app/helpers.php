@@ -34,3 +34,10 @@ if (! function_exists('admin_view')) {
         return $factory->make('admin::' . $view, $data, $mergeData);
     }
 }
+
+if (! function_exists('option')) {
+
+    function option($key, $default = null, $user_id = 0) {
+
+    }
+}

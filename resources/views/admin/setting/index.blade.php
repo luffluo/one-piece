@@ -18,7 +18,7 @@
                         </div>
                         <div>
 
-                            <form action="{{ url('admin/setting/store') }}" autocomplete="off"
+                            <form action="{{ route('admin.options.store') }}" autocomplete="off"
                                   class="form-horizontal col-md-12" method="post">
                                 {{ csrf_field() }}
 

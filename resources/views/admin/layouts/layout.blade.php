@@ -57,7 +57,9 @@
                         </a>
                         <ul class="inner-drop list-unstyled">
                             @foreach ($second['sub'] as $third)
-                            <li class="{{ $third['active'] }}"><a href="{{ $third['url'] }}">{{ $third['title'] }}</a></li>
+                            <li class="{{ $third['active'] }}">
+                                <a href="{{ url($third['url']) }}">{{ $third['title'] }}</a>
+                            </li>
                             @endforeach
                         </ul>
                     </li>
