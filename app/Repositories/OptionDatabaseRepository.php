@@ -1,11 +1,4 @@
 <?php
-/**
- * This file is part of Notadd.
- *
- * @author        Qiyueshiyi <qiyueshiyi@outlook.com>
- * @copyright (c) 2017, iBenchu.org
- * @datetime      2017-03-14 10:47
- */
 
 namespace App\Repositories;
 
@@ -25,12 +18,26 @@ class OptionDatabaseRepository
      */
     protected $table;
 
+    /**
+     * Create new database repository.
+     *
+     * @param \Illuminate\Database\Connection $db
+     * @param string                          $table
+     */
     public function __construct(Connection $db, $table = 'options')
     {
         $this->db    = $db;
         $this->table = $table;
     }
 
+    /**
+     * Determine if the given option value exists.
+     *
+     * @param     $key
+     * @param int $user_id
+     *
+     * @return bool
+     */
     public function has($key, $user_id = 0)
     {
         return $this->table()
@@ -39,6 +46,15 @@ class OptionDatabaseRepository
             ->count() > 0 ? true : false;
     }
 
+    /**
+     * Get the specified option value.
+     *
+     * @param      $key
+     * @param null $default
+     * @param int  $userId
+     *
+     * @return mixed|null
+     */
     public function get($key, $default = null, $userId = 0)
     {
         $value = $this->table()
@@ -49,6 +65,15 @@ class OptionDatabaseRepository
         return is_null($value) ? $default : $value;
     }
 
+    /**
+     * Set a given option value
+     *
+     * @param     $key
+     * @param     $value
+     * @param int $userId
+     *
+     * @return bool|int
+     */
     public function set($key, $value, $userId = 0)
     {
         try {
@@ -67,6 +92,14 @@ class OptionDatabaseRepository
         }
     }
 
+    /**
+     * Forget current option value.
+     *
+     * @param     $key
+     * @param int $user_id
+     *
+     * @return int
+     */
     public function forget($key, $user_id = 0)
     {
         return $this->table()->where('key', $key)
@@ -74,6 +107,11 @@ class OptionDatabaseRepository
             ->delete();
     }
 
+    /**
+     * Get a query builder for the options table
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
     protected function table()
     {
         return $this->db->table($this->table);
