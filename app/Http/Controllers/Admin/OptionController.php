@@ -10,7 +10,7 @@ class OptionController extends Controller
     {
         $site_name = option('site.name');
 
-        return admin_view('setting.index', compact('site_name'));
+        return admin_view('option.index', compact('site_name'));
     }
 
     public function store()

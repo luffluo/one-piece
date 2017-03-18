@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Connection;
+use Illuminate\Cache\Repository as CacheRepository;
 
 class OptionDatabaseRepository
 {
@@ -19,15 +20,21 @@ class OptionDatabaseRepository
     protected $table;
 
     /**
+     * @var CacheRepository
+     */
+    protected $cache;
+
+    /**
      * Create new database repository.
      *
      * @param \Illuminate\Database\Connection $db
      * @param string                          $table
      */
-    public function __construct(Connection $db, $table = 'options')
+    public function __construct(Connection $db, CacheRepository $cache, $table = 'options')
     {
         $this->db    = $db;
         $this->table = $table;
+        $this->cache = $cache;
     }
 
     /**
@@ -40,6 +47,10 @@ class OptionDatabaseRepository
      */
     public function has($key, $user_id = 0)
     {
+        if ($this->cache->has('options_' . $key . '_' . $user_id)) {
+            return true;
+        }
+
         return $this->table()
             ->where('key', $key)
             ->where('user_id', $user_id)
@@ -57,10 +68,12 @@ class OptionDatabaseRepository
      */
     public function get($key, $default = null, $userId = 0)
     {
-        $value = $this->table()
-            ->where('name', $key)
-            ->where('user_id', $userId)
-            ->value('value');
+        $value = $this->cache->remember('options_' . $key . '_' . $userId, 60, function () use($key, $userId) {
+            return $this->table()
+                ->where('name', $key)
+                ->where('user_id', $userId)
+                ->value('value');
+        });
 
         return is_null($value) ? $default : $value;
     }
@@ -77,18 +90,22 @@ class OptionDatabaseRepository
     public function set($key, $value, $userId = 0)
     {
         try {
-            return $this->table()
+            $this->table()
                 ->insert([
                     'name'    => $key,
                     'value'   => $value,
                     'user_id' => $userId,
                 ]);
 
+            $this->cache->put('options_' . $key . '_' . $userId, $value, 60);
+
         } catch (\Exception $e) {
-            return $this->table()
+            $this->table()
                 ->where('name', $key)
                 ->where('user_id', $userId)
                 ->update(compact('value'));
+
+            $this->cache->put('options_' . $key . '_' . $userId, $value, 60);
         }
     }
 
@@ -102,7 +119,9 @@ class OptionDatabaseRepository
      */
     public function forget($key, $user_id = 0)
     {
-        return $this->table()->where('key', $key)
+        $this->cache->forget('options_' . $key . '_' . $user_id);
+
+        $this->table()->where('key', $key)
             ->where('user_id', $user_id)
             ->delete();
     }

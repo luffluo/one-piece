@@ -10,7 +10,7 @@ class OptionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('option.repository', function ($app) {
-            return new OptionDatabaseRepository($app['db']->connection());
+            return new OptionDatabaseRepository($app['db']->connection(), $app['cache']->store());
         });
     }
 }
