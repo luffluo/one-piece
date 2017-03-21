@@ -31,24 +31,19 @@ return [
                     ],
                 ],
             ],
-            'content' => [
-                'title' => '内容管理',
+            'post' => [
+                'title' => '文章',
                 'icon'  => 'fa-cogs',
                 'sub'   => [
-                    [
-                        'title'  => '分类',
-                        'active' => 'admin/category*',
-                        'url'    => 'admin/category',
-                    ],
                     [
                         'title'  => '文章',
                         'active' => 'admin/posts*',
                         'url'    => 'admin/posts',
                     ],
                     [
-                        'title'  => '页面',
-                        'active' => 'admin/pages*',
-                        'url'    => 'admin/pages',
+                        'title'  => '添加文章',
+                        'active' => 'admin/posts/create*',
+                        'url'    => 'admin/posts/create',
                     ],
                 ],
             ],
