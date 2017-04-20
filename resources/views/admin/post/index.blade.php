@@ -38,7 +38,7 @@
                                         <td>{{ $list->created_at }}</td>
                                         <td>{{ $list->published_at }}</td>
                                         <td>
-                                            <form action="{{ route('admin.posts.destroy', ['id' => $list->id]) }}">
+                                            <form action="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" method="post">
                                                 {!! csrf_field() !!}
                                                 {!! method_field('DELETE') !!}
 
