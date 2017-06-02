@@ -7,7 +7,6 @@
  */
 
 use Illuminate\Support\Str;
-use Illuminate\Contracts\View\Factory as ViewFactory;
 
 if (! function_exists('admin_view')) {
 
@@ -22,8 +21,7 @@ if (! function_exists('admin_view')) {
      */
     function admin_view($view = null, $data = [], $mergeData = [])
     {
-
-        $factory = app(ViewFactory::class);
+        $factory = view();
 
         if (func_num_args() === 0) {
             return $factory;

@@ -75,7 +75,7 @@
     <script>
       $(function () {
         $('#published_at').datetimepicker({
-          format: 'yyyy-mm-dd hh:ii:ss',
+          format: 'yyyy-mm-dd hh:ii',
           autoclose: true,
           todayHighlight: true,
           language: 'zh-CN',

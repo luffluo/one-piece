@@ -11,7 +11,7 @@ namespace App\Models;
  * Class Post
  *
  * @property integer             $id
- * @property string              $titile
+ * @property string              $title
  * @property string              $text
  * @property string              $type
  * @property string              $status
