@@ -11,8 +11,12 @@
 |
 */
 
+// Front routes
 Route::get('/', 'IndexController@index');
 
+Route::resource('post', 'PostController', ['only' => ['show']]);
+
+// Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Home

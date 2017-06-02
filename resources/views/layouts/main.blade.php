@@ -76,13 +76,8 @@
     </nav>
 
     <div class="main container">
-        <div class="jumbotron">
-            <h1>Hello, world!</h1>
-            <p>从梦开始的地方，直至世界尽头，都不可以放弃希望！'教练，我想打篮球'</p>
-            <p>转动命运之轮，张开勇气的翅膀踏上旅程！</p>
-            <p>神奇的口袋里满是梦想，和你在一起，所有烦恼都会遗忘！</p>
-            <p>一路上自己渺小的世界里容纳了更多的人！</p>
-        </div>
+
+        @includeWhen(request()->is('/'), 'components.jumbotron')
 
         <div class="row">
             <div class="col-md-8 blog-main">
@@ -90,12 +85,7 @@
             </div>
 
             <div class="col-md-4 sidebar-right">
-                <div class="panel panel-default">
-                    <div class="panel-heading">About me</div>
-                    <div class="panel-body">
-                        <p>喜欢面向对象编程、函数式编程、单元测试、重构、设计模式相关领域，努力写出符合 SOLID 原则的代码。</p>
-                    </div>
-                </div>
+                @includeWhen(request()->is('/'), 'components.about-me')
             </div>
         </div>
 
