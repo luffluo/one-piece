@@ -31,7 +31,10 @@
                 <div class="panel panel-default dropdown-menu">
                     <div class="panel-footer clearfix">
                         <a href="{{ url('admin/password') }}" class="btn btn-warning btn-sm left">重置密码</a>
-                        <a href="{{ url('admin/logout') }}" class="btn btn-danger btn-sm right">退出登陆</a>
+                        <form action="{{ route('admin.logout') }}" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="submit" value="退出登陆" class="btn btn-danger btn-sm right">
+                        </form>
                     </div>
                 </div>
             </li>

@@ -16,13 +16,16 @@ Route::get('/', 'IndexController@index')->name('home');
 
 Route::resource('post', 'PostController', ['only' => ['show']]);
 
-Route::group(['prefix' => 'amdin', 'namespace' => 'Admin'], function () {
-    Route::get('login', 'LoginController@showLogin')->name('admin.login');
-    Route::post('login', 'LoginController@handleLogin');
-});
 
 // Admin routes
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'auth.admin']], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('login', 'LoginController@showLogin')->name('admin.login');
+    Route::post('login', 'LoginController@handleLogin');
+
+    Route::post('logout', 'LogoutController')->name('admin.logout');
+});
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'/*, 'middleware' => ['auth', 'auth.admin']*/], function () {
 
     // Home
     Route::get('/', 'HomeController@index')->name('admin.home');
