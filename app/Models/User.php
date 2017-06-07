@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class User
@@ -53,4 +54,21 @@ class User extends Authenticatable
     //     'password',
     //     'remember_token',
     // ];
+
+    public function isAdmin()
+    {
+        return true;
+    }
+
+    public function setPassword($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+
+        return $this;
+    }
+
+    public function checkPassword($password)
+    {
+        return Hash::check($password, $this->password);
+    }
 }

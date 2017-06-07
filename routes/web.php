@@ -12,15 +12,20 @@
 */
 
 // Front routes
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index')->name('home');
 
 Route::resource('post', 'PostController', ['only' => ['show']]);
 
+Route::group(['prefix' => 'amdin', 'namespace' => 'Admin'], function () {
+    Route::get('login', 'LoginController@showLogin')->name('admin.login');
+    Route::post('login', 'LoginController@handleLogin');
+});
+
 // Admin routes
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'auth.admin']], function () {
 
     // Home
-    Route::get('/', 'HomeController@index')->name('admin.index');
+    Route::get('/', 'HomeController@index')->name('admin.home');
 
     // Options
     Route::get('options', 'OptionController@index')->name('admin.options.index');
