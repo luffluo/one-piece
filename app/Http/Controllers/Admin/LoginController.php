@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         $newQuery = User::query();
         foreach ($request->toArray() as $key => $value) {
-            if (str_contains($key, 'password')) {
+            if (! str_contains($key, 'password')) {
                 $newQuery->where($key, $value);
             }
         }

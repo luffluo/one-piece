@@ -9,15 +9,13 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Auth\AuthenticationException;
-
 
 class AuthenticateWithAdminAuth
 {
     public function handle($request, Closure $next, ...$guards)
     {
-        if (! auth()->guard($guards)->user()->isAdmin()) {
-            throw new AuthenticationException('Unauthenticated.', $guards);
+        if (auth()->guard($guards)->guest()) {
+            return redirect()->route('admin.login');
         }
 
         return $next($request);
