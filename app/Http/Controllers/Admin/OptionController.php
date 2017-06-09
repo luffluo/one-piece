@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OptionController extends Controller
@@ -9,15 +10,30 @@ class OptionController extends Controller
     public function index()
     {
         $site_name        = option('site.name');
+        $site_icon        = option('site.icon');
+        $site_logo        = option('site.logo');
         $site_description = option('site.description');
 
-        return admin_view('option.index', compact('site_name', 'site_description'));
+        return admin_view(
+            'option.index',
+                compact('site_name', 'site_icon', 'site_logo', 'site_description')
+        );
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        option(['site.name', request()->input('site_name')]);
-        option(['site.description', request()->input('site_description')]);
+        if ($request->hasFile('site_icon')) {
+            $request->file('site_icon')->move(public_path(), 'favicon.ico');
+        }
+
+        if ($request->hasFile('site_logo')) {
+            $request->file('site_logo')->move(public_path('upload/admin'), 'logo.png');
+
+            option(['site.logo', 'upload/admin/logo.png']);
+        }
+
+        option(['site.name', $request->input('site_name')]);
+        option(['site.description', $request->input('site_description')]);
 
         return redirect()->route('admin.options.index');
     }

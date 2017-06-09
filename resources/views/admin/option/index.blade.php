@@ -19,7 +19,7 @@
                         <div>
 
                             <form action="{{ route('admin.options.store') }}" autocomplete="off"
-                                  class="form-horizontal col-md-12" method="post">
+                                  class="form-horizontal col-md-12" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
 
                                 <div class="form-group form-group-sm">
@@ -28,6 +28,34 @@
                                         <input class="form-control" type="text" name="site_name" id="site_name"
                                                value="{{ old('site_name', $site_name) }}"
                                                placeholder="请输入网站名称">
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    <label class="col-md-4 control-label">网站 Icon</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="file" name="site_icon" id="site_icon"
+                                               value="{{ old('site_icon', $site_icon) }}"
+                                               placeholder="请上传网站 Icon">
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <img src="{{ asset('favicon.ico') }}" alt="site icon" width="19" height="19">
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    <label class="col-md-4 control-label">网站 Logo</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="file" name="site_logo" id="site_logo"
+                                               value="{{ old('site_logo', $site_logo) }}"
+                                               placeholder="请上传网站 Logo">
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        @if ($site_logo)
+                                            <img src="{{ asset($site_logo) }}" alt="site logo" width="19" height="19">
+                                        @endif
                                     </div>
                                 </div>
 
