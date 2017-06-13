@@ -1,3 +1,18 @@
+<!--
+______                            _              _                                     _
+| ___ \                          | |            | |                                   | |
+| |_/ /___ __      __ ___  _ __  | |__   _   _  | |      __ _  _ __  __ _ __   __ ___ | |
+|  __// _ \\ \ /\ / // _ \| '__| | '_ \ | | | | | |     / _` || '__|/ _` |\ \ / // _ \| |
+| |  | (_) |\ V  V /|  __/| |    | |_) || |_| | | |____| (_| || |  | (_| | \ V /|  __/| |
+\_|   \___/  \_/\_/  \___||_|    |_.__/  \__, | \_____/ \__,_||_|   \__,_|  \_/  \___||_|
+                                          __/ |
+                                         |___/
+  ========================================================
+                                           Luff
+
+  --------------------------------------------------------
+  Powered by Laravel
+-->
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
@@ -7,8 +22,14 @@
 
     <title>@yield('title') - Luff Life</title>
 
+    <meta name="keywords" content="{{ option('site.keywords') }}">
+    <meta name="description" content="{{ option('site.description') }}">
+    <meta name="author" content="Luff">
+    <meta name="_token" content="{{ csrf_token() }}">
+
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <style>
         body {

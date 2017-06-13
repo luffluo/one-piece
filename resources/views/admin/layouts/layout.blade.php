@@ -1,3 +1,18 @@
+<!--
+______                            _              _                                     _
+| ___ \                          | |            | |                                   | |
+| |_/ /___ __      __ ___  _ __  | |__   _   _  | |      __ _  _ __  __ _ __   __ ___ | |
+|  __// _ \\ \ /\ / // _ \| '__| | '_ \ | | | | | |     / _` || '__|/ _` |\ \ / // _ \| |
+| |  | (_) |\ V  V /|  __/| |    | |_) || |_| | | |____| (_| || |  | (_| | \ V /|  __/| |
+\_|   \___/  \_/\_/  \___||_|    |_.__/  \__, | \_____/ \__,_||_|   \__,_|  \_/  \___||_|
+                                          __/ |
+                                         |___/
+  ========================================================
+                                           Luff
+
+  --------------------------------------------------------
+  Powered by Laravel
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +22,10 @@
     <meta name="author" content="Luff">
     <meta name="keywords" content="CMS">
     <meta name="description" content="A CMS System Base On Laravel 5.4">
+    <meta name="_token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     @yield('admin-css')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
 </head>
@@ -80,7 +97,7 @@
     </aside>
     <div class="content-container" id="content">@yield('content')</div>
     <footer id="site-foot" class="site-foot clearfix">
-        <p class="left">&copy; Copyright 2015 <strong>iBenchu.org</strong>, All rights reserved.</p>
+        <p class="left">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
         <p class="right">{{ config('app.version') }}</p>
     </footer>
 </div>
