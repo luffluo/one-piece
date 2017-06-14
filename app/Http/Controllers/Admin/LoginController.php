@@ -34,13 +34,7 @@ class LoginController extends Controller
             ]
         );
 
-        $newQuery = User::query();
-        foreach ($request->toArray() as $key => $value) {
-            if (! str_contains($key, 'password')) {
-                $newQuery->where($key, $value);
-            }
-        }
-        $user = $newQuery->first();
+        $user = User::where('username', $request->username)->first();
 
         if (! $user || ! $user->exists || ! $user->checkPassword($request->password)) {
             return redirect()->back()->withErrors(['username' => '用户名或密码不正确.'])->withInput();

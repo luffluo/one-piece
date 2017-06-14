@@ -16,16 +16,12 @@ class LogoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'auth.admin']);
+        $this->middleware('auth.admin');
     }
 
     public function __invoke(Request $request)
     {
         Auth::guard()->logout();
-
-        $request->session()->flash();
-
-        $request->session()->regenerate();
 
         return redirect()->route('admin.login');
     }
