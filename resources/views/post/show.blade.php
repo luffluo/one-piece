@@ -6,6 +6,6 @@
     <div class="blog-post">
         <h2 class="blog-post-title">{{ $post->title }}</h2>
         <p class="blog-post-meta">{{ $post->created_at->format('Y-m-d') }} <a href="#">Luff</a></p>
-        <div>{{ $post->text }}</div>
+        <div>{!! $parser->makeHtml($post->text) !!}</div>
     </div>
 @endsection

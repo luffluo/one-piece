@@ -55,6 +55,10 @@ ______                            _              _                              
             color: #999;
         }
 
+        .blog-post img {
+            max-width: 100%;
+        }
+
         footer {
             padding-top: 40px;
             padding-bottom: 40px;

@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        \LaravelChen\Editormd\EditorMdProvider::class,
 
         /*
          * Application Service Providers...
@@ -177,7 +178,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         \App\Providers\OptionServiceProvider::class,
-
     ],
 
     /*

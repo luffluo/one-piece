@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f13e98b38ac27bff98f8d7105c3b82e2",
+    "content-hash": "c3508bd52e96ba967c8acd4fffe09708",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -236,6 +236,42 @@
             "time": "2015-04-20T18:58:01+00:00"
         },
         {
+            "name": "joyqi/hyper-down",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SegmentFault/HyperDown.git",
+                "reference": "75e83793653b3a436ba9a1900fcf4bdd4e3a1010"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/SegmentFault/HyperDown/75e83793653b3a436ba9a1900fcf4bdd4e3a1010.zip",
+                "reference": "75e83793653b3a436ba9a1900fcf4bdd4e3a1010",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HyperDown\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "joyqi",
+                    "email": "joyqi@segmentfault.com"
+                }
+            ],
+            "description": "A light weight markdown parser library",
+            "time": "2017-03-30 08:52:29"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.4.24",
             "source": {
@@ -421,6 +457,42 @@
                 "psysh"
             ],
             "time": "2016-12-30T18:13:17+00:00"
+        },
+        {
+            "name": "laravelchen/laravel-editormd",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelChen/laravel-editormd.git",
+                "reference": "5c1287d58ff3ef5ee74b834ec4bdfe6f7371291a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/LaravelChen/laravel-editormd/5c1287d58ff3ef5ee74b834ec4bdfe6f7371291a.zip",
+                "reference": "5c1287d58ff3ef5ee74b834ec4bdfe6f7371291a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaravelChen\\Editormd\\": "src/"
+                },
+                "files": [
+                    "src/helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "LaravelChen",
+                    "email": "848407695@qq.com"
+                }
+            ],
+            "description": "laravel-editor-mb",
+            "time": "2017-03-25T04:20:03+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3338,7 +3410,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "joyqi/hyper-down": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

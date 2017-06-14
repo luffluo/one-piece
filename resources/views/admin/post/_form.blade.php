@@ -13,7 +13,9 @@
         <div class="form-group form-group-sm">
             <div class="col-md-12">
 {{--                <script id="editor-container" type="text/plain" data-toggle="ueditor" name="content">{!! app('request')->old('content', $post->content) !!}</script>--}}
-                <textarea name="text" id="text" cols="30" rows="10" class="form-control">{{ old('text', $post->text) }}</textarea>
+                <div id="editormd_id">
+                    <textarea name="text" style="display:none;">{{ old('text', $post->text) }}</textarea>
+                </div>
             </div>
         </div>
 
@@ -65,6 +67,7 @@
 
 @section('admin-css')
     <link href="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.3.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    {!! editor_css() !!}
 @endsection
 
 @section('admin-js')
@@ -83,4 +86,6 @@
         });
       });
     </script>
+
+    {!! editor_js() !!}
 @endsection
