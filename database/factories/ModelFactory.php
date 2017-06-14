@@ -28,3 +28,19 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'last_seen_time' => $dateTime,
     ];
 });
+
+$factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
+    $dateTime = $faker->dateTime;
+
+    return [
+        'title'          => $faker->sentence,
+        'text'           => $faker->paragraph,
+        'slug'           => $faker->uuid,
+        'user_id'        => 1,
+        'status'         => '',
+        'type'           => 'post',
+        'created_at'     => $dateTime,
+        'updated_at'     => $dateTime,
+        'published_at'   => $dateTime,
+    ];
+});

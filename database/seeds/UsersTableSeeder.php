@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = factory(User::class)->times(50)->make();
+        $users = factory(User::class)->times(5)->make();
         User::insert($users->toArray());
 
         $user           = User::find(1);
@@ -21,6 +21,6 @@ class UsersTableSeeder extends Seeder
         $user->nickname = 'Luff';
         $user->save();
 
-        $this->command->info("生成 {$users->count()} 个用户");
+        $this->command->info("生成 {$users->count()} 个用户.");
     }
 }
