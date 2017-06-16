@@ -14,7 +14,7 @@
 // Front routes
 Route::get('/', 'IndexController@index')->name('home');
 
-Route::resource('post', 'PostController', ['only' => ['show']]);
+Route::get('p/{id}', 'PostController@show')->name('post.show');
 
 
 // Admin routes
@@ -41,4 +41,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('posts/{id}', 'PostController@edit')->name('admin.posts.edit');
     Route::patch('posts/{id}', 'PostController@update')->name('admin.posts.update');
     Route::delete('posts/{id}', 'PostController@destroy')->name('admin.posts.destroy');
+
+    // Category
+    Route::get('categories', 'CategoryController@index')->name('admin.categories.index');
 });

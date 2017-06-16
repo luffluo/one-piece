@@ -28,9 +28,9 @@ class OptionController extends Controller
         }
 
         if ($request->hasFile('site_logo')) {
-            $request->file('site_logo')->move(public_path('upload/admin'), 'logo.png');
+            $request->file('site_logo')->move(public_path('uploads/admin'), 'logo.png');
 
-            option(['site.logo', 'upload/admin/logo.png']);
+            option(['site.logo', 'uploads/admin/logo.png']);
         }
 
         option(['site.name', $request->input('site_name')]);

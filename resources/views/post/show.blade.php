@@ -5,7 +5,9 @@
 @section('content')
     <div class="blog-post">
         <h2 class="blog-post-title">{{ $post->title }}</h2>
-        <p class="blog-post-meta">{{ $post->created_at->format('Y-m-d') }} <a href="#">Luff</a></p>
+        <p class="blog-post-meta">
+            <span>{{ $post->created_at->format('Y-m-d') }} <a href="#">Luff</a></span>
+        </p>
         <div>{!! $parser->makeHtml($post->text) !!}</div>
     </div>
 @endsection

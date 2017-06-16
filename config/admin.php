@@ -20,7 +20,7 @@ return [
     'group'   => [
         'title' => '组件导航',
         'sub'   => [
-            'system'  => [
+            'system'   => [
                 'title' => '系统管理',
                 'icon'  => 'fa-cogs',
                 'sub'   => [
@@ -31,7 +31,13 @@ return [
                     ],
                 ],
             ],
-            'post' => [
+            'category' => [
+                'title'  => '分类',
+                'icon'   => 'fa-cogs',
+                'active' => 'admin/categories*',
+                'url'    => 'admin/categories',
+            ],
+            'post'     => [
                 'title' => '文章',
                 'icon'  => 'fa-cogs',
                 'sub'   => [

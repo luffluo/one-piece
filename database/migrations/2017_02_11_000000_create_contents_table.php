@@ -20,6 +20,7 @@ class CreateContentsTable extends Migration
             $table->string('slug', 200)->nullable()->index()->comment('内容缩略名 用于友好的 url');
             $table->text('text')->nullable();
             $table->integer('comments_count')->unsigned()->default(0)->index()->comment('评论数');
+            $table->integer('views_count')->unsigned()->default(0)->index()->comment('浏览量');
             $table->integer('order')->unsigned()->default(0)->index();
             $table->string('template', 32)->nullable()->comment('模板');
             $table->string('type', 16)->nullable()->comment('post文章 draft草稿 page页面 link链接 attachment文件');
