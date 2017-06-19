@@ -14,7 +14,7 @@
 // Front routes
 Route::get('/', 'IndexController@index')->name('home');
 
-Route::get('p/{id}', 'PostController@show')->name('post.show');
+Route::get('a/{id}', 'PostController@show')->name('post.show');
 
 
 // Admin routes
@@ -30,11 +30,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // Home
     Route::get('/', 'HomeController@index')->name('admin.home');
 
-    // Options
+    // Option
     Route::get('options', 'OptionController@index')->name('admin.options.index');
     Route::post('options', 'OptionController@store')->name('admin.options.store');
 
-    // Posts
+    // Post
     Route::get('posts', 'PostController@index')->name('admin.posts.index');
     Route::get('posts/create', 'PostController@create')->name('admin.posts.create');
     Route::post('posts', 'PostController@store')->name('admin.posts.store');
@@ -42,6 +42,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::patch('posts/{id}', 'PostController@update')->name('admin.posts.update');
     Route::delete('posts/{id}', 'PostController@destroy')->name('admin.posts.destroy');
 
-    // Category
-    Route::get('categories', 'CategoryController@index')->name('admin.categories.index');
+    // Tag
+    Route::get('tags', 'TagController@index')->name('admin.tags.index');
+    Route::get('tags/create', 'TagController@create')->name('admin.tags.create');
+    Route::post('tags/store', 'TagController@store')->name('admin.tags.store');
+    Route::get('tags/{id}', 'TagController@edit')->name('admin.tags.edit');
+    Route::patch('tags/{id}', 'TagController@update')->name('admin.tags.update');
+    Route::delete('tags/{id}', 'TagController@destroy')->name('admin.tags.destroy');
 });

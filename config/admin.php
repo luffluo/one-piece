@@ -32,10 +32,22 @@ return [
                 ],
             ],
             'category' => [
-                'title'  => '分类',
+                'title'  => '标签',
                 'icon'   => 'fa-cogs',
-                'active' => 'admin/categories*',
-                'url'    => 'admin/categories',
+                'sub' => [
+                    [
+                        'title'  => '标签',
+                        'icon'   => 'fa-cogs',
+                        'active' => 'admin/tags*',
+                        'url'    => 'admin/tags',
+                    ],
+                    [
+                        'title'  => '添加标签',
+                        'icon'   => 'fa-cogs',
+                        'active' => 'admin/tags/create*',
+                        'url'    => 'admin/tags/create',
+                    ]
+                ],
             ],
             'post'     => [
                 'title' => '文章',

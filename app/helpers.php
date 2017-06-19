@@ -74,3 +74,45 @@ if (! function_exists('option')) {
         return $option->get($key, $default, $user_id);
     }
 }
+
+if (! function_exists('slug_name')) {
+
+    /**
+     * 生成缩略名
+     *
+     * @param string  $str       需要生成缩略名的字符串
+     * @param string  $default   默认的缩略名
+     * @param integer $maxLength 缩略名最大长度
+     *
+     * @return null|string
+     */
+    function slug_name($str, $default = null, $maxLength = 128)
+    {
+        $str = trim($str);
+
+        if (! mb_strlen($str)) {
+            return $default;
+        }
+
+        mb_regex_encoding('UTF-8');
+        mb_ereg_search_init($str, "[\w" . preg_quote('_-') . "]+");
+        $result = mb_ereg_search();
+        $return = '';
+
+        if ($result) {
+            $regs = mb_ereg_search_getregs();
+            $pos  = 0;
+            do {
+                $return .= ($pos > 0 ? '-' : '') . $regs[0];
+                $pos++;
+            } while ($regs = mb_ereg_search_regs());
+        }
+
+        $str = $return;
+
+        $str = trim($str, '-_');
+        $str = (! mb_strlen($str)) ? $default : $str;
+
+        return mb_substr($str, 0, $maxLength);
+    }
+}
