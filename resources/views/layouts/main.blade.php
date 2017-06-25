@@ -122,7 +122,7 @@ ______                            _              _                              
                     <span class="powered-by">Powered By <span>Laravel</span></span>
                 </div>
 
-                <div class="col-md-6">&copy; Luff {{ date('Y') }} </div>
+                <div class="col-md-6">&copy; {{ option('site.author') }} {{ date('Y') }} </div>
             </div>
         </footer>
     </div>

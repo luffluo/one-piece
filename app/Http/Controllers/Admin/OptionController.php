@@ -14,10 +14,20 @@ class OptionController extends Controller
         $site_logo        = option('site.logo');
         $site_keywords    = option('site.keywords');
         $site_description = option('site.description');
+        $site_author      = option('site.author');
+        $about_me         = option('site.author.about.me');
 
         return admin_view(
             'option.index',
-            compact('site_name', 'site_icon', 'site_logo', 'site_keywords', 'site_description')
+            compact(
+                'site_name',
+                'site_icon',
+                'site_logo',
+                'site_keywords',
+                'site_description',
+                'site_author',
+                'about_me'
+            )
         );
     }
 
@@ -36,6 +46,8 @@ class OptionController extends Controller
         option(['site.name', $request->input('site_name')]);
         option(['site.keywords', $request->input('site_keywords')]);
         option(['site.description', $request->input('site_description')]);
+        option(['site.author', $request->input('site_author')]);
+        option(['site.author.about.me', $request->input('site_author_about_me')]);
 
         return redirect()->route('admin.options.index');
     }

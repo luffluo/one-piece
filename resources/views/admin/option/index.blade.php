@@ -65,6 +65,14 @@
                                 </div>
 
                                 <div class="form-group form-group-sm">
+                                    <label class="col-md-4 control-label">网站作者</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" name="site_author" value="{{ old('site_author', $site_author) }}">
+                                        <span class="help-block">网站作者</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
                                     <label class="col-md-4 control-label">网站关键字</label>
                                     <div class="col-md-4">
                                         <textarea name="site_keywords" class="form-control" cols="30" rows="3">{{ old('site_keywords', $site_keywords) }}</textarea>
@@ -77,6 +85,14 @@
                                     <div class="col-md-4">
                                         <textarea name="site_description" class="form-control" cols="30" rows="5">{{ old('site_description', $site_description) }}</textarea>
                                         <span class="help-block">网站页面的描述</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    <label class="col-md-4 control-label">关于我</label>
+                                    <div class="col-md-4">
+                                        <textarea name="site_author_about_me" class="form-control" cols="30" rows="5">{{ old('about_me', $about_me) }}</textarea>
+                                        <span class="help-block">关于我</span>
                                     </div>
                                 </div>
 
