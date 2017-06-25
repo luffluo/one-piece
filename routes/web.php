@@ -16,6 +16,8 @@ Route::get('/', 'IndexController@index')->name('home');
 
 Route::get('a/{id}', 'PostController@show')->name('post.show');
 
+Route::get('tags', 'TagController@index')->name('tags');
+
 
 // Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

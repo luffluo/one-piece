@@ -11,11 +11,11 @@
             </h2>
             <p class="blog-post-meta">
                 {{ $post->created_at->format('Y-m-d') }}
-                <a href="#">Luff</a>
+                {{--<a href="#">Luff</a>--}}
 
                 <span class="pull-right">
                     @foreach ($post->tags as $tag)
-                        <a href="#">{{ $tag->name }}</a>
+                        <a href="{{ route('tags') . '#' . $tag->slug }}">{{ $tag->name }}</a>
                     @endforeach
                 </span>
             </p>
