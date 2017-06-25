@@ -11,7 +11,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lists = Post::orderBy('created_at', 'desc')
+        $lists = Post::with('tags')
+            ->orderBy('created_at', 'desc')
             ->paginate(30);
 
         return admin_view('post.index', compact('lists'));
@@ -34,12 +35,16 @@ class PostController extends Controller
             return redirect()->back()->withMessage('添加失败.');
         }
 
-        $tags = Tag::select('id')
+        $tags = Tag::select('id', 'count')
             ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
-            ->get()
-            ->pluck('id');
+            ->get();
 
-        $post->tags()->sync($tags);
+        $post->tags()->sync($tags->pluck('id'));
+
+        foreach ($tags as $tag) {
+            $tag->count += 1;
+            $tag->save();
+        }
 
         return redirect()->route('admin.posts.index')->withMessage('添加成功.');
     }
@@ -73,12 +78,25 @@ class PostController extends Controller
             return redirect()->back()->withErrors('更新失败.');
         }
 
-        $tags = Tag::select('id')
-            ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
-            ->get()
-            ->pluck('id');
+        $existsTags = $post->tags()->get();
 
-        $post->tags()->sync($tags);
+        $tags = Tag::select('id', 'count')
+            ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
+            ->get();
+
+        foreach ($existsTags as $existsTag) {
+            if ($tags->where('id', $existsTag->id)->isEmpty() && $existsTag->count > 0) {
+                $existsTag->count += -1;
+                $existsTag->save();
+            }
+        }
+
+        $post->tags()->sync($tags->pluck('id'));
+
+        foreach ($tags as $tag) {
+            $tag->count += 1;
+            $tag->save();
+        }
 
         return redirect()->route('admin.posts.index')->withMessage('更新成功.');
     }

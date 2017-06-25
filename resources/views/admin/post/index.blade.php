@@ -23,6 +23,7 @@
                             <tr>
                                 <th class="col-md-1">ID</th>
                                 <th class="col-md-1">标题</th>
+                                <th class="col-md-2">标签</th>
                                 <th class="col-md-1">状态</th>
                                 <th class="col-md-2">创建时间</th>
                                 <th class="col-md-2">发布时间</th>
@@ -34,6 +35,7 @@
                                     <tr>
                                         <td>{{ $list->id }}</td>
                                         <td>{{ $list->title }}</td>
+                                        <td>{{ $list->tags->implode('name', ' | ') }}</td>
                                         <td>{{ $list->status }}</td>
                                         <td>{{ $list->created_at }}</td>
                                         <td>{{ $list->published_at }}</td>
