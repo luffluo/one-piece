@@ -12,6 +12,21 @@
 
         <div class="form-group form-group-sm">
             <div class="col-md-12">
+                <select id="tags" class="form-control" name="tags[]" multiple="multiple">
+                    <option value="">请输入标签</option>
+                    @foreach ($tags as $tag)
+                        @if ($post->tags->where('id', $tag->id)->isEmpty())
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @else
+                            <option value="{{ $tag->id }}" selected="selected">{{ $tag->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <div class="col-md-12">
 {{--                <script id="editor-container" type="text/plain" data-toggle="ueditor" name="content">{!! app('request')->old('content', $post->content) !!}</script>--}}
                 <div id="editormd_id">
                     <textarea name="text" style="display:none;">{{ old('text', $post->text) }}</textarea>
@@ -67,6 +82,7 @@
 
 @section('admin-css')
     <link href="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.3.11/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
     {!! editor_css() !!}
 @endsection
 
@@ -74,6 +90,8 @@
 
     <script src="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.3.11/js/bootstrap-datetimepicker.min.js"></script>
     <script charset="utf-8" src="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.3.11/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://cdn.bootcss.com/select2/4.0.3/js/i18n/zh-CN.js"></script>
 
     <script>
       $(function () {
@@ -83,6 +101,11 @@
           todayHighlight: true,
           language: 'zh-CN',
           todayBtn: true,
+        });
+
+        $('#tags').select2({
+            tags: true,
+            placeholder: "标签"
         });
       });
     </script>

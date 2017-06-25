@@ -63,4 +63,23 @@ class TagController extends Controller
 
         return redirect()->route('admin.tags.index')->with('message', '删除成功！');
     }
+
+    public function getByName()
+    {
+        if (request()->ajax() || request()->wantsJson()) {
+            $input = request()->get('q');
+
+            if (empty($input)) {
+                return response()->json([]);
+            }
+
+            $tags = Tag::select('id', 'name')->where('name', 'like', "%{$input}%")->get();
+
+            if (count($tags) < 1) {
+                return response()->json([]);
+            }
+
+            return response()->json(['items' => $tags->toArray()]);
+        }
+    }
 }

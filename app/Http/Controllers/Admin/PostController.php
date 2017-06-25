@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
@@ -10,7 +11,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lists = Post::orderBy('created_at', 'desc')->paginate(30);
+        $lists = Post::orderBy('created_at', 'desc')
+            ->paginate(30);
 
         return admin_view('post.index', compact('lists'));
     }
@@ -18,8 +20,10 @@ class PostController extends Controller
     public function create()
     {
         $post = new Post;
+        $tags = Tag::select('id', 'name')->get();
 
-        return admin_view('post.create', compact('post'));
+
+        return admin_view('post.create', compact('post', 'tags'));
     }
 
     public function store(PostRequest $request)
@@ -30,18 +34,29 @@ class PostController extends Controller
             return redirect()->back()->withMessage('添加失败.');
         }
 
+        $tags = Tag::select('id')
+            ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
+            ->get()
+            ->pluck('id');
+
+        $post->tags()->sync($tags);
+
         return redirect()->route('admin.posts.index')->withMessage('添加成功.');
     }
 
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::where('id', $id)
+            ->with('tags')
+            ->first();
+
+        $tags = Tag::select('id', 'name')->get();
 
         if (! $post || ! $post->exists) {
             return redirect()->back()->withErrors('文章不存在.');
         }
 
-        return admin_view('post.update', compact('post'));
+        return admin_view('post.update', compact('post', 'tags'));
     }
 
     public function update(PostRequest $request, $id)
@@ -57,6 +72,13 @@ class PostController extends Controller
         if (! $post->save()) {
             return redirect()->back()->withErrors('更新失败.');
         }
+
+        $tags = Tag::select('id')
+            ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
+            ->get()
+            ->pluck('id');
+
+        $post->tags()->sync($tags);
 
         return redirect()->route('admin.posts.index')->withMessage('更新成功.');
     }

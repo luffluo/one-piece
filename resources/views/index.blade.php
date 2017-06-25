@@ -9,7 +9,16 @@
             <h2 class="blog-post-title">
                 <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->title }}</a>
             </h2>
-            <p class="blog-post-meta">{{ $post->created_at->format('Y-m-d') }} <a href="#">Luff</a></p>
+            <p class="blog-post-meta">
+                {{ $post->created_at->format('Y-m-d') }}
+                <a href="#">Luff</a>
+
+                <span class="pull-right">
+                    @foreach ($post->tags as $tag)
+                        <a href="#">{{ $tag->name }}</a>
+                    @endforeach
+                </span>
+            </p>
             <p>{!! $parser->makeHtml(str_limit($post->text, 99)) !!}</p>
             <p class="pull-right">
                 <a href="{{ route('post.show', ['post' => $post->id]) }}" class="btn btn-default" role="button">Read More &gt;&gt;</a>

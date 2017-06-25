@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(20);
+        $posts = Post::with('tags')->paginate(20);
         $parser = new Parser;
 
         return view('index', compact('posts', 'parser'));
