@@ -19,7 +19,7 @@
                     @endforeach
                 </span>
             </p>
-            <p>{!! $parser->makeHtml(str_limit($post->text, 99)) !!}</p>
+            <p>{!! app('HyperDown')->makeHtml(str_limit($post->text, 99)) !!}</p>
             <p class="pull-right">
                 <a href="{{ route('post.show', ['post' => $post->id]) }}" class="btn btn-default" role="button">Read More &gt;&gt;</a>
             </p>

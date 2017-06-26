@@ -8,6 +8,6 @@
         <p class="blog-post-meta">
             <span>{{ $post->created_at->format('Y-m-d') }} <a href="#">Luff</a></span>
         </p>
-        <div>{!! $parser->makeHtml($post->text) !!}</div>
+        <div>{!! app('HyperDown')->makeHtml($post->text) !!}</div>
     </div>
 @endsection

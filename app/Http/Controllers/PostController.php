@@ -15,8 +15,6 @@ class PostController extends Controller
         // $post->views_count += 1;
         // $post->save();
 
-        $parser = new Parser;
-
-        return view('post.show', compact('post', 'parser'));
+        return view('post.show', compact('post'));
     }
 }
