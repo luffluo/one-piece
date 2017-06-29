@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Tag;
-use App\Models\Post;
+use App\Tag;
+use App\Post;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +11,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lists = Post::with('tags')
+        $lists = Post::query()
+            ->with('tags')
             ->orderBy('created_at', 'desc')
             ->paginate(30);
 
@@ -21,7 +22,7 @@ class PostController extends Controller
     public function create()
     {
         $post = new Post;
-        $tags = Tag::select('id', 'name')->get();
+        $tags = Tag::query()->select('id', 'name')->get();
 
 
         return admin_view('post.create', compact('post', 'tags'));
@@ -35,7 +36,8 @@ class PostController extends Controller
             return redirect()->back()->withMessage('添加失败.');
         }
 
-        $tags = Tag::select('id', 'count')
+        $tags = Tag::query()
+            ->select('id', 'count')
             ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
             ->get();
 
@@ -51,7 +53,8 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        $post = Post::where('id', $id)
+        $post = Post::query()
+            ->where('id', $id)
             ->with('tags')
             ->first();
 

@@ -4,10 +4,10 @@
 
 @section('content')
     <div class="blog-post">
-        <h2 class="blog-post-title">{{ $post->title }}</h2>
+        <h2 class="blog-post-title">{{ $post->title() }}</h2>
         <p class="blog-post-meta">
-            <span>{{ $post->created_at->format('Y-m-d') }} <a href="#">Luff</a></span>
+            <span>{{ $post->created_at->format('Y-m-d') }}</span>
         </p>
-        <div>{!! app('HyperDown')->makeHtml($post->text) !!}</div>
+        <div class="post-content">{!! $post->content() !!}</div>
     </div>
 @endsection

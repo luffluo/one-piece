@@ -68,7 +68,7 @@ class OptionDatabaseRepository
      */
     public function get($key, $default = null, $userId = 0)
     {
-        $value = $this->cache->remember('options_' . $key . '_' . $userId, 60, function () use($key, $userId) {
+        $value = $this->cache->remember('options_' . $key . '_' . $userId, 60, function () use ($key, $userId) {
             return $this->table()
                 ->where('name', $key)
                 ->where('user_id', $userId)

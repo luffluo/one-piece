@@ -1,10 +1,23 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class Meta
+ *
+ * @property integer             $id
+ * @property string              $name
+ * @property string              $slug
+ * @property string              $description
+ * @property integer             $count
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ *
+ * @package App
+ */
 abstract class Meta extends Model
 {
     const TYPE = '';

@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -25,19 +25,19 @@ class LoginController extends Controller
         $this->validate(
             $request,
             [
-                'username' => 'required',
+                'name' => 'required',
                 'password' => 'required',
             ],
             [
-                'username.required' => '请输入账号.',
+                'name.required' => '请输入账号.',
                 'password.required' => '请输入密码.'
             ]
         );
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::query()->where('name', $request->name)->first();
 
         if (! $user || ! $user->exists || ! $user->checkPassword($request->password)) {
-            return redirect()->back()->withErrors(['username' => '用户名或密码不正确.'])->withInput();
+            return redirect()->back()->withErrors(['name' => '用户名或密码不正确.'])->withInput();
         }
 
         $this->guard()->login($user);

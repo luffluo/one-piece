@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
  * Class User
  *
  * @property integer             $id
- * @property string              $username
+ * @property string              $name
  * @property string              $email
  * @property string              $nickname
  * @property string              $avatar
@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username',
+        'name',
         'email',
         'nickname',
         'avatar',

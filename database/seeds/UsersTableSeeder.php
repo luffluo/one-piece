@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         User::insert($users->toArray());
 
         $user           = User::find(1);
-        $user->username = 'luff';
+        $user->name     = 'luff';
         $user->email    = 'luff@luff.life';
         $user->nickname = 'Luff';
         $user->save();

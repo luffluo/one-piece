@@ -7,11 +7,10 @@
     @foreach ($posts as $post)
         <div class="blog-post">
             <h2 class="blog-post-title">
-                <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->title }}</a>
+                <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->title() }}</a>
             </h2>
             <p class="blog-post-meta">
                 {{ $post->created_at->format('Y-m-d') }}
-                {{--<a href="#">Luff</a>--}}
 
                 <span class="pull-right">
                     @foreach ($post->tags as $tag)
@@ -19,10 +18,10 @@
                     @endforeach
                 </span>
             </p>
-            <p>{!! app('HyperDown')->makeHtml(str_limit($post->text, 99)) !!}</p>
-            <p class="pull-right">
-                <a href="{{ route('post.show', ['post' => $post->id]) }}" class="btn btn-default" role="button">Read More &gt;&gt;</a>
-            </p>
+
+            <div class="post-content">
+                {!! $post->content('Read More') !!}
+            </div>
         </div>
     @endforeach
 

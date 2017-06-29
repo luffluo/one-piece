@@ -12,15 +12,15 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     $dateTime = $faker->dateTime;
 
     return [
-        'username'       => $faker->userName,
+        'name'       => $faker->userName,
         'email'          => $faker->unique()->safeEmail,
         'avatar'         => '',
         'nickname'       => $faker->name,
-        'password'       => bcrypt('secret'),
+        'password'       => bcrypt('123456'),
         'remember_token' => str_random(10),
         'created_at'     => $dateTime,
         'updated_at'     => $dateTime,
@@ -29,7 +29,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
+$factory->define(App\Post::class, function (Faker\Generator $faker) {
     $dateTime = $faker->dateTime;
 
     return [

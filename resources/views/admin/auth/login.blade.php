@@ -10,7 +10,7 @@
                 <form action="{{ route('admin.login') }}" class="form-horizontal" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group form-group-lg">
-                        <input type="text" class="form-control" name="username" value="{{ old('username') }}" required>
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                         <label alt="请输入账户" placeholder="账号"></label>
                     </div>
                     <div class="form-group form-group-lg">
