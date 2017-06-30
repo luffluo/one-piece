@@ -18,6 +18,13 @@ Route::get('a/{id}', 'PostController@show')->name('post.show');
 
 Route::get('tags', 'TagController@index')->name('tags');
 
+// SiteMap
+Route::get('sitemap', 'SiteMapController')->name('sitemap');
+Route::get('sitemap.xml', 'SiteMapController')->name('sitemap.xml');
+
+// RSS
+// Route::get('feed.xml')
+
 
 // Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

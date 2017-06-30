@@ -12,8 +12,8 @@ class PostController extends Controller
     {
         /* @var Model */
         $post   = Post::findOrFail($id);
-        // $post->views_count += 1;
-        // $post->save();
+        $post->views_count += 1;
+        $post->save();
 
         return view('post.show', compact('post'));
     }
