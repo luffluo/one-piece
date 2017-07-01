@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return Hash::check($password, $this->password);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
 }

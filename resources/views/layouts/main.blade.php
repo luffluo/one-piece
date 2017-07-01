@@ -29,6 +29,8 @@ ______                            _              _                              
 
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     @section('css')
@@ -75,7 +77,7 @@ ______                            _              _                              
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('home') }}" class="navbar-brand">
-                    <span class="glyphicon glyphicon-home"></span>
+                    <span class="fa fa-home"></span>
                     Luff
                 </a>
             </div>
@@ -85,18 +87,25 @@ ______                            _              _                              
                 @if (request()->is('tags'))
                     <li class="nav-item active">
                         <a href="{{ route('tags') }}" class="nav-link">
-                            <span class="glyphicon glyphicon-tags"></span>&nbsp;
+                            <span class="fa fa-tags"></span>&nbsp;
                             标签
                         </a>
                     </li>
                 @else
                     <li class="nav-item">
                         <a href="{{ route('tags') }}" class="nav-link">
-                            <span class="glyphicon glyphicon-tags"></span>&nbsp;
+                            <span class="fa fa-tags"></span>&nbsp;
                             标签
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-item">
+                    <a target="_blank" href="{{ route('feed.xml') }}" class="nav-link">
+                        <i class="fa fa-rss" aria-hidden="true"></i>
+                        RSS
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

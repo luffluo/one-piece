@@ -23,7 +23,7 @@ Route::get('sitemap', 'SiteMapController')->name('sitemap');
 Route::get('sitemap.xml', 'SiteMapController')->name('sitemap.xml');
 
 // RSS
-// Route::get('feed.xml')
+Route::get('feed.xml', 'RssController')->name('feed.xml');
 
 
 // Admin routes
