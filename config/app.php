@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Providers\OptionServiceProvider::class,
         \App\Providers\HyperDownServiceProvider::class,
+        \App\Providers\InstallerServiceProvider::class,
     ],
 
     /*
