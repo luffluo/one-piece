@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
-use App\Installer;
+use App\Contracts\Prerequisite;
+use App\Services\Composite;
+use App\Services\Installer;
+use App\Services\PhpExtension;
+use App\Services\PhpVersion;
+use App\Services\WritablePath;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\InstallController;
 
@@ -33,6 +38,24 @@ class InstallerServiceProvider extends ServiceProvider
     {
         $this->app->singleton('installer', function ($app) {
             return new Installer($app, $app['config']);
+        });
+
+        $this->app->singleton(Prerequisite::class, function () {
+            return new Composite(
+                new PhpVersion(),
+                new PhpExtension(
+                    'fileinfo',
+                    'gd',
+                    'json',
+                    'mbstring',
+                    'openssl',
+                    'pdo_mysql'
+                ),
+                new WritablePath(
+                    public_path(),
+                    storage_path()
+                )
+            );
         });
     }
 }

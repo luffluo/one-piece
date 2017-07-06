@@ -22,7 +22,7 @@ class InstallerCommand extends Command
     protected $description = 'Install Luff';
 
     /**
-     * @var \App\Installer
+     * @var \App\Services\Installer
      */
     protected $installer;
 

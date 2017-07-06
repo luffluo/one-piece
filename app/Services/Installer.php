@@ -6,7 +6,7 @@
  * Time: 下午9:35
  */
 
-namespace App;
+namespace App\Services;
 
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Config\Repository;

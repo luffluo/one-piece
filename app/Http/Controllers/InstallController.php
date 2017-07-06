@@ -2,22 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Prerequisite;
 use App\Http\Requests\InstallRequest;
 
 class InstallController extends Controller
 {
     /**
-     * @var \App\Installer;
+     * @var \App\Services\Installer;
      */
     protected $installer;
 
-    public function __construct()
+    protected $prerequisite;
+
+    public function __construct(Prerequisite $prerequisite)
     {
-        $this->installer = app('installer');
+        $this->installer    = app('installer');
+        $this->prerequisite = $prerequisite;
     }
 
     public function showPage()
     {
+        // 检测安装环境
+        if (! $result = $this->prerequisite->check()) {
+
+            $messages = $this->prerequisite->getMessages();
+
+            return view('install.check', compact('result', 'messages'));
+        }
+
+
         return view('install.install');
     }
 
