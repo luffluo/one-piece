@@ -8,6 +8,7 @@
 
 namespace App\Services;
 
+use App\User;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Config\Repository;
 use Symfony\Component\Console\Output\NullOutput;
@@ -125,6 +126,27 @@ class Installer
         $this->data->put('admin_username', $data['admin_username']);
         $this->data->put('admin_password', $data['admin_password']);
         $this->data->put('admin_email', $data['admin_email']);
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Connection
+     */
+    public function makeConnection(array $data)
+    {
+        return $this->app['db.factory']->make([
+            'driver'    => 'mysql',
+            'host'      => $data['db_host'],
+            'port'      => 3306,
+            'database'  => $data['db_database'],
+            'username'  => $data['db_username'],
+            'password'  => $data['db_password'],
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix'    => '',
+            'strict'    => true,
+            'engine'    => null,
+        ], 'mysql');
     }
 
     /**

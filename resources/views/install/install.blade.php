@@ -10,6 +10,24 @@
             <form action="{{ route('install') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+                @if (isset($errors) && count($errors) > 0)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-danger">错误</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            @foreach ($errors->all() as $error)
+                                <p><strong>{{ $error }}</strong></p>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <div class="panel panel-default">
                     <div class="panel-heading">数据库</div>
                     <div class="panel-body">
