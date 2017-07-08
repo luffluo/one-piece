@@ -6,12 +6,29 @@
             <li>后台首页</li>
             <li><a href="{{ url('admin') }}">仪表盘</a></li>
         </ol>
+
         <div class="page-wrap">
             <div class="row">
-                @include('admin::common.message')
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-lined clearfix mb30">
-                        <div class="panel-heading mb20"><i>仪表盘</i></div>
+                <div class="col-md-12">
+                    <div class="panel panel-lined">
+                        <div class="panel-heading"><i>仪表盘</i></div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    共 <a href="{{ route('admin.posts.index') }}">{{ $posts_count }}</a> 篇文章
+                                </div>
+
+                                <div class="col-md-4">
+                                    共 <a href="{{ route('admin.tags.index') }}">{{ $tags_count }}</a> 个标签
+                                </div>
+
+                                <div class="col-md-4">
+                                    共 <a href="">{{ $users_count }}</a> 个用户
+                                </div>
+                            </div>
+                        </div>
+
                         <table class="table table-hover">
                             <tbody>
                             <tr>
@@ -59,6 +76,7 @@
                             </tr>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>

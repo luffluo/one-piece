@@ -14,11 +14,11 @@ ______                            _              _                              
   Powered by Laravel
 -->
 <!DOCTYPE html>
-<html>
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>@yield('title') - 后台 - 内容管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>@yield('title') - 内容管理系统</title>
     <meta name="author" content="Luff">
     <meta name="keywords" content="CMS">
     <meta name="description" content="A CMS System Base On Laravel 5.4">
