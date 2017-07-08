@@ -20,7 +20,7 @@ return [
     'group'   => [
         'title' => '组件导航',
         'sub'   => [
-            'system'   => [
+            'system' => [
                 'title' => '系统管理',
                 'icon'  => 'fa-cogs',
                 'sub'   => [
@@ -31,10 +31,22 @@ return [
                     ],
                 ],
             ],
-            'category' => [
-                'title'  => '标签',
-                'icon'   => 'fa-cogs',
-                'sub' => [
+            'user'   => [
+                'title' => '用户',
+                'icon'  => 'fa-cogs',
+                'sub'   => [
+                    [
+                        'title'  => '用户',
+                        'icon'   => 'fa-cogs',
+                        'active' => 'admin/users*',
+                        'url'    => 'admin/users',
+                    ],
+                ],
+            ],
+            'tag'    => [
+                'title' => '标签',
+                'icon'  => 'fa-cogs',
+                'sub'   => [
                     [
                         'title'  => '标签',
                         'icon'   => 'fa-cogs',
@@ -46,10 +58,10 @@ return [
                         'icon'   => 'fa-cogs',
                         'active' => 'admin/tags/create*',
                         'url'    => 'admin/tags/create',
-                    ]
+                    ],
                 ],
             ],
-            'post'     => [
+            'post'   => [
                 'title' => '文章',
                 'icon'  => 'fa-cogs',
                 'sub'   => [

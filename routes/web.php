@@ -58,4 +58,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('tags/{id}', 'TagController@edit')->name('admin.tags.edit');
     Route::patch('tags/{id}', 'TagController@update')->name('admin.tags.update');
     Route::delete('tags/{id}', 'TagController@destroy')->name('admin.tags.destroy');
+
+    // User
+    Route::get('users', 'UserController@index')->name('admin.users.index');
+    Route::get('users/{id}', 'UserController@edit')->name('admin.users.edit');
+    Route::patch('users/{id}', 'UserController@update')->name('admin.users.update');
 });
