@@ -32,28 +32,23 @@ ______                            _              _                              
 <body class="app">
 <header class="site-head clearfix" id="site-head">
     <div class="nav-head">
-        <a href="{{ url('admin') }}" class="site-logo"><span>Luff CMS</span>&nbsp;内容管理系统</a>
+        <a href="{{ url('admin') }}" class="site-logo"><span>Luff CMS</span></a>
         <span class="nav-trigger fa fa-outdent hidden-xs" data-toggle="nav-min"></span>
         <span class="nav-trigger fa fa-navicon visible-xs" data-toggle="off-canvas"></span>
     </div>
     <div class="head-wrap clearfix">
         <ul class="list-unstyled navbar-right">
             <li>
-                <a href="{{ url('') }}" target="_blank"><i class="fa fa-external-link"></i></a>
+                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success btn-sm">{{ $user->displayName() }}</a>
             </li>
-            <li class="dropdown">
-                <a href class="user-profile" data-toggle="dropdown">
-                    <img src="{{ asset('assets/admin/images/avatar.jpg') }}" alt="N">
-                </a>
-                <div class="panel panel-default dropdown-menu">
-                    <div class="panel-footer clearfix">
-                        <a href="{{ url('admin/password') }}" class="btn btn-warning btn-sm left">重置密码</a>
-                        <form action="{{ route('admin.logout') }}" method="post">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="submit" value="退出登陆" class="btn btn-danger btn-sm right">
-                        </form>
-                    </div>
-                </div>
+            <li>
+                <form action="{{ route('admin.logout') }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="submit" value="退出登陆" class="btn btn-danger btn-sm">
+                </form>
+            </li>
+            <li>
+                <a href="{{ url('') }}" target="_blank" class="btn btn-default btn-sm">网站</a>
             </li>
         </ul>
     </div>
@@ -61,36 +56,30 @@ ______                            _              _                              
 <div class="main-container clearfix">
     <aside class="nav-wrap" id="site-nav" data-toggle="scrollbar">
         @if (count(config('admin', [])) > 0)
-            {{--{!! dd(config('admin')) !!}--}}
             <nav class="site-nav clearfix" role="navigation" data-toggle="nav-accordion">
                 @foreach (config('admin') as $first)
-                <div class="nav-title panel-heading"><i>{{ $first['title'] }}</i></div>
-                @if (isset($first['sub']))
                 <ul class="list-unstyled nav-list">
-                    @foreach($first['sub'] as $second)
-                    @if (isset($second['sub']))
-                    <li class="{{ $second['active'] }}">
-                        <a href="javascript:;">
-                            <i class="fa {{ $second['icon'] }} icon"></i>
-                            <span class="text">{{ $second['title'] }}</span>
-                            <i class="arrow fa fa-angle-right right"></i>
-                        </a>
-                        <ul class="inner-drop list-unstyled">
-                            @foreach ($second['sub'] as $third)
-                            <li class="{{ $third['active'] }}">
-                                <a href="{{ url($third['url']) }}">{{ $third['title'] }}</a>
-                            </li>
+                    @if (isset($first['sub']))
+                        <li class="{{ $first['active'] }}">
+                            <a href="javascript:;">
+                                <i class="fa {{ $first['icon'] }} icon"></i>
+                                <span class="text">{{ $first['title'] }}</span>
+                                <i class="arrow fa fa-angle-right right"></i>
+                            </a>
+                            @foreach ($first['sub'] as $second)
+                            <ul class="inner-drop list-unstyled">
+                                <li class="{{ $second['active'] }}">
+                                    <a href="{{ url($second['url']) }}">{{ $second['title'] }}</a>
+                                </li>
+                            </ul>
                             @endforeach
-                        </ul>
-                    </li>
+                        </li>
                     @else
-                    <li class="{{ $second['active'] }}">
-                        <a href="{{ url($second['url']) }}"><i class="fa {{ $second['icon'] }} icon"></i><span class="text">{{ $second['title'] }}</span></a>
+                    <li class="{{ $first['active'] }}">
+                        <a href="{{ url($first['url']) }}"><i class="fa {{ $first['icon'] }} icon"></i> <span class="text">{{ $first['title'] }}</span></a>
                     </li>
                     @endif
-                    @endforeach
                 </ul>
-                @endif
                 @endforeach
             </nav>
         @endif

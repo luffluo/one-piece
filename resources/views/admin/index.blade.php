@@ -24,7 +24,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    共 <a href="">{{ $users_count }}</a> 个用户
+                                    共 <a href="{{ route('admin.users.index') }}">{{ $users_count }}</a> 个用户
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <table class="table table-hover">
                             <tbody>
                             <tr>
-                                <td class="col-md-4 text-right"><strong>Notadd CMS版本：</strong></td>
+                                <td class="col-md-4 text-right"><strong>Luff CMS版本：</strong></td>
                                 <td class="col-md-8">{{ app()->version() }}</td>
                             </tr>
                             <tr>

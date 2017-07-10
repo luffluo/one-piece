@@ -18,35 +18,34 @@ class MenuRouteMatched
      * @param  RouteMatched  $event
      * @return void
      */
-    public function handle()
+    public function handle(RouteMatched $routeMatched)
     {
-        if (app('request')->is('admin*')) {
+        if ($routeMatched->request->is('admin*')) {
             $menus = app('config')->get('admin');
             foreach ($menus as $first_key => $first) {
+
                 if (isset($first['sub'])) {
                     foreach ($first['sub'] as $second_key => $second) {
 
-                        if (isset($second['sub'])) {
+                        // 防止子类第一次赋值 open 后，第二次再赋值为空
+                        if (! isset($menus[$first_key]['active'])) {
+                            $menus[$first_key]['active'] = '';
+                        }
 
-                            $menus[$first_key]['sub'][$second_key]['active'] = '';
-
-                            foreach ($second['sub'] as $third_key => $third) {
-
-                                $menus[$first_key]['sub'][$second_key]['sub'][$third_key]['active'] = '';
-                                if (app('request')->is($third['active'])) {
-                                    $menus[$first_key]['sub'][$second_key]['active'] = 'open';
-                                    $menus[$first_key]['sub'][$second_key]['sub'][$third_key]['active'] = 'active';
-                                }
-                            }
-
-                        } else {
-                            $menus[$first_key]['sub'][$second_key]['active'] = '';
-                            if (app('request')->is($second['active'])) {
-                                $menus[$first_key]['sub'][$second_key]['active'] = 'active';
-                            }
+                        if (app('request')->is($second['active'])) {
+                            $menus[$first_key]['active']                     = 'open';
+                            $menus[$first_key]['sub'][$second_key]['active'] = 'active';
                         }
                     }
+                } else {
+
+                    $menus[$first_key]['active'] = '';
+                    if (app('request')->is($first['active'])) {
+                        $menus[$first_key]['active'] = 'active';
+                    }
+
                 }
+
             }
 
             app('config')->set('admin', $menus);

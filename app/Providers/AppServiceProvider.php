@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Post;
 use App\Listeners\MenuRouteMatched;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app['events']->subscribe(MenuRouteMatched::class);
 
         Post::setMarkdown($this->app->make('HyperDown'));
+
+        View::composer('admin*', function ($view) {
+            $view->with('user', Auth::user());
+        });
     }
 
     /**

@@ -76,4 +76,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
+
+    public function displayName()
+    {
+        $name = $this->nickname;
+
+        if (empty($name)) {
+            $name = $this->name;
+        }
+
+        return $name;
+    }
 }

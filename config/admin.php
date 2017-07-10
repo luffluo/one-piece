@@ -1,81 +1,71 @@
 <?php
 /**
- * This file is part of Notadd.
- * @author        TwilRoad <269044570@qq.com>
- * @copyright (c) 2016, iBenchu.org
- * @datetime      2016-08-02 14:55
+ * This file is part of Luff.
+ * @author        Luff
  */
 return [
-    'general' => [
-        'title' => '概略导航',
+    'bootstrap' => [
+        'title' => '控制台',
+        'icon'  => 'fa-tasks',
         'sub'   => [
             [
-                'title'  => '仪表盘',
+                'title'  => '概要',
                 'active' => 'admin',
                 'url'    => 'admin',
-                'icon'   => 'fa-dashboard',
             ],
         ],
     ],
-    'group'   => [
-        'title' => '组件导航',
+    'tag'       => [
+        'title' => '标签',
+        'icon'  => 'fa-tags',
         'sub'   => [
-            'system' => [
-                'title' => '系统管理',
-                'icon'  => 'fa-cogs',
-                'sub'   => [
-                    [
-                        'title'  => '基本配置',
-                        'active' => 'admin/options*',
-                        'url'    => 'admin/options',
-                    ],
-                ],
+            [
+                'title'  => '标签',
+                'active' => 'admin/tags*',
+                'url'    => 'admin/tags',
             ],
-            'user'   => [
-                'title' => '用户',
-                'icon'  => 'fa-cogs',
-                'sub'   => [
-                    [
-                        'title'  => '用户',
-                        'icon'   => 'fa-cogs',
-                        'active' => 'admin/users*',
-                        'url'    => 'admin/users',
-                    ],
-                ],
+            [
+                'title'  => '添加标签',
+                'active' => 'admin/tags/create*',
+                'url'    => 'admin/tags/create',
             ],
-            'tag'    => [
-                'title' => '标签',
-                'icon'  => 'fa-cogs',
-                'sub'   => [
-                    [
-                        'title'  => '标签',
-                        'icon'   => 'fa-cogs',
-                        'active' => 'admin/tags*',
-                        'url'    => 'admin/tags',
-                    ],
-                    [
-                        'title'  => '添加标签',
-                        'icon'   => 'fa-cogs',
-                        'active' => 'admin/tags/create*',
-                        'url'    => 'admin/tags/create',
-                    ],
-                ],
+        ],
+    ],
+    'post'      => [
+        'title' => '文章',
+        'icon'  => 'fa-file-text',
+        'sub'   => [
+            [
+                'title'  => '文章',
+                'active' => 'admin/posts*',
+                'url'    => 'admin/posts',
             ],
-            'post'   => [
-                'title' => '文章',
-                'icon'  => 'fa-cogs',
-                'sub'   => [
-                    [
-                        'title'  => '文章',
-                        'active' => 'admin/posts*',
-                        'url'    => 'admin/posts',
-                    ],
-                    [
-                        'title'  => '添加文章',
-                        'active' => 'admin/posts/create*',
-                        'url'    => 'admin/posts/create',
-                    ],
-                ],
+            [
+                'title'  => '添加文章',
+                'active' => 'admin/posts/create*',
+                'url'    => 'admin/posts/create',
+            ],
+        ],
+    ],
+    'user'      => [
+        'title' => '用户',
+        'icon'  => 'fa-user',
+        'sub'   => [
+            [
+                'title'  => '用户',
+                'active' => 'admin/users*',
+                'url'    => 'admin/users',
+            ],
+        ],
+    ],
+    'setting'   => [
+        'title' => '设置',
+        'icon'  => 'fa-cogs',
+        'sub'   => [
+            [
+                'title'  => '基本',
+                'active' => 'admin/options*',
+                'url'    => 'admin/options',
             ],
         ],
     ],
