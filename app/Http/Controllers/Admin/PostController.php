@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $lists = Post::query()
             ->with('tags')
-            ->orderBy('created_at', 'desc')
+            ->recent()
             ->paginate(30);
 
         return admin_view('post.index', compact('lists'));

@@ -8,15 +8,9 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('tags')->paginate(20);
-
-        // $posts = $posts->map(function ($item, $key) {
-        //     $item->simple_text = preg_replace('/^```(\r\n.\r\n)*```$/i', '{代码...}', $item->text);
-        //
-        //     return $item;
-        // });
-        //
-        // dd($posts);
+        $posts = Post::with('tags')
+            ->recent()
+            ->paginate(20);
 
         return view('index', compact('posts'));
     }

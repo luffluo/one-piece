@@ -20,7 +20,7 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th class="col-md-1">ID</th>
+                                {{--<th class="col-md-1">ID</th>--}}
                                 <th class="col-md-1">名称</th>
                                 <th class="col-md-1">标识</th>
                                 <th class="col-md-1">文章数</th>
@@ -31,7 +31,7 @@
                             <tbody>
                                 @foreach ($lists as $list)
                                     <tr>
-                                        <td>{{ $list->id }}</td>
+                                        {{--<td>{{ $list->id }}</td>--}}
                                         <td>{{ $list->name }}</td>
                                         <td>{{ $list->slug }}</td>
                                         <td>{{ $list->count }}</td>

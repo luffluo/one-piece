@@ -109,4 +109,9 @@ class Post extends Content
 
         return str_limit($plainTxt);
     }
+
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('published_at', 'desc');
+    }
 }

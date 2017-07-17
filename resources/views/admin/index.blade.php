@@ -1,31 +1,57 @@
 @extends('admin::layouts.layout')
-@section('title')首页@endsection
+@section('title')概要@endsection
 @section('content')
     <div class="page clearfix">
         <ol class="breadcrumb breadcrumb-small">
             <li>后台首页</li>
-            <li><a href="{{ url('admin') }}">仪表盘</a></li>
+            <li>控制台</li>
+            <li><a href="{{ url('admin') }}">概要</a></li>
         </ol>
 
         <div class="page-wrap">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-lined">
-                        <div class="panel-heading"><i>仪表盘</i></div>
+                        <div class="panel-heading"><i>概要</i></div>
 
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                        目前有 <em>{{ $posts_count }}</em> 篇文章, 在 <em>{{ $tags_count }}</em> 个标签中.
+                                        <br>
+                                        点击下面的链接快速开始:
+                                    </p>
+
+                                    <ul class="list-inline">
+                                        <li><a href="{{ route('admin.posts.create') }}">撰写新文章</a></li>
+                                        <li><a href="{{ route('admin.options.index') }}">系统设置</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
                                 <div class="col-md-4">
-                                    共 <a href="{{ route('admin.posts.index') }}">{{ $posts_count }}</a> 篇文章
+                                    <h5>最近发布的文章</h5>
+                                    <ul class="list-unstyled">
+                                        @foreach($posts as $post)
+                                        <li>
+                                            <span>{{ $post->published_at->format('j.d') }}</span>
+                                            <a target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->title }}</a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
 
-                                <div class="col-md-4">
-                                    共 <a href="{{ route('admin.tags.index') }}">{{ $tags_count }}</a> 个标签
-                                </div>
+                                {{--<div class="col-md-4">--}}
+                                    {{--共 <a href="{{ route('admin.tags.index') }}">{{ $tags_count }}</a> 个标签--}}
+                                {{--</div>--}}
 
-                                <div class="col-md-4">
-                                    共 <a href="{{ route('admin.users.index') }}">{{ $users_count }}</a> 个用户
-                                </div>
+                                {{--<div class="col-md-4">--}}
+                                    {{--共 <a href="{{ route('admin.users.index') }}">{{ $users_count }}</a> 个用户--}}
+                                {{--</div>--}}
                             </div>
                         </div>
 

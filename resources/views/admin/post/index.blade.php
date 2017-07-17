@@ -21,11 +21,10 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th class="col-md-1">ID</th>
-                                <th class="col-md-1">标题</th>
+                                <th class="col-md-4">标题</th>
                                 <th class="col-md-2">标签</th>
-                                <th class="col-md-1">状态</th>
-                                <th class="col-md-2">创建时间</th>
+                                {{--<th class="col-md-1">状态</th>--}}
+                                {{--<th class="col-md-2">创建时间</th>--}}
                                 <th class="col-md-2">发布时间</th>
                                 <th class="col-md-2">操作</th>
                             </tr>
@@ -33,11 +32,13 @@
                             <tbody>
                                 @foreach ($lists as $list)
                                     <tr>
-                                        <td>{{ $list->id }}</td>
-                                        <td>{{ $list->title }}</td>
+                                        <td>
+                                            {{ $list->title }}
+                                            <a href="{{ route('post.show', $list->id) }}"><i class="fa fa-external-link"> </i></a>
+                                        </td>
                                         <td>{{ $list->tags->implode('name', ' | ') }}</td>
-                                        <td>{{ $list->status }}</td>
-                                        <td>{{ $list->created_at }}</td>
+                                        {{--<td>{{ $list->status }}</td>--}}
+                                        {{--<td>{{ $list->created_at }}</td>--}}
                                         <td>{{ $list->published_at }}</td>
                                         <td>
                                             <form action="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" method="post">

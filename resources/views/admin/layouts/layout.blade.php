@@ -31,15 +31,17 @@ ______                            _              _                              
 </head>
 <body class="app">
 <header class="site-head clearfix" id="site-head">
+
     <div class="nav-head">
         <a href="{{ url('admin') }}" class="site-logo"><span>Luff CMS</span></a>
         <span class="nav-trigger fa fa-outdent hidden-xs" data-toggle="nav-min"></span>
         <span class="nav-trigger fa fa-navicon visible-xs" data-toggle="off-canvas"></span>
     </div>
+
     <div class="head-wrap clearfix">
         <ul class="list-unstyled navbar-right">
             <li>
-                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success btn-sm">{{ $user->displayName() }}</a>
+                <a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->displayName() }}</a>
             </li>
             <li>
                 <form action="{{ route('admin.logout') }}" method="post">
@@ -48,11 +50,12 @@ ______                            _              _                              
                 </form>
             </li>
             <li>
-                <a href="{{ url('') }}" target="_blank" class="btn btn-default btn-sm">网站</a>
+                <a href="{{ url('') }}" target="_blank">网站</a>
             </li>
         </ul>
     </div>
 </header>
+
 <div class="main-container clearfix">
     <aside class="nav-wrap" id="site-nav" data-toggle="scrollbar">
         @if (count(config('admin', [])) > 0)
@@ -84,7 +87,9 @@ ______                            _              _                              
             </nav>
         @endif
     </aside>
+
     <div class="content-container" id="content">@yield('content')</div>
+
     <footer id="site-foot" class="site-foot clearfix">
         <p class="left">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
         <p class="right">{{ config('app.version') }}</p>
