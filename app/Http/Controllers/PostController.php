@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Models\Post;
 use HyperDown\Parser;
 use Illuminate\Database\Eloquent\Model;
 

@@ -6,7 +6,7 @@
  * Time: 上午11:05
  */
 
-namespace App;
+namespace App\Models;
 
 use Carbon\Carbon;
 
@@ -229,10 +229,10 @@ class Post extends Content
         return str_limit($plainTxt);
     }
 
-    public function scopeRecent($query)
-    {
-        return $query->orderBy('published_at', 'desc');
-    }
+    // public function scopeRecent($query)
+    // {
+    //     return $query->orderBy('published_at', 'desc');
+    // }
 
     public function scopePublished($query)
     {

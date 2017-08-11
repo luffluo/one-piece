@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Post;
+use App\Models\Post;
 use App\Listeners\MenuRouteMatched;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;

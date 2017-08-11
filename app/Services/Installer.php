@@ -8,7 +8,7 @@
 
 namespace App\Services;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Config\Repository;
 use Symfony\Component\Console\Output\NullOutput;

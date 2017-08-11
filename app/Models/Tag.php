@@ -6,7 +6,7 @@
  * Time: 下午10:15
  */
 
-namespace App;
+namespace App\Models;
 
 class Tag extends Meta
 {
