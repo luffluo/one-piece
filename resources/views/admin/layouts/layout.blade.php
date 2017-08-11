@@ -41,7 +41,9 @@ ______                            _              _                              
     <div class="head-wrap clearfix">
         <ul class="list-unstyled navbar-right">
             <li>
-                <a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->displayName() }}</a>
+                <a href="{{ route('admin.users.edit', $user->id) }}">
+                    <button class="btn btn-default btn-sm">{{ $user->displayName() }}</button>
+                </a>
             </li>
             <li>
                 <form action="{{ route('admin.logout') }}" method="post">
@@ -50,7 +52,9 @@ ______                            _              _                              
                 </form>
             </li>
             <li>
-                <a href="{{ url('') }}" target="_blank">网站</a>
+                <a href="{{ url('') }}" target="_blank">
+                    <button class="btn btn-default btn-sm">网站</button>
+                </a>
             </li>
         </ul>
     </div>

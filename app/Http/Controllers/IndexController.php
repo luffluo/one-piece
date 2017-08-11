@@ -9,6 +9,7 @@ class IndexController extends Controller
     public function index()
     {
         $posts = Post::with('tags')
+            ->published()
             ->recent()
             ->paginate(20);
 

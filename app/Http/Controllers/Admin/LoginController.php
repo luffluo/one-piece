@@ -25,12 +25,12 @@ class LoginController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required',
+                'name'     => 'required',
                 'password' => 'required',
             ],
             [
-                'name.required' => '请输入账号.',
-                'password.required' => '请输入密码.'
+                'name.required'     => '请输入账号.',
+                'password.required' => '请输入密码.',
             ]
         );
 
@@ -40,7 +40,7 @@ class LoginController extends Controller
             return redirect()->back()->withErrors(['name' => '用户名或密码不正确.'])->withInput();
         }
 
-        $this->guard()->login($user);
+        $this->guard()->login($user, true);
 
         return redirect()->intended(route('admin.home'));
     }

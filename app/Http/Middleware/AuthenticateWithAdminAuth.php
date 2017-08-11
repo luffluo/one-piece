@@ -15,7 +15,7 @@ class AuthenticateWithAdminAuth
     public function handle($request, Closure $next, ...$guards)
     {
         if (auth()->guard($guards)->guest()) {
-            return redirect()->route('admin.login');
+            return redirect()->intended(route('admin.login'));
         }
 
         return $next($request);

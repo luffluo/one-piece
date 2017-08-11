@@ -2292,7 +2292,7 @@ a.list-group-item {
 }
 .site-head .head-wrap > ul > li > a {
     color: #565656;
-    padding: 0 22px;
+    /*padding: 0 22px;*/
     text-align: center;
 }
 .site-head .head-wrap > ul > li > a > i, .site-head .head-wrap > ul > li > a > img {

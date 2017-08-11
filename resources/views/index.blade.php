@@ -7,7 +7,7 @@
     @foreach ($posts as $post)
         <div class="blog-post">
             <h2 class="blog-post-title">
-                <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->title() }}</a>
+                <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->getTitle() }}</a>
             </h2>
             <p class="blog-post-meta">
                 {{ $post->created_at->format('Y-m-d') }}

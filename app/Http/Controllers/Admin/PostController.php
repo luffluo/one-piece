@@ -30,22 +30,12 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = new Post(array_only($request->all(), ['title', 'text', 'published_at']));
+        $post             = new Post(array_only($request->all(), ['title', 'text', 'published_at']));
+        $post->do         = $request->get('do', null);
+        $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
             return redirect()->back()->withMessage('添加失败.');
-        }
-
-        $tags = Tag::query()
-            ->select('id', 'count')
-            ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
-            ->get();
-
-        $post->tags()->sync($tags->pluck('id'));
-
-        foreach ($tags as $tag) {
-            $tag->count += 1;
-            $tag->save();
         }
 
         return redirect()->route('admin.posts.index')->withMessage('添加成功.');
@@ -76,29 +66,11 @@ class PostController extends Controller
         }
 
         $post->fill(array_only($request->all(), ['title', 'text', 'published_at']));
+        $post->do         = $request->get('do', null);
+        $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
             return redirect()->back()->withErrors('更新失败.');
-        }
-
-        $existsTags = $post->tags()->get();
-
-        $tags = Tag::select('id', 'count')
-            ->whereIn('id', array_unique(array_map('trim', $request->get('tags', []))))
-            ->get();
-
-        foreach ($existsTags as $existsTag) {
-            if ($tags->where('id', $existsTag->id)->isEmpty() && $existsTag->count > 0) {
-                $existsTag->count += -1;
-                $existsTag->save();
-            }
-        }
-
-        $post->tags()->sync($tags->pluck('id'));
-
-        foreach ($tags as $tag) {
-            $tag->count += 1;
-            $tag->save();
         }
 
         return redirect()->route('admin.posts.index')->withMessage('更新成功.');
