@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class PostRequest extends AbstractFormRequest
+class PostRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -11,6 +11,29 @@ class PostRequest extends AbstractFormRequest
      */
     public function rules()
     {
+        // switch ($this->method()) {
+        //     // CREATE
+        //     case 'POST': {
+        //         return [
+        //             // CREATE ROLES
+        //         ];
+        //     }
+        //
+        //     // UPDATE
+        //     case 'PUT':
+        //     case 'PATCH': {
+        //         return [
+        //             // UPDATE ROLES
+        //         ];
+        //     }
+        //
+        //     case 'GET':
+        //     case 'DELETE':
+        //     default: {
+        //         return [];
+        //     };
+        // }
+
         return [
             'title'        => 'required',
             'text'         => 'required',
