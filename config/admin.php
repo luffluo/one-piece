@@ -15,17 +15,17 @@ return [
             ],
         ],
     ],
-    'tag'       => [
-        'title'  => '标签',
-        'icon'   => 'fa-tags',
-        'active' => 'admin/tags*',
-        'url'    => 'admin/tags',
-    ],
     'post'      => [
         'title'  => '文章',
         'icon'   => 'fa-file-text',
         'active' => 'admin/posts*',
         'url'    => 'admin/posts',
+    ],
+    'tag'       => [
+        'title'  => '标签',
+        'icon'   => 'fa-tags',
+        'active' => 'admin/tags*',
+        'url'    => 'admin/tags',
     ],
     'user'      => [
         'title'  => '用户',

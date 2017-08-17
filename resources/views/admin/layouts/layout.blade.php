@@ -20,8 +20,8 @@ ______                            _              _                              
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>@yield('title')@if (! empty(option('site.name'))) - {{ option('site.name') }}@endif - Powered by Luff</title>
     <meta name="author" content="Luff">
-    <meta name="keywords" content="CMS">
-    <meta name="description" content="A CMS System Base On Laravel 5.4">
+    <meta name="keywords" content="Luff, CMS">
+    <meta name="description" content="A CMS System Base On Laravel {{ app()->version() }}">
     <meta name="_token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/bootstrap.min.css') }}">
@@ -29,11 +29,12 @@ ______                            _              _                              
     @yield('admin-css')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
 </head>
-<body class="app">
+
+<body class="app nav-min">
 <header class="site-head clearfix" id="site-head">
 
     <div class="nav-head">
-        <a href="{{ url('admin') }}" class="site-logo"><span>Luff CMS</span></a>
+        <a href="{{ url('admin') }}" class="site-logo"><span>Luff</span></a>
         <span class="nav-trigger fa fa-outdent hidden-xs" data-toggle="nav-min"></span>
         <span class="nav-trigger fa fa-navicon visible-xs" data-toggle="off-canvas"></span>
     </div>
@@ -76,14 +77,14 @@ ______                            _              _                              
                             @foreach ($first['sub'] as $second)
                             <ul class="inner-drop list-unstyled">
                                 <li class="{{ $second['active'] }}">
-                                    <a href="{{ url($second['url']) }}">{{ $second['title'] }}</a>
+                                    <a title="{{ $first['title'] }}" href="{{ url($second['url']) }}">{{ $second['title'] }}</a>
                                 </li>
                             </ul>
                             @endforeach
                         </li>
                     @else
                     <li class="{{ $first['active'] }}">
-                        <a href="{{ url($first['url']) }}"><i class="fa {{ $first['icon'] }} icon"></i> <span class="text">{{ $first['title'] }}</span></a>
+                        <a title="{{ $first['title'] }}" href="{{ url($first['url']) }}"><i class="fa {{ $first['icon'] }} icon"></i> <span class="text">{{ $first['title'] }}</span></a>
                     </li>
                     @endif
                 </ul>
@@ -99,10 +100,12 @@ ______                            _              _                              
         <p class="right">{{ config('app.version') }}</p>
     </footer>
 </div>
+
 <script src="{{ asset('assets/admin/js/jquery-2.1.3.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/perfect-scrollbar.jquery.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
 @yield('admin-js')
 <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+
 </body>
 </html>

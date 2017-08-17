@@ -19,7 +19,7 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th class="col-md-4">标题</th>
+                                <th class="col-md-3">标题</th>
                                 <th class="col-md-2">标签</th>
                                 <th class="col-md-2">发布时间</th>
                                 <th class="col-md-1">操作</th>
