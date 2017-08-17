@@ -49,6 +49,6 @@ class OptionController extends Controller
         option(['site.author', $request->input('site_author')]);
         option(['site.author.about.me', $request->input('site_author_about_me')]);
 
-        return redirect()->route('admin.options.index');
+        return redirect()->route('admin.options.index')->withMessage('设置已经保存');
     }
 }

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-lined">
-                        <div class="panel-heading"><i>概要</i></div>
+                        <div class="panel-heading"><h4>概要</h4></div>
 
                         <div class="panel-body">
                             <div class="row">

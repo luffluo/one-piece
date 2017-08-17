@@ -29,10 +29,10 @@ class TagController extends Controller
 
 
         if (! $tag->save()) {
-            return redirect()->route('admin.tags.index')->withErrors('添加失败！');
+            return redirect()->route('admin.tags.index')->withErrors("标签 {$tag->name} 添加失败");
         }
 
-        return redirect()->route('admin.tags.index')->with('message', '添加成功！');
+        return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被添加");
     }
 
     public function edit($id)
@@ -47,10 +47,10 @@ class TagController extends Controller
         $tag = Tag::findOrFail($id);
 
         if (! $tag->update($request->all())) {
-            return redirect()->route('admin.tags.index')->withErrors('更新失败！');
+            return redirect()->route('admin.tags.index')->withErrors("标签 {$tag->name} 编辑失败");
         }
 
-        return redirect()->route('admin.tags.index')->with('message', '更新成功！');
+        return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被更新");
     }
 
     public function destroy($id)
@@ -58,10 +58,10 @@ class TagController extends Controller
         $tag = Tag::findOrFail($id);
 
         if (! $tag->delete()) {
-            return redirect()->route('admin.tags.index')->with('errors', '删除失败！');
+            return redirect()->route('admin.tags.index')->with('errors', "标签 {$tag->name} 删除失败");
         }
 
-        return redirect()->route('admin.tags.index')->with('message', '删除成功！');
+        return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被删除");
     }
 
     public function getByName()

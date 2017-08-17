@@ -35,13 +35,13 @@ class PostController extends Controller
         $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
-            return redirect()->back()->withMessage('添加失败.');
+            return redirect()->back()->withMessage("文章 {$post->title} 创建失败");
         }
 
         $post->slug = $post->id;
         $post->save();
 
-        return redirect()->route('admin.posts.index')->withMessage('添加成功.');
+        return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被创建");
     }
 
     public function edit($id)
@@ -73,10 +73,10 @@ class PostController extends Controller
         $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
-            return redirect()->back()->withErrors('更新失败.');
+            return redirect()->back()->withErrors("文章 {$post->title} 编辑失败");
         }
 
-        return redirect()->route('admin.posts.index')->withMessage('更新成功.');
+        return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被更新");
     }
 
     public function destroy($id)
@@ -88,9 +88,9 @@ class PostController extends Controller
         }
 
         if (! $post->delete()) {
-            return redirect()->back()->withErrors('文章删除失败.');
+            return redirect()->back()->withErrors("文章 {$post->title} 删除失败");
         }
 
-        return redirect()->route('admin.posts.index')->withMessage('文章删除成功.');
+        return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被删除");
     }
 }
