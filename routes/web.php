@@ -12,7 +12,7 @@
 */
 
 // Front routes
-Route::get('/', 'IndexController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('a/{id}', 'PostController@show')->name('post.show');
 

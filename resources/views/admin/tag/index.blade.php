@@ -1,22 +1,21 @@
 @extends('admin::layouts.layout')
-@section('title')标签@endsection
+@section('title')管理标签@endsection
 
 @section('content')
     <div class="page clearfix">
-        <ol class="breadcrumb breadcrumb-small">
-            <li>后台首页</li>
-            <li>标签</li>
-        </ol>
+
         <div class="page-wrap">
             <div class="row">
                 @include('admin::common.message')
                 <div class="col-md-12">
                     <div class="panel panel-lined clearfix mb30">
                         <div class="panel-heading mb20" style="float: left;">
-                            <div style="float: left;">
-                                <i>标签</i>
+                            <div>
+                                <h4 style="display: inline-block;">管理标签</h4>
+                                <a class="btn btn-default btn-sm" href="{{ route('admin.tags.create') }}">新增</a>
                             </div>
                         </div>
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -25,14 +24,16 @@
                                 <th class="col-md-1">标识</th>
                                 <th class="col-md-1">文章数</th>
                                 <th class="col-md-2">创建时间</th>
-                                <th class="col-md-2">操作</th>
+                                <th class="col-md-1">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach ($lists as $list)
                                     <tr>
-                                        {{--<td>{{ $list->id }}</td>--}}
-                                        <td>{{ $list->name }}</td>
+                                        <td>
+                                            {{ $list->name }}
+                                            <a title="编辑标签 {{ $list->name }}" href="{{ route('admin.tags.edit', $list->id) }}"><i class="fa fa-edit"> </i></a>
+                                        </td>
                                         <td>{{ $list->slug }}</td>
                                         <td>{{ $list->count }}</td>
                                         <td>{{ $list->created_at }}</td>
@@ -40,9 +41,6 @@
                                             <form action="{{ route('admin.tags.destroy', ['id' => $list->id]) }}" method="post">
                                                 {!! csrf_field() !!}
                                                 {!! method_field('DELETE') !!}
-
-                                                <a href="{{ route('admin.tags.edit', ['id' => $list->id]) }}"
-                                                   class="btn btn-success btn-xs">编辑</a>
 
                                                 <button type="submit" class="btn btn-danger btn-xs"
                                                         data-form-confirm="确定要删除吗？">删除

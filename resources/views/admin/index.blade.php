@@ -1,12 +1,7 @@
 @extends('admin::layouts.layout')
-@section('title')概要@endsection
+@section('title')网站概要@endsection
 @section('content')
     <div class="page clearfix">
-        <ol class="breadcrumb breadcrumb-small">
-            <li>后台首页</li>
-            <li>控制台</li>
-            <li><a href="{{ url('admin') }}">概要</a></li>
-        </ol>
 
         <div class="page-wrap">
             <div class="row">

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: luojingying
- * Date: 17/6/7
- * Time: 下午5:39
- */
 
 namespace App\Http\Controllers\Admin;
 

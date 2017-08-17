@@ -1,7 +1,9 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 <div class="panel panel-lined clearfix mb30">
 
-    <div class="panel-heading mb20"><i>{{ $post->exists ? '编辑文章：' . $post->title : '添加文章' }}</i></div>
+    <div class="panel-heading mb20">
+        <h4>{{ $post->exists ? '编辑 ' . $post->title : '撰写新文章' }}</h4>
+    </div>
 
     <div class="col-md-8">
         <div class="form-group form-group-sm">

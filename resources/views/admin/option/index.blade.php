@@ -1,20 +1,16 @@
 @extends('admin::layouts.layout')
-@section('title')网站配置 - 系统设置@endsection
+@section('title')基本设置@endsection
 
 @section('content')
     <div class="page clearfix">
-        <ol class="breadcrumb breadcrumb-small">
-            <li>后台首页</li>
-            <li>系统设置</li>
-            <li>网站配置</li>
-        </ol>
+
         <div class="page-wrap">
             <div class="row">
                 @include('admin::common.message')
                 <div class="col-md-12">
                     <div class="panel panel-lined clearfix mb30">
                         <div class="panel-heading mb20">
-                            <i>网站配置</i>
+                            <i>基本设置</i>
                         </div>
                         <div>
 

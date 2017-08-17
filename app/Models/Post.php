@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: luojingying
- * Date: 17/2/12
- * Time: 上午11:05
- */
 
 namespace App\Models;
 
@@ -116,8 +110,12 @@ class Post extends Content
                 }
             }
 
-            $post->setPostTags($post, request()->input('tags', []), ! $isDraftToPublish && $isBeforePublish,
-                $isAfterPublish);
+            $post->setPostTags(
+                $post,
+                request()->input('tags', []),
+                !$isDraftToPublish && $isBeforePublish,
+                $isAfterPublish
+            );
 
         });
     }
@@ -229,15 +227,15 @@ class Post extends Content
         return str_limit($plainTxt);
     }
 
-    // public function scopeRecent($query)
-    // {
-    //     return $query->orderBy('published_at', 'desc');
-    // }
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('published_at', 'desc');
+    }
 
     public function scopePublished($query)
     {
         return $query->where('type', static::TYPE)
-            ->where('status', 'publish')
-            ->where('published_at', '>', Carbon::now());
+            ->where('status', 'publish');
+            // ->where('published_at', '>', Carbon::now());
     }
 }

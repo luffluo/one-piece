@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: luojingying
- * Date: 17/2/14
- * Time: 下午9:57
- */
 
 use Illuminate\Support\Str;
 
@@ -134,16 +128,16 @@ if (function_exists('fix_html')) {
      */
     function fix_html($string) {
         // 关闭自闭合标签
-        $startPos = strrpos($string, "<");
+        $startPos = mb_strrpos($string, "<");
 
         if (false == $startPos) {
             return $string;
         }
 
-        $trimString = substr($string, $startPos);
+        $trimString = mb_substr($string, $startPos);
 
-        if (false === strpos($trimString, ">")) {
-            $string = substr($string, 0, $startPos);
+        if (false === mb_strpos($trimString, ">")) {
+            $string = mb_substr($string, 0, $startPos);
         }
 
         // 非自闭合 html 标签列表

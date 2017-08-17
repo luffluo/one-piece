@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: luojingying
- * Date: 17/7/6
- * Time: 下午12:24
- */
 
 namespace App\Services;
 

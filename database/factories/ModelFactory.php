@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     $dateTime = $faker->dateTime;
 
     return [
@@ -29,7 +29,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Post::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     $dateTime = $faker->dateTime;
 
     return [

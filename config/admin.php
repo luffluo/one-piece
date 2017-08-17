@@ -16,47 +16,22 @@ return [
         ],
     ],
     'tag'       => [
-        'title' => '标签',
-        'icon'  => 'fa-tags',
-        'sub'   => [
-            [
-                'title'  => '标签',
-                'active' => 'admin/tags*',
-                'url'    => 'admin/tags',
-            ],
-            [
-                'title'  => '添加标签',
-                'active' => 'admin/tags/create*',
-                'url'    => 'admin/tags/create',
-            ],
-        ],
+        'title'  => '标签',
+        'icon'   => 'fa-tags',
+        'active' => 'admin/tags*',
+        'url'    => 'admin/tags',
     ],
     'post'      => [
-        'title' => '文章',
-        'icon'  => 'fa-file-text',
-        'sub'   => [
-            [
-                'title'  => '文章',
-                'active' => 'admin/posts*',
-                'url'    => 'admin/posts',
-            ],
-            [
-                'title'  => '添加文章',
-                'active' => 'admin/posts/create*',
-                'url'    => 'admin/posts/create',
-            ],
-        ],
+        'title'  => '文章',
+        'icon'   => 'fa-file-text',
+        'active' => 'admin/posts*',
+        'url'    => 'admin/posts',
     ],
     'user'      => [
-        'title' => '用户',
-        'icon'  => 'fa-user',
-        'sub'   => [
-            [
-                'title'  => '用户',
-                'active' => 'admin/users*',
-                'url'    => 'admin/users',
-            ],
-        ],
+        'title'  => '用户',
+        'icon'   => 'fa-user',
+        'active' => 'admin/users*',
+        'url'    => 'admin/users',
     ],
     'setting'   => [
         'title' => '设置',

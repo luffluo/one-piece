@@ -2,11 +2,7 @@
 @section('title')编辑用户：{{ $user->name }} - 用户@endsection
 @section('content')
     <div class="page clearfix">
-        <ol class="breadcrumb breadcrumb-small">
-            <li>后台首页</li>
-            <li><a href="{{ route('admin.users.index') }}"></a>用户</li>
-            <li class="active">编辑用户：{{ $user->name }}</li>
-        </ol>
+
         <div class="page-wrap">
             @include('admin::common.message')
 

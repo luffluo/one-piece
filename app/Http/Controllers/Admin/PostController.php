@@ -38,6 +38,9 @@ class PostController extends Controller
             return redirect()->back()->withMessage('添加失败.');
         }
 
+        $post->slug = $post->id;
+        $post->save();
+
         return redirect()->route('admin.posts.index')->withMessage('添加成功.');
     }
 

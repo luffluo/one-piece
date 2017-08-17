@@ -18,7 +18,7 @@ ______                            _              _                              
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>@yield('title') - 内容管理系统</title>
+    <title>@yield('title')@if (! empty(option('site.name'))) - {{ option('site.name') }}@endif - Powered by Luff</title>
     <meta name="author" content="Luff">
     <meta name="keywords" content="CMS">
     <meta name="description" content="A CMS System Base On Laravel 5.4">
