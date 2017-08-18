@@ -9,7 +9,7 @@
             <div class="panel panel-lined clearfix mb30">
 
                 <div class="panel-heading mb20">
-                    <h4>{{ $tag->exists ? '编辑标签：' . $tag->title : '添加标签' }}</h4>
+                    <h4>编辑标签 {{ $tag->name }}</h4>
                 </div>
 
                 <form action="{{ route('admin.tags.update', ['id' => $tag->id]) }}" class="form-horizontal" method="post">
