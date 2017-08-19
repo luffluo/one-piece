@@ -21,9 +21,8 @@
                             <tr>
                                 {{--<th class="col-md-1">ID</th>--}}
                                 <th class="col-md-1">名称</th>
-                                <th class="col-md-1">标识</th>
+                                <th class="col-md-1">缩略名</th>
                                 <th class="col-md-1">文章数</th>
-                                <th class="col-md-2">创建时间</th>
                                 <th class="col-md-1">操作</th>
                             </tr>
                             </thead>
@@ -36,7 +35,6 @@
                                         </td>
                                         <td>{{ $list->slug }}</td>
                                         <td>{{ $list->count }}</td>
-                                        <td>{{ $list->created_at }}</td>
                                         <td>
                                             <form action="{{ route('admin.tags.destroy', ['id' => $list->id]) }}" method="post">
                                                 {!! csrf_field() !!}
