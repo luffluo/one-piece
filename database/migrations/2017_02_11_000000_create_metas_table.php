@@ -22,7 +22,6 @@ class CreateMetasTable extends Migration
             $table->integer('order')->unsigned()->default(0)->index();
             $table->integer('count')->unsigned()->default(0)->index()->comment('文章数');
             $table->integer('parent_id')->unsigned()->default(0)->index();
-            // $table->timestamps();
         });
     }
 

@@ -79,21 +79,21 @@
                     </div>
                 @endif
 
-                <div class="form-group form-group-sm">
-                    <label for="visibility" class="col-md-4 control-label">公开度</label>
-                    <div class="col-md-8">
-                        <select name="visibility" id="visibility" class="form-control">
-                            @if ('publish' === $post->status || !$post->status)
-                            <option value="publish" selected>公开</option>
-                            @else
-                                <option value="publish">公开</option>
-                            @endif
+                {{--<div class="form-group form-group-sm">--}}
+                    {{--<label for="visibility" class="col-md-4 control-label">公开度</label>--}}
+                    {{--<div class="col-md-8">--}}
+                        {{--<select name="visibility" id="visibility" class="form-control">--}}
+                            {{--@if ('publish' === $post->status || !$post->status)--}}
+                            {{--<option value="publish" selected>公开</option>--}}
+                            {{--@else--}}
+                                {{--<option value="publish">公开</option>--}}
+                            {{--@endif--}}
 
 
                             {{--<option value="private">私密</option>--}}
-                        </select>
-                    </div>
-                </div>
+                        {{--</select>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

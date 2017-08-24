@@ -40,7 +40,7 @@ class Post extends Content
 
     public $do;
 
-    public $visibility;
+    // public $visibility;
 
     protected $dates = [
         'published_at',
@@ -66,57 +66,78 @@ class Post extends Content
                 $post->type = static::TYPE_DRAFT;
             }
 
-            if (empty($post->visibility)) {
-                $post->status = static::TYPE;
-            } else {
-                $post->status = $post->visibility;
-            }
+            // if (empty($post->visibility)) {
+            //     $post->status = static::TYPE;
+            // } else {
+            //     $post->status = $post->visibility;
+            // }
 
         });
 
         static::saved(function ($post) {
 
-            if ($post->wasRecentlyCreated) {
+            if ($post->id > 0) {
+                if ($post->wasRecentlyCreated) {
 
-                if ('publish' == $post->do) {
-                    $isDraftToPublish = false;
-                    $isBeforePublish  = false;
-                    $isAfterPublish   = true;
+                    if ('publish' == $post->do) {
+                        $isDraftToPublish = false;
+                        $isBeforePublish  = false;
+                        $isAfterPublish   = true;
+                    } else {
+                        $isDraftToPublish = false;
+                        $isBeforePublish  = false;
+                        $isAfterPublish   = false;
+                    }
+
                 } else {
-                    $isDraftToPublish = false;
-                    $isBeforePublish  = false;
-                    $isAfterPublish   = false;
+                    $originalAttributes = $post->getOriginal();
+                    if ('publish' == $post->do) {
+
+                        // 是否是从草稿状态发布
+                        $isDraftToPublish = static::TYPE_DRAFT == $originalAttributes['type'] && static::TYPE == $post->type;
+
+                        // 以前是否是发布的
+                        $isBeforePublish  = static::TYPE == $originalAttributes['type'];
+
+                        // 当前是否是发布
+                        $isAfterPublish = static::TYPE == $post->type;
+
+                    } else {
+
+                        $isDraftToPublish = static::TYPE_DRAFT == $originalAttributes['type'] && static::TYPE == $post->type;
+                        $isBeforePublish  = static::TYPE == $originalAttributes['type'];
+                        $isAfterPublish   = false;
+
+                    }
                 }
 
-            } else {
-                $changedAttributes = $post->getDirty();
-                if ('publish' == $post->do) {
+                // dump($post->getOriginal(), $post, $isDraftToPublish, $isBeforePublish, $isAfterPublish);
 
-                    // 是否是从草稿状态发布
-                    $isDraftToPublish = (static::TYPE_DRAFT == (isset($changedAttributes['type']) ? $changedAttributes['type'] : $post->type));
+                $post->setPostTags(
+                    $post,
+                    request()->input('tags', []),
+                    !$isDraftToPublish && $isBeforePublish,
+                    $isAfterPublish
+                );
+            }
 
-                    // 以前是否是发布的
-                    $isBeforePublish = (static::STATUS_PUBLISH == (isset($changedAttributes['status']) ? $changedAttributes['status'] : $post->status));
+        });
 
-                    // 当前是否是发布
-                    $isAfterPublish = (static::STATUS_PUBLISH == $post->status);
+        static::deleted(function ($post) {
 
-                } else {
-
-                    $isDraftToPublish = (static::TYPE_DRAFT == (isset($changedAttributes['type']) ? $changedAttributes['type'] : $post->type));
-                    $isBeforePublish  = (static::STATUS_PUBLISH == (isset($changedAttributes['status']) ? $changedAttributes['status'] : $post->status));
-                    $isAfterPublish   = false;
-
+            // 减去对应标签的文章数
+            $tags = $post->tags()->get();
+            if (count($tags) > 0) {
+                foreach ($tags as $tag) {
+                    if ($tag->count > 0) {
+                        $tag->count += -1;
+                        $tag->save();
+                    }
                 }
             }
 
-            $post->setPostTags(
-                $post,
-                request()->input('tags', []),
-                !$isDraftToPublish && $isBeforePublish,
-                $isAfterPublish
-            );
-
+            // 删除文章和标签的所有关联
+            $post->tags()->sync([]);
         });
     }
 
@@ -124,26 +145,31 @@ class Post extends Content
     {
         $tags = array_unique(array_map('trim', $tags));
 
-        $insertTags = Tag::query()
-            ->select('id', 'count')
-            ->whereIn('id', $tags)
-            ->get();
-
         $existsTags = $post->tags()->get();
 
         // 清空已有的标签关系
-        $post->tags()->sync([]);
+        count($existsTags) > 0 && $post->tags()->sync([]);
 
         // 重置标签文章数
-        if ($existsTags && $beforeCount) {
+        if (count($existsTags) > 0 && $beforeCount) {
             foreach ($existsTags as $existsTag) {
+
+                if ($existsTag->count < 1) {
+                    continue;
+                }
+
                 $existsTag->count += -1;
                 $existsTag->save();
             }
         }
 
+        $insertTags = Tag::query()
+            ->select('id', 'count')
+            ->whereIn('id', $tags)
+            ->get();
+
         // 添加新标签，更新标签文章数
-        if ($insertTags) {
+        if (count($insertTags) > 0) {
             $post->tags()->sync($insertTags->pluck('id'));
 
             if (! $afterCount) {

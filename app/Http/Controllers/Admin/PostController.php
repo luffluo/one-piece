@@ -32,14 +32,11 @@ class PostController extends Controller
     {
         $post             = new Post(array_only($request->all(), ['title', 'text', 'published_at']));
         $post->do         = $request->get('do', null);
-        $post->visibility = $request->get('visibility', null);
+        // $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
             return redirect()->back()->withMessage("文章 {$post->title} 创建失败");
         }
-
-        $post->slug = $post->id;
-        $post->save();
 
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被创建");
     }
@@ -70,7 +67,7 @@ class PostController extends Controller
 
         $post->fill(array_only($request->all(), ['title', 'text', 'published_at']));
         $post->do         = $request->get('do', null);
-        $post->visibility = $request->get('visibility', null);
+        // $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
             return redirect()->back()->withErrors("文章 {$post->title} 编辑失败");

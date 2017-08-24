@@ -16,6 +16,14 @@
                                 <a href="{{ route('admin.posts.create') }}" class="btn btn-default btn-sm">新增</a>
                             </div>
                         </div>
+
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="btn-group btn-group-sm" role="group" aria-label="tabs">--}}
+                                {{--<a href="{{ route() }}" class="btn btn-default">可用</a>--}}
+                                {{--<a href="#" class="btn btn-default">草稿</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -31,7 +39,7 @@
                                         <td>
                                             <a href="{{ route('admin.posts.edit', $list->id) }}">{{ $list->getTitle(40) }}</a>
                                             @if ('post_draft' == $list->type)
-                                                <span>草稿</span>
+                                                <span class="label label-default">草稿</span>
                                             @endif
                                             <a href="{{ route('post.show', $list->id) }}"><i class="fa fa-external-link"> </i></a>
                                         </td>
