@@ -22,19 +22,9 @@ namespace App\Models;
 abstract class Content extends Model
 {
     /**
-     * 待审核
-     */
-    const STATUS_WAITING = 'waiting';
-
-    /**
      * 发布
      */
     const STATUS_PUBLISH = 'publish';
-
-    /**
-     * 隐藏
-     */
-    const STATUS_HIDDEN = 'hidden';
 
     protected $table = 'contents';
 

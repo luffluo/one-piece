@@ -12,18 +12,21 @@ class PostController extends Controller
     public function index()
     {
         $query = Post::query();
+        $cloneQuery = clone $query;
 
         if ($status = request()->get('status')) {
             if ('draft' == $status) {
-                $query->where('type', 'post_draft');
+                $query->draft();
             }
         }
+
+        $draft_count = $cloneQuery->draft()->count();
 
         $lists = $query->with('tags')
             ->recent()
             ->paginate(20);
 
-        return admin_view('post.index', compact('lists', 'status'));
+        return admin_view('post.index', compact('lists', 'status', 'draft_count'));
     }
 
     public function create()
@@ -37,9 +40,8 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post             = new Post(array_only($request->all(), ['title', 'text', 'published_at']));
+        $post             = new Post(array_only($request->all(), ['title', 'text']));
         $post->do         = $request->get('do', null);
-        // $post->visibility = $request->get('visibility', null);
 
         if (! $post->save()) {
             return redirect()->back()->withMessage("文章 {$post->title} 创建失败");
@@ -50,10 +52,7 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        $post = Post::query()
-            ->where('id', $id)
-            ->with('tags')
-            ->first();
+        $post = Post::find($id);
 
         $tags = Tag::select('id', 'name')->get();
 
@@ -72,9 +71,8 @@ class PostController extends Controller
             return redirect()->back()->withErrors('文章不存在.');
         }
 
-        $post->fill(array_only($request->all(), ['title', 'text', 'published_at']));
-        $post->do         = $request->get('do', null);
-        // $post->visibility = $request->get('visibility', null);
+        $post->fill(array_only($request->all(), ['title', 'text']));
+        $post->do = $request->get('do', null);
 
         if (! $post->save()) {
             return redirect()->back()->withErrors("文章 {$post->title} 编辑失败");

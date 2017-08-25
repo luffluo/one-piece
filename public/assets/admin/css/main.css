@@ -1105,13 +1105,6 @@ a.list-group-item {
 .panel-title > a {
     display: block;
 }
-.badge {
-    font-size: 12px;
-    font-weight: 400;
-    margin-right: 2px;
-    padding: 3px 5px;
-    text-transform: uppercase;
-}
 .badge.circle {
     border-radius: 100%;
 }

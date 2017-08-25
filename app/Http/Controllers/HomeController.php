@@ -13,12 +13,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('tags')
-            // ->published()
+        $posts = Post::query()
+            ->published()
             ->recent()
+            ->with('tags')
             ->paginate(20);
-
-        // dd($posts);
 
         return view('index', compact('posts'));
     }

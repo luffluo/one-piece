@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-
 class Post extends Content
 {
     /**
@@ -17,11 +15,6 @@ class Post extends Content
     const TYPE_DRAFT = 'post_draft';
 
     /**
-     * 私密
-     */
-    const STATUS_PRIVATE = 'private';
-
-    /**
      * @var \HyperDown\Parser
      */
     protected static $parser;
@@ -33,22 +26,13 @@ class Post extends Content
         'user_id',
         'type',
         'status',
-        'published_at',
-        // 'do',
-        // 'visibility',
     ];
 
     public $do;
 
-    // public $visibility;
-
     protected $dates = [
-        'published_at',
+        'created_at', 'updated_at'
     ];
-
-    /*protected $appends = [
-        'do', 'visibility',
-    ];*/
 
     public static function boot()
     {
@@ -65,13 +49,6 @@ class Post extends Content
             } else {
                 $post->type = static::TYPE_DRAFT;
             }
-
-            // if (empty($post->visibility)) {
-            //     $post->status = static::TYPE;
-            // } else {
-            //     $post->status = $post->visibility;
-            // }
-
         });
 
         static::saved(function ($post) {
@@ -110,8 +87,6 @@ class Post extends Content
 
                     }
                 }
-
-                // dump($post->getOriginal(), $post, $isDraftToPublish, $isBeforePublish, $isAfterPublish);
 
                 $post->setPostTags(
                     $post,
@@ -188,11 +163,6 @@ class Post extends Content
         static::$parser = $markdown;
     }
 
-    public function setPublishedAtAttribute($value)
-    {
-        $this->attributes['published_at'] = empty($value) ? $this->freshTimestamp() : $value;
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -253,15 +223,13 @@ class Post extends Content
         return str_limit($plainTxt);
     }
 
-    public function scopeRecent($query)
-    {
-        return $query->orderBy('published_at', 'desc');
-    }
-
     public function scopePublished($query)
     {
-        return $query->where('type', static::TYPE)
-            ->where('status', 'publish');
-            // ->where('published_at', '>', Carbon::now());
+        return $query->where('type', static::TYPE);
+    }
+
+    public function scopeDraft($query)
+    {
+        return $query->where('type', static::TYPE_DRAFT);
     }
 }

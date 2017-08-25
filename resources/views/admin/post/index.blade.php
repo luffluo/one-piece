@@ -25,10 +25,10 @@
                                     <a href="{{ route('admin.posts.index') }}" class="btn btn-default">可用</a>
                                 @endif
 
-                                @if (isset($status) && ! empty($status))
-                                    <a href="{{ route('admin.posts.index', ['status' => $status]) }}" class="btn btn-default active">草稿</a>
+                                @if (isset($status) && 'draft' == $status)
+                                    <a href="{{ route('admin.posts.index', ['status' => 'draft']) }}" class="btn btn-default active">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
                                 @else
-                                    <a href="{{ route('admin.posts.index', ['status' => $status]) }}" class="btn btn-default">草稿</a>
+                                    <a href="{{ route('admin.posts.index', ['status' => 'draft']) }}" class="btn btn-default">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
                                 @endif
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <tr>
                                 <th class="col-md-3">标题</th>
                                 <th class="col-md-2">标签</th>
-                                <th class="col-md-2">发布时间</th>
+                                <th class="col-md-2">创建时间</th>
                                 <th class="col-md-1">操作</th>
                             </tr>
                             </thead>
@@ -50,10 +50,10 @@
                                             @if ('post_draft' == $list->type)
                                                 <span class="label label-default">草稿</span>
                                             @endif
-                                            <a href="{{ route('post.show', $list->id) }}"><i class="fa fa-external-link"> </i></a>
+                                            <a target="_blank" href="{{ route('post.show', $list->id) }}"><i class="fa fa-external-link"> </i></a>
                                         </td>
                                         <td>{{ $list->tags->implode('name', ' | ') }}</td>
-                                        <td>{{ $list->published_at }}</td>
+                                        <td>{{ $list->created_at }}</td>
                                         <td>
                                             <form action="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" method="post">
                                                 {!! csrf_field() !!}
@@ -68,6 +68,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                         <div class="panel-footer clearfix">
                             @if (isset($status) &&  ! empty($status))
                                 <nav class="right">{{ $lists->appends(['status' => $status])->links() }}</nav>

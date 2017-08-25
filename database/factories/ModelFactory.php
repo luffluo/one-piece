@@ -41,6 +41,5 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'type'           => 'post',
         'created_at'     => $dateTime,
         'updated_at'     => $dateTime,
-        'published_at'   => $dateTime,
     ];
 });

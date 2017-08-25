@@ -33,7 +33,7 @@
                                     <ul class="list-unstyled">
                                         @foreach($posts as $post)
                                         <li>
-                                            <span>{{ $post->published_at->format('j.d') }}</span>
+                                            <span>{{ $post->created_at->format('j.d') }}</span>
                                             <a target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->title }}</a>
                                         </li>
                                         @endforeach

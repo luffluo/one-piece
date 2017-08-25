@@ -40,24 +40,17 @@ ______                            _              _                              
     </div>
 
     <div class="head-wrap clearfix">
-        <ul class="list-unstyled navbar-right">
-            <li>
-                <a href="{{ route('admin.users.edit', $user->id) }}">
-                    <button class="btn btn-default btn-sm">{{ $user->displayName() }}</button>
-                </a>
-            </li>
-            <li>
-                <form action="{{ route('admin.logout') }}" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="submit" value="退出登陆" class="btn btn-danger btn-sm">
-                </form>
-            </li>
-            <li>
-                <a href="{{ url('') }}" target="_blank">
-                    <button class="btn btn-default btn-sm">网站</button>
-                </a>
-            </li>
-        </ul>
+
+        <div class="btn-group btn-group-sm pull-right" role="group">
+            <a class="btn btn-default" href="{{ route('admin.users.edit', $user->id) }}">{{ $user->displayName() }}</a>
+
+            <form action="{{ route('admin.logout') }}" method="post" style="display: inline-block">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-default btn-sm">退出登陆</button>
+            </form>
+
+            <a class="btn btn-default" href="{{ url('') }}" target="_blank">网站</a>
+        </div>
     </div>
 </header>
 

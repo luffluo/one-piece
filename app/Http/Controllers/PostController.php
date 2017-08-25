@@ -10,8 +10,7 @@ class PostController extends Controller
 {
     public function show($id)
     {
-        /* @var Model */
-        $post   = Post::findOrFail($id);
+        $post   = Post::query()->where('id', $id)->published()->firstOrFail();
         $post->views_count += 1;
         $post->save();
 

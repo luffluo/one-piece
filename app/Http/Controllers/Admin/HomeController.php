@@ -11,7 +11,7 @@ class HomeController
     public function index()
     {
         $posts_count = Post::count();
-        $posts       = Post::select('id', 'title', 'published_at')->recent()->take(7)->get();
+        $posts       = Post::query()->select('id', 'title', 'created_at')->recent()->take(7)->get();
         $tags_count  = Tag::count();
         $users_count = User::count();
 
