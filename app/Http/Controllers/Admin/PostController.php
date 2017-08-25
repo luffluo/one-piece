@@ -11,12 +11,19 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lists = Post::query()
-            ->with('tags')
-            ->recent()
-            ->paginate(30);
+        $query = Post::query();
 
-        return admin_view('post.index', compact('lists'));
+        if ($status = request()->get('status')) {
+            if ('draft' == $status) {
+                $query->where('type', 'post_draft');
+            }
+        }
+
+        $lists = $query->with('tags')
+            ->recent()
+            ->paginate(20);
+
+        return admin_view('post.index', compact('lists', 'status'));
     }
 
     public function create()

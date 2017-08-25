@@ -10,19 +10,28 @@
                 <div class="col-md-12">
                     <div class="panel panel-lined clearfix mb30">
                         <div class="panel-heading mb20" style="float: left;">
-                            <div style="float: left;">
+                            <div>
                                 <h4 style="display: inline-block;">管理文章</h4>
 
                                 <a href="{{ route('admin.posts.create') }}" class="btn btn-default btn-sm">新增</a>
                             </div>
                         </div>
 
-                        {{--<div class="col-md-12">--}}
-                            {{--<div class="btn-group btn-group-sm" role="group" aria-label="tabs">--}}
-                                {{--<a href="{{ route() }}" class="btn btn-default">可用</a>--}}
-                                {{--<a href="#" class="btn btn-default">草稿</a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="col-md-12">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="tabs">
+                                @if (!isset($status) || empty($status))
+                                    <a href="{{ route('admin.posts.index') }}" class="btn btn-default active">可用</a>
+                                @else
+                                    <a href="{{ route('admin.posts.index') }}" class="btn btn-default">可用</a>
+                                @endif
+
+                                @if (isset($status) && ! empty($status))
+                                    <a href="{{ route('admin.posts.index', ['status' => $status]) }}" class="btn btn-default active">草稿</a>
+                                @else
+                                    <a href="{{ route('admin.posts.index', ['status' => $status]) }}" class="btn btn-default">草稿</a>
+                                @endif
+                            </div>
+                        </div>
 
                         <table class="table table-hover">
                             <thead>
@@ -60,7 +69,11 @@
                             </tbody>
                         </table>
                         <div class="panel-footer clearfix">
-                            <nav class="right">{{ $lists->links() }}</nav>
+                            @if (isset($status) &&  ! empty($status))
+                                <nav class="right">{{ $lists->appends(['status' => $status])->links() }}</nav>
+                            @else
+                                <nav class="right">{{ $lists->links() }}</nav>
+                            @endif
                         </div>
                     </div>
                 </div>
