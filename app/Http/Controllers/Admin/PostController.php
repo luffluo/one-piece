@@ -12,6 +12,14 @@ class PostController extends Controller
     public function index()
     {
         $query = Post::query();
+
+        if ($tid = request()->get('tid')) {
+            $tag = Tag::query()->where('id', $tid)->with('posts')->first();
+            $post_ids = $tag->posts->pluck('id')->all();
+
+            count($post_ids) && $query->whereIn('id', $post_ids);
+        }
+
         $cloneQuery = clone $query;
 
         if ($status = request()->get('status')) {
@@ -26,7 +34,7 @@ class PostController extends Controller
             ->recent()
             ->paginate(20);
 
-        return admin_view('post.index', compact('lists', 'status', 'draft_count'));
+        return admin_view('post.index', compact('lists', 'status', 'draft_count', 'tid'));
     }
 
     public function create()

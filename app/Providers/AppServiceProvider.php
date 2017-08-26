@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Parsedown;
 use App\Models\Post;
 use App\Listeners\MenuRouteMatched;
@@ -18,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Carbon::setLocale('zh');
+
         $this->loadViewsFrom(resource_path('views/admin'), 'admin');
 
         $this->app['events']->subscribe(MenuRouteMatched::class);

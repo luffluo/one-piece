@@ -20,7 +20,7 @@
                     <thead>
                     <tr>
                         {{--<th class="col-md-1">ID</th>--}}
-                        <th class="col-md-1">名称</th>
+                        <th class="col-md-2">名称</th>
                         <th class="col-md-1">缩略名</th>
                         <th class="col-md-1">文章数</th>
                         <th class="col-md-1">操作</th>
@@ -31,11 +31,17 @@
                         @foreach ($lists as $list)
                             <tr>
                                 <td>
-                                    {{ $list->name }}
-                                    <a title="编辑标签 {{ $list->name }}" href="{{ route('admin.tags.edit', $list->id) }}"><i class="fa fa-edit"> </i></a>
+                                    <a title="编辑标签 {{ $list->name }}" href="{{ route('admin.tags.edit', $list->id) }}">
+                                        {{ $list->name }}
+                                        <i class="fa fa-pencil"> </i>
+                                    </a>
                                 </td>
                                 <td>{{ $list->slug }}</td>
-                                <td>{{ $list->count }}</td>
+                                <td>
+                                    <a href="{{ route('admin.posts.index', ['tid' => $list->id]) }}">
+                                        <span class="badge">{{ $list->count }}</span>
+                                    </a>
+                                </td>
                                 <td>
                                     <form action="{{ route('admin.tags.destroy', ['id' => $list->id]) }}" method="post">
                                         {!! csrf_field() !!}
