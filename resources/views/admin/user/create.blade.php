@@ -4,9 +4,7 @@
     <div class="page clearfix">
 
         <div class="page-wrap">
-            <div class="row" style="padding: 0;">
-                @include('admin::common.message')
-            </div>
+            @include('admin::common.message')
             <form action="{{ route('admin.posts.store') }}" class="form-horizontal" enctype="multipart/form-data" method="post">
                 @include('admin::post._form')
             </form>

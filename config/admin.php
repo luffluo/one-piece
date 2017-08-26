@@ -27,12 +27,6 @@ return [
         'active' => 'admin/tags*',
         'url'    => 'admin/tags',
     ],
-    'user'      => [
-        'title'  => '用户',
-        'icon'   => 'fa-user',
-        'active' => 'admin/users*',
-        'url'    => 'admin/users',
-    ],
     'setting'   => [
         'title' => '设置',
         'icon'  => 'fa-cogs',

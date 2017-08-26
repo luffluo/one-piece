@@ -33,20 +33,12 @@
                                     <ul class="list-unstyled">
                                         @foreach($posts as $post)
                                         <li>
-                                            <span>{{ $post->created_at->format('j.d') }}</span>
+                                            <span>{{ $post->created_at->format('n.j') }}</span>
                                             <a target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->title }}</a>
                                         </li>
                                         @endforeach
                                     </ul>
                                 </div>
-
-                                {{--<div class="col-md-4">--}}
-                                    {{--共 <a href="{{ route('admin.tags.index') }}">{{ $tags_count }}</a> 个标签--}}
-                                {{--</div>--}}
-
-                                {{--<div class="col-md-4">--}}
-                                    {{--共 <a href="{{ route('admin.users.index') }}">{{ $users_count }}</a> 个用户--}}
-                                {{--</div>--}}
                             </div>
                         </div>
 

@@ -33,9 +33,9 @@ class UserController extends Controller
         }
 
         if (! $user->save()) {
-            return redirect()->route('admin.users.index')->withErrors(['用户编辑失败!']);
+            return redirect()->route('admin.users.edit', $user->id)->withErrors(['用户编辑失败!']);
         }
 
-        return redirect()->route('admin.users.index')->withMessage('用户编辑成功!');
+        return redirect()->route('admin.users.edit', $user->id)->withMessage('用户编辑成功!');
     }
 }

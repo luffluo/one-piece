@@ -4,7 +4,8 @@
     <div class="page clearfix">
 
         <div class="page-wrap">
-            <div class="row">@include('admin::common.message')</div>
+            @include('admin::common.message')
+
             <form action="{{ route('admin.posts.update', ['id' => $post->id]) }}" class="form-horizontal" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="_method" value="PATCH">
                 @include('admin::post._form')

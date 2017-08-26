@@ -19,11 +19,11 @@ class UserRequest extends Request
             $rules['name'] = 'required|unique:users,name';
         }
 
-        if ($id) {
+        if (!empty($id)) {
             $rules['email'] = 'required|email|unique:users,email,' . $id;
         }
 
-        if ($id) {
+        if (!empty($id)) {
             $rules['password'] = 'nullable|confirmed';
         } else {
             $rules['password'] = 'required|confirmed';

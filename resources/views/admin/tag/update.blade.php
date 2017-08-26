@@ -4,6 +4,7 @@
     <div class="page clearfix">
 
         <div class="page-wrap">
+
             @include('admin::common.message')
 
             <div class="panel panel-lined clearfix mb30">
