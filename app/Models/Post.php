@@ -15,9 +15,9 @@ class Post extends Content
     const TYPE_DRAFT = 'post_draft';
 
     /**
-     * @var \HyperDown\Parser
+     * @var \Parsedown
      */
-    protected static $parser;
+    protected static $markdown;
 
     protected $fillable = [
         'title',
@@ -160,7 +160,7 @@ class Post extends Content
 
     public static function setMarkdown($markdown)
     {
-        static::$parser = $markdown;
+        static::$markdown = $markdown;
     }
 
     /**
@@ -191,7 +191,9 @@ class Post extends Content
      */
     public function parserContent()
     {
-        return static::$parser->makeHtml($this->text);
+        return static::$markdown
+            ->setMarkupEscaped(true)
+            ->text($this->text);
     }
 
     /**

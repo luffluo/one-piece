@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Parsedown;
 use App\Models\Post;
 use App\Listeners\MenuRouteMatched;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['events']->subscribe(MenuRouteMatched::class);
 
-        Post::setMarkdown($this->app->make('HyperDown'));
+        Post::setMarkdown(Parsedown::instance());
 
         View::composer('admin*', function ($view) {
             $view->with('user', Auth::user());
