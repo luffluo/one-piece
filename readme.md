@@ -22,20 +22,24 @@
 * Mbstring PHP Extension
 
 ## 安装
-1. Clone the source code or create new project.
+1. 克隆源程序 or 创建新项目
 
 `git clone https://github.com/luffluo/luff.git`
+
 Or
+
 `composer create luffluo/luff`
 
-2. Install the extended package dependency.
+2. 安装程序依赖扩展包
 
 `php composer install`
 
-3. Run the blog install command, or
+3. 命令行安装 or 浏览器安装
 
 在浏览器输入预设好的域名 `luff.blog`
+
 Or
+
 `php artisan luff:install`
 通过命令行安装，可以选择是否填充假数据
 
