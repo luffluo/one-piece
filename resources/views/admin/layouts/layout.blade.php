@@ -44,10 +44,7 @@ ______                            _              _                              
         <div class="btn-group btn-group-sm pull-right" role="group">
             <a class="btn btn-default" href="{{ route('admin.users.edit', $user->id) }}">{{ $user->displayName() }}</a>
 
-            <form action="{{ route('admin.logout') }}" method="post" style="display: inline-block">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-default btn-sm">退出登陆</button>
-            </form>
+            <a class="btn btn-default" href="{{ route('admin.logout') }}">登出</a>
 
             <a class="btn btn-default" href="{{ url('') }}" target="_blank">网站</a>
         </div>
