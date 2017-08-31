@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Installer;
 use Illuminate\Console\Command;
 
 class InstallerCommand extends Command
@@ -31,11 +32,11 @@ class InstallerCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Installer $installer)
     {
         parent::__construct();
 
-        $this->installer = app()['installer'];
+        $this->installer = $installer;
     }
 
     /**
@@ -47,6 +48,7 @@ class InstallerCommand extends Command
     {
         if ($this->installer->isInstalled()) {
             $this->error('程序已安装！');
+
             return;
         }
 
@@ -54,7 +56,7 @@ class InstallerCommand extends Command
         $this->installer->setData($this->getData());
         $this->installer->setDataFrom('console');
 
-        $this->installer->starting();
+        $this->installer->start();
 
         $this->info('Luff Installed!');
 
@@ -65,14 +67,14 @@ class InstallerCommand extends Command
 
     protected function getData()
     {
-        $data['site_name'] = $this->ask('网站名称：', 'Luff');
-        $data['db_host'] = $this->ask('数据库服务器：', '127.0.0.1');
+        $data['site_name']   = $this->ask('站点名称：', 'Luff');
+        $data['db_host']     = $this->ask('数据库服务器：', '127.0.0.1');
         $data['db_database'] = $this->ask('数据库：', 'luff');
         $data['db_username'] = $this->ask('数据库用户名：', 'homestead');
         $data['db_password'] = $this->ask('数据库密码：', 'secret');
 
         $data['admin_username'] = $this->ask('后台管理员账号：', 'admin');
         $data['admin_password'] = $this->ask('管理员密码：', 'admin123');
-        $data['admin_email'] = $this->ask('管理员邮箱：', 'admin@luff.life');
+        $data['admin_email']    = $this->ask('管理员邮箱：', 'admin@luff.life');
     }
 }

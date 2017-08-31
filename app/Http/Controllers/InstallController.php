@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Installer;
 use App\Contracts\Prerequisite;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\InstallRequest;
@@ -15,9 +16,9 @@ class InstallController extends Controller
 
     protected $prerequisite;
 
-    public function __construct(Prerequisite $prerequisite)
+    public function __construct(Installer $installer, Prerequisite $prerequisite)
     {
-        $this->installer    = app('installer');
+        $this->installer    = $installer;
         $this->prerequisite = $prerequisite;
     }
 

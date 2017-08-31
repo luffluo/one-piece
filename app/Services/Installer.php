@@ -90,7 +90,6 @@ class Installer
      */
     public function installedFileExists()
     {
-        // 150 2910 2529
         return file_exists($this->getInstalledFile());
     }
 
