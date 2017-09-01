@@ -1,4 +1,4 @@
-@extends('admin::layouts.layout')
+@extends('admin::layouts.default')
 @section('title')编辑标签：{{ $tag->title }}@endsection
 @section('content')
     <div class="page clearfix">

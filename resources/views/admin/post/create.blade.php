@@ -1,4 +1,4 @@
-@extends('admin::layouts.layout')
+@extends('admin::layouts.default')
 @section('title')撰写新文章@endsection
 @section('content')
     <div class="page clearfix">

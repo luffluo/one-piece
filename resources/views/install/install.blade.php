@@ -1,4 +1,4 @@
-@extends('install.layout')
+@extends('layouts.install')
 
 @section('content')
     <div class="page-header">

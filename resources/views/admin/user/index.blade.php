@@ -1,4 +1,4 @@
-@extends('admin::layouts.layout')
+@extends('admin::layouts.default')
 @section('title')管理用户@endsection
 
 @section('content')

@@ -11,8 +11,9 @@ ______                            _              _                              
                                            Luff
 
   --------------------------------------------------------
-  Powered by Laravel
+  Powered by Luff
 -->
+
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
