@@ -1064,7 +1064,7 @@ a.list-group-item {
     border-bottom: 1px solid #eee;
     color: #707070;
     font-size: 11px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     width: 100%;
 }
 .panel-heading > i {
@@ -2236,7 +2236,7 @@ a.list-group-item {
     display: inline-block;
     font-size: 14px;
     margin-top: 19.5px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .site-head .nav-head .site-logo > span {
     font-weight: 900;
@@ -3082,7 +3082,7 @@ html, body {
 }
 .page-auth .site-logo {
     text-align: center;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .page-auth .site-logo > a {
     color: #565656;
@@ -4505,4 +4505,7 @@ html, body {
 .image-preview img {
     background: #ccc none repeat scroll 0 0;
     padding: 2px;
+}
+.inline-block {
+    display: inline-block;
 }
