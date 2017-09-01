@@ -1,14 +1,14 @@
 {
-    "name": "qiyueshiyi/laravel-qiyueshiyi",
+    "name": "luffluo/luff-blog",
     "description": "A simple blog.",
-    "keywords": ["blog", "laravel", "luff"],
+    "keywords": ["blog", "laravel", "luff", "CMS"],
     "license": "MIT",
     "type": "project",
     "homepage": "https://coding.net/u/qiyueshiyi/p/Laravel-qiyueshiyi/git",
     "authors": [
         {
             "name": "Luff Luo",
-            "email": "qiyueshiyi@outlook.com"
+            "email": "luffluo@outlook.com"
         }
     ],
     "require": {

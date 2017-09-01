@@ -46,7 +46,7 @@ class InstallerCommand extends Command
      */
     public function handle()
     {
-        if ($this->installer->isInstalled()) {
+        if ($this->installer->installed()) {
             $this->error('程序已安装！');
 
             return;

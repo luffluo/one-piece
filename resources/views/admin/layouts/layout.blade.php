@@ -22,7 +22,7 @@ ______                            _              _                              
     <meta name="author" content="Luff">
     <meta name="keywords" content="Luff, CMS">
     <meta name="description" content="A CMS System Base On Laravel {{ app()->version() }}">
-    <meta name="_token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
@@ -30,7 +30,12 @@ ______                            _              _                              
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
 </head>
 
-<body class="app nav-min">
+@if ($navTrigger)
+    <body class="app" data-url="{{ route('admin.nav.trigger') }}">
+@else
+    <body class="app nav-min" data-url="{{ route('admin.nav.trigger') }}">
+@endif
+
 <header class="site-head clearfix" id="site-head">
 
     <div class="nav-head">

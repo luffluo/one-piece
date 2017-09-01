@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsInstalled
+class CheckInstalled
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class IsInstalled
      */
     public function handle($request, Closure $next)
     {
-        if (! app('installer')->isInstalled()) {
+        if (! app('installer')->installed()) {
             return redirect()->route('install');
         }
 

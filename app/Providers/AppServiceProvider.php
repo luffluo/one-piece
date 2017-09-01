@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('admin*', function ($view) {
             $view->with('user', Auth::user());
+            $view->with('navTrigger', session('nav.trigger', false));
         });
     }
 

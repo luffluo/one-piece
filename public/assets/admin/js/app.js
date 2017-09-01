@@ -1,6 +1,20 @@
 +function ($) {
     'use strict';
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $(document).on("click.bs.nav.data-api", '[data-toggle="nav-min"]', function () {
+        $.ajax({
+            url: $('body').data('url'),
+            type: 'post',
+            dataType: 'json',
+            success: function (result) {
+                alert(result);
+            }
+        });
+
         $("body").toggleClass("nav-min");
     });
     $(document).on("click.bs.data-api", '[data-toggle="off-canvas"]', function () {

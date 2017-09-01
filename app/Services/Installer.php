@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Symfony\Component\Console\Output\NullOutput;
 use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
@@ -36,7 +37,7 @@ class Installer
      */
     protected $dataFrom;
 
-    public function __construct($app, Repository $config)
+    public function __construct(Application $app, Repository $config)
     {
         $this->app    = $app;
         $this->config = $config;
@@ -68,7 +69,7 @@ class Installer
      *
      * @return bool
      */
-    public function isInstalled()
+    public function installed()
     {
         if ($this->app->bound('installed')) {
             return true;
@@ -266,35 +267,35 @@ class Installer
 
     protected function dbConnectionReplacementPattern()
     {
-        $escaped = preg_quote('=' . $this->app['config']['database.default'], '/');
+        $escaped = preg_quote('=' . $this->config['database.default'], '/');
 
         return "/^DB_CONNECTION{$escaped}/m";
     }
 
     protected function dbHostReplacementPattern()
     {
-        $escaped = preg_quote('=' . $this->app['config']['database.connections.mysql.host'], '/');
+        $escaped = preg_quote('=' . $this->config['database.connections.mysql.host'], '/');
 
         return "/^DB_HOST{$escaped}/m";
     }
 
     protected function dbDatabaseReplacementPattern()
     {
-        $escaped = preg_quote('=' . $this->app['config']['database.connections.mysql.database'], '/');
+        $escaped = preg_quote('=' . $this->config['database.connections.mysql.database'], '/');
 
         return "/^DB_DATABASE{$escaped}/m";
     }
 
     protected function dbUsernameReplacementPattern()
     {
-        $escaped = preg_quote('=' . $this->app['config']['database.connections.mysql.username'], '/');
+        $escaped = preg_quote('=' . $this->config['database.connections.mysql.username'], '/');
 
         return "/^DB_USERNAME{$escaped}/m";
     }
 
     protected function dbPasswordReplacementPattern()
     {
-        $escaped = preg_quote('=' . $this->app['config']['database.connections.mysql.password'], '/');
+        $escaped = preg_quote('=' . $this->config['database.connections.mysql.password'], '/');
 
         return "/^DB_PASSWORD{$escaped}/m";
     }

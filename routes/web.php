@@ -39,6 +39,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // Home
     Route::get('/', 'HomeController@index')->name('admin.home');
 
+    // 侧边栏开关
+    Route::post('nav_trigger', 'HomeController@navTrigger')->name('admin.nav.trigger');
+
     // Option
     Route::get('options', 'OptionController@index')->name('admin.options.index');
     Route::post('options', 'OptionController@store')->name('admin.options.store');

@@ -17,4 +17,16 @@ class HomeController
 
         return admin_view('index', compact('posts', 'posts_count', 'tags_count', 'users_count'));
     }
+
+    public function navTrigger()
+    {
+        if (request()->ajax()) {
+
+            if (session('nav.trigger', false)) {
+                session(['nav.trigger' => false]);
+            } else {
+                session(['nav.trigger' => true]);
+            }
+        }
+    }
 }

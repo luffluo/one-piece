@@ -20,7 +20,7 @@ class InstallerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (! $this->app['installer']->isInstalled()) {
+        if (! $this->app['installer']->installed()) {
 
             $this->app['router']->group(['middleware' => 'web', 'prefix' => 'install'], function () {
                 $this->app['router']->get('/', InstallController::class . '@showPage')->name('install');
@@ -40,7 +40,7 @@ class InstallerServiceProvider extends ServiceProvider
             return new Installer($app, $app['config']);
         });
 
-        $this->app->singleton(Prerequisite::class, function () {
+        $this->app->bind(Prerequisite::class, function () {
             return new Composite(
                 new PhpVersion('7.0.0'),
                 new PhpExtension(

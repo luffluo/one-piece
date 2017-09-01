@@ -1,6 +1,6 @@
 # Luff
 这是一个简单的博客程序。
-基于 `Laravel 5.4.*`
+基于 `Laravel 5.5.*` 开发
 
 ## 项目概述
 * 产品名称：「Luff - A simple blog」
@@ -29,11 +29,9 @@
 Or
 
 `composer create luffluo/luff`
-
 2. 安装程序依赖扩展包
 
 `php composer install`
-
 3. 命令行安装 or 浏览器安装
 
 在浏览器输入预设好的域名 `luff.blog`
