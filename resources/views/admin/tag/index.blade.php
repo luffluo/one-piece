@@ -47,9 +47,7 @@
                                         {!! csrf_field() !!}
                                         {!! method_field('DELETE') !!}
 
-                                        <button type="submit" class="btn btn-danger btn-xs"
-                                                data-form-confirm="确定要删除吗？">删除
-                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-xs" action-confirm="确定要删除吗？">删除</button>
                                     </form>
                                 </td>
                             </tr>

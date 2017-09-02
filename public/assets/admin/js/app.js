@@ -110,4 +110,15 @@
             });
         });
     });
+
+    $('[action-confirm]').on('click', function () {
+        var $this = $(this);
+        var message = $this.attr('action-confirm');
+
+        if ('' == message) {
+            message = '确认要执行此操作吗？';
+        }
+
+        return confirm(message);
+    });
 }(jQuery);
