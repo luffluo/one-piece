@@ -205,7 +205,11 @@ class Post extends Content
      */
     public function content($more = false)
     {
-        $string = '<p class="pull-right"><a href="%s" class="btn btn-default" role="button">%s</a></p>';
+$string = <<<EOF
+<p class="more text-center">
+    <a href="%s" role="button">%s</a>
+</p>
+EOF;
 
         return false !== $more ?
             $this->summary() . sprintf($string, route('post.show', ['id' => $this->id]), $more)

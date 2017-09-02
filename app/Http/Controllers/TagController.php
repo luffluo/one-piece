@@ -9,6 +9,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::select('id', 'name', 'slug', 'count')
+            ->hadPosts()
             ->with(['posts' => function ($query) {
                 return $query->select('id', 'title');
             }])

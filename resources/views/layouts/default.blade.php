@@ -21,7 +21,7 @@ ______                            _              _                              
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title') - Luff Life</title>
+    <title>@yield('title') - {{ option('site.name', 'Luff') }}</title>
 
     <meta name="keywords" content="{{ option('site.keywords') }}">
     <meta name="description" content="{{ option('site.description') }}">
@@ -32,44 +32,10 @@ ______                            _              _                              
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     @section('css')
-    <style>
-        body {
-            padding-top: 70px;
-        }
-
-        .blog-main {
-            font-size: 18px;
-            line-height: 1.5;
-        }
-
-        .blog-post {
-            margin-bottom: 60px;
-        }
-
-        .blog-post-title {
-            margin-bottom: 5px;
-            font-size: 40px;
-        }
-
-        .blog-post-meta {
-            margin-bottom: 20px;
-            color: #999;
-        }
-
-        .blog-post img {
-            max-width: 100%;
-        }
-
-        footer {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            margin-top: 40px;
-            border-top: 1px solid #eee;
-        }
-    </style>
     @show
 </head>
 
@@ -77,17 +43,15 @@ ______                            _              _                              
 
     @include('components.nav')
 
-    <div class="main container">
-
-        @includeWhen(request()->is('/'), 'components.jumbotron')
+    <div class="container">
 
         <div class="row">
-            <div class="col-md-8 blog-main">
+            <div class="col-md-8 main">
                 @yield('content')
             </div>
 
             <div class="col-md-4 sidebar-right">
-                @includeWhen(request()->is('/') || request()->is('tags'), 'components.about-me')
+                @include('components.sidebar')
             </div>
         </div>
 

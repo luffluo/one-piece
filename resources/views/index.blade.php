@@ -5,11 +5,11 @@
 @section('content')
 
     @foreach ($posts as $post)
-        <div class="blog-post">
-            <h2 class="blog-post-title">
+        <div class="post">
+            <h2 class="post-title">
                 <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->getTitle() }}</a>
             </h2>
-            <p class="blog-post-meta">
+            <p class="post-meta">
                 {{ $post->created_at->format('Y-m-d') }}
 
                 <span class="pull-right">
@@ -20,7 +20,7 @@
             </p>
 
             <div class="post-content">
-                {!! $post->content('Read More') !!}
+                {!! $post->content('- 阅读剩余部分 -') !!}
             </div>
         </div>
     @endforeach
