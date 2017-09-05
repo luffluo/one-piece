@@ -44,16 +44,18 @@ class Post extends Content
                 $post->user_id = auth()->user()->id;
             }
 
-            if ('publish' == $post->do) {
-                $post->type = static::TYPE;
-            } else {
-                $post->type = static::TYPE_DRAFT;
+            if (! empty($post->do)) {
+                if ('publish' == $post->do) {
+                    $post->type = static::TYPE;
+                } else {
+                    $post->type = static::TYPE_DRAFT;
+                }
             }
         });
 
         static::saved(function ($post) {
 
-            if ($post->id > 0) {
+            if ($post->id > 0 && !empty($post->do)) {
                 if ($post->wasRecentlyCreated) {
 
                     if ('publish' == $post->do) {
