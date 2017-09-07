@@ -19,9 +19,7 @@
                         <div class="form-group form-group-sm">
                             <div class="col-md-6 col-md-offset-3">
                                 <label>站点名称</label>
-                                <input class="form-control" type="text" name="site_name" id="site_name"
-                                       value="{{ old('site_name', $site_name) }}"
-                                       placeholder="Luff">
+                                <input class="form-control" type="text" name="title" value="{{ old('title', $title) }}">
                                 <span class="help-block">站点的名称将显示在网页的标题处.</span>
                             </div>
                         </div>
@@ -29,7 +27,7 @@
                         <div class="form-group form-group-sm">
                             <div class="col-md-6 col-md-offset-3">
                                 <label>站点描述</label>
-                                <input name="site_description" class="form-control" value="{{ old('site_description', $site_description) }}" placeholder="Just So So...">
+                                <input name="description" class="form-control" value="{{ old('description', $description) }}" placeholder="Just So So...">
                                 <span class="help-block">站点描述将显示在网页代码的头部.</span>
                             </div>
                         </div>
@@ -37,7 +35,7 @@
                         <div class="form-group form-group-sm">
                             <div class="col-md-6 col-md-offset-3">
                                 <label>关键词</label>
-                                <input name="site_keywords" class="form-control" value="{{ old('site_keywords', $site_keywords) }}">
+                                <input name="keywords" class="form-control" value="{{ old('keywords', $keywords) }}">
                                 <span class="help-block">请以半角逗号 "," 分割多个关键字.</span>
                             </div>
                         </div>
@@ -47,8 +45,8 @@
                                 {{--<label>站点 Icon</label>--}}
 
                                 {{--<div class="col-md-12">--}}
-                                    {{--<input class="form-control" type="file" name="site_icon" id="site_icon"--}}
-                                           {{--value="{{ old('site_icon', $site_icon) }}"--}}
+                                    {{--<input class="form-control" type="file" name="icon" id="icon"--}}
+                                           {{--value="{{ old('icon', $icon) }}"--}}
                                            {{--placeholder="请上传站点 Icon">--}}
 
                                     {{--@if (file_exists(public_path('favicon.ico')))--}}
@@ -63,31 +61,15 @@
                         {{--<div class="form-group form-group-sm">--}}
                             {{--<div class="col-md-6 col-md-offset-3">--}}
                                 {{--<label>站点 Logo</label>--}}
-                                {{--<input class="form-control" type="file" name="site_logo" id="site_logo"--}}
-                                       {{--value="{{ old('site_logo', $site_logo) }}"--}}
+                                {{--<input class="form-control" type="file" name="logo" id="logo"--}}
+                                       {{--value="{{ old('logo', $logo) }}"--}}
                                        {{--placeholder="请上传站点 Logo">--}}
-                                {{--@if ($site_logo)--}}
-                                    {{--<img src="{{ asset($site_logo) }}" alt="site logo" width="19" height="19">--}}
+                                {{--@if ($logo)--}}
+                                    {{--<img src="{{ asset($logo) }}" alt="site logo" width="19" height="19">--}}
                                 {{--@endif--}}
                                 {{--<span class="help-block">用于站点的 Logo</span>--}}
                             {{--</div>--}}
                         {{--</div>--}}
-
-                        <div class="form-group form-group-sm">
-                            <div class="col-md-6 col-md-offset-3">
-                                <label>站点作者</label>
-                                <input type="text" class="form-control" name="site_author" value="{{ old('site_author', $site_author) }}">
-                                <span class="help-block">站点作者</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group form-group-sm">
-                            <div class="col-md-6 col-md-offset-3">
-                                <label>关于我</label>
-                                <textarea name="site_author_about_me" class="form-control" cols="30" rows="5">{{ old('about_me', $about_me) }}</textarea>
-                                <span class="help-block">关于我</span>
-                            </div>
-                        </div>
 
                         <div class="form-group form-group-sm">
                             <div class="col-md-6 col-md-offset-3">
