@@ -19,25 +19,47 @@
                 <div class="col-md-12">
                     <div class="btn-group btn-group-sm" role="group" aria-label="tabs">
                         @if (!isset($status) || empty($status))
-                            <a href="{{ route('admin.posts.index', ['tid' => $tid]) }}" class="btn btn-default active">可用</a>
+                            <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="btn btn-default active">可用</a>
                         @else
-                            <a href="{{ route('admin.posts.index', ['tid' => $tid]) }}" class="btn btn-default">可用</a>
+                            <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="btn btn-default">可用</a>
                         @endif
 
                         @if (isset($status) && 'draft' == $status)
-                            <a href="{{ route('admin.posts.index', ['tid' => $tid, 'status' => 'draft']) }}" class="btn btn-default active">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
+                            <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="btn btn-default active">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
                         @else
-                            <a href="{{ route('admin.posts.index', ['tid' => $tid, 'status' => 'draft']) }}" class="btn btn-default">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
+                            <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="btn btn-default">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
                         @endif
                     </div>
 
-                    @if (isset($tid) && ! empty($tid))
-                        <div class="btn-group btn-group-sm pull-right">
-                            <a href="{{ route('admin.posts.index') }}" class="btn btn-default">
-                                <i class="fa fa-angle-double-left" aria-hidden="true"> </i>取消筛选
-                            </a>
-                        </div>
-                    @endif
+                    <div class="pull-right">
+                        <form class="form-inline" action="{{ route('admin.posts.index') }}" method="get">
+
+                            @if (! empty($tag) || ! empty($keywords))
+                                <div class="form-group form-group-sm">
+                                    <a href="{{ route('admin.posts.index') }}">
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"> </i> 取消筛选
+                                    </a>
+                                </div>
+                            @endif
+
+                            <div class="form-group form-group-sm">
+                                <input class="form-control input-sm" type="text" name="keywords" value="{{ $keywords }}" placeholder="请输入关键字">
+                            </div>
+
+                            <select name="tag" id="tag" class="form-control input-sm">
+                                <option value="">所有标签</option>
+                                @foreach($tags as $loopTag)
+                                    @if ($loopTag->id == $tag)
+                                        <option selected="selected" value="{{ $loopTag->id }}">{{ $loopTag->name }}</option>
+                                    @else
+                                        <option value="{{ $loopTag->id }}">{{ $loopTag->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+
+                            <button type="submit" class="btn btn-primary btn-xs">筛选</button>
+                        </form>
+                    </div>
                 </div>
 
                 <table class="table table-hover">
@@ -50,7 +72,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($lists as $list)
+                        @forelse ($lists as $list)
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->getTitle(40) }}">
@@ -73,15 +95,19 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td><h6>没有任何文章</h6></td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
                 <div class="panel-footer clearfix">
                     @if (isset($status) &&  ! empty($status))
-                        <nav class="right">{{ $lists->appends(['tid' => $tid, 'status' => $status])->links() }}</nav>
+                        <nav class="right">{{ $lists->appends(['tag' => $tag, 'status' => $status])->links() }}</nav>
                     @else
-                        <nav class="right">{{ $lists->appends(['tid' => $tid])->links() }}</nav>
+                        <nav class="right">{{ $lists->appends(['tag' => $tag])->links() }}</nav>
                     @endif
                 </div>
             </div>

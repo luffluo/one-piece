@@ -21,7 +21,6 @@
                                 <label>文章日期格式</label>
                                 <input class="form-control" type="text" name="postDateFormat" value="{{ old('postDateFormat', $postDateFormat) }}">
                                 <span class="help-block">此格式用于指定显示在文章归档中的日期默认显示格式.
-                                    <br>在某些主题中这个格式可能不会生效, 因为主题作者可以自定义日期格式.
                                     <br>请参考 <a target="_blank" href="http://www.php.net/manual/zh/function.date.php">PHP 日期格式写法</a>.</span>
                             </div>
                         </div>

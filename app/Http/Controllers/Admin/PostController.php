@@ -13,11 +13,17 @@ class PostController extends Controller
     {
         $query = Post::query();
 
-        if ($tid = request()->get('tid')) {
-            $tag = Tag::query()->where('id', $tid)->with('posts')->first();
-            $post_ids = $tag->posts->pluck('id')->all();
+        if ($tag = request()->get('tag')) {
+            $tagModel = Tag::where('id', $tag)
+                ->with('posts')
+                ->first();
+            $post_ids  = $tagModel->posts->pluck('id')->all();
 
-            count($post_ids) && $query->whereIn('id', $post_ids);
+            $query->whereIn('id', $post_ids);
+        }
+
+        if ($keywords = request()->get('keywords')) {
+            $query->where('title', 'like', "%{$keywords}%");
         }
 
         $cloneQuery = clone $query;
@@ -34,7 +40,12 @@ class PostController extends Controller
             ->recent()
             ->paginate(20);
 
-        return admin_view('post.index', compact('lists', 'status', 'draft_count', 'tid'));
+        $tags = Tag::select('id', 'name')->get();
+
+        return admin_view(
+            'post.index',
+            compact('lists', 'status', 'draft_count', 'tag', 'keywords', 'tags')
+        );
     }
 
     public function create()
@@ -48,8 +59,8 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post             = new Post(array_only($request->all(), ['title', 'text']));
-        $post->do         = $request->get('do', null);
+        $post     = new Post(array_only($request->all(), ['title', 'text']));
+        $post->do = $request->get('do', null);
 
         if (! $post->save()) {
             return redirect()->back()->withMessage("文章 {$post->title} 创建失败");

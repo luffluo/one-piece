@@ -38,7 +38,7 @@
                                 </td>
                                 <td>{{ $list->slug }}</td>
                                 <td>
-                                    <a href="{{ route('admin.posts.index', ['tid' => $list->id]) }}">
+                                    <a href="{{ route('admin.posts.index', ['tag' => $list->id]) }}">
                                         <span class="badge">{{ $list->count }}</span>
                                     </a>
                                 </td>
