@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('navTrigger', session('nav.trigger', false));
         });
 
-        View::composer('components.sidebar', function ($view) {
+        View::composer('common.sidebar', function ($view) {
             $sidebarBlock = json_decode(option('sidebarBlock', ''), true);
             $sidebarBlock = is_array($sidebarBlock) ? $sidebarBlock : [];
             $view->with('sidebarBlock', $sidebarBlock);
