@@ -41,7 +41,7 @@ ______                            _              _                              
 
 <body>
 
-    @include('components.nav')
+    @include('common.nav')
 
     <div class="container">
 
@@ -51,11 +51,11 @@ ______                            _              _                              
             </div>
 
             <div class="col-md-3 col-md-offset-1 sidebar-right">
-                @include('components.sidebar')
+                @include('common.sidebar')
             </div>
         </div>
 
-        @include('components.footer')
+        @include('common.footer')
     </div>
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
