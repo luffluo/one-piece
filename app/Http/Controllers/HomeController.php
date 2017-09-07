@@ -19,12 +19,21 @@ class HomeController extends Controller
 
         dd($str1, $str2, request());*/
 
-        $posts = Post::query()
+        $query = Post::query();
+
+        if ($keywords = request()->get('keywords')) {
+            $query->where(function ($query) use ($keywords) {
+                $query->where('title', 'like', "%{$keywords}%")
+                    ->orWhere('text', 'like', "%{$keywords}%");
+            });
+        }
+
+        $posts = $query
             ->published()
             ->recent()
             ->with('tags')
             ->paginate(option('pageSize', 20));
 
-        return view('index', compact('posts'));
+        return view('index', compact('posts', 'keywords'));
     }
 }

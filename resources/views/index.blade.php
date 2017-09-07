@@ -3,6 +3,9 @@
 @section('title', '首页')
 
 @section('content')
+    @if (isset($keywords) && ! empty($keywords))
+    <h3>包含关键字 {{ $keywords }} 的文章</h3>
+    @endif
 
     @foreach ($posts as $post)
         <div class="post">

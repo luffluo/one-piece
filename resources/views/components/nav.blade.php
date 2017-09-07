@@ -32,5 +32,12 @@
                 </a>
             </li>
         </ul>
+
+        <form class="navbar-form navbar-right" role="search" method="get" action="{{ route('home') }}">
+            <div class="form-group">
+                <input type="text" class="form-control" name="keywords" value="{{ isset($keywords) ? $keywords : '' }}" placeholder="输入关键字搜索">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
     </div>
 </nav>
