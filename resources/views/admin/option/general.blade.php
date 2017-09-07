@@ -12,7 +12,7 @@
                 </div>
                 <div>
 
-                    <form action="{{ route('admin.options.store') }}" autocomplete="off"
+                    <form action="{{ route('admin.options.general') }}" autocomplete="off"
                           class="form-horizontal col-md-12" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
 

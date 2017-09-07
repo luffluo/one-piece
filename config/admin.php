@@ -13,6 +13,11 @@ return [
                 'active' => 'admin',
                 'url'    => 'admin',
             ],
+            [
+                'title'  => '外观',
+                'active' => 'admin/theme/options*',
+                'url'    => 'admin/theme/options',
+            ],
         ],
     ],
     'post'      => [
@@ -33,8 +38,8 @@ return [
         'sub'   => [
             [
                 'title'  => '基本',
-                'active' => 'admin/options*',
-                'url'    => 'admin/options',
+                'active' => 'admin/options/general*',
+                'url'    => 'admin/options/general',
             ],
         ],
     ],

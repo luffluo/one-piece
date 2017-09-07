@@ -21,7 +21,7 @@
                             <p>点击下面的链接快速开始:</p>
                             <ul class="list-inline">
                                 <li><a href="{{ route('admin.posts.create') }}">撰写新文章</a></li>
-                                <li><a href="{{ route('admin.options.index') }}">系统设置</a></li>
+                                <li><a href="{{ route('admin.options.general') }}">系统设置</a></li>
                             </ul>
                         </div>
                     </div>

@@ -43,8 +43,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::post('nav_trigger', 'HomeController@navTrigger')->name('admin.nav.trigger');
 
     // Option
-    Route::get('options', 'OptionController@index')->name('admin.options.index');
-    Route::post('options', 'OptionController@store')->name('admin.options.store');
+    Route::group(['prefix' => 'options'], function () {
+        Route::get('general', 'OptionController@showGeneral')->name('admin.options.general');
+        Route::post('general', 'OptionController@handleGeneral');
+    });
+
+    // theme
+    Route::group(['prefix' => 'theme'], function () {
+        Route::get('options', 'ThemeController@showOptions')->name('admin.theme.options');
+        Route::post('options', 'ThemeController@handleOptions');
+    });
 
     // Post
     Route::get('posts', 'PostController@index')->name('admin.posts.index');

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class OptionController extends Controller
 {
-    public function index()
+    public function showGeneral()
     {
         $site_name        = option('site.name');
         $site_icon        = option('site.icon');
@@ -18,7 +18,7 @@ class OptionController extends Controller
         $about_me         = option('site.author.about.me');
 
         return admin_view(
-            'option.index',
+            'option.general',
             compact(
                 'site_name',
                 'site_icon',
@@ -31,7 +31,7 @@ class OptionController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function handleGeneral(Request $request)
     {
         if ($request->hasFile('site_icon')) {
             $request->file('site_icon')->move(public_path(), 'favicon.ico');
@@ -49,6 +49,6 @@ class OptionController extends Controller
         option(['site.author', $request->input('site_author')]);
         option(['site.author.about.me', $request->input('site_author_about_me')]);
 
-        return redirect()->route('admin.options.index')->withMessage('设置已经保存');
+        return redirect()->route('admin.options.general')->withMessage('设置已经保存');
     }
 }
