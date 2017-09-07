@@ -39,12 +39,21 @@ class AppServiceProvider extends ServiceProvider
             $view->with('sidebarBlock', $sidebarBlock);
 
             if (in_array('ShowRecentPosts', $sidebarBlock)) {
-                $posts = Post::query()->select('id', 'title', 'created_at')->recent()->take(5)->get();
+                $posts = Post::query()
+                    ->select('id', 'title', 'created_at')
+                    ->recent()
+                    ->take(option('postsListSize', 10))
+                    ->get();
+
                 $view->with('sidebarRecentPosts', $posts);
             }
 
             if (in_array('ShowTag', $sidebarBlock)) {
-                $tags = Tag::query()->select('id', 'name', 'slug', 'count')->take(5)->get();
+                $tags = Tag::query()
+                    ->select('id', 'name', 'slug', 'count')
+                    ->take(5)
+                    ->get();
+
                 $view->with('sidebarTags', $tags);
             }
         });

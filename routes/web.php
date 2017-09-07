@@ -46,6 +46,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::group(['prefix' => 'options'], function () {
         Route::get('general', 'OptionController@showGeneral')->name('admin.options.general');
         Route::post('general', 'OptionController@handleGeneral');
+
+        Route::get('reading', 'OptionController@showReading')->name('admin.options.reading');
+        Route::post('reading', 'OptionController@handleReading');
     });
 
     // theme

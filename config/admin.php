@@ -41,6 +41,11 @@ return [
                 'active' => 'admin/options/general*',
                 'url'    => 'admin/options/general',
             ],
+            [
+                'title'  => '阅读',
+                'active' => 'admin/options/reading*',
+                'url'    => 'admin/options/reading',
+            ],
         ],
     ],
 ];

@@ -10,7 +10,7 @@
                 <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->getTitle() }}</a>
             </h2>
             <p class="post-meta">
-                {{ $post->created_at->format('Y-m-d') }}
+                {{ $post->created_at->format(option('postDateFormat', 'Y-m-d')) }}
 
                 <span class="pull-right">
                     @foreach ($post->tags as $tag)
