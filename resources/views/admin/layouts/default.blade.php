@@ -26,7 +26,6 @@ ______                            _              _                              
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
 
     <title>@yield('title')@if (! empty(option('site.name'))) - {{ option('site.name') }}@endif - Powered by Luff</title>
