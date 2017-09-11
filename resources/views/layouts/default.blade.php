@@ -21,18 +21,16 @@ ______                            _              _                              
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title') - {{ option('site.name', 'Luff') }}</title>
+    <title>@section('title')@show - {{ option('title', 'Luff') }}</title>
 
     <meta name="keywords" content="{{ option('site.keywords') }}">
     <meta name="description" content="{{ option('site.description') }}">
     <meta name="author" content="Luff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     @section('css')
@@ -58,8 +56,7 @@ ______                            _              _                              
         @include('common.footer')
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
     @section('js')@show
 </body>
 </html>

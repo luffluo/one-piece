@@ -82,7 +82,7 @@
                                     @if ('post_draft' == $list->type)
                                         <span class="label label-default">草稿</span>
                                     @endif
-                                    <a target="_blank" href="{{ route('post.show', $list->id) }}"><i class="fa fa-external-link"> </i></a>
+                                    <a target="_blank" href="{{ route('post.show', $list->id) }}" title="浏览 {{ $list->getTitle(40) }}"><i class="fa fa-external-link"> </i></a>
                                 </td>
                                 <td>{{ $list->tags->implode('name', ' | ') }}</td>
                                 <td>{{ $list->created_at->diffForHumans() }}</td>

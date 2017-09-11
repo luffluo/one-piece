@@ -19,16 +19,19 @@ ______                            _              _                              
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>@yield('title')@if (! empty(option('site.name'))) - {{ option('site.name') }}@endif - Powered by Luff</title>
+
     <meta name="author" content="Luff">
-    <meta name="keywords" content="Luff, CMS">
+    <meta name="keywords" content="Luff">
     <meta name="description" content="A CMS System Base On Laravel {{ app()->version() }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    @yield('admin-css')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
+
+    <title>@yield('title')@if (! empty(option('site.name'))) - {{ option('site.name') }}@endif - Powered by Luff</title>
+
+    @yield('admin-css')
 </head>
 
 @if ($navTrigger)
@@ -97,11 +100,10 @@ ______                            _              _                              
     </footer>
 </div>
 
-<script src="{{ asset('assets/admin/js/jquery-2.1.3.min.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/admin/js/perfect-scrollbar.jquery.min.js') }}"></script>
-<script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/main.js') }}"></script>
 @yield('admin-js')
-<script src="{{ asset('assets/admin/js/app.js') }}"></script>
 
 </body>
 </html>

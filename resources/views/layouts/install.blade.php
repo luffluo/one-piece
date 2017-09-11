@@ -24,23 +24,11 @@ ______                            _              _                              
 
     <meta name="_token" content="{{ csrf_token() }}">
 
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     @section('css')
-        <style>
-            body {
-                padding-top: 70px;
-            }
-
-            footer {
-                padding-top: 40px;
-                padding-bottom: 40px;
-                margin-top: 40px;
-                border-top: 1px solid #eee;
-            }
-        </style>
     @show
 </head>
 
@@ -57,23 +45,13 @@ ______                            _              _                              
     </div>
 </nav>
 
-<div class="main container">
+<div class="container">
 
     @yield('content')
 
-    <footer id="footer">
-        <div class="row">
-            <div class="col-md-6">
-                <span class="developed-by">Developed By <span>Luff</span></span>,&nbsp;
-                <span class="powered-by">Powered By <span>Laravel</span></span>
-            </div>
-
-            <div class="col-md-6">&copy; Luff {{ date('Y') }} </div>
-        </div>
-    </footer>
+    @include('common.footer')
 </div>
 
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 </html>

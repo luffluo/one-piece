@@ -111,7 +111,7 @@ class Installer
      */
     public function setData(array $data)
     {
-        $this->data->put('site_name', $data['site_name']);
+        $this->data->put('title', $data['title']);
         $this->data->put('db_host', $data['db_host']);
         $this->data->put('db_database', $data['db_database']);
         $this->data->put('db_username', $data['db_username']);
@@ -213,7 +213,7 @@ class Installer
      */
     public function writeToOptions()
     {
-        option(['site.name', $this->data->get('site_name')]);
+        option(['title', $this->data->get('title')]);
     }
 
     /**

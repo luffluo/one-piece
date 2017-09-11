@@ -1,0 +1,40 @@
+body {
+  padding-top: 70px;
+}
+
+.main {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.post {
+  border-bottom: 1px solid #eee;
+  padding: 15px 0 20px;
+}
+
+.post-title {
+  margin-bottom: 5px;
+  font-size: 40px;
+}
+
+.post-meta {
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.post img {
+  max-width: 100%;
+}
+
+/* Sidebar */
+.sidebar-module {
+  padding: 15px;
+  margin: 0 -15px 15px;
+}
+
+footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  /*border-top: 1px solid #eee;*/
+}

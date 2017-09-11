@@ -33,7 +33,7 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="site_name">网站名称</label>
-                            <input type="text" class="form-control" id="site_name" name="site_name" value="{{ old('site_name') }}" placeholder="Luff">
+                            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" placeholder="Luff">
                         </div>
 
                         <div class="form-group">

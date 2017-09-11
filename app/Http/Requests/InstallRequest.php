@@ -12,7 +12,7 @@ class InstallRequest extends Request
     public function rules()
     {
         return [
-            'site_name'      => 'required',
+            'title'          => 'required',
             'db_host'        => 'required',
             'db_database'    => 'required',
             'db_username'    => 'required',
@@ -26,7 +26,7 @@ class InstallRequest extends Request
     public function messages()
     {
         return [
-            'site_name.required'      => '请填写网站名称',
+            'title.required'          => '请填写网站名称',
             'db_host.required'        => '请填写服务器地址',
             'db_database.required'    => '请填写数据库',
             'db_username.required'    => '请填写数据库用户名',
