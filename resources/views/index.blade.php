@@ -7,7 +7,7 @@
     <h3>包含关键字 {{ $search }} 的文章</h3>
     @endif
 
-    @foreach ($posts as $post)
+    @forelse ($posts as $post)
         <div class="post">
             <h2 class="post-title">
                 <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->getTitle() }}</a>
@@ -26,7 +26,11 @@
                 {!! $post->content('- 阅读剩余部分 -') !!}
             </div>
         </div>
-    @endforeach
+    @empty
+        <div class="post">
+            <h2 class="post-title">没有找到内容</h2>
+        </div>
+    @endforelse
 
     {{ $posts->links() }}
 @endsection

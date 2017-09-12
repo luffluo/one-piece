@@ -8,7 +8,7 @@
     <meta name="keywords" content="Luff">
     <meta name="description" content="A CMS System Base On Laravel {{ app()->version() }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/appcss') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
 
     <title>@yield('title')@if (! empty(option('site.name'))) - {{ option('site.name') }}@endif - Powered by Luff</title>
@@ -24,7 +24,7 @@
         </footer>
     </div>
 
-    <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/admin/js/matchMedia.js') }}"></script>
     @yield('admin-js')
 </body>

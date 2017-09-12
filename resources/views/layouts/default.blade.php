@@ -44,13 +44,19 @@ ______                            _              _                              
     <div class="container">
 
         <div class="row">
-            <div class="col-md-8 main">
+            @if (isset($sidebarBlock) && count($sidebarBlock) > 0)
+                <div class="col-md-8 main">
+            @else
+                <div class="col-md-8 col-md-offset-2 main">
+            @endif
                 @yield('content')
             </div>
 
-            <div class="col-md-3 col-md-offset-1 sidebar-right">
-                @include('common.sidebar')
-            </div>
+            @if (isset($sidebarBlock) && count($sidebarBlock) > 0)
+                <div class="col-md-3 col-md-offset-1 sidebar-right">
+                    @include('common.sidebar')
+                </div>
+            @endif
         </div>
 
         @include('common.footer')
