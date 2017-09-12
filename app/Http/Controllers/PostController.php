@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Carbon\Carbon;
+use App\Models\Post;
 
 class PostController extends Controller
 {

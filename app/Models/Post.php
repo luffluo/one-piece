@@ -212,7 +212,7 @@ class Post extends Content
     public function content($more = false)
     {
 $string = <<<EOF
-<p class="more text-center">
+<p class="more">
     <a href="%s" role="button">%s</a>
 </p>
 EOF;
