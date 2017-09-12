@@ -217,6 +217,8 @@ $string = <<<EOF
 </p>
 EOF;
 
+        mb_strlen($this->text) < 100 && $more = false;
+
         return false !== $more ?
             $this->summary() . sprintf($string, route('post.show', ['id' => $this->id]), $more)
             : $this->parserContent();
@@ -229,7 +231,7 @@ EOF;
      */
     public function summary()
     {
-        $plainTxt = str_replace("\n", '', trim(strip_tags($this->content())));
+        $plainTxt = str_replace("\n", '', trim(strip_tags($this->parserContent())));
         $plainTxt = $plainTxt ?: $this->title;
 
         return str_limit($plainTxt);
