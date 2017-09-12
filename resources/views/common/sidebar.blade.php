@@ -20,14 +20,16 @@
 </section>
 @endif
 
-{{--@if (in_array('ShowArchive', $sidebarBlock))--}}
-{{--<section class="sidebar-module">--}}
-    {{--<h4>归档</h4>--}}
-    {{--<ol class="list-unstyled">--}}
-        {{--<li><a href="#">2017-8</a></li>--}}
-    {{--</ol>--}}
-{{--</section>--}}
-{{--@endif--}}
+@if (in_array('ShowArchive', $sidebarBlock))
+<section class="sidebar-module">
+    <h4>归档</h4>
+    <ol class="list-unstyled">
+        @foreach ($sidebarArchives as $sidebarArchive)
+        <li><a href="{{ route('archive', ['year' => $sidebarArchive['year'], 'month' => $sidebarArchive['month']]) }}">{{ $sidebarArchive['date'] }}</a></li>
+        @endforeach
+    </ol>
+</section>
+@endif
 
 @if (in_array('ShowOther', $sidebarBlock))
     <section class="sidebar-module">

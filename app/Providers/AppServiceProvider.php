@@ -51,10 +51,33 @@ class AppServiceProvider extends ServiceProvider
             if (in_array('ShowTag', $sidebarBlock)) {
                 $tags = Tag::query()
                     ->select('id', 'name', 'slug', 'count')
-                    ->take(5)
+                    ->hadPosts()
                     ->get();
 
                 $view->with('sidebarTags', $tags);
+            }
+
+            if (in_array('ShowArchive', $sidebarBlock)) {
+                $posts = Post::select('created_at')->published()
+                    ->recent()
+                    ->get();
+
+                foreach ($posts as $post) {
+                    $date   = $post->created_at->format('F Y');
+                    $result = [];
+
+                    if (isset($result[$date])) {
+                        $result[$date]['count']++;
+                    } else {
+                        $result[$date]['year']  = $post->created_at->format('Y');
+                        $result[$date]['month'] = $post->created_at->format('m');
+                        $result[$date]['day']   = $post->created_at->format('d');
+                        $result[$date]['date']  = $date;
+                        $result[$date]['count'] = 1;
+                    }
+                }
+
+                $view->with('sidebarArchives', $result);
             }
         });
     }

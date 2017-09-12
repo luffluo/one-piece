@@ -1,10 +1,14 @@
 @extends('layouts.default')
 
-@section('title', '首页')
+@section('title', isset($title) && !empty($title) ? $title : '首页')
 
 @section('content')
     @if (isset($search) && ! empty($search))
     <h3>包含关键字 {{ $search }} 的文章</h3>
+    @endif
+
+    @if (isset($title) && !empty($title))
+        <h3>{{ $title }}</h3>
     @endif
 
     @forelse ($posts as $post)

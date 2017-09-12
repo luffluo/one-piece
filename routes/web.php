@@ -17,9 +17,16 @@ Route::get('/', 'HomeController@index')->name('home');
 // Search
 Route::get('search', 'HomeController@index')->name('search');
 
+// Post
 Route::get('a/{id}', 'PostController@show')->name('post.show');
 
+// Tags
 Route::get('tags', 'TagController@index')->name('tags');
+
+// Archive
+Route::get('/{year}/{month}', 'PostController@archive')
+    ->where(['year' => '[0-9]+', 'month' => '[0-9]+'])
+    ->name('archive');
 
 // SiteMap
 Route::get('sitemap', 'SiteMapController')->name('sitemap');
