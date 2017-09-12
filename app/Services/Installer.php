@@ -158,17 +158,8 @@ class Installer
         // 执行数据库迁移
         $this->executeAllMigrate();
 
-        // 写入一些信息到配置数据表
-        $this->initOptions();
-
-        // 初始化标签
-        $this->initTag();
-
-        // 初始化文章
-        $this->initPost();
-
-        // 初始化文章标签关系
-        $this->initRelationship();
+        // 初始化系统数据，添加一些默认数据
+        $this->initLuff();
 
         // 创建管理员
         $this->createAdministrator();
@@ -219,15 +210,12 @@ class Installer
         }
     }
 
-    /**
-     * 把一些信息存到 Options 表里
-     */
-    public function initOptions()
+    public function initLuff()
     {
+        // 全局变量
         $options          = config('option');
         $options['title'] = $this->data->get('title');
-
-        $insert = [];
+        $insert           = [];
         foreach ($options as $key => $value) {
             $insert[] = [
                 'name'    => $key,
@@ -235,36 +223,24 @@ class Installer
                 'user_id' => 0,
             ];
         }
-
         option()->table()->insert($insert);
-    }
 
-    public function initTag()
-    {
-        $tag       = new Tag;
-        $tag->name = '默认';
-        $tag->slug = 'default';
+        // 初始化标签
+        $tag        = new Tag;
+        $tag->name  = '默认';
+        $tag->slug  = 'default';
+        $tag->count += 1;
         $tag->save();
-    }
 
-    public function initPost()
-    {
+        // 初始化文章
         $post        = new Post;
         $post->title = '欢迎使用 Luff';
         $post->text  = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
         $post->type  = Post::TYPE;
         $post->save();
-    }
 
-    public function initRelationship()
-    {
-        $tag  = Tag::first();
-        $post = Post::first();
-
+        // 初始化文章标签关系
         $post->tags()->sync([$tag->id]);
-
-        $tag->count += 1;
-        $tag->save();
     }
 
     /**
