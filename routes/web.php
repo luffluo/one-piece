@@ -24,8 +24,8 @@ Route::get('a/{id}', 'PostController@show')->name('post.show');
 Route::get('tags', 'TagController@index')->name('tags');
 
 // Archive
-Route::get('/{year}/{month}', 'PostController@archive')
-    ->where(['year' => '[0-9]+', 'month' => '[0-9]+'])
+Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
+    ->where(['year' => '[0-9]+', 'month' => '[0-9]+', 'day' => '[0-9]+'])
     ->name('archive');
 
 // SiteMap

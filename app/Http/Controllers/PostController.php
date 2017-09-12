@@ -7,15 +7,44 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
-    public function archive($year, $month)
+    public function archive($year, $month = null, $day = null)
     {
-        $searchDate = Carbon::create($year, $month);
-        $startDate  = clone $searchDate;
-        $endDate    = clone $searchDate;
-        $title      = sprintf('%d年%d月', $year, $month);
+        if (! empty($year) && ! empty($month) && ! empty($day)) {
 
-        $posts = Post::where('created_at', '>', $startDate->startOfMonth())
-            ->where('created_at', '<=', $endDate->endOfMonth())
+            // 如果是按日期归档
+            $searchDate = Carbon::create($year, $month, $day);
+            $startDate  = clone $searchDate;
+            $endDate    = clone $searchDate;
+            $from       = $startDate->startOfDay();
+            $to         = $endDate->endOfDay();
+
+            $title = sprintf('%d年%d月%d日', $year, $month, $day);
+
+        } elseif (! empty($year) && ! empty($month)) {
+
+            // 如果按月归档
+            $searchDate = Carbon::create($year, $month);
+            $startDate  = clone $searchDate;
+            $endDate    = clone $searchDate;
+            $from       = $startDate->startOfMonth();
+            $to         = $endDate->endOfMonth();
+
+            $title = sprintf('%d年%d月', $year, $month);
+
+        } elseif (! empty($year)) {
+
+            // 如果按年归档
+            $searchDate = Carbon::create($year);
+            $startDate  = clone $searchDate;
+            $endDate    = clone $searchDate;
+            $from       = $startDate->startOfYear();
+            $to         = $endDate->endOfYear();
+
+            $title = sprintf('%d年', $year);
+        }
+
+        $posts = Post::where('created_at', '>=', $from)
+            ->where('created_at', '<=', $to)
             ->published()
             ->recent()
             ->with('tags')
