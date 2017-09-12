@@ -41,7 +41,11 @@ class Post extends Content
         static::saving(function ($post) {
 
             if ($post->exists) {
-                $post->user_id = auth()->user()->id;
+                if (auth()->guest()) {
+                    $post->user_id = 1;
+                } else {
+                    $post->user_id = auth()->user()->id;
+                }
             }
 
             if (! empty($post->do)) {

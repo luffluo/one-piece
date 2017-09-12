@@ -131,7 +131,7 @@ class OptionDatabaseRepository
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    protected function table()
+    public function table()
     {
         return $this->db->table($this->table);
     }

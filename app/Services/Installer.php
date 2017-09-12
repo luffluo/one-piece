@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Tag;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
@@ -157,7 +159,16 @@ class Installer
         $this->executeAllMigrate();
 
         // 写入一些信息到配置数据表
-        $this->writeToOptions();
+        $this->initOptions();
+
+        // 初始化标签
+        $this->initTag();
+
+        // 初始化文章
+        $this->initPost();
+
+        // 初始化文章标签关系
+        $this->initRelationship();
 
         // 创建管理员
         $this->createAdministrator();
@@ -211,9 +222,49 @@ class Installer
     /**
      * 把一些信息存到 Options 表里
      */
-    public function writeToOptions()
+    public function initOptions()
     {
-        option(['title', $this->data->get('title')]);
+        $options          = config('option');
+        $options['title'] = $this->data->get('title');
+
+        $insert = [];
+        foreach ($options as $key => $value) {
+            $insert[] = [
+                'name'    => $key,
+                'value'   => $value,
+                'user_id' => 0,
+            ];
+        }
+
+        option()->table()->insert($insert);
+    }
+
+    public function initTag()
+    {
+        $tag       = new Tag;
+        $tag->name = '默认';
+        $tag->slug = 'default';
+        $tag->save();
+    }
+
+    public function initPost()
+    {
+        $post        = new Post;
+        $post->title = '欢迎使用 Luff';
+        $post->text  = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
+        $post->type  = Post::TYPE;
+        $post->save();
+    }
+
+    public function initRelationship()
+    {
+        $tag  = Tag::first();
+        $post = Post::first();
+
+        $post->tags()->sync([$tag->id]);
+
+        $tag->count += 1;
+        $tag->save();
     }
 
     /**
