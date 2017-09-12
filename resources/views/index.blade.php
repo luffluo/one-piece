@@ -27,7 +27,7 @@
                         <time>{{ $post->created_at->format(option('postDateFormat', 'Y-m-d')) }}</time>
                     </li>
 
-                    <li class="pull-right">
+                    <li>
                         @foreach ($post->tags as $tag)
                             <a href="{{ route('tags') . '#' . $tag->slug }}">{{ $tag->name }}</a>
                         @endforeach

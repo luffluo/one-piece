@@ -234,7 +234,7 @@ EOF;
         $plainTxt = str_replace("\n", '', trim(strip_tags($this->parserContent())));
         $plainTxt = $plainTxt ?: $this->title;
 
-        return str_limit($plainTxt);
+        return sprintf('<p>%s</p>', str_limit($plainTxt));
     }
 
     public function scopePublished($query)
