@@ -13,18 +13,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        /*$url = 'http://www.sina.com.cn/abc/de/fg.php?id=1';
-        $str1 = parse_url($url);
-        $str2 = pathinfo($url);
-
-        dd($str1, $str2, request());*/
-
         $query = Post::query();
 
-        if ($keywords = request()->get('keywords')) {
-            $query->where(function ($query) use ($keywords) {
-                $query->where('title', 'like', "%{$keywords}%")
-                    ->orWhere('text', 'like', "%{$keywords}%");
+        if ($search = request()->get('q')) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('text', 'like', "%{$search}%");
             });
         }
 
@@ -34,6 +28,6 @@ class HomeController extends Controller
             ->with('tags')
             ->paginate(option('pageSize', 20));
 
-        return view('index', compact('posts', 'keywords'));
+        return view('index', compact('posts', 'search'));
     }
 }

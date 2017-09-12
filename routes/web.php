@@ -14,6 +14,9 @@
 // Front routes
 Route::get('/', 'HomeController@index')->name('home');
 
+// Search
+Route::get('search', 'HomeController@index')->name('search');
+
 Route::get('a/{id}', 'PostController@show')->name('post.show');
 
 Route::get('tags', 'TagController@index')->name('tags');

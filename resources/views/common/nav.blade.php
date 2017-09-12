@@ -33,9 +33,9 @@
             </li>
         </ul>
 
-        <form class="navbar-form navbar-right" role="search" method="get" action="{{ route('home') }}">
+        <form class="navbar-form navbar-right" role="search" method="get" action="{{ route('search') }}">
             <div class="input-group">
-                <input type="text" class="form-control" name="keywords" value="{{ isset($keywords) && ! empty($keywords) ? $keywords : '' }}" placeholder="输入关键字搜索">
+                <input type="text" class="form-control" name="q" value="{{ isset($search) && ! empty($search) ? $search : '' }}" placeholder="输入关键字搜索">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">搜索</button>
                 </span>
