@@ -220,7 +220,7 @@ EOF;
         mb_strlen($this->text) < 100 && $more = false;
 
         return false !== $more ?
-            $this->summary() . sprintf($string, route('post.show', ['id' => $this->id]), $more)
+            sprintf('<p>%s</p>', $this->summary()) . sprintf($string, route('post.show', ['id' => $this->id]), $more)
             : $this->parserContent();
     }
 
@@ -234,7 +234,7 @@ EOF;
         $plainTxt = str_replace("\n", '', trim(strip_tags($this->parserContent())));
         $plainTxt = $plainTxt ?: $this->title;
 
-        return sprintf('<p>%s</p>', str_limit($plainTxt));
+        return str_limit($plainTxt);
     }
 
     public function scopePublished($query)

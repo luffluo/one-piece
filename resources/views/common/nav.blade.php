@@ -26,7 +26,7 @@
             @endif
 
             <li class="nav-item">
-                <a target="_blank" href="{{ route('feed.xml') }}" class="nav-link">
+                <a target="_blank" href="{{ route('feed') }}" class="nav-link">
                     <i class="fa fa-rss" aria-hidden="true"></i>
                     RSS
                 </a>

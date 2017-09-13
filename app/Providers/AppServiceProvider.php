@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Tag;
-use Carbon\Carbon;
 use Parsedown;
+use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Post;
 use App\Listeners\MenuRouteMatched;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (in_array('ShowTag', $sidebarBlock)) {
                 $tags = Tag::query()
-                    ->select('id', 'name', 'slug', 'count')
+                    ->select('id', 'name', 'slug')
                     ->hadPosts()
                     ->get();
 
