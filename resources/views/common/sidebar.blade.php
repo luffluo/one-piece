@@ -46,7 +46,7 @@
                     <li><a href="{{ route('admin.logout') }}">退出</a></li>
                     @endauth
 
-                    <li><a href="{{ route('feed.xml') }}">文章 RSS</a></li>
+                    <li><a href="{{ route('feed') }}">文章 RSS</a></li>
                 </ol>
             </section>
         @endif

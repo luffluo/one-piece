@@ -17,7 +17,7 @@ class PostController extends Controller
             $tagModel = Tag::where('id', $tag)
                 ->with('posts')
                 ->first();
-            $post_ids  = $tagModel->posts->pluck('id')->all();
+            $post_ids = $tagModel->posts->pluck('id')->all();
 
             $query->whereIn('id', $post_ids);
         }
@@ -51,6 +51,7 @@ class PostController extends Controller
     public function create()
     {
         $post = new Post;
+        $post->allow_feed = true;
         $tags = Tag::query()->select('id', 'name')->get();
 
 
@@ -59,7 +60,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post     = new Post(array_only($request->all(), ['title', 'text']));
+        $post     = new Post($request->all());
         $post->do = $request->get('do', null);
 
         if (! $post->save()) {
@@ -72,6 +73,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+
+        // dd($post, $post->allow_feed);
 
         $tags = Tag::select('id', 'name')->get();
 
@@ -90,12 +93,15 @@ class PostController extends Controller
             return redirect()->back()->withErrors('文章不存在.');
         }
 
-        $post->fill(array_only($request->all(), ['title', 'text']));
-        $post->do = $request->get('do', null);
+        $post->fill($request->all());
+        $post->allow_feed = $request->has('allow_feed');
+        $post->do         = $request->get('do', null);
 
         if (! $post->save()) {
             return redirect()->back()->withErrors("文章 {$post->title} 编辑失败");
         }
+
+        cache()->forget('posts.feed');
 
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被更新");
     }

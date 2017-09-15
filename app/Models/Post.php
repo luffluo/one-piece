@@ -26,6 +26,16 @@ class Post extends Content
         'user_id',
         'type',
         'status',
+        'allow_feed'
+    ];
+
+    /**
+     * 应该被转换的属性
+     *
+     * @var array
+     */
+    protected $casts = [
+        'allow_feed' => 'boolean',
     ];
 
     public $do;
@@ -245,5 +255,10 @@ EOF;
     public function scopeDraft($query)
     {
         return $query->where('type', static::TYPE_DRAFT);
+    }
+
+    public function scopeAllowFeed($query)
+    {
+        return $query->where('allow_feed', '=', 1);
     }
 }

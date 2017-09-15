@@ -35,7 +35,7 @@ class Installer
      * console 从命令行输入的
      * controller 从控制器获取的
      *
-     * @var
+     * @var string
      */
     protected $dataFrom;
 
@@ -156,13 +156,10 @@ class Installer
         $this->setDatabaseConfig();
 
         // 执行数据库迁移
-        $this->executeAllMigrate();
+        $this->executeAllMigrations();
 
         // 初始化系统数据，添加一些默认数据
         $this->initLuff();
-
-        // 创建管理员
-        $this->createAdministrator();
 
         // Create installed file
         $this->createInstalledFile();
@@ -195,7 +192,7 @@ class Installer
     /**
      * 执行数据迁移，安装所有的数据表
      */
-    public function executeAllMigrate()
+    public function executeAllMigrations()
     {
         $kernel = $this->app[ConsoleKernelContract::class];
 
@@ -213,7 +210,7 @@ class Installer
     public function initLuff()
     {
         // 全局变量
-        $options          = config('option');
+        $options          = $this->config->get('option');
         $options['title'] = $this->data->get('title');
         $insert           = [];
         foreach ($options as $key => $value) {
@@ -232,28 +229,24 @@ class Installer
         $tag->count += 1;
         $tag->save();
 
-        // 初始化文章
-        $post        = new Post;
-        $post->title = '欢迎使用 Luff';
-        $post->text  = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
-        $post->type  = Post::TYPE;
-        $post->save();
-
-        // 初始化文章标签关系
-        $post->tags()->sync([$tag->id]);
-    }
-
-    /**
-     * 创建后台管理员用户
-     */
-    public function createAdministrator()
-    {
+        // 初始用户
         $user = new User([
             'name'  => $this->data->get('admin_username'),
             'email' => $this->data->get('admin_email'),
         ]);
         $user->setPassword($this->data->get('admin_password'));
         $user->save();
+
+        // 初始化文章
+        $post          = new Post;
+        $post->title   = '欢迎使用 Luff';
+        $post->text    = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
+        $post->type    = Post::TYPE;
+        $post->user_id = $user->id;
+        $post->save();
+
+        // 初始化文章标签关系
+        $post->tags()->sync([$tag->id]);
     }
 
     /**

@@ -13,6 +13,7 @@ namespace App\Models;
  * @property string              $type
  * @property string              $status
  * @property integer             $views_count
+ * @property boolean             $allow_feed
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $published_at
  * @property \Carbon\Carbon|null $updated_at

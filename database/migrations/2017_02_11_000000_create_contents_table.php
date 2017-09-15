@@ -23,7 +23,7 @@ class CreateContentsTable extends Migration
             $table->integer('order')->unsigned()->default(0)->index();
             $table->string('type', 16)->nullable()->comment('post文章 post_draft文章草稿 page页面 page_draft页面草稿 link链接 attachment文件');
             $table->string('status', 16)->nullable()->comment('内容的状态 publish发布 hidden隐藏 private私人');
-            // $table->timestamp('published_at')->nullable()->comment('发布时间 可以让文章定在某个时间发布');
+            $table->boolean('allow_feed')->default(true)->comment('是否允许在聚合中出现');
             $table->timestamps();
         });
     }
