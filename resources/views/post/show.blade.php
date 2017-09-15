@@ -10,7 +10,7 @@
     @endif
         <article class="post">
 
-            <h2 class="post-title" itemprop="name headline">{{ $post->getTitle() }}</h2>
+            <h2 class="post-title" itemprop="name headline">{{ $post->headline() }}</h2>
 
             <ul class="post-meta">
                 <li>

@@ -6,9 +6,9 @@
     </div>
 
     <div class="col-md-8">
-        <div class="form-group form-group-sm">
+        <div class="form-group form-group-lg">
             <div class="col-md-12">
-                <input type="text" class="form-control title" name="title" placeholder="请输入标题" value="{{ old('title', $post->title) }}">
+                <input id="title" type="text" class="form-control input-lg" style="font-weight: bold;" name="title" placeholder="请输入标题" value="{{ old('title', $post->title) }}">
             </div>
         </div>
 
@@ -121,6 +121,8 @@
 //        });
 //
 //      });
+
+        $('#title').select();
     </script>
 
     {!! editor_js() !!}

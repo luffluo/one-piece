@@ -1,3 +1,4 @@
+
 .page-notification .btn {
   margin-bottom: 5px;
   margin-right: 5px;
@@ -978,7 +979,7 @@ textarea.input-sm, select.input-sm[multiple] {
 }
 .input-lg, .form-horizontal .form-group-lg .form-control, .form-inline .form-group-lg .form-control, .form-horizontal .form-group-lg .input-group-btn .btn, .form-inline .form-group-lg .input-group-btn .btn {
   border-radius: 2px;
-  font-size: 13px;
+  /*font-size: 13px;*/
   height: 44px;
   line-height: 1.33;
   padding: 8px 20px;

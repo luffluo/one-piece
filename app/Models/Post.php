@@ -195,7 +195,7 @@ class Post extends Content
      *
      * @return string
      */
-    public function getTitle($length = 0, $trim = '...')
+    public function headline($length = 0, $trim = '...')
     {
         return $length > 0 ? str_limit($this->title, $length, $trim) : $this->title;
     }

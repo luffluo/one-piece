@@ -20,7 +20,7 @@
         @forelse ($posts as $post)
             <article class="post">
                 <h2 class="post-title" itemprop="name headline">
-                    <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->getTitle() }}</a>
+                    <a href="{{ route('post.show', ['post' => $post->id]) }}">{{ $post->headline() }}</a>
                 </h2>
                 <ul class="post-meta">
                     <li>

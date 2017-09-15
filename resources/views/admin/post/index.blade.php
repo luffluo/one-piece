@@ -57,7 +57,7 @@
                                 @endforeach
                             </select>
 
-                            <button type="submit" class="btn btn-primary btn-xs">筛选</button>
+                            <button type="submit" class="btn btn-primary btn-sm">筛选</button>
                         </form>
                     </div>
                 </div>
@@ -75,14 +75,14 @@
                         @forelse ($lists as $list)
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->getTitle(40) }}">
-                                        {{ $list->getTitle(40) }}
+                                    <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
+                                        {{ $list->headline(40) }}
                                         <i class="fa fa-pencil"> </i>
                                     </a>
                                     @if ('post_draft' == $list->type)
                                         <span class="label label-default">草稿</span>
                                     @endif
-                                    <a target="_blank" href="{{ route('post.show', $list->id) }}" title="浏览 {{ $list->getTitle(40) }}"><i class="fa fa-external-link"> </i></a>
+                                    <a target="_blank" href="{{ route('post.show', $list->id) }}" title="浏览 {{ $list->headline(40) }}"><i class="fa fa-external-link"> </i></a>
                                 </td>
                                 <td>{{ $list->tags->implode('name', ' | ') }}</td>
                                 <td>{{ $list->created_at->diffForHumans() }}</td>

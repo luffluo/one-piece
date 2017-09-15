@@ -19,8 +19,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p>点击下面的链接快速开始:</p>
-                            <ul class="list-inline">
+                            <ul class="list-inline" style="margin-left: 0;">
                                 <li><a href="{{ route('admin.posts.create') }}">撰写新文章</a></li>
+                                <li><a href="{{ route('admin.theme.options') }}">外观设置</a></li>
+                                <li><a href="{{ route('admin.options.reading') }}">阅读设置</a></li>
                                 <li><a href="{{ route('admin.options.general') }}">系统设置</a></li>
                             </ul>
                         </div>
@@ -35,7 +37,7 @@
                                 @foreach($posts as $post)
                                 <li>
                                     <span>{{ $post->created_at->format('n.j') }}</span>
-                                    <a target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->title }}</a>
+                                    <a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->headline() }}</a>
                                 </li>
                                 @endforeach
                             </ul>
