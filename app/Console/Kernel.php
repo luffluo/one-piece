@@ -2,7 +2,8 @@
 
 namespace App\Console;
 
-use App\Console\Commands\InstallerCommand;
+use App\Console\Commands\InstallCommand;
+use App\Console\Commands\UninstallCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        InstallerCommand::class
+        InstallCommand::class,
+        UninstallCommand::class,
     ];
 
     /**

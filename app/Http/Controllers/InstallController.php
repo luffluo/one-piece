@@ -57,9 +57,25 @@ class InstallController extends Controller
             ], 'mysql');
 
             $results = collect($connection->select(DB::raw('show tables')));
+            $tables = [];
+            array_map(function ($var) use (&$tables) {
+                if (! is_object($var)) {
+                    return;
+                }
+
+                $array = get_object_vars($var);
+
+                if (! is_array($array)) {
+                    return;
+                }
+
+                $tables = array_merge($tables, array_values($array));
+
+            }, $results->all());
+
             cache()->flush();
 
-            if ($results->count()) {
+            if ($results->count() && ! in_array('migrations', $tables)) {
                 return back()->withErrors(['db_database' => '数据库 [ ' . $request->get('db_database') . ' ] 已经存在数据表，请先清空数据库！'])->withInput();
             }
 

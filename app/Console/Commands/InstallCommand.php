@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Services\Installer;
 use Illuminate\Console\Command;
 
-class InstallerCommand extends Command
+class InstallCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -58,7 +58,11 @@ class InstallerCommand extends Command
 
         $this->installer->start();
 
+        $this->info('---');
+
         $this->info('Luff Installed!');
+
+        $this->info('---');
 
         if ($this->option('seed')) {
             $this->call('db:seed');

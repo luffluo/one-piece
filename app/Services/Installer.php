@@ -107,6 +107,16 @@ class Installer
     }
 
     /**
+     * 删除安装文件
+     *
+     * @return bool
+     */
+    public function removeInstalledFile()
+    {
+        return unlink($this->getInstalledFile());
+    }
+
+    /**
      * 把获取的数据存到 data 属性
      *
      * @param array $data

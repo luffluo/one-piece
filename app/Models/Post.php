@@ -201,6 +201,19 @@ class Post extends Content
     }
 
     /**
+     * 文章摘要
+     *
+     * @return string
+     */
+    public function summary()
+    {
+        $plainTxt = str_replace("\n", '', trim(strip_tags($this->parserContent())));
+        $plainTxt = $plainTxt ?: $this->title;
+
+        return str_limit($plainTxt);
+    }
+
+    /**
      * 解析 md 格式的文章
      *
      * @return string
@@ -232,19 +245,6 @@ EOF;
         return false !== $more ?
             sprintf('<p>%s</p>', $this->summary()) . sprintf($string, route('post.show', ['id' => $this->id]), $more)
             : $this->parserContent();
-    }
-
-    /**
-     * 文章摘要
-     *
-     * @return string
-     */
-    public function summary()
-    {
-        $plainTxt = str_replace("\n", '', trim(strip_tags($this->parserContent())));
-        $plainTxt = $plainTxt ?: $this->title;
-
-        return str_limit($plainTxt);
     }
 
     public function scopePublished($query)
