@@ -103,24 +103,24 @@
 </div>
 
 @section('admin-css')
-    {{--<link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">--}}
+    <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
     {!! editor_css() !!}
 @endsection
 
 @section('admin-js')
 
-    {{--<script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>--}}
-    {{--<script src="https://cdn.bootcss.com/select2/4.0.3/js/i18n/zh-CN.js"></script>--}}
+    <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://cdn.bootcss.com/select2/4.0.3/js/i18n/zh-CN.js"></script>
 
     <script>
-//      $(function () {
-//
-//        $('#tags').select2({
-//            tags: true,
-//            placeholder: "标签"
-//        });
-//
-//      });
+      $(function () {
+
+        $('#tags').select2({
+            tags: true,
+            placeholder: "标签"
+        });
+
+      });
 
         $('#title').select();
     </script>

@@ -4509,3 +4509,9 @@ html, body {
 .inline-block {
   display: inline-block;
 }
+
+/* 重写 select2 样式 start */
+.select2-container--default .select2-selection--multiple {
+  border-radius: 2px;
+}
+/* 重写 select2 样式 end */

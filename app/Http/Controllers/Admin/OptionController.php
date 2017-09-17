@@ -31,9 +31,9 @@ class OptionController extends Controller
         //     option(['site.logo', 'uploads/admin/logo.png']);
         // }
 
-        option(['site.name', $request->input('title')]);
-        option(['site.keywords', $request->input('keywords')]);
-        option(['site.description', $request->input('description')]);
+        option(['title', $request->input('title')]);
+        option(['keywords', $request->input('keywords')]);
+        option(['description', $request->input('description')]);
 
         return redirect()->route('admin.options.general')->withMessage('设置已经保存');
     }

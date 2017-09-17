@@ -71,7 +71,7 @@ class InstallCommand extends Command
 
     protected function getData()
     {
-        $data['site_name']   = $this->ask('站点名称：', 'Luff');
+        $data['title']       = $this->ask('站点名称：', 'Luff');
         $data['db_host']     = $this->ask('数据库服务器：', '127.0.0.1');
         $data['db_database'] = $this->ask('数据库：', 'luff');
         $data['db_username'] = $this->ask('数据库用户名：', 'homestead');
