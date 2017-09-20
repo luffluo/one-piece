@@ -2,6 +2,10 @@
 这是一个简单的博客程序。
 基于 `Laravel 5.5.*` 开发
 
+## 预览
+![luff-front](http://wx4.sinaimg.cn/large/006fVPCvly1fjq3kfffd6j31400mvaby.jpg)
+![luff-admin](http://wx1.sinaimg.cn/large/006fVPCvly1fjq3k0lmt6j31400mvmyp.jpg)
+
 ## 项目概述
 * 产品名称：「Luff - A simple blog」
 * 项目代码：https://github.com/luffluo/luff
@@ -14,19 +18,14 @@
 * 支持 Markdown
 
 ## 运行环境要求
-* Nginx 1.8+
 * PHP 7.0+
 * Mysql 5.7+
 * OpenSSL PHP Extension
-* PDO PHP Extension
+* PDO_MYSQL PHP Extension
 * Mbstring PHP Extension
 
 ## 安装
-1. 克隆源程序 or 创建新项目
-
-`git clone https://github.com/luffluo/luff.git`
-
-Or
+1. 使用 `composer` 安装
 
 `composer create luffluo/luff`
 2. 安装程序依赖扩展包
