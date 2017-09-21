@@ -47,7 +47,10 @@ class InstallCommand extends Command
     public function handle()
     {
         if ($this->installer->installed()) {
+
+            $this->info('---');
             $this->error('程序已安装！');
+            $this->info('---');
 
             return;
         }
@@ -56,11 +59,12 @@ class InstallCommand extends Command
         $this->installer->setData($this->getData());
         $this->installer->setDataFrom('console');
 
-        $this->installer->start();
 
         $this->info('---');
 
-        $this->info('Luff Installed!');
+        $this->installer->start();
+
+        $this->info('Luff 安装成功!');
 
         $this->info('---');
 
@@ -71,14 +75,13 @@ class InstallCommand extends Command
 
     protected function getData()
     {
-        $data['title']       = $this->ask('站点名称：', 'Luff');
-        $data['db_host']     = $this->ask('数据库服务器：', '127.0.0.1');
+        $data['db_host']     = $this->ask('数据库地址：', 'localhost');
+        $data['db_username'] = $this->ask('数据库用户名：', 'root');
+        $data['db_password'] = $this->ask('数据库密码：');
         $data['db_database'] = $this->ask('数据库：', 'luff');
-        $data['db_username'] = $this->ask('数据库用户名：', 'homestead');
-        $data['db_password'] = $this->ask('数据库密码：', 'secret');
 
-        $data['admin_username'] = $this->ask('后台管理员账号：', 'admin');
+        $data['admin_username'] = $this->ask('管理员账号：', 'admin');
         $data['admin_password'] = $this->ask('管理员密码：', 'admin123');
-        $data['admin_email']    = $this->ask('管理员邮箱：', 'admin@luff.life');
+        $data['admin_email']    = $this->ask('邮件地址：', 'webmaster@yourdomain.com');
     }
 }

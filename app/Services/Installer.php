@@ -123,7 +123,6 @@ class Installer
      */
     public function setData(array $data)
     {
-        $this->data->put('title', $data['title']);
         $this->data->put('db_host', $data['db_host']);
         $this->data->put('db_database', $data['db_database']);
         $this->data->put('db_username', $data['db_username']);
@@ -221,7 +220,6 @@ class Installer
     {
         // 全局变量
         $options          = $this->config->get('option');
-        $options['title'] = $this->data->get('title');
         $insert           = [];
         foreach ($options as $key => $value) {
             $insert[] = [

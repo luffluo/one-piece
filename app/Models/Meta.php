@@ -50,6 +50,6 @@ abstract class Meta extends Model
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class, 'relationships', 'meta_id', 'content_id');
+        return $this->belongsToMany(Post::class, 'content_meta', 'meta_id', 'content_id');
     }
 }

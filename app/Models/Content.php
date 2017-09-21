@@ -31,6 +31,6 @@ abstract class Content extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'relationships', 'content_id', 'meta_id');
+        return $this->belongsToMany(Tag::class, 'content_meta', 'content_id', 'meta_id');
     }
 }

@@ -29,26 +29,23 @@ ______                            _              _                              
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     @section('css')
+        <style>
+            .luff-install {
+                padding-bottom: 2em;
+            }
+        </style>
     @show
 </head>
 
 <body>
+    <div class="jumbotron text-center">
+        <h1 class="title">Luff</h1>
+    </div>
 
     <div class="container">
-
-        @yield('content')
-
-        <footer id="footer" role="contentinfo">
-            <div class="row">
-                <div class="col-md-12 text-center">&copy; {{ date('Y') }} <a href="{{ route('home') }}">Luff</a>.</div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <span class="developed-by">Developed By <span>Luff</span></span>,&nbsp;
-                    <span class="powered-by">Powered By <span>Laravel</span></span>.
-                </div>
-            </div>
-        </footer>
+        <div class="luff-install">
+            @yield('content')
+        </div>
     </div>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>

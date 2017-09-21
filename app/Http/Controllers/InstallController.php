@@ -22,7 +22,7 @@ class InstallController extends Controller
         $this->prerequisite = $prerequisite;
     }
 
-    public function showPage()
+    public function showInstall()
     {
         // 检测安装环境
         if (! $result = $this->prerequisite->check()) {
@@ -39,7 +39,7 @@ class InstallController extends Controller
     /**
      * @param InstallRequest $request
      */
-    public function handle(InstallRequest $request)
+    public function handleInstall(InstallRequest $request)
     {
         try {
             $connection = app('db.factory')->make([

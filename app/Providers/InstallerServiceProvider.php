@@ -23,8 +23,9 @@ class InstallerServiceProvider extends ServiceProvider
         if (! $this->app['installer']->installed()) {
 
             $this->app['router']->group(['middleware' => 'web', 'prefix' => 'install'], function () {
-                $this->app['router']->get('/', InstallController::class . '@showPage')->name('install');
-                $this->app['router']->post('/', InstallController::class . '@handle');
+
+                $this->app['router']->get('/', InstallController::class . '@showInstall')->name('install');
+                $this->app['router']->post('/', InstallController::class . '@handleInstall');
             });
         }
     }

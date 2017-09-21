@@ -1,8 +1,10 @@
 @extends('layouts.install')
 
 @section('content')
-    <div class="page-header">
-        <h1 class="text-center text-success">安装成功！</h1>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>安装成功</h2>
+        </div>
     </div>
 
     <div class="row">
