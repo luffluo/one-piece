@@ -17,6 +17,10 @@
             <h3 class="archive-title">{{ $title }}</h3>
         @endif
 
+        @if (isset($tag) && !empty($tag))
+            <h3 class="archive-title">标签 {{ $tag->name }} 下的文章</h3>
+        @endif
+
         @forelse ($posts as $post)
             <article class="post">
                 <h2 class="post-title" itemprop="name headline">
@@ -29,7 +33,7 @@
 
                     <li>
                         @foreach ($post->tags as $tag)
-                            <a href="{{ route('tags') . '#' . $tag->slug }}">{{ $tag->name }}</a>
+                            <a href="{{ route('tag.posts', $tag->slug) }}">{{ $tag->name }}</a>
                         @endforeach
                     </li>
                 </ul>

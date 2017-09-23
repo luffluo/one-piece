@@ -16,7 +16,7 @@
                 <h3 class="widget-title">标签</h3>
                 <ol class="widget-list">
                     @foreach ($sidebarTags as $sidebarTag)
-                        <li><a href="{{ route('tags') . '#' . $sidebarTag->slug }}">{{ $sidebarTag->name }}</a></li>
+                        <li><a href="{{ route('tag.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }}</a></li>
                     @endforeach
                 </ol>
             </section>

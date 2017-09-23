@@ -22,6 +22,7 @@ Route::get('a/{id}', 'PostController@show')->name('post.show');
 
 // Tags
 Route::get('tags', 'TagController@index')->name('tags');
+Route::get('t/{slug}', 'TagController@posts')->name('tag.posts');
 
 // Archive
 Route::get('/{year}/{month?}/{day?}', 'PostController@archive')

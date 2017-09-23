@@ -31,7 +31,7 @@ php composer install
 ```
 3. 命令行安装 or 浏览器安装
 ```
-在浏览器输入预设好的域名 `luff.blog`
+在浏览器输入预设好的域名，如 `luff.blog`
 ```
 Or
 ```

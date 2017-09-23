@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\Post;
 
 class TagController extends Controller
 {
@@ -16,5 +17,25 @@ class TagController extends Controller
             ->get();
 
         return view('tag.index', compact('tags'));
+    }
+
+    public function posts($slug)
+    {
+        $tag = Tag::where('slug', $slug)->first();
+
+        if (null == $tag) {
+            return abort(404);
+        }
+
+        $postIds = $tag ? $tag->posts()->get()->pluck('id')->all() : [];
+
+        $posts = Post::query()
+            ->whereIn('id', $postIds)
+            ->published()
+            ->recent()
+            ->with('tags')
+            ->paginate(option('pageSize', 20));
+
+        return view('index', compact('posts', 'tag'));
     }
 }

@@ -19,7 +19,7 @@
 
                 <li>
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('tags') . '#' . $tag->slug }}">{{ $tag->name }}</a>
+                        <a href="{{ route('tag.posts', $tag->slug) }}">{{ $tag->name }}</a>
                     @endforeach
                 </li>
             </ul>
