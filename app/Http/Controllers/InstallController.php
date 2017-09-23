@@ -103,9 +103,9 @@ class InstallController extends Controller
 
         $this->installer->start();
 
-        $admin_username = $request->get('admin_username');
-        $admin_password = $request->get('admin_password');
+        $username = $request->get('admin_username');
+        $password = $request->get('admin_password');
 
-        return view('install.success', compact('admin_username', 'admin_password'));
+        return view('install.success', compact('username', 'password'));
     }
 }
