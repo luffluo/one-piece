@@ -34,9 +34,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer(['index', 'tag.index', 'post.show', 'common.sidebar'], function ($view) {
-            $sidebarBlock = json_decode(option('sidebarBlock', ''), true);
-            $sidebarBlock = is_array($sidebarBlock) ? $sidebarBlock : [];
-            $view->with('sidebarBlock', $sidebarBlock);
+
+            $sidebarBlock = sidebar_block();
 
             if (in_array('ShowRecentPosts', $sidebarBlock)) {
                 $posts = Post::query()

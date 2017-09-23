@@ -69,6 +69,34 @@ if (! function_exists('option')) {
     }
 }
 
+if (! function_exists('sidebar_block')) {
+
+    /**
+     * 获取配置项 sidebarBlock
+     *
+     * @return array
+     */
+    function sidebar_block() {
+        $sidebarBlock = json_decode(option('sidebarBlock', ''), true);
+
+        return is_array($sidebarBlock) ? $sidebarBlock : [];
+    }
+}
+
+if (! function_exists('in_sidebar_block')) {
+
+    /**
+     * 判断配置项是否开启
+     *
+     * @param string $block
+     *
+     * @return bool
+     */
+    function sidebar_block_open(string $block) {
+        return in_array($block, sidebar_block());
+    }
+}
+
 if (! function_exists('slug_name')) {
 
     /**
