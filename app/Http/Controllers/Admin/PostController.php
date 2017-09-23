@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 
@@ -50,9 +51,9 @@ class PostController extends Controller
 
     public function create()
     {
-        $post = new Post;
+        $post             = new Post;
         $post->allow_feed = true;
-        $tags = Tag::query()->select('id', 'name')->get();
+        $tags             = Tag::query()->select('id', 'name')->get();
 
 
         return admin_view('post.create', compact('post', 'tags'));
@@ -60,12 +61,19 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post     = new Post($request->all());
-        $post->do = $request->get('do', null);
+        DB::beginTransaction();
+
+        $post           = new Post($request->all());
+        $post->do       = $request->get('do', null);
+        $post->postTags = $request->get('tags', []);
 
         if (! $post->save()) {
+            DB::rollBack();
+
             return redirect()->back()->withMessage("文章 {$post->title} 创建失败");
         }
+
+        DB::commit();
 
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被创建");
     }
@@ -73,8 +81,6 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-
-        // dd($post, $post->allow_feed);
 
         $tags = Tag::select('id', 'name')->get();
 
@@ -93,13 +99,21 @@ class PostController extends Controller
             return redirect()->back()->withErrors('文章不存在.');
         }
 
+        DB::beginTransaction();
+
         $post->fill($request->all());
-        $post->allow_feed = $request->has('allow_feed');
         $post->do         = $request->get('do', null);
+        $post->allow_feed = $request->has('allow_feed');
+        $post->postTags   = $request->get('tags', []);
 
         if (! $post->save()) {
+
+            DB::rollBack();
+
             return redirect()->back()->withErrors("文章 {$post->title} 编辑失败");
         }
+
+        DB::commit();
 
         cache()->forget('posts.feed');
 
@@ -114,9 +128,16 @@ class PostController extends Controller
             return redirect()->back()->withErrors('文章不存在.');
         }
 
+        DB::beginTransaction();
+
         if (! $post->delete()) {
+
+            DB::rollBack();
+
             return redirect()->back()->withErrors("文章 {$post->title} 删除失败");
         }
+
+        DB::commit();
 
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被删除");
     }

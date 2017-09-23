@@ -5,7 +5,7 @@
                 <h3 class="widget-title">最新文章</h3>
                 <ul class="widget-list">
                     @foreach ($sidebarRecentPosts as $sidebarRecentPost)
-                        <li><a href="{{ route('post.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline() }}</a></li>
+                        <li><a href="{{ route('post.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a></li>
                     @endforeach
                 </ul>
             </section>

@@ -26,7 +26,7 @@ class Post extends Content
         'user_id',
         'type',
         'status',
-        'allow_feed'
+        'allow_feed',
     ];
 
     /**
@@ -40,36 +40,31 @@ class Post extends Content
 
     public $do;
 
+    public $postTags = [];
+
     protected $dates = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at',
     ];
 
     public static function boot()
     {
         parent::boot();
 
-        static::saving(function ($post) {
+        static::saving(function (Post $post) {
 
-            if ($post->exists) {
-                if (auth()->guest()) {
-                    $post->user_id = 1;
-                } else {
-                    $post->user_id = auth()->user()->id;
-                }
+            if (! $post->exists) {
+                $post->user_id = auth()->guest() ? 1 : auth()->user()->id;
             }
 
             if (! empty($post->do)) {
-                if ('publish' == $post->do) {
-                    $post->type = static::TYPE;
-                } else {
-                    $post->type = static::TYPE_DRAFT;
-                }
+                $post->type = 'publish' == $post->do ? static::TYPE : static::TYPE_DRAFT;
             }
         });
 
-        static::saved(function ($post) {
+        static::saved(function (Post $post) {
 
-            if ($post->id > 0 && !empty($post->do)) {
+            if ($post->id > 0 && ! empty($post->do)) {
                 if ($post->wasRecentlyCreated) {
 
                     if ('publish' == $post->do) {
@@ -90,7 +85,7 @@ class Post extends Content
                         $isDraftToPublish = static::TYPE_DRAFT == $originalAttributes['type'] && static::TYPE == $post->type;
 
                         // 以前是否是发布的
-                        $isBeforePublish  = static::TYPE == $originalAttributes['type'];
+                        $isBeforePublish = static::TYPE == $originalAttributes['type'];
 
                         // 当前是否是发布
                         $isAfterPublish = static::TYPE == $post->type;
@@ -106,15 +101,15 @@ class Post extends Content
 
                 $post->setPostTags(
                     $post,
-                    request()->input('tags', []),
-                    !$isDraftToPublish && $isBeforePublish,
+                    $post->postTags,
+                    ! $isDraftToPublish && $isBeforePublish,
                     $isAfterPublish
                 );
             }
 
         });
 
-        static::deleted(function ($post) {
+        static::deleted(function (Post $post) {
 
             // 减去对应标签的文章数
             $tags = $post->tags()->get();
@@ -234,7 +229,7 @@ class Post extends Content
      */
     public function content($more = false)
     {
-$string = <<<EOF
+        $string = <<<EOF
 <p class="more">
     <a href="%s" role="button">%s</a>
 </p>

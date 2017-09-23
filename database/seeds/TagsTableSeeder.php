@@ -16,8 +16,8 @@ class TagsTableSeeder extends Seeder
         $i = 0;
 
         (new Collection([
-            'PHP', 'Laravel', 'Composer', 'Git', 'HTML', 'Homestead',
-            'OOP', 'PhpStorm', 'MySql', 'JavaScript'
+            'Luff', 'PHP', 'Laravel', 'Composer', 'Git', 'HTML',
+            'Homestead', 'OOP', 'PhpStorm', 'MySql', 'JavaScript'
         ]))->map(function($tagName) use (&$i) {
             $tag = new Tag(['name' => $tagName]);
             $tag->slug = slug_name($tagName);
