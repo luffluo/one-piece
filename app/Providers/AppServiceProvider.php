@@ -58,24 +58,30 @@ class AppServiceProvider extends ServiceProvider
             }
 
             if (in_array('ShowArchive', $sidebarBlock)) {
-                $posts = Post::select('created_at')->published()
-                    ->recent()
-                    ->get();
 
-                foreach ($posts as $post) {
-                    $date   = $post->created_at->format('F Y');
+                $result = cache()->remember('post.archive', 7 * 24 * 60, function () {
+                    $posts = Post::select('created_at')->published()
+                        ->recent()
+                        ->get();
+
                     $result = [];
+                    foreach ($posts as $post) {
+                        $date   = $post->created_at->format('F Y');
 
-                    if (isset($result[$date])) {
-                        $result[$date]['count']++;
-                    } else {
-                        $result[$date]['year']  = $post->created_at->format('Y');
-                        $result[$date]['month'] = $post->created_at->format('m');
-                        $result[$date]['day']   = $post->created_at->format('d');
-                        $result[$date]['date']  = $date;
-                        $result[$date]['count'] = 1;
+                        if (isset($result[$date])) {
+                            $result[$date]['count']++;
+                        } else {
+                            $result[$date]['year']  = $post->created_at->format('Y');
+                            $result[$date]['month'] = $post->created_at->format('m');
+                            $result[$date]['day']   = $post->created_at->format('d');
+                            $result[$date]['date']  = $date;
+                            $result[$date]['count'] = 1;
+                        }
                     }
-                }
+
+                    return $result;
+                });
+
 
                 $view->with('sidebarArchives', $result);
             }

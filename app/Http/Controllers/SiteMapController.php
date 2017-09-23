@@ -8,7 +8,7 @@ class SiteMapController extends Controller
 {
     public function __invoke()
     {
-        $view = cache()->remember('generated.sitemap', 7 * 24 * 60, function () {
+        $view = cache()->remember('sitemap', 7 * 24 * 60, function () {
             $posts = Post::query()
                 ->select('id', 'updated_at')
                 ->published()

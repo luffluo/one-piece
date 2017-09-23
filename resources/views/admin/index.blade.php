@@ -31,12 +31,12 @@
                     <hr>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <h5>最近发布的文章</h5>
                             <ul class="list-unstyled">
                                 @foreach($posts as $post)
                                 <li>
-                                    <span>{{ $post->created_at->format('n.j') }}</span>&nbsp;|&nbsp;<a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->headline() }}</a>
+                                    <span>{{ $post->created_at->format('n.j') }}</span>&nbsp;|&nbsp;<a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->headline(50) }}</a>
                                 </li>
                                 @endforeach
                             </ul>

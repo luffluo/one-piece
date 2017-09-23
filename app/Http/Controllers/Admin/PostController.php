@@ -75,6 +75,10 @@ class PostController extends Controller
 
         DB::commit();
 
+        cache()->forget('sitemap');
+        cache()->forget('post.feed');
+        cache()->forget('post.archive');
+
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被创建");
     }
 
@@ -115,7 +119,8 @@ class PostController extends Controller
 
         DB::commit();
 
-        cache()->forget('posts.feed');
+        cache()->forget('sitemap');
+        cache()->forget('post.feed');
 
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被更新");
     }
@@ -138,6 +143,10 @@ class PostController extends Controller
         }
 
         DB::commit();
+
+        cache()->forget('sitemap');
+        cache()->forget('post.feed');
+        cache()->forget('post.archive');
 
         return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被删除");
     }
