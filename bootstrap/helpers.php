@@ -77,13 +77,13 @@ if (! function_exists('sidebar_block')) {
      * @return array
      */
     function sidebar_block() {
-        $sidebarBlock = json_decode(option('sidebarBlock', ''), true);
+        $sidebarBlock = json_decode(option('sidebar_block', ''), true);
 
         return is_array($sidebarBlock) ? $sidebarBlock : [];
     }
 }
 
-if (! function_exists('in_sidebar_block')) {
+if (! function_exists('sidebar_block_open')) {
 
     /**
      * 判断配置项是否开启

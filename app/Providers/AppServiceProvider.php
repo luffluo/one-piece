@@ -35,19 +35,17 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['index', 'tag.index', 'post.show', 'common.sidebar'], function ($view) {
 
-            $sidebarBlock = sidebar_block();
-
-            if (in_array('ShowRecentPosts', $sidebarBlock)) {
+            if (sidebar_block_open('show_recent_posts')) {
                 $posts = Post::query()
                     ->select('id', 'title', 'created_at')
                     ->recent()
-                    ->take(option('postsListSize', 10))
+                    ->take(option('posts_list_size', 10))
                     ->get();
 
                 $view->with('sidebarRecentPosts', $posts);
             }
 
-            if (in_array('ShowTag', $sidebarBlock)) {
+            if (sidebar_block_open('show_tag')) {
                 $tags = Tag::query()
                     ->select('id', 'name', 'slug')
                     ->hadPosts()
@@ -56,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('sidebarTags', $tags);
             }
 
-            if (in_array('ShowArchive', $sidebarBlock)) {
+            if (sidebar_block_open('show_archive')) {
 
                 $result = cache()->remember('post.archive', 7 * 24 * 60, function () {
                     $posts = Post::select('created_at')->published()

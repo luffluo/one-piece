@@ -21,40 +21,40 @@
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="checkbox">
                                     <label for="sidebarBlock-ShowRecentPosts">
-                                        @if (in_array('ShowRecentPosts', $sidebarBlock))
-                                        <input id="sidebarBlock-ShowRecentPosts" name="sidebarBlock[]" value="ShowRecentPosts" checked="checked" type="checkbox"> 显示最新文章
+                                        @if (sidebar_block_open('show_recent_posts'))
+                                        <input id="sidebarBlock-ShowRecentPosts" name="sidebarBlock[]" value="show_recent_posts" checked="checked" type="checkbox"> 显示最新文章
                                         @else
-                                        <input id="sidebarBlock-ShowRecentPosts" name="sidebarBlock[]" value="ShowRecentPosts" type="checkbox"> 显示最新文章
+                                        <input id="sidebarBlock-ShowRecentPosts" name="sidebarBlock[]" value="show_recent_posts" type="checkbox"> 显示最新文章
                                         @endif
                                     </label>
                                 </div>
 
                                 <div class="checkbox">
                                     <label for="sidebarBlock-ShowTag">
-                                        @if (in_array('ShowTag', $sidebarBlock))
-                                        <input id="sidebarBlock-ShowTag" name="sidebarBlock[]" value="ShowTag" checked="checked" type="checkbox"> 显示标签
+                                        @if (sidebar_block_open('show_tag'))
+                                        <input id="sidebarBlock-ShowTag" name="sidebarBlock[]" value="show_tag" checked="checked" type="checkbox"> 显示标签
                                         @else
-                                        <input id="sidebarBlock-ShowTag" name="sidebarBlock[]" value="ShowTag" type="checkbox"> 显示标签
+                                        <input id="sidebarBlock-ShowTag" name="sidebarBlock[]" value="show_tag" type="checkbox"> 显示标签
                                         @endif
                                     </label>
                                 </div>
 
                                 <div class="checkbox">
                                     <label for="sidebarBlock-ShowArchive">
-                                        @if (in_array('ShowArchive', $sidebarBlock))
-                                        <input id="sidebarBlock-ShowArchive" name="sidebarBlock[]" value="ShowArchive" checked="checked" type="checkbox"> 显示归档
+                                        @if (sidebar_block_open('show_archive'))
+                                        <input id="sidebarBlock-ShowArchive" name="sidebarBlock[]" value="show_archive" checked="checked" type="checkbox"> 显示归档
                                         @else
-                                        <input id="sidebarBlock-ShowArchive" name="sidebarBlock[]" value="ShowArchive" type="checkbox"> 显示归档
+                                        <input id="sidebarBlock-ShowArchive" name="sidebarBlock[]" value="show_archive" type="checkbox"> 显示归档
                                         @endif
                                     </label>
                                 </div>
 
                                 <div class="checkbox">
                                     <label for="sidebarBlock-ShowOther">
-                                        @if (in_array('ShowOther', $sidebarBlock))
-                                        <input id="sidebarBlock-ShowOther" name="sidebarBlock[]" value="ShowOther" checked="checked" type="checkbox"> 显示其它杂项
+                                        @if (sidebar_block_open('show_other'))
+                                        <input id="sidebarBlock-ShowOther" name="sidebarBlock[]" value="show_other" checked="checked" type="checkbox"> 显示其它杂项
                                         @else
-                                        <input id="sidebarBlock-ShowOther" name="sidebarBlock[]" value="ShowOther" type="checkbox"> 显示其它杂项
+                                        <input id="sidebarBlock-ShowOther" name="sidebarBlock[]" value="show_other" type="checkbox"> 显示其它杂项
                                         @endif
                                     </label>
                                 </div>

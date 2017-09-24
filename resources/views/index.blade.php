@@ -28,12 +28,12 @@
                 </h2>
                 <ul class="post-meta">
                     <li>
-                        <time>{{ $post->created_at->format(option('postDateFormat', 'Y-m-d')) }}</time>
+                        <time>{{ $post->created_at->format(option('post_date_format', 'Y-m-d')) }}</time>
                     </li>
 
                     <li>
                         @foreach ($post->tags as $tag)
-                            <a href="{{ route('tag.posts', $tag->slug) }}">{{ $tag->name }}</a>
+                            <a href="{{ route('tag.posts', $tag->slug) }}">{{ $tag->name }}</a>@if (!$loop->last),&nbsp;@endif
                         @endforeach
                     </li>
                 </ul>

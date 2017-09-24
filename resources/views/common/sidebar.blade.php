@@ -1,6 +1,6 @@
 @if (count(sidebar_block()) > 0)
     <div id="secondary" class="col-md-3 col-md-offset-1" role="complementary">
-        @if (sidebar_block_open('ShowRecentPosts'))
+        @if (sidebar_block_open('show_recent_posts'))
             <section class="widget">
                 <h3 class="widget-title">最新文章</h3>
                 <ul class="widget-list">
@@ -11,7 +11,7 @@
             </section>
         @endif
 
-        @if (sidebar_block_open('ShowTag'))
+        @if (sidebar_block_open('show_tag'))
             <section class="widget">
                 <h3 class="widget-title">标签</h3>
                 <ol class="widget-list">
@@ -22,7 +22,7 @@
             </section>
         @endif
 
-        @if (sidebar_block_open('ShowArchive'))
+        @if (sidebar_block_open('show_archive'))
             <section class="widget">
                 <h3 class="widget-title">归档</h3>
                 <ol class="widget-list">
@@ -33,7 +33,7 @@
             </section>
         @endif
 
-        @if (sidebar_block_open('ShowOther'))
+        @if (sidebar_block_open('show_other'))
             <section class="widget">
                 <h3 class="widget-title">其它</h3>
                 <ol class="widget-list">

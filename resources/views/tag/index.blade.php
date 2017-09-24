@@ -3,7 +3,7 @@
 @section('title', '标签云')
 
 @section('content')
-    @if (isset($sidebarBlock) && count($sidebarBlock) > 0)
+    @if (count(sidebar_block()) > 0)
         <div id="main" class="col-md-8 main" role="main">
     @else
         <div id="main" class="col-md-8 col-md-offset-2" role="main">

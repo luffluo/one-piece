@@ -3,7 +3,7 @@
 @section('title', $post->title)
 
 @section('content')
-    @if (isset($sidebarBlock) && count($sidebarBlock) > 0)
+    @if (count(sidebar_block()) > 0)
         <div id="main" class="col-md-8 main" role="main">
     @else
         <div id="main" class="col-md-8 col-md-offset-2" role="main">
@@ -14,7 +14,7 @@
 
             <ul class="post-meta">
                 <li>
-                    <time>{{ $post->created_at->format(option('postDateFormat', 'Y-m-d')) }}</time>
+                    <time>{{ $post->created_at->format(option('post_date_format', 'Y-m-d')) }}</time>
                 </li>
 
                 <li>

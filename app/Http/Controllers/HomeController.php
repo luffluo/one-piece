@@ -26,7 +26,7 @@ class HomeController extends Controller
             ->published()
             ->recent()
             ->with('tags')
-            ->paginate(option('pageSize', 20));
+            ->paginate(option('page_size', 20));
 
         return view('index', compact('posts', 'search'));
     }
