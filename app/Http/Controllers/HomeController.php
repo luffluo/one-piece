@@ -16,9 +16,26 @@ class HomeController extends Controller
         $query = Post::query();
 
         if ($search = request()->get('q')) {
+
             $query->where(function ($query) use ($search) {
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhere('text', 'like', "%{$search}%");
+                $searches = array_map(function ($val) {
+                    return strtolower($val);
+                }, preg_split('/[\s]+/', $search));
+
+                $query->where(function ($query) use ($searches) {
+                    foreach ($searches as $search) {
+                        $query->where('title', 'like', "%{$search}%");
+                    }
+
+                    return $query;
+                })
+                    ->orWhere(function ($query) use ($searches) {
+                        foreach ($searches as $search) {
+                            $query->where('text', 'like', "%{$search}%");
+                        }
+
+                        return $query;
+                    });
             });
         }
 
