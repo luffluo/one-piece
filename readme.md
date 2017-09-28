@@ -21,9 +21,13 @@
 * Mbstring PHP Extension
 
 ## 安装
-1. 使用 `composer` 安装
+1. 获取程序
 ```
-composer create luffluo/luff
+composer create luffluo/luff-blog
+```
+Or
+```
+git clone https://git.coding.net/luffluo/luff-blog.git
 ```
 2. 安装程序依赖扩展包
 ```
@@ -37,6 +41,10 @@ Or
 ```
 php artisan luff:install 通过命令行安装，可以选择是否填充假数据
 ```
+
+## Todo
+* 自定义导航功能
+* 文章评论功能
 
 ## How can you help?
 欢迎 `star`，欢迎反馈
