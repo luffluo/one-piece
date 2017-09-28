@@ -48,17 +48,6 @@
         <div class="row">
             <div class="col-md-12">
 
-                {{--<div class="btn-group btn-group-sm" style="display: block" role="group">--}}
-                    {{--<span class="label label-default label-block">选项</span>--}}
-                {{--</div>--}}
-
-                {{--<div class="form-group form-group-sm">--}}
-                {{--<label class="col-md-4 control-label">发布时间</label>--}}
-                {{--<div class="col-md-8">--}}
-                {{--<input type="text" readonly id="published_at" class="form-control" name="published_at" value="{{ old('published_at', $post->published_at) }}">--}}
-                {{--</div>--}}
-                {{--</div>--}}
-
                 <div class="tab-content">
                     <div class="form-group form-group-sm">
                         <div class="col-md-12">
@@ -76,12 +65,6 @@
                     </div>
 
                     @if ($post->exists)
-                        {{--<div class="form-group form-group-sm">--}}
-                            {{--<div class="col-md-12">--}}
-                                {{--<label>创建日期</label>--}}
-                                {{--<input type="text" class="form-control" name="created_at" value="{{ $post->created_at }}" disabled>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
 
                         <div class="form-group form-group-sm">
                             <div class="col-md-12">
@@ -108,7 +91,6 @@
 @endsection
 
 @section('admin-js')
-
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/i18n/zh-CN.js"></script>
 
