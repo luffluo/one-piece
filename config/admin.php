@@ -46,6 +46,11 @@ return [
                 'active' => 'admin/options/reading*',
                 'url'    => 'admin/options/reading',
             ],
+            [
+                'title'  => '导航',
+                'active' => 'admin/options/navs*',
+                'url'    => 'admin/options/navs',
+            ],
         ],
     ],
 ];

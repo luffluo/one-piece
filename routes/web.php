@@ -60,6 +60,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
         Route::get('reading', 'OptionController@showReading')->name('admin.options.reading');
         Route::post('reading', 'OptionController@handleReading');
+
+        Route::resource('navs', 'NavController', [
+            'except' => ['show'],
+            'names' => [
+                'index'   => 'admin.navs.index',
+                'create'  => 'admin.navs.create',
+                'store'   => 'admin.navs.store',
+                'edit'    => 'admin.navs.edit',
+                'update'  => 'admin.navs.update',
+                'destroy' => 'admin.navs.destroy',
+            ],
+        ]);
     });
 
     // theme

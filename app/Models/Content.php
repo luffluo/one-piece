@@ -33,4 +33,18 @@ abstract class Content extends Model
     {
         return $this->belongsToMany(Tag::class, 'content_meta', 'content_id', 'meta_id');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($self) {
+            $self->type = static::TYPE;
+        });
+    }
+
+    public function scopeOrderAsc($query)
+    {
+        return $query->orderBy('order', 'asc');
+    }
 }

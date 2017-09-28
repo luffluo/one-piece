@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Nav;
 use Parsedown;
 use Carbon\Carbon;
 use App\Models\Tag;
@@ -33,11 +34,20 @@ class AppServiceProvider extends ServiceProvider
             $view->with('navTrigger', session('nav.trigger', false));
         });
 
+        View::composer('common.nav', function ($view) {
+            $navs = Nav::select('title', 'slug', 'text', 'order')
+                ->orderAsc()
+                ->get();
+
+            $view->with('navs', $navs);
+        });
+
         View::composer(['index', 'tag.index', 'post.show', 'common.sidebar'], function ($view) {
 
             if (sidebar_block_open('show_recent_posts')) {
                 $posts = Post::query()
                     ->select('id', 'title', 'created_at')
+                    ->published()
                     ->recent()
                     ->take(option('posts_list_size', 10))
                     ->get();
@@ -47,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (sidebar_block_open('show_tag')) {
                 $tags = Tag::query()
-                    ->select('id', 'name', 'slug')
+                    ->select('id', 'name', 'slug', 'count')
                     ->hadPosts()
                     ->get();
 

@@ -8,28 +8,17 @@
 
         <ul class="nav navbar-nav">
 
-            @if (request()->is('tags'))
-                <li class="nav-item active">
-                    <a href="{{ route('tags') }}" class="nav-link">
-                        <span class="fa fa-tags"></span>&nbsp;
-                        标签
-                    </a>
+            @forelse($navs as $nav)
+                @if (request()->fullUrlIs($nav->text . '*'))
+                    <li class="nav-item active">
+                @else
+                    <li class="nav-item">
+                @endif
+                    <a href="{{ url($nav->text) }}" class="nav-link" title="{{ $nav->title }}">
+                        {{ $nav->title }}</a>
                 </li>
-            @else
-                <li class="nav-item">
-                    <a href="{{ route('tags') }}" class="nav-link">
-                        <span class="fa fa-tags"></span>&nbsp;
-                        标签
-                    </a>
-                </li>
-            @endif
-
-            <li class="nav-item">
-                <a target="_blank" href="{{ route('feed') }}" class="nav-link">
-                    <i class="fa fa-rss" aria-hidden="true"></i>
-                    RSS
-                </a>
-            </li>
+            @empty
+            @endforelse
         </ul>
 
         <form class="navbar-form navbar-right" role="search" method="get" action="{{ route('search') }}">

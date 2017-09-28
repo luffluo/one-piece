@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Models\Nav;
+use App\Http\Requests\NavRequest;
+use App\Http\Controllers\Controller;
+
+class NavController extends Controller
+{
+    public function index()
+    {
+        $lists = Nav::query()
+            ->orderAsc()
+            ->get();
+
+        return admin_view('nav.index', compact('lists'));
+    }
+
+    public function create()
+    {
+        $nav = new Nav;
+
+        return admin_view('nav.create', compact('nav'));
+    }
+
+    public function store(NavRequest $request)
+    {
+        $nav = new Nav($request->all());
+
+        if (! $nav->save()) {
+            return redirect()->route('admin.navs.index')->withErrors("导航 {$nav->title} 添加失败");
+        }
+
+        return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被添加");
+    }
+
+    public function edit($id)
+    {
+        $nav = Nav::findOrFail($id);
+
+        return admin_view('nav.update', compact('nav'));
+    }
+
+    public function update(NavRequest $request, $id)
+    {
+        $nav = Nav::findOrFail($id);
+
+        $nav->fill($request->all());
+
+        if (! $nav->save()) {
+            return redirect()->route('admin.navs.index')->withErrors("导航 {$nav->title} 编辑失败");
+        }
+
+        return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被更新");
+    }
+
+    public function destroy($id)
+    {
+        $nav = Nav::findOrFail($id);
+
+        if (! $nav->delete()) {
+            return redirect()->route('admin.navs.index')->with('errors', "导航 {$nav->title} 删除失败");
+        }
+
+        return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被删除");
+    }
+}

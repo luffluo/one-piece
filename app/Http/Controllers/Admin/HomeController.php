@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
-class HomeController
+class HomeController extends Controller
 {
     public function index()
     {
