@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-header">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <span class="fa fa-home"> </span> {{ option('title', 'Luff') }}
+                <i class="fa fa-home"> </i> {{ option('title', 'Luff') }}
             </a>
         </div>
 
@@ -15,7 +15,7 @@
                     <li class="nav-item">
                 @endif
                     <a href="{{ url($nav->text) }}" class="nav-link" title="{{ $nav->title }}">
-                        {{ $nav->title }}</a>
+                        @if ($nav->slug)<i class="fa fa-{{ $nav->slug }}"> </i>@endif{{ $nav->title }}</a>
                 </li>
             @empty
             @endforelse

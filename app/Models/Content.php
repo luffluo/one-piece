@@ -47,4 +47,9 @@ abstract class Content extends Model
     {
         return $query->orderBy('order', 'asc');
     }
+
+    public function scopeOrderDesc($query)
+    {
+        return $query->orderBy('order', 'desc');
+    }
 }

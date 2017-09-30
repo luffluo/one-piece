@@ -37,7 +37,8 @@ class PostController extends Controller
 
         $draft_count = $cloneQuery->draft()->count();
 
-        $lists = $query->with('tags')
+        $lists = $query->postAndDraft()
+            ->with('tags')
             ->recent()
             ->paginate(20);
 

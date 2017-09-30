@@ -9,7 +9,7 @@ class NavRequest extends Request
         return [
             'title' => 'required',
             'text'  => 'required|url',
-            'order' => 'nullable|integer',
+            'order' => 'nullable|integer|min:1',
         ];
     }
 
@@ -20,6 +20,7 @@ class NavRequest extends Request
             'text.required'  => '请输入导航链接',
             'text.url'       => '请输入有效的链接',
             'order.integer'  => '请输入整数',
+            'order.min'      => '导航顺序最小值为 1',
         ];
     }
 }

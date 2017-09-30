@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Nav;
 use App\Http\Requests\NavRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class NavController extends Controller
@@ -28,9 +29,16 @@ class NavController extends Controller
     {
         $nav = new Nav($request->all());
 
+        DB::beginTransaction();
+
         if (! $nav->save()) {
+
+            DB::rollBack();
+
             return redirect()->route('admin.navs.index')->withErrors("导航 {$nav->title} 添加失败");
         }
+
+        DB::commit();
 
         return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被添加");
     }
@@ -48,9 +56,16 @@ class NavController extends Controller
 
         $nav->fill($request->all());
 
+        DB::beginTransaction();
+
         if (! $nav->save()) {
+
+            DB::rollBack();
+
             return redirect()->route('admin.navs.index')->withErrors("导航 {$nav->title} 编辑失败");
         }
+
+        DB::commit();
 
         return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被更新");
     }
@@ -59,9 +74,16 @@ class NavController extends Controller
     {
         $nav = Nav::findOrFail($id);
 
+        DB::beginTransaction();
+
         if (! $nav->delete()) {
+
+            DB::rollBack();
+
             return redirect()->route('admin.navs.index')->with('errors', "导航 {$nav->title} 删除失败");
         }
+
+        DB::commit();
 
         return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被删除");
     }

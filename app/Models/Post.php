@@ -242,6 +242,14 @@ EOF;
             : $this->parserContent();
     }
 
+    public function scopePostAndDraft($query)
+    {
+        return $query->where(function ($query) {
+            return $query->where('type', static::TYPE)
+                ->orWhere('type', static::TYPE_DRAFT);
+        });
+    }
+
     public function scopePublished($query)
     {
         return $query->where('type', static::TYPE);
