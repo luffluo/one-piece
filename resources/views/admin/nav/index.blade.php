@@ -1,5 +1,5 @@
 @extends('admin::layouts.default')
-@section('title')管理导航@endsection
+@section('title')导航设置@endsection
 
 @section('content')
     <div class="page clearfix">
@@ -11,7 +11,7 @@
             <div class="panel panel-lined clearfix mb30">
                 <div class="panel-heading mb20" style="float: left;">
                     <div>
-                        <h4 style="display: inline-block;">管理导航</h4>
+                        <h4 style="display: inline-block;">导航设置</h4>
                         <a class="btn btn-default btn-sm" href="{{ route('admin.navs.create') }}">新增</a>
                     </div>
                 </div>
@@ -38,7 +38,9 @@
                                     </a>
                                 </td>
                                 <td>{{ $list->slug }}</td>
-                                <td>{!! $list->text !!}</td>
+                                <td>
+                                    <a title="浏览 {{ $list->title }}" target="_blank" href="{!! $list->text !!}">
+                                        {!! $list->text !!} <i class="fa fa-external-link"> </i></a></td>
                                 <td>{{ $list->order }}</td>
                                 <td>
                                     @if ('publish' == $list->status)
