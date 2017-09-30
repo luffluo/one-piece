@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Nav;
 use Parsedown;
 use Carbon\Carbon;
+use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Listeners\MenuRouteMatched;
@@ -35,11 +35,14 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('common.nav', function ($view) {
-            $navs = Nav::select('title', 'slug', 'text', 'order')
-                ->orderAsc()
-                ->get();
+            $navigations = cache()->remember('navigations', 365 * 24 * 60, function () {
+                return Nav::select('title', 'slug', 'text', 'order')
+                    ->show()
+                    ->orderAsc()
+                    ->get();
+            });
 
-            $view->with('navs', $navs);
+            $view->with('navigations', $navigations);
         });
 
         View::composer(['index', 'tag.index', 'post.show', 'common.sidebar'], function ($view) {
@@ -66,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (sidebar_block_open('show_archive')) {
 
-                $result = cache()->remember('post.archive', 7 * 24 * 60, function () {
+                $result = cache()->remember('post.archive', 365 * 24 * 60, function () {
                     $posts = Post::select('created_at')->published()
                         ->recent()
                         ->get();

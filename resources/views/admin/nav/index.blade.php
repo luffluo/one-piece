@@ -23,6 +23,7 @@
                         <th class="col-md-1">图标</th>
                         <th class="col-md-3">链接</th>
                         <th class="col-md-1">顺序</th>
+                        <th class="col-md-1">状态</th>
                         <th class="col-md-1">操作</th>
                     </tr>
                     </thead>
@@ -39,6 +40,13 @@
                                 <td>{{ $list->slug }}</td>
                                 <td>{!! $list->text !!}</td>
                                 <td>{{ $list->order }}</td>
+                                <td>
+                                    @if ('publish' == $list->status)
+                                    <span class="label label-success">显示</span>
+                                    @elseif ('hidden' == $list->status)
+                                    <span class="label label-default">隐藏</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <form action="{{ route('admin.navs.destroy', ['id' => $list->id]) }}" method="post">
                                         {!! csrf_field() !!}

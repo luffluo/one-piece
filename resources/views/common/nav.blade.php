@@ -8,14 +8,14 @@
 
         <ul class="nav navbar-nav">
 
-            @forelse($navs as $nav)
-                @if (request()->fullUrlIs($nav->text . '*'))
+            @forelse($navigations as $navigation)
+                @if (request()->fullUrlIs($navigation->text . '*'))
                     <li class="nav-item active">
                 @else
                     <li class="nav-item">
                 @endif
-                    <a href="{{ url($nav->text) }}" class="nav-link" title="{{ $nav->title }}">
-                        @if ($nav->slug)<i class="fa fa-{{ $nav->slug }}"> </i>@endif{{ $nav->title }}</a>
+                    <a href="{{ url($navigation->text) }}" class="navigation-link" title="{{ $navigation->title }}">
+                        @if ($navigation->slug)<i class="fa fa-{{ $navigation->slug }}"> </i>@endif{{ $navigation->title }}</a>
                 </li>
             @empty
             @endforelse

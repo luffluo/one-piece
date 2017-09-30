@@ -94,10 +94,8 @@ class Nav extends Content
         });
     }
 
-    public static function lastNavByOrder()
+    public function scopeShow($query)
     {
-        return self::select('id', 'title', 'order')
-            ->orderDesc()
-            ->first();
+        return $query->where('status', static::STATUS_PUBLISH);
     }
 }
