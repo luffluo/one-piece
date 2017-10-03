@@ -38,12 +38,11 @@
                 <h3 class="widget-title">其它</h3>
                 <ol class="widget-list">
                     @guest
-                    <li><a href="{{ route('admin.login') }}">登录</a></li>
+                    <li><a href="{{ route('login') }}">登录</a></li>
                     @endguest
 
                     @auth
-                    <li><a href="{{ route('admin.home') }}">进入后台</a></li>
-                    <li><a href="{{ route('admin.logout') }}">退出</a></li>
+                    <li><a href="{{ route('logout') }}">退出</a></li>
                     @endauth
 
                     <li><a href="{{ route('feed') }}">文章 RSS</a></li>

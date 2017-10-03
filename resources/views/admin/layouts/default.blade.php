@@ -52,7 +52,7 @@ ______                            _              _                              
         <div class="btn-group btn-group-sm pull-right" role="group">
             <a class="btn btn-default" href="{{ route('admin.users.edit', $user->id) }}">{{ $user->displayName() }}</a>
 
-            <a class="btn btn-default" href="{{ route('admin.logout') }}">登出</a>
+            <a class="btn btn-default" href="{{ route('logout') }}">登出</a>
 
             <a class="btn btn-default" href="{{ url('') }}" target="_blank">网站</a>
         </div>

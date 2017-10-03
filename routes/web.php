@@ -38,10 +38,13 @@ Route::get('feed', 'RssController')->name('feed');
 
 // Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('login', 'LoginController@showLogin')->name('admin.login');
+    Route::get('login', 'LoginController@showLogin')->name('login');
     Route::post('login', 'LoginController@handleLogin');
 
-    Route::get('logout', 'LogoutController')->name('admin.logout');
+    Route::get('register', 'RegisterController@showRegister')->name('register');
+    Route::post('register', 'RegisterController@handleRegister');
+
+    Route::get('logout', 'LogoutController')->name('logout');
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

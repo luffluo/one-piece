@@ -36,10 +36,13 @@ class LoginController extends Controller
         $user = User::query()->where('name', $request->name)->first();
 
         if (! $user || ! $user->exists || ! $user->checkPassword($request->password)) {
-            return redirect()->back()->withErrors(['name' => '用户名或密码不正确.'])->withInput();
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['name' => '用户名或密码不正确.']);
         }
 
-        $this->guard()->login($user, true);
+        $this->guard()->login($user, $request->has('remember'));
 
         return redirect()->intended(route('admin.home'));
     }

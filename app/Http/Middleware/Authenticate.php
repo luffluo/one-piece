@@ -9,7 +9,7 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if (auth()->guard($guard)->guest()) {
-            return redirect()->guest(route('admin.login'));
+            return redirect()->guest(route('login'));
         }
 
         return $next($request);
