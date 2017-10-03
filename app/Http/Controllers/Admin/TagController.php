@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'auth.admin']);
+    }
+
     public function index()
     {
         $lists = Tag::paginate(20);

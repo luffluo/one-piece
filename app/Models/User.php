@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
@@ -29,10 +27,9 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  */
 class User extends Model implements
     AuthenticatableContract,
-    AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, Notifiable;
+    use Authenticatable, CanResetPassword, Notifiable;
 
     protected $table = 'users';
 
@@ -49,6 +46,7 @@ class User extends Model implements
         'password',
         'activated_at',
         'last_seen_time',
+
     ];
 
     protected $dates = ['activated_at', 'last_seen_time'];
@@ -63,10 +61,10 @@ class User extends Model implements
         'remember_token',
     ];
 
-    public function isAdmin()
-    {
-        return true;
-    }
+    public $groups = [
+        'administrator' => 0,
+        'visitor'       => 4,
+    ];
 
     public function setPassword($password)
     {
@@ -94,5 +92,21 @@ class User extends Model implements
         }
 
         return $name;
+    }
+
+    /**
+     * 判断用户权限
+     *
+     * @param string $group 用户组
+     *
+     * @return boolean
+     */
+    public function can($group)
+    {
+        if (array_key_exists($group, $this->groups) && $this->groups[$this->group] <= $this->groups[$group]) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -17,10 +17,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <p>点击下面的链接快速开始:</p>
                             <ul class="list-inline" style="margin-left: 0;">
                                 <li><a href="{{ route('admin.posts.create') }}">撰写新文章</a></li>
+                                <li><a href="{{ route('admin.navs.index') }}">导航设置</a></li>
                                 <li><a href="{{ route('admin.theme.options') }}">外观设置</a></li>
                                 <li><a href="{{ route('admin.options.reading') }}">阅读设置</a></li>
                                 <li><a href="{{ route('admin.options.general') }}">系统设置</a></li>
@@ -31,7 +32,7 @@
                     <hr>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <h5>最近发布的文章</h5>
                             <ul class="list-unstyled">
                                 @forelse($posts as $post)

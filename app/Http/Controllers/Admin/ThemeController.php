@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 
 class ThemeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'auth.admin']);
+    }
+
     public function showOptions()
     {
         $sidebarBlock = sidebar_block();

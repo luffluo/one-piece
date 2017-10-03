@@ -238,9 +238,11 @@ class Installer
         $tag->save();
 
         // 初始用户
-        $user = new User([
+        $user = new User;
+        $user->forceFill([
             'name'  => $this->data->get('admin_username'),
             'email' => $this->data->get('admin_email'),
+            'group' => 'administrator',
         ]);
         $user->setPassword($this->data->get('admin_password'));
         $user->save();

@@ -31,7 +31,6 @@ Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
 
 // SiteMap
 Route::get('sitemap', 'SiteMapController')->name('sitemap');
-Route::get('sitemap.xml', 'SiteMapController')->name('sitemap.xml');
 
 // RSS
 Route::get('feed', 'RssController')->name('feed');
@@ -45,7 +44,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('logout', 'LogoutController')->name('admin.logout');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth.admin']], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Home
     Route::get('/', 'HomeController@index')->name('admin.home');

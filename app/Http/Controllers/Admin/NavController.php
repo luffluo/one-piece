@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class NavController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'auth.admin']);
+    }
+
     public function index()
     {
         $lists = Nav::query()

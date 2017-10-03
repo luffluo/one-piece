@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 
 class OptionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'auth.admin']);
+    }
+
     public function showGeneral()
     {
         $title       = option('title');
