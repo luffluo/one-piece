@@ -7,9 +7,9 @@
 ![luff-admin](http://wx2.sinaimg.cn/large/006fVPCvly1fjri75enimj31400p0dhx.jpg)
 
 ## 基本特性
-* 单用户
+* 用户
 * 标签
-* 文章 - 文章只有标签，无分类概念
+* 文章 - 只有标签，无分类概念
 * 自定义站点导航
 * 支持 Markdown
 * 支持简单的外观设置

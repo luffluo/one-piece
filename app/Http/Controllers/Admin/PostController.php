@@ -57,9 +57,10 @@ class PostController extends Controller
 
     public function create()
     {
-        $post             = new Post;
-        $post->allow_feed = true;
-        $tags             = Tag::query()->select('id', 'name')->get();
+        $post                = new Post;
+        $post->allow_feed    = true;
+        $post->allow_comment = true;
+        $tags                = Tag::query()->select('id', 'name')->get();
 
 
         return admin_view('post.create', compact('post', 'tags'));
@@ -67,11 +68,13 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        DB::beginTransaction();
+        $post                = new Post($request->all());
+        $post->do            = $request->get('do', null);
+        $post->postTags      = $request->get('tags', []);
+        $post->allow_feed    = $request->has('allow_feed');
+        $post->allow_comment = $request->has('allow_comment');
 
-        $post           = new Post($request->all());
-        $post->do       = $request->get('do', null);
-        $post->postTags = $request->get('tags', []);
+        DB::beginTransaction();
 
         if (! $post->save()) {
             DB::rollBack();
@@ -109,12 +112,13 @@ class PostController extends Controller
             return redirect()->back()->withErrors('文章不存在.');
         }
 
-        DB::beginTransaction();
-
         $post->fill($request->all());
-        $post->do         = $request->get('do', null);
-        $post->allow_feed = $request->has('allow_feed');
-        $post->postTags   = $request->get('tags', []);
+        $post->do            = $request->get('do', null);
+        $post->postTags      = $request->get('tags', []);
+        $post->allow_feed    = $request->has('allow_feed');
+        $post->allow_comment = $request->has('allow_comment');
+
+        DB::beginTransaction();
 
         if (! $post->save()) {
 

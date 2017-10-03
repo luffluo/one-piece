@@ -23,8 +23,8 @@ ______                            _              _                              
 
     <title>@section('title')@show - {{ option('title', 'Luff') }}</title>
 
-    <meta name="keywords" content="{{ option('site.keywords') }}">
-    <meta name="description" content="{{ option('site.description') }}">
+    <meta name="keywords" content="{{ option('keywords') }}">
+    <meta name="description" content="{{ option('description') }}">
     <meta name="author" content="Luff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

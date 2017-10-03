@@ -1,5 +1,7 @@
 @extends('admin::layouts.auth')
+
 @section('title')登录到{{ option('title', 'Luff')  }}@endsection
+
 @section('content')
 <div class="page page-auth clearfix">
     <div class="auth-container">

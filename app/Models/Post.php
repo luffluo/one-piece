@@ -26,6 +26,7 @@ class Post extends Content
         'user_id',
         'type',
         'status',
+        'allow_comment',
         'allow_feed',
     ];
 

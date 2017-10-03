@@ -31,11 +31,13 @@
                         <time>{{ $post->created_at->format(option('post_date_format', 'Y-m-d')) }}</time>
                     </li>
 
+                    @if(count($post->tags))
                     <li>
                         @foreach ($post->tags as $tag)
                             <a href="{{ route('tag.posts', $tag->slug) }}">{{ $tag->name }}</a>@if (!$loop->last),&nbsp;@endif
                         @endforeach
                     </li>
+                    @endif
                 </ul>
 
                 <div class="post-content" itemprop="articleBody">

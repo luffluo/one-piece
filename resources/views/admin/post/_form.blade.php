@@ -52,6 +52,17 @@
                     <div class="form-group form-group-sm">
                         <div class="col-md-12">
                             <label>权限控制</label>
+
+                            <div class="checkbox">
+                                <label for="allow_comment">
+                                    @if ($post->allow_comment)
+                                        <input id="allow_comment" name="allow_comment" value="1" checked="checked" type="checkbox"> 允许评论
+                                    @else
+                                        <input id="allow_comment" name="allow_comment" value="1" type="checkbox"> 允许评论
+                                    @endif
+                                </label>
+                            </div>
+
                             <div class="checkbox">
                                 <label for="allow_feed">
                                     @if ($post->allow_feed)
