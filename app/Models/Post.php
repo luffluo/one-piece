@@ -176,11 +176,33 @@ class Post extends Content
     }
 
     /**
+     * 作者
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * 评论
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'content_id', 'id');
+    }
+
+    /**
+     * 评论以 parent_id 来分组
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments()->with('user')->get()->groupBy('parent_id');
     }
 
     /**
@@ -241,6 +263,24 @@ EOF;
         return false !== $more ?
             sprintf('<p>%s</p>', $this->summary()) . sprintf($string, route('post.show', ['id' => $this->id]), $more)
             : $this->parserContent();
+    }
+
+    /**
+     * 输出文章评论数
+     *
+     * @param array ...$args
+     *
+     * @return string
+     */
+    public function commentsNum(...$args)
+    {
+        if (! $args) {
+            $args[] = '%d';
+        }
+
+        $num = intval($this->comments_count);
+
+        return sprintf($args[$num] ?? array_pop($args), $num);
     }
 
     public function scopePostAndDraft($query)

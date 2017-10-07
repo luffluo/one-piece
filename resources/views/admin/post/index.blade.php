@@ -65,6 +65,7 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
+                        <th class="col-md-1"></th>
                         <th class="col-md-4">标题</th>
                         <th class="col-md-2">标签</th>
                         <th class="col-md-1">日期</th>
@@ -74,6 +75,11 @@
                     <tbody>
                         @forelse ($lists as $list)
                             <tr>
+                                <td>
+                                    <a href="#">
+                                        <span class="badge">{{ $list->comments_count }}</span>
+                                    </a>
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
                                         {{ $list->headline(40) }}

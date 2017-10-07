@@ -38,6 +38,10 @@
                         @endforeach
                     </li>
                     @endif
+
+                    <li itemprop="interactionCount">
+                        <a itemprop="discussionUrl" href="{{ route('post.show', $post->id) }}#comments">{{ $post->commentsNum('评论', '%d 评论') }}</a>
+                    </li>
                 </ul>
 
                 <div class="post-content" itemprop="articleBody">

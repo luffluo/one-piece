@@ -16,9 +16,9 @@
 
 ## 运行环境要求
 * PHP 7.0+
-* Mysql 5.7+
+* Mysql 5.6+
 * OpenSSL PHP Extension
-* PDO_MYSQL PHP Extension
+* PDO_MySQL PHP Extension
 * Mbstring PHP Extension
 
 ## 安装

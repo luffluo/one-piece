@@ -27,6 +27,9 @@
             <div class="post-content">{!! $post->content() !!}</div>
 
         </article>
+
+        @include('comment._list', ['collections' => $comments[0]])
+
     </div>
 
     @include('common.sidebar')

@@ -20,6 +20,9 @@ Route::get('search', 'HomeController@index')->name('search');
 // Post
 Route::get('a/{id}', 'PostController@show')->name('post.show');
 
+// 文章评论
+Route::post('a/{post_id}/comment', 'PostController@handleComment')->name('post.comment');
+
 // Tags
 Route::get('tags', 'TagController@index')->name('tags');
 Route::get('t/{slug}', 'TagController@posts')->name('tag.posts');
