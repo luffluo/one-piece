@@ -3,7 +3,7 @@
 @section('content')
     <div class="page clearfix">
 
-        <div class="page-wrap">
+        <div class="page-wrap luff-dashboard">
             <div class="panel panel-lined">
                 <div class="panel-heading"><h4>概要</h4></div>
 
@@ -32,15 +32,30 @@
                     <hr>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <h5>最近发布的文章</h5>
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled latest-link">
                                 @forelse($posts as $post)
                                     <li>
-                                        <span>{{ $post->created_at->format('n.j') }}</span>&nbsp;|&nbsp;<a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->headline(50) }}</a>
+                                        <span>{{ $post->created_at->format('n.j') }}</span>
+                                        <a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->headline(50) }}</a>
                                     </li>
                                 @empty
                                     <li><em>暂时没有文章</em></li>
+                                @endforelse
+                            </ul>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5>最近得到的回复</h5>
+                            <ul class="list-unstyled latest-link">
+                                @forelse($comments as $comment)
+                                    <li>
+                                        <span>{{ $comment->created_at->format('n.j') }}</span>
+                                        {{ $comment->user->displayName() }}:&nbsp;{{ $comment->text }}
+                                    </li>
+                                @empty
+                                    <li><em>暂时没有回复</em></li>
                                 @endforelse
                             </ul>
                         </div>

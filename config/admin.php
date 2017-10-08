@@ -6,7 +6,7 @@
 return [
     'bootstrap' => [
         'title' => '控制台',
-        'icon'  => 'fa-tasks',
+        'icon'  => 'fa-dashboard',
         'sub'   => [
             [
                 'title'  => '概要',
@@ -20,17 +20,35 @@ return [
             ],
         ],
     ],
-    'post'      => [
-        'title'  => '文章',
-        'icon'   => 'fa-file-text',
-        'active' => 'admin/posts*',
-        'url'    => 'admin/posts',
-    ],
-    'tag'       => [
-        'title'  => '标签',
-        'icon'   => 'fa-tags',
-        'active' => 'admin/tags*',
-        'url'    => 'admin/tags',
+    'manage'    => [
+        'title' => '管理',
+        'icon'  => 'fa-tasks',
+        'sub'   => [
+            [
+                'title'  => '文章',
+                // 'icon'   => 'fa-file-text',
+                'active' => 'admin/posts*',
+                'url'    => 'admin/posts',
+            ],
+            [
+                'title'  => '标签',
+                // 'icon'   => 'fa-tags',
+                'active' => 'admin/tags*',
+                'url'    => 'admin/tags',
+            ],
+            [
+                'title'  => '导航',
+                // 'icon'   => 'fa-navicon',
+                'active' => 'admin/navs*',
+                'url'    => 'admin/navs',
+            ],
+            [
+                'title'  => '用户',
+                // 'icon'   => 'fa-users',
+                'active' => 'admin/users*',
+                'url'    => 'admin/users',
+            ],
+        ],
     ],
     'setting'   => [
         'title' => '设置',
@@ -45,11 +63,6 @@ return [
                 'title'  => '阅读',
                 'active' => 'admin/options/reading*',
                 'url'    => 'admin/options/reading',
-            ],
-            [
-                'title'  => '导航',
-                'active' => 'admin/options/navs*',
-                'url'    => 'admin/options/navs',
             ],
         ],
     ],

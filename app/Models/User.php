@@ -44,6 +44,7 @@ class User extends Model implements
         'nickname',
         'avatar',
         'password',
+        'group',
         'activated_at',
         'last_seen_time',
 
@@ -63,8 +64,12 @@ class User extends Model implements
 
     public $groups = [
         'administrator' => 0,
+        'editor'        => 1,
+        'contributor'   => 2,
+        'subscriber'    => 3,
         'visitor'       => 4,
     ];
+
 
     public function setPassword($password)
     {

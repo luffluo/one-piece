@@ -76,7 +76,7 @@
                         @forelse ($lists as $list)
                             <tr>
                                 <td>
-                                    <a href="#">
+                                    <a href="#" title="{{ $list->comments_count }} 评论">
                                         <span class="badge">{{ $list->comments_count }}</span>
                                     </a>
                                 </td>

@@ -43,4 +43,9 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.edit', $user->id)->withMessage('用户编辑成功!');
     }
+
+    public function destroy($id)
+    {
+
+    }
 }

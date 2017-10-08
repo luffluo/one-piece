@@ -18,32 +18,42 @@
                     <tr>
                         <th class="col-md-1">用户名</th>
                         <th class="col-md-1">昵称</th>
-                        <th class="col-md-1">电子邮件</th>
-                        <th class="col-md-2">创建时间</th>
-                        {{--<th class="col-md-1">操作</th>--}}
+                        <th class="col-md-2">电子邮件</th>
+                        <th class="col-md-2">用户组</th>
+                        <th class="col-md-1"></th>
                     </tr>
                     </thead>
                     <tbody>
                         @foreach ($lists as $list)
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', ['id' => $list->id]) }}">{{ $list->name }}</a>
+                                    <a href="{{ route('admin.users.edit', $list->id) }}">{{ $list->name }}</a>
                                 </td>
                                 <td>{{ $list->nickname }}</td>
                                 <td>
                                     <a href="mailto:{{ $list->email }}" target="_blank">{{ $list->email }}</a>
                                 </td>
-                                <td>{{ $list->created_at }}</td>
-                                {{--<td>--}}
-                                    {{--<form action="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" method="post">--}}
-                                        {{--{!! csrf_field() !!}--}}
-                                        {{--{!! method_field('DELETE') !!}--}}
+                                <td>
+                                    @switch ($list->group)
+                                        @case('administrator')
+                                            管理员
+                                            @break;
 
-                                        {{--<button type="submit" class="btn btn-danger btn-xs"--}}
-                                                {{--data-form-confirm="确定要删除该用户吗？">删除--}}
-                                        {{--</button>--}}
-                                    {{--</form>--}}
-                                {{--</td>--}}
+                                        @case('visitor')
+                                        @default
+                                            访问者
+                                            @break;
+                                    @endswitch
+                                </td>
+                                <td>
+                                    <form action="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" method="post">
+                                        {!! csrf_field() !!}
+                                        {!! method_field('DELETE') !!}
+
+                                        <button type="submit" class="btn btn-danger btn-xs" action-confirm="确定要删除该用户吗？">删除
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

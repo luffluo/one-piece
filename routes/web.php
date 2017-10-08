@@ -65,18 +65,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::get('reading', 'OptionController@showReading')->name('admin.options.reading');
         Route::post('reading', 'OptionController@handleReading');
-
-        Route::resource('navs', 'NavController', [
-            'except' => ['show'],
-            'names' => [
-                'index'   => 'admin.navs.index',
-                'create'  => 'admin.navs.create',
-                'store'   => 'admin.navs.store',
-                'edit'    => 'admin.navs.edit',
-                'update'  => 'admin.navs.update',
-                'destroy' => 'admin.navs.destroy',
-            ],
-        ]);
     });
 
     // theme
@@ -86,22 +74,52 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
 
     // Post
-    Route::get('posts', 'PostController@index')->name('admin.posts.index');
-    Route::get('posts/create', 'PostController@create')->name('admin.posts.create');
-    Route::post('posts', 'PostController@store')->name('admin.posts.store');
-    Route::get('posts/{id}', 'PostController@edit')->name('admin.posts.edit');
-    Route::patch('posts/{id}', 'PostController@update')->name('admin.posts.update');
-    Route::delete('posts/{id}', 'PostController@destroy')->name('admin.posts.destroy');
+    Route::resource('posts', 'PostController', [
+        'except' => ['show'],
+        'names'  => [
+            'index'   => 'admin.posts.index',
+            'create'  => 'admin.posts.create',
+            'store'   => 'admin.posts.store',
+            'edit'    => 'admin.posts.edit',
+            'update'  => 'admin.posts.update',
+            'destroy' => 'admin.posts.destroy',
+        ],
+    ]);
 
     // Tag
-    Route::get('tags', 'TagController@index')->name('admin.tags.index');
-    Route::get('tags/create', 'TagController@create')->name('admin.tags.create');
-    Route::post('tags/store', 'TagController@store')->name('admin.tags.store');
-    Route::get('tags/{id}', 'TagController@edit')->name('admin.tags.edit');
-    Route::patch('tags/{id}', 'TagController@update')->name('admin.tags.update');
-    Route::delete('tags/{id}', 'TagController@destroy')->name('admin.tags.destroy');
+    Route::resource('tags', 'TagController', [
+        'except' => ['show'],
+        'names'  => [
+            'index'   => 'admin.tags.index',
+            'create'  => 'admin.tags.create',
+            'store'   => 'admin.tags.store',
+            'edit'    => 'admin.tags.edit',
+            'update'  => 'admin.tags.update',
+            'destroy' => 'admin.tags.destroy',
+        ],
+    ]);
+
+    // 导航
+    Route::resource('navs', 'NavController', [
+        'except' => ['show'],
+        'names'  => [
+            'index'   => 'admin.navs.index',
+            'create'  => 'admin.navs.create',
+            'store'   => 'admin.navs.store',
+            'edit'    => 'admin.navs.edit',
+            'update'  => 'admin.navs.update',
+            'destroy' => 'admin.navs.destroy',
+        ],
+    ]);
 
     // User
-    Route::get('users/{id}', 'UserController@edit')->name('admin.users.edit');
-    Route::patch('users/{id}', 'UserController@update')->name('admin.users.update');
+    Route::resource('users', 'UserController', [
+        'except' => ['create', 'store', 'show'],
+        'names'  => [
+            'index'   => 'admin.users.index',
+            'edit'    => 'admin.users.edit',
+            'update'  => 'admin.users.update',
+            'destroy' => 'admin.users.destroy',
+        ],
+    ]);
 });

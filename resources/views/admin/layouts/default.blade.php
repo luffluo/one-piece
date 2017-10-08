@@ -50,7 +50,7 @@ ______                            _              _                              
     <div class="head-wrap clearfix">
 
         <div class="btn-group btn-group-sm pull-right" role="group">
-            <a class="btn btn-default" href="{{ route('admin.users.edit', $user->id) }}">{{ $user->displayName() }}</a>
+            <a class="btn btn-default" href="{{ route('admin.users.edit', auth()->user()->id) }}">{{ auth()->user()->displayName() }}</a>
 
             <a class="btn btn-default" href="{{ route('logout') }}">登出</a>
 

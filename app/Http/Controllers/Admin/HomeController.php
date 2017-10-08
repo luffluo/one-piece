@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -23,7 +24,13 @@ class HomeController extends Controller
             ->get();
         $tags_count  = Tag::count();
 
-        return admin_view('index', compact('posts', 'posts_count', 'tags_count'));
+        $comments = Comment::query()
+            ->select('text', 'created_at', 'user_id')
+            ->with('user')
+            ->take(10)
+            ->get();
+
+        return admin_view('index', compact('posts', 'posts_count', 'tags_count', 'comments'));
     }
 
     public function navTrigger()

@@ -4510,6 +4510,20 @@ html, body {
   display: inline-block;
 }
 
+.luff-dashboard li {
+  margin-bottom: 5px;
+}
+
+.latest-link span {
+  display: inline-block;
+  margin-right: 4px;
+  padding-right: 8px;
+  border-right: 1px solid #ECECEC;
+  width: 37px;
+  text-align: right;
+  color: #999;
+}
+
 /* 重写 select2 样式 start */
 .select2-container--default .select2-selection--multiple {
   border-radius: 2px;
