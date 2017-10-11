@@ -8,7 +8,7 @@
 
     <div class="comment-meta">
         <a href="{{ route('post.show', $comment->content_id) . '#comment-' . $comment->id }}">
-            <time itemprop="commentTime" datetime="">{{ $comment->created_at->format('Y-m-d H:i:s') }}</time></a>
+            <time itemprop="commentTime" datetime="">{{ $comment->created_at->format(option('comment_date_format')) }}</time></a>
     </div>
 
     <div class="comment-content" itemprop="commentText">

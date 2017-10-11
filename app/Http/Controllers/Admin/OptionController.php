@@ -32,6 +32,25 @@ class OptionController extends Controller
         return redirect()->route('admin.options.general')->withMessage('设置已经保存');
     }
 
+    public function showDiscussion()
+    {
+        $commentDateFormat = option('comment_date_format');
+        $commentsListSize  = option('comments_list_size');
+
+        return admin_view(
+            'option.discussion',
+            compact('commentDateFormat', 'commentsListSize')
+        );
+    }
+
+    public function handleDiscussion()
+    {
+        option(['comment_date_format', request()->input('commentDateFormat')]);
+        option(['comments_list_size', request()->input('commentsListSize')]);
+
+        return redirect()->route('admin.options.discussion')->withMessage('设置已经保存');
+    }
+
     public function showReading()
     {
         $postDateFormat = option('post_date_format');

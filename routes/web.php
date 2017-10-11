@@ -63,6 +63,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('general', 'OptionController@showGeneral')->name('admin.options.general');
         Route::post('general', 'OptionController@handleGeneral');
 
+        Route::get('discussion', 'OptionController@showDiscussion')->name('admin.options.discussion');
+        Route::post('discussion', 'OptionController@handleDiscussion');
+
         Route::get('reading', 'OptionController@showReading')->name('admin.options.reading');
         Route::post('reading', 'OptionController@handleReading');
     });

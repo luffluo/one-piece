@@ -66,6 +66,11 @@ return [
                 'url'    => 'admin/options/general',
             ],
             [
+                'title'  => '评论',
+                'active' => 'admin/options/discussion*',
+                'url'    => 'admin/options/discussion',
+            ],
+            [
                 'title'  => '阅读',
                 'active' => 'admin/options/reading*',
                 'url'    => 'admin/options/reading',
