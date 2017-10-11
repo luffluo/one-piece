@@ -86,6 +86,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         ],
     ]);
 
+    // Comment
+    Route::get('comments', 'CommentController@index')->name('admin.comments.index');
+    Route::post('comments/{comment}', 'CommentController@reply')->name('admin.comments.reply');
+    Route::patch('comments/{comment}', 'CommentController@update')->name('admin.comments.update');
+    Route::delete('comments/{comment}', 'CommentController@destroy')->name('admin.comments.destroy');
+
     // Tag
     Route::resource('tags', 'TagController', [
         'except' => ['show'],

@@ -22,12 +22,12 @@
                         <th class="col-md-2">名称</th>
                         <th class="col-md-1">缩略名</th>
                         <th class="col-md-1">文章数</th>
-                        <th class="col-md-1">操作</th>
+                        <th class="col-md-1"></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                        @foreach ($lists as $list)
+                        @forelse ($lists as $list)
                             <tr>
                                 <td>
                                     <a title="编辑标签 {{ $list->name }}" href="{{ route('admin.tags.edit', $list->id) }}">
@@ -50,7 +50,9 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <td colspan="4"><h6 class="luff-list-table-title">没有任何标签</h6></td>
+                        @endforelse
                     </tbody>
                 </table>
 

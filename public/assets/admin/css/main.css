@@ -4524,6 +4524,22 @@ html, body {
   color: #999;
 }
 
+table tr td .hidden-by-mouse {
+  opacity: 0;
+}
+
+table tr:hover td .hidden-by-mouse {
+  opacity: 1;
+}
+
+.comment-reply-content {
+  position: relative;
+  margin: 1em 0;
+  padding: 0 1em;
+  border: 1px solid transparent;
+  background-color: #F0F0EC;
+}
+
 /* 重写 select2 样式 start */
 .select2-container--default .select2-selection--multiple {
   border-radius: 2px;

@@ -50,8 +50,21 @@ class Comment extends Model
 
         static::saved(function ($comment) {
 
+            // 文章数 +1
             Post::where('id', $comment->content_id)
                 ->increment('comments_count');
+
+        });
+
+        static::deleted(function ($comment) {
+
+            // 文章数 -1
+            Post::where('id', $comment->content_id)
+                ->decrement('comments_count');
+
+            // 把该评论的子评论，变成该评论的父评论的子评论
+            Comment::where('parent_id', $comment->id)
+                ->update(['parent_id' => $comment->parent_id]);
 
         });
     }

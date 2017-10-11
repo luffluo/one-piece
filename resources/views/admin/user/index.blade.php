@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($lists as $list)
+                        @forelse($lists as $list)
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.users.edit', $list->id) }}">{{ $list->name }}</a>
@@ -55,7 +55,9 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <td colspan="5"><h6 class="luff-list-table-title">没有任何用户</h6></td>
+                        @endforelse
                     </tbody>
                 </table>
 

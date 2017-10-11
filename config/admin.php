@@ -31,6 +31,12 @@ return [
                 'url'    => 'admin/posts',
             ],
             [
+                'title'  => '评论',
+                // 'icon'   => 'fa-file-text',
+                'active' => 'admin/comments*',
+                'url'    => 'admin/comments',
+            ],
+            [
                 'title'  => '标签',
                 // 'icon'   => 'fa-tags',
                 'active' => 'admin/tags*',

@@ -1,5 +1,5 @@
 @extends('admin::layouts.default')
-@section('title')导航设置@endsection
+@section('title')管理导航@endsection
 
 @section('content')
     <div class="page clearfix">
@@ -11,7 +11,7 @@
             <div class="panel panel-lined clearfix mb30">
                 <div class="panel-heading mb20" style="float: left;">
                     <div>
-                        <h4 style="display: inline-block;">导航设置</h4>
+                        <h4 style="display: inline-block;">管理导航</h4>
                         <a class="btn btn-default btn-sm" href="{{ route('admin.navs.create') }}">新增</a>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                         <th class="col-md-1">图标</th>
                         <th class="col-md-3">链接</th>
                         <th class="col-md-1">顺序</th>
-                        <th class="col-md-1">操作</th>
+                        <th class="col-md-1"></th>
                     </tr>
                     </thead>
 
@@ -43,7 +43,8 @@
                                 <td>{{ $list->slug }}</td>
                                 <td>
                                     <a title="浏览 {{ $list->title }}" target="_blank" href="{!! $list->text !!}">
-                                        {!! $list->text !!} <i class="fa fa-external-link"> </i></a></td>
+                                        {!! $list->text !!} <i class="fa fa-external-link"> </i></a>
+                                </td>
                                 <td>{{ $list->order }}</td>
                                 <td>
                                     <form action="{{ route('admin.navs.destroy', ['id' => $list->id]) }}" method="post">
@@ -56,10 +57,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td>没有任何导航</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="5"><h6 class="luff-list-table-title">没有任何导航</h6></td>
                             </tr>
                         @endforelse
                     </tbody>

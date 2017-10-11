@@ -64,19 +64,19 @@
 
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th class="col-md-1"></th>
-                        <th class="col-md-4">标题</th>
-                        <th class="col-md-2">标签</th>
-                        <th class="col-md-1">日期</th>
-                        <th class="col-md-1">操作</th>
-                    </tr>
+                        <tr>
+                            <th class="col-md-1"></th>
+                            <th class="col-md-4">标题</th>
+                            <th class="col-md-2">标签</th>
+                            <th class="col-md-1">日期</th>
+                            <th class="col-md-1"></th>
+                        </tr>
                     </thead>
                     <tbody>
                         @forelse ($lists as $list)
                             <tr>
                                 <td>
-                                    <a href="#" title="{{ $list->comments_count }} 评论">
+                                    <a href="{{ route('admin.comments.index', ['cid' => $list->id]) }}" title="{{ $list->comments_count }} 评论">
                                         <span class="badge">{{ $list->comments_count }}</span>
                                     </a>
                                 </td>
@@ -105,7 +105,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td><h6>没有任何文章</h6></td>
+                                <td colspan="5"><h6 class="luff-list-table-title">没有任何文章</h6></td>
                             </tr>
                         @endforelse
                     </tbody>
