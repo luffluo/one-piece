@@ -42,19 +42,9 @@ class InstallController extends Controller
     public function handleInstall(InstallRequest $request)
     {
         try {
-            $connection = app('db.factory')->make([
-                'driver'    => 'mysql',
-                'host'      => $request->get('db_host'),
-                'port'      => 3306,
-                'database'  => $request->get('db_database'),
-                'username'  => $request->get('db_username'),
-                'password'  => $request->get('db_password'),
-                'charset'   => 'utf8mb4',
-                'collation' => 'utf8mb4_unicode_ci',
-                'prefix'    => '',
-                'strict'    => true,
-                'engine'    => null,
-            ], 'mysql');
+            $this->installer->setData($request->all())->setDataFrom('controller');
+
+            $connection = $this->installer->makeConnection();
 
             $results = collect($connection->select(DB::raw('show tables')));
             $tables = [];
@@ -97,9 +87,6 @@ class InstallController extends Controller
 
             return back()->withInput()->withErrors($error);
         }
-
-        $this->installer->setData($request->all());
-        $this->installer->setDataFrom('controller');
 
         $this->installer->start();
 

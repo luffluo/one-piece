@@ -56,9 +56,7 @@ class InstallCommand extends Command
         }
 
         // 从 console 中获取信息
-        $this->installer->setData($this->getData());
-        $this->installer->setDataFrom('console');
-
+        $this->installer->setData($this->getData())->setDataFrom('console');
 
         $this->info('---');
 
@@ -79,6 +77,7 @@ class InstallCommand extends Command
         $data['db_username'] = $this->ask('数据库用户名：', 'root');
         $data['db_password'] = $this->ask('数据库密码：');
         $data['db_database'] = $this->ask('数据库：', 'luff');
+        $data['db_charset']  = $this->ask('数据库字符集：', 'utf8mb4');
 
         $data['admin_username'] = $this->ask('管理员账号：', 'admin');
         $data['admin_password'] = $this->ask('管理员密码：', 'admin123');

@@ -49,6 +49,12 @@
                             <span class="help-block">请您指定数据库名称</span>
                         </div>
 
+                        <div class="form-group">
+                            <label for="db_database">数据库字符集</label>
+                            <input type="text" class="form-control" id="db_charset" name="db_charset" value="{{ old('db_charset', 'utf8mb4') }}">
+                            <span class="help-block">请您指定数据库字符集</span>
+                        </div>
+
                     </div>
                 </div>
 

@@ -50,10 +50,14 @@ class Installer
      * 设置数据的来源
      *
      * @param string $source
+     *
+     * @return \App\Services\Installer
      */
     public function setDataFrom($source)
     {
         $this->dataFrom = $source;
+
+        return $this;
     }
 
     /**
@@ -120,6 +124,8 @@ class Installer
      * 把获取的数据存到 data 属性
      *
      * @param array $data
+     *
+     * @return \App\Services\Installer
      */
     public function setData(array $data)
     {
@@ -127,27 +133,30 @@ class Installer
         $this->data->put('db_database', $data['db_database']);
         $this->data->put('db_username', $data['db_username']);
         $this->data->put('db_password', $data['db_password']);
+        $this->data->put('db_charset', $data['db_charset']);
 
         $this->data->put('admin_username', $data['admin_username']);
         $this->data->put('admin_password', $data['admin_password']);
         $this->data->put('admin_email', $data['admin_email']);
+
+        return $this;
     }
 
 
     /**
      * @return \Illuminate\Database\Connection
      */
-    public function makeConnection(array $data)
+    public function makeConnection()
     {
         return $this->app['db.factory']->make([
             'driver'    => 'mysql',
-            'host'      => $data['db_host'],
+            'host'      => $this->data->get('db_host'),
             'port'      => 3306,
-            'database'  => $data['db_database'],
-            'username'  => $data['db_username'],
-            'password'  => $data['db_password'],
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'database'  => $this->data->get('db_database'),
+            'username'  => $this->data->get('db_username'),
+            'password'  => $this->data->get('db_password'),
+            'charset'   => $this->data->get('db_charset'),
+            'collation' => $this->data->get('db_charset') . '_general_ci',
             'prefix'    => '',
             'strict'    => true,
             'engine'    => null,
@@ -190,8 +199,8 @@ class Installer
             'database'  => $this->data->get('db_database'),
             'username'  => $this->data->get('db_username'),
             'password'  => $this->data->get('db_password'),
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'charset'   => $this->data->get('db_charset'),
+            'collation' => $this->data->get('db_charset') . '_general_ci',
             'prefix'    => '',
             'strict'    => true,
             'engine'    => null,
@@ -219,8 +228,8 @@ class Installer
     public function initLuff()
     {
         // 全局变量
-        $options          = $this->config->get('option');
-        $insert           = [];
+        $options = $this->config->get('option');
+        $insert  = [];
         foreach ($options as $key => $value) {
             $insert[] = [
                 'name'    => $key,
