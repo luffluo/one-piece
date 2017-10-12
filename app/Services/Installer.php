@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Symfony\Component\Console\Output\NullOutput;
@@ -117,7 +119,7 @@ class Installer
      */
     public function removeInstalledFile()
     {
-        return unlink($this->getInstalledFile());
+        return @unlink($this->getInstalledFile());
     }
 
     /**
@@ -230,45 +232,61 @@ class Installer
      */
     public function initLuff()
     {
-        // 全局变量
-        $options = $this->config->get('option');
-        $insert  = [];
-        foreach ($options as $key => $value) {
-            $insert[] = [
-                'name'    => $key,
-                'value'   => $value,
-                'user_id' => 0,
-            ];
+        try {
+
+            DB::beginTransaction();
+
+            // 全局变量
+            $options = $this->config->get('option');
+            $insert  = [];
+            foreach ($options as $key => $value) {
+                $insert[] = [
+                    'name'    => $key,
+                    'value'   => $value,
+                    'user_id' => 0,
+                ];
+            }
+            option()->table()->insert($insert);
+
+            // 初始化标签
+            $tag        = new Tag;
+            $tag->name  = '默认';
+            $tag->slug  = 'default';
+            $tag->count += 1;
+            $tag->save();
+
+            // 初始用户
+            $user = new User;
+            $user->forceFill([
+                'name'  => $this->data->get('admin_username'),
+                'email' => $this->data->get('admin_email'),
+                'group' => 'administrator',
+            ]);
+            $user->setPassword($this->data->get('admin_password'));
+            $user->save();
+
+            // 初始化文章
+            $post          = new Post;
+            $post->title   = '欢迎使用 Luff';
+            $post->text    = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
+            $post->type    = Post::TYPE;
+            $post->user_id = $user->id;
+            $post->save();
+
+            // 初始化文章标签关系
+            $post->tags()->sync([$tag->id]);
+
+            // 初始化评论
+            $comment           = new Comment;
+            $comment->owner_id = $post->user_id;
+            $comment->text     = '欢迎加入 ' . config('app.name') . ' 大家族';
+            $post->comments()->save($comment);
+
+            DB::commit();
+
+        } catch (Exception $e) {
+            DB::rollBack();
         }
-        option()->table()->insert($insert);
-
-        // 初始化标签
-        $tag        = new Tag;
-        $tag->name  = '默认';
-        $tag->slug  = 'default';
-        $tag->count += 1;
-        $tag->save();
-
-        // 初始用户
-        $user = new User;
-        $user->forceFill([
-            'name'  => $this->data->get('admin_username'),
-            'email' => $this->data->get('admin_email'),
-            'group' => 'administrator',
-        ]);
-        $user->setPassword($this->data->get('admin_password'));
-        $user->save();
-
-        // 初始化文章
-        $post          = new Post;
-        $post->title   = '欢迎使用 Luff';
-        $post->text    = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
-        $post->type    = Post::TYPE;
-        $post->user_id = $user->id;
-        $post->save();
-
-        // 初始化文章标签关系
-        $post->tags()->sync([$tag->id]);
     }
 
     /**

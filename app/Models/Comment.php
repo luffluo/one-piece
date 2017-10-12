@@ -43,7 +43,7 @@ class Comment extends Model
         static::saving(function ($comment) {
 
             if (! $comment->exists) {
-                $comment->user_id = auth()->user()->id;
+                $comment->user_id = auth()->guest() ? 1 : auth()->user()->id;
             }
 
         });
