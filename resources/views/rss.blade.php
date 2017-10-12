@@ -1,7 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>{{ option('title', 'Luff') }}</title>
-        <description>{{ option('description', 'Luff') }}</description>
+        <title>{{ option('title', config('app.name')) }}</title>
+        <description>{{ option('description', config('app.name')) }}</description>
         <link>{{ route('home') }}</link>
         <atom:link href="{{ route('feed') }}" rel="self" type="application/rss+xml"/>
         <?php
@@ -9,7 +9,7 @@
         ?>
         <pubDate>{{ $date }}</pubDate>
         <lastBuildDate>{{ $date }}</lastBuildDate>
-        <generator>{{ count($posts) > 0 ? $posts[0]->user->displayName() : 'Luff' }}</generator>
+        <generator>{{ count($posts) > 0 ? $posts[0]->user->displayName() : config('app.name') }}</generator>
         @foreach ($posts as $post)
             <item>
                 <title>{{ $post->title }}</title>

@@ -1,6 +1,6 @@
 @extends('admin::layouts.auth')
 
-@section('title')登录到{{ option('title', 'Luff')  }}@endsection
+@section('title')登录到{{ option('title', config('app.name'))  }}@endsection
 
 @section('content')
 <div class="page page-auth clearfix">
@@ -8,7 +8,7 @@
         <div class="auth-container-wrap">
 
             <h1 class="site-logo h2 mb15">
-                <a href="{{ route('home') }}"><span>{{ option('title', 'Luff')  }}</span></a></h1>
+                <a href="{{ route('home') }}"><span>{{ option('title', config('app.name'))  }}</span></a></h1>
 
             <div class="form-container">
                 <form action="{{ route('login') }}" class="form-horizontal" method="POST">

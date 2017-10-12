@@ -24,7 +24,7 @@
                 </ul>
             </div>
 
-            <p>希望您能尽情享用 Luff 带来的乐趣!</p>
+            <p>希望您能尽情享用 {{ config('app.name') }} 带来的乐趣!</p>
         </div>
     </div>
 @endsection

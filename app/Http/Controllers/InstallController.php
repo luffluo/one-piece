@@ -42,9 +42,9 @@ class InstallController extends Controller
     public function handleInstall(InstallRequest $request)
     {
         try {
-            $this->installer->setData($request->all())->setDataFrom('controller');
-
-            $connection = $this->installer->makeConnection();
+            $connection = $this->installer->setData($request->all())
+                ->setDataFrom('controller')
+                ->makeConnection();
 
             $results = collect($connection->select(DB::raw('show tables')));
             $tables = [];

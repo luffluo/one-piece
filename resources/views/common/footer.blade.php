@@ -1,6 +1,6 @@
 <footer id="footer" role="contentinfo">
     <div class="row">
-        <div class="col-md-12 text-center">&copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ option('title', 'Luff') }}</a>.</div>
+        <div class="col-md-12 text-center">&copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ option('title', config('app.name')) }}</a>.</div>
     </div>
     <div class="row">
         <div class="col-md-12 text-center">

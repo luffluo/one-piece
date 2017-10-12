@@ -20,7 +20,7 @@ ______                            _              _                              
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>安装 - Luff</title>
+    <title>安装 - {{ config('app.name') }}</title>
 
     <meta name="_token" content="{{ csrf_token() }}">
 
@@ -39,7 +39,7 @@ ______                            _              _                              
 
 <body>
     <div class="jumbotron text-center">
-        <h1 class="title">Luff</h1>
+        <h1 class="title">{{ config('app.name') }}</h1>
     </div>
 
     <div class="container">

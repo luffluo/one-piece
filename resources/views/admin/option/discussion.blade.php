@@ -20,8 +20,8 @@
                             <div class="col-md-6 col-md-offset-3">
                                 <label>评论日期格式</label>
                                 <input class="form-control" type="text" name="commentDateFormat" value="{{ old('commentDateFormat', $commentDateFormat) }}">
-                                <span class="help-block">此格式用于指定显示在文章归档中的日期默认显示格式.
-                                    <br>请参考 <a target="_blank" href="http://www.php.net/manual/zh/function.date.php">PHP 日期格式写法</a>.</span>
+                                <span class="help-block">这是一个默认的格式,当你在模板中调用显示评论日期方法时, 如果没有指定日期格式, 将按照此格式输出.
+                                    <br>具体写法请参考 <a target="_blank" href="http://www.php.net/manual/zh/function.date.php">PHP 日期格式写法</a>.</span>
                             </div>
                         </div>
 

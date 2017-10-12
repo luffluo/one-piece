@@ -21,7 +21,7 @@ ______                            _              _                              
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@section('title')@show - {{ option('title', 'Luff') }}</title>
+    <title>@section('title')@show - {{ option('title', config('app.name')) }}</title>
 
     <meta name="keywords" content="{{ option('keywords') }}">
     <meta name="description" content="{{ option('description') }}">

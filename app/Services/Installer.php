@@ -51,9 +51,9 @@ class Installer
      *
      * @param string $source
      *
-     * @return \App\Services\Installer
+     * @return $this
      */
-    public function setDataFrom($source)
+    public function setDataFrom(string $source)
     {
         $this->dataFrom = $source;
 
@@ -125,7 +125,7 @@ class Installer
      *
      * @param array $data
      *
-     * @return \App\Services\Installer
+     * @return $this
      */
     public function setData(array $data)
     {
@@ -225,6 +225,9 @@ class Installer
         }
     }
 
+    /**
+     * @return void
+     */
     public function initLuff()
     {
         // 全局变量

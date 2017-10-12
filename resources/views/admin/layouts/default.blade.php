@@ -21,8 +21,6 @@ ______                            _              _                              
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta name="author" content="Luff">
-    <meta name="keywords" content="Luff">
-    <meta name="description" content="A CMS System Base On Laravel {{ app()->version() }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
@@ -42,7 +40,7 @@ ______                            _              _                              
 <header class="site-head clearfix" id="site-head">
 
     <div class="nav-head">
-        <a href="{{ url('admin') }}" class="site-logo"><span>Luff</span></a>
+        <a href="{{ url('admin') }}" class="site-logo"><span>{{ config('app.name') }}</span></a>
         <span class="nav-trigger fa fa-outdent hidden-xs" data-toggle="nav-min"></span>
         <span class="nav-trigger fa fa-navicon visible-xs" data-toggle="off-canvas"></span>
     </div>

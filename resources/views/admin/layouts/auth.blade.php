@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta name="author" content="Luff">
-    <meta name="keywords" content="Luff">
-    <meta name="description" content="A CMS System Base On Laravel {{ app()->version() }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">

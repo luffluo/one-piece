@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-header">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <i class="fa fa-home"> </i> {{ option('title', 'Luff') }}
+                <i class="fa fa-home"> </i> {{ option('title', config('app.name')) }}
             </a>
         </div>
 
