@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
 use Parsedown;
 use Carbon\Carbon;
 use App\Models\Nav;
@@ -64,6 +65,20 @@ class AppServiceProvider extends ServiceProvider
                 });
 
                 $view->with('sidebarRecentPosts', $posts);
+            }
+
+            if (sidebar_block_open('show_recent_comments')) {
+
+                $comments = cache()->remember('comment.recent', $this->cacheTime, function () {
+                    return Comment::query()
+                        ->select('text', 'user_id')
+                        ->with('user')
+                        ->recent()
+                        ->take(option('comments_list_size', 10))
+                        ->get();
+                });
+
+                $view->with('sidebarRecentComments', $comments);
             }
 
             if (sidebar_block_open('show_tag')) {

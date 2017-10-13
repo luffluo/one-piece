@@ -30,6 +30,16 @@
                                 </div>
 
                                 <div class="checkbox">
+                                    <label for="sidebarBlock-ShowRecentComments">
+                                        @if (sidebar_block_open('show_recent_comments'))
+                                            <input id="sidebarBlock-ShowRecentComments" name="sidebarBlock[]" value="show_recent_comments" checked="checked" type="checkbox"> 显示最近回复
+                                        @else
+                                            <input id="sidebarBlock-ShowRecentComments" name="sidebarBlock[]" value="show_recent_comments" type="checkbox"> 显示最近回复
+                                        @endif
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
                                     <label for="sidebarBlock-ShowTag">
                                         @if (sidebar_block_open('show_tag'))
                                         <input id="sidebarBlock-ShowTag" name="sidebarBlock[]" value="show_tag" checked="checked" type="checkbox"> 显示标签

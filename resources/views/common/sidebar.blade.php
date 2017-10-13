@@ -11,6 +11,17 @@
             </section>
         @endif
 
+        @if (sidebar_block_open('show_recent_comments'))
+            <section class="widget">
+                <h3 class="widget-title">最近回复</h3>
+                <ul class="widget-list">
+                    @foreach ($sidebarRecentComments as $sidebarRecentComment)
+                        <li><span>{{ $sidebarRecentComment->user->displayName() }}: </span>{{ $sidebarRecentComment->text }}</li>
+                    @endforeach
+                </ul>
+            </section>
+        @endif
+
         @if (sidebar_block_open('show_tag'))
             <section class="widget">
                 <h3 class="widget-title">标签</h3>
