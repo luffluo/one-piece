@@ -43,7 +43,6 @@ class InstallController extends Controller
     {
         try {
             $connection = $this->installer->setData($request->all())
-                ->setDataFrom('controller')
                 ->makeConnection();
 
             $results = collect($connection->select(DB::raw('show tables')));

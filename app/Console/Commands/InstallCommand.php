@@ -56,7 +56,8 @@ class InstallCommand extends Command
         }
 
         // 从 console 中获取信息
-        $this->installer->setData($this->getData())->setDataFrom('console');
+        $this->installer->setData($this->getData())
+            ->setNullOutput();
 
         $this->info('---');
 

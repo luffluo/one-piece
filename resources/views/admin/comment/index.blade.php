@@ -1,7 +1,7 @@
 @extends('admin::layouts.default')
 @section('title')
     @if(isset($cid) && $post)
-        {{ $post->headline() . '的评论' }}
+        {{ $post->headline() . ' 的评论' }}
     @else
         管理评论
     @endif

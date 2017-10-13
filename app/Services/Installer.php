@@ -33,13 +33,12 @@ class Installer
     protected $data;
 
     /**
-     * 数据的来源
-     * console 从命令行输入的
-     * controller 从控制器获取的
+     * Artisan console 是否输出信息
+     * 默认不输出执行命令行信息
      *
-     * @var string
+     * @var bool
      */
-    protected $dataFrom;
+    protected $nullOutput = true;
 
     public function __construct(Application $app, Repository $config)
     {
@@ -49,15 +48,13 @@ class Installer
     }
 
     /**
-     * 设置数据的来源
-     *
-     * @param string $source
+     * @param bool $output
      *
      * @return $this
      */
-    public function setDataFrom(string $source)
+    public function setNullOutput(bool $output = false)
     {
-        $this->dataFrom = $source;
+        $this->nullOutput = $output;
 
         return $this;
     }
@@ -216,14 +213,14 @@ class Installer
     {
         $kernel = $this->app[ConsoleKernelContract::class];
 
-        if ($this->dataFrom === 'console') {
-            $kernel->call('migrate', [
-                '--force' => true,
-            ]);
-        } else {
+        if ($this->nullOutput) {
             $kernel->call('migrate', [
                 '--force' => true,
             ], new NullOutput);
+        } else {
+            $kernel->call('migrate', [
+                '--force' => true,
+            ]);
         }
     }
 
