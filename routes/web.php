@@ -11,7 +11,7 @@
 |
 */
 
-// Front routes
+/* Front routes start */
 Route::get('/', 'HomeController@index')->name('home');
 
 // Search
@@ -38,9 +38,9 @@ Route::get('sitemap', 'SiteMapController')->name('sitemap');
 // RSS
 Route::get('feed', 'RssController')->name('feed');
 
+// Auth
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 
-// Admin routes
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('login', 'LoginController@showLogin')->name('login');
     Route::post('login', 'LoginController@handleLogin');
 
@@ -49,7 +49,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::get('logout', 'LogoutController')->name('logout');
 });
+/* Front routes end */
 
+/* Admin routes start */
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Home
@@ -132,3 +134,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         ],
     ]);
 });
+/* Admin routes end */
