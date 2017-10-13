@@ -8,12 +8,18 @@ use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Listeners\MenuRouteMatched;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * 数据缓存时间
+     *
+     * @var int
+     */
+    protected $cacheTime = 360 * 24 * 60;
+
     /**
      * Bootstrap any application services.
      *
@@ -34,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('common.nav', function ($view) {
-            $navigations = cache()->remember('navigations', 365 * 24 * 60, function () {
+            $navigations = cache()->remember('navigations', $this->cacheTime, function () {
                 return Nav::select('title', 'slug', 'text', 'order')
                     ->show()
                     ->orderAsc()
@@ -47,28 +53,34 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['index', 'tag.index', 'post.show', 'common.sidebar'], function ($view) {
 
             if (sidebar_block_open('show_recent_posts')) {
-                $posts = Post::query()
-                    ->select('id', 'title', 'created_at')
-                    ->published()
-                    ->recent()
-                    ->take(option('posts_list_size', 10))
-                    ->get();
+
+                $posts = cache()->remember('post.recent', $this->cacheTime, function () {
+                    return Post::query()
+                        ->select('id', 'title', 'created_at')
+                        ->published()
+                        ->recent()
+                        ->take(option('posts_list_size', 10))
+                        ->get();
+                });
 
                 $view->with('sidebarRecentPosts', $posts);
             }
 
             if (sidebar_block_open('show_tag')) {
-                $tags = Tag::query()
-                    ->select('id', 'name', 'slug', 'count')
-                    ->hadPosts()
-                    ->get();
+
+                $tags = cache()->remember('tags.had_posts', $this->cacheTime, function () {
+                    return Tag::query()
+                        ->select('id', 'name', 'slug', 'count')
+                        ->hadPosts()
+                        ->get();
+                });
 
                 $view->with('sidebarTags', $tags);
             }
 
             if (sidebar_block_open('show_archive')) {
 
-                $result = cache()->remember('post.archive', 365 * 24 * 60, function () {
+                $result = cache()->remember('post.archive', $this->cacheTime, function () {
                     $posts = Post::select('created_at')->published()
                         ->recent()
                         ->get();
