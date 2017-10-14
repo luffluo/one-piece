@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', '修改密码')
+@section('title', '修改个人信息')
 
 @section('content')
 
@@ -8,9 +8,11 @@
 
     <div id="main" class="settings col-md-10">
         <div class="panel panel-default">
+
             <div class="panel-heading">
                 <h3 class="panel-title">@yield('title')</h3>
             </div>
+
             <div class="panel-body">
                 <form action="{{ route('user.update_profile', $user->name) }}" class="form-horizontal" method="post">
                     <input type="hidden" name="_method" value="PATCH">
@@ -42,25 +44,25 @@
 
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
-                            <label>密码</label>
-                            <input type="password" class="form-control" name="password">
-                            <span class="help-block">当前使用的密码.</span>
+                            <label>用户名 *</label>
+                            <input type="text" class="form-control" name="name" disabled="disabled" value="{{ $user->name }}">
+                            <span class="help-block">此用户名将作为用户登录时所用的名称.<br>请不要与系统中现有的用户名重复.</span>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
-                            <label>新密码</label>
-                            <input type="password" class="form-control" name="password">
-                            <span class="help-block">建议使用特殊字符与字母、数字的混编样式,以增加系统安全性.</span>
+                            <label>电子邮箱地址</label>
+                            <input type="text" class="form-control" name="email" placeholder="请输入邮箱" value="{{ old('email', $user->email) }}">
+                            <span class="help-block">电子邮箱地址将作为此用户的主要联系方式.<br>请不要与系统中现有的电子邮箱地址重复.</span>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
-                            <label>确认新密码</label>
-                            <input type="password" class="form-control" name="password_confirmation">
-                            <span class="help-block">请确认你的密码, 与上面输入的密码保持一致.</span>
+                            <label>昵称</label>
+                            <input type="text" class="form-control" name="nickname" placeholder="请输入昵称" value="{{ old('nickname', $user->nickname) }}">
+                            <span class="help-block">用户昵称可以与用户名不同, 用于前台显示.<br>如果你将此项留空, 将默认使用用户名.</span>
                         </div>
                     </div>
 

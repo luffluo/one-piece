@@ -1,9 +1,9 @@
 <div id="secondary" class="col-md-2">
     <div class="list-group">
-        @if(request()->fullUrlIs(route('user.edit_info', auth()->user()->name)))
+        @if(request()->fullUrlIs(route('user.edit_profile', auth()->user()->name)))
             <li class="list-group-item active">个人信息</li>
         @else
-            <a href="{{ route('user.edit_info', auth()->user()->name) }}" class="list-group-item">个人信息</a>
+            <a href="{{ route('user.edit_profile', auth()->user()->name) }}" class="list-group-item">个人信息</a>
         @endif
 
         @if(request()->fullUrlIs(route('user.edit_avatar', auth()->user()->name)))

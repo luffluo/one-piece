@@ -35,16 +35,16 @@ Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
 // User
 Route::group(['prefix' => 'u'], function () {
 
-    Route::get('{name}', 'UserController@center')->name('user.center');
+    Route::get('{user}', 'UserController@center')->name('user.center');
 
-    Route::get('{name}/edit_info', 'UserController@editInfo')->name('user.edit_info');
-    Route::patch('{name}/update_info', 'UserController@updateInfo')->name('user.update_info');
+    Route::get('{user}/profile', 'UserController@editProfile')->name('user.edit_profile');
+    Route::patch('{user}/profile', 'UserController@updateProfile')->name('user.update_profile');
 
-    Route::get('{name}/edit_password', 'UserController@editPassword')->name('user.edit_password');
-    Route::patch('{name}/update_password', 'UserController@updatePassword')->name('user.update_password');
+    Route::get('{user}/avatar', 'UserController@editAvatar')->name('user.edit_avatar');
+    Route::patch('{user}/avatar', 'UserController@updateAvatar')->name('user.update_avatar');
 
-    Route::get('{name}/edit_avatar', 'UserController@editAvatar')->name('user.edit_avatar');
-    Route::patch('{name}/update_avatar', 'UserController@updateAvatar')->name('user.update_avatar');
+    Route::get('{user}/password', 'UserController@editPassword')->name('user.edit_password');
+    Route::patch('{user}/password', 'UserController@updatePassword')->name('user.update_password');
 });
 
 

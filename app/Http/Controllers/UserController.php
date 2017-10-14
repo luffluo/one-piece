@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Comment;
-use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -34,13 +34,13 @@ class UserController extends Controller
      *
      * @param $name
      */
-    public function editInfo($name)
+    public function editProfile($name)
     {
         $user = User::query()
             ->where('name', $name)
             ->firstOrFail();
 
-        return view('user.update', compact('user'));
+        return view('user.profile', compact('user'));
     }
 
     /**
@@ -49,19 +49,37 @@ class UserController extends Controller
      * @param UserRequest $request
      * @param             $name
      */
-    public function updateInfo(UserRequest $request, $name)
+    public function updateProfile(Request $request, $name)
     {
+        $user = User::query()
+            ->where('name', $name)
+            ->firstOrFail();
 
-    }
+        if ($user->id !== auth()->user()->id) {
+            return redirect()->route('user.edit_profile', $user->name)->withErrors('非法操作');
+        }
 
-    public function editPassword()
-    {
-        return view('user.password');
-    }
+        $this->validate(
+            $request,
+            [
+                'email'    => 'required|email|unique:users,email,' . $user->id,
+                'nickname' => 'nullable|string|max:20',
+            ],
+            [
+                'email.required'     => '请输入邮箱',
+                'email.email'        => '邮箱格式不正确',
+                'email.unique'       => '邮箱已经存在',
+                'nickname.max'       => '昵称最大 20 个字符',
+            ]
+        );
 
-    public function updatePassword()
-    {
+        $user->fill($request->all());
 
+        if (! $user->save()) {
+            return redirect()->route('user.edit_profile', $user->name)->withErrors('保存失败');
+        }
+
+        return redirect()->route('user.edit_profile', $user->name)->withMessage('信息编辑成功');
     }
 
     public function editAvatar()
@@ -70,6 +88,20 @@ class UserController extends Controller
     }
 
     public function updateAvatar()
+    {
+
+    }
+
+    public function editPassword($name)
+    {
+        $user = User::query()
+            ->where('name', $name)
+            ->firstOrFail();
+
+        return view('user.password', compact('user'));
+    }
+
+    public function updatePassword()
     {
         
     }
