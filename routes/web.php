@@ -32,6 +32,23 @@ Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
     ->where(['year' => '[0-9]+', 'month' => '[0-9]+', 'day' => '[0-9]+'])
     ->name('archive');
 
+// User
+Route::group(['prefix' => 'u'], function () {
+
+    Route::get('{name}', 'UserController@center')->name('user.center');
+
+    Route::get('{name}/edit_info', 'UserController@editInfo')->name('user.edit_info');
+    Route::patch('{name}/update_info', 'UserController@updateInfo')->name('user.update_info');
+
+    Route::get('{name}/edit_password', 'UserController@editPassword')->name('user.edit_password');
+    Route::patch('{name}/update_password', 'UserController@updatePassword')->name('user.update_password');
+
+    Route::get('{name}/edit_avatar', 'UserController@editAvatar')->name('user.edit_avatar');
+    Route::patch('{name}/update_avatar', 'UserController@updateAvatar')->name('user.update_avatar');
+});
+
+
+
 // SiteMap
 Route::get('sitemap', 'SiteMapController')->name('sitemap');
 

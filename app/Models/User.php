@@ -83,9 +83,24 @@ class User extends Model implements
         return Hash::check($password, $this->password);
     }
 
+    /**
+     * 用户文章
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts()
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+
+    /**
+     * 用户评论
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
     public function displayName()

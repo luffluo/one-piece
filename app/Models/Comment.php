@@ -112,4 +112,9 @@ class Comment extends Model
 
         return $class;
     }
+
+    public function content()
+    {
+        return $this->text;
+    }
 }

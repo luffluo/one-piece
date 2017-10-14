@@ -1,8 +1,9 @@
+<div class="luff-header">
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <i class="fa fa-home"> </i> {{ option('title', config('app.name')) }}
+                {{ option('title', config('app.name')) }}
             </a>
         </div>
 
@@ -35,8 +36,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->displayName() }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">个人中心</a></li>
-                        <li><a href="#">编辑资料</a></li>
+                        <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
+                        <li><a href="{{ route('user.edit_info', auth()->user()->name) }}">编辑信息</a></li>
                         @if (auth()->user()->can('administrator'))
                         <li><a href="{{ route('admin.home') }}">进入后台</a></li>
                         @endif
@@ -59,3 +60,4 @@
         </div>
     </div>
 </nav>
+</div>
