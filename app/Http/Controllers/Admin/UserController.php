@@ -33,8 +33,8 @@ class UserController extends Controller
 
         $user->fill($request->except(['password']));
 
-        if ($request->get('password')) {
-            $user->setPassword($request->get('password'));
+        if ($request->input('password')) {
+            $user->setPassword($request->input('password'));
         }
 
         if (! $user->save()) {

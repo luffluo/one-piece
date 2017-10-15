@@ -12,7 +12,7 @@
                 <h3 class="panel-title">@yield('title')</h3>
             </div>
             <div class="panel-body">
-                <form action="{{ route('user.update_profile', $user->name) }}" class="form-horizontal" method="post">
+                <form action="{{ route('user.update_password', $user->name) }}" class="form-horizontal" method="post">
                     <input type="hidden" name="_method" value="PATCH">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -43,7 +43,7 @@
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
                             <label>密码</label>
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form-control" name="cur_password" value="{{ old('cur_password') }}">
                             <span class="help-block">当前使用的密码.</span>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
                             <label>新密码</label>
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form-control" name="new_password" value="{{ old('new_password') }}">
                             <span class="help-block">建议使用特殊字符与字母、数字的混编样式,以增加系统安全性.</span>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
                             <label>确认新密码</label>
-                            <input type="password" class="form-control" name="password_confirmation">
+                            <input type="password" class="form-control" name="new_password_confirmation" value="{{ old('new_password_confirmation') }}">
                             <span class="help-block">请确认你的密码, 与上面输入的密码保持一致.</span>
                         </div>
                     </div>

@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Comment;
 use Parsedown;
 use Carbon\Carbon;
 use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Listeners\MenuRouteMatched;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;

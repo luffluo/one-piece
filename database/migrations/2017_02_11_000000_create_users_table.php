@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique()->comment('用户名 可用于登录');
             $table->string('email')->unique()->comment('可用于登录');
             $table->string('nickname')->nullable()->comment('昵称 用于显示的名称');
+            $table->string('introduction')->nullable()->comment('个人简介');
             $table->string('avatar')->nullable()->comment('头像');
             $table->string('password');
             $table->string('group', 16)->default('visitor')

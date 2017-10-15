@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => [
+            'center'
+        ]]);
+    }
+
     /**
      * User center
      *
@@ -66,10 +73,10 @@ class UserController extends Controller
                 'nickname' => 'nullable|string|max:20',
             ],
             [
-                'email.required'     => '请输入邮箱',
-                'email.email'        => '邮箱格式不正确',
-                'email.unique'       => '邮箱已经存在',
-                'nickname.max'       => '昵称最大 20 个字符',
+                'email.required' => '请输入邮箱',
+                'email.email'    => '邮箱格式不正确',
+                'email.unique'   => '邮箱已经存在',
+                'nickname.max'   => '昵称最大 20 个字符',
             ]
         );
 
@@ -101,8 +108,39 @@ class UserController extends Controller
         return view('user.password', compact('user'));
     }
 
-    public function updatePassword()
+    public function updatePassword(Request $request, $name)
     {
-        
+        $user = User::query()
+            ->where('name', $name)
+            ->firstOrFail();
+
+        if ($user->id !== auth()->user()->id) {
+            return redirect()->route('user.edit_profile', $user->name)->withErrors('非法操作');
+        }
+
+        $this->validate(
+            $request,
+            [
+                'cur_password' => 'required',
+                'new_password' => 'required|confirmed',
+            ],
+            [
+                'cur_password.required'  => '请输入密码',
+                'new_password.required'  => '请输入新密码',
+                'new_password.confirmed' => '两次密码不一致',
+            ]
+        );
+
+        if (! $user->checkPassword($request->input('cur_password'))) {
+            return redirect()->route('user.edit_password', $user->name)->withErrors(['password' => '密码错误']);
+        }
+
+        $user->setPassword($request->input('new_password'));
+
+        if (! $user->save()) {
+            return redirect()->route('user.edit_password', $user->name)->withErrors('保存失败');
+        }
+
+        return redirect()->route('user.edit_password', $user->name)->withMessage('修改成功');
     }
 }

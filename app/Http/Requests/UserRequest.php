@@ -26,7 +26,7 @@ class UserRequest extends Request
             $rules['password'] = 'required|confirmed';
         }
 
-        $rules['group'] = 'required|administrator,visitor';
+        $rules['group'] = 'required|in:administrator,visitor';
 
         return $rules;
     }
