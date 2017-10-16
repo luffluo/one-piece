@@ -10,9 +10,11 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => [
-            'center'
-        ]]);
+        $this->middleware('auth', [
+            'except' => [
+                'center',
+            ],
+        ]);
     }
 
     /**
@@ -89,14 +91,44 @@ class UserController extends Controller
         return redirect()->route('user.edit_profile', $user->name)->withMessage('信息编辑成功');
     }
 
-    public function editAvatar()
+    public function editAvatar($name)
     {
-        return view('user.avatar');
+        $user = User::query()
+            ->where('name', $name)
+            ->firstOrFail();
+
+        return view('user.avatar', compact('user'));
     }
 
-    public function updateAvatar()
+    public function updateAvatar(Request $request, $name)
     {
+        $user = User::query()
+            ->where('name', $name)
+            ->firstOrFail();
 
+        if ($user->id !== auth()->user()->id) {
+            return redirect()->route('user.edit_profile', $user->name)->withErrors('非法操作');
+        }
+
+        $this->validate(
+            $request,
+            [
+                'avatar' => 'required|image:jpeg,jpg,png,gig',
+            ],
+            [
+                'avatar.required' => '请选择图片',
+                'avatar.image'    => '图片格式 jpeg, jpg, png, gif',
+            ]
+        );
+
+        $avatar = $request->file('avatar');
+        $fileName = $user->id . '_200x200.' . ($avatar->clientExtension() ?? 'jpg');
+        $avatar->move(public_path('uploads/avatars'), $fileName);
+
+        $user->avatar = $fileName;
+        $user->save();
+
+        return redirect()->route('user.edit_avatar', $user->name)->withMessage('上传成功');
     }
 
     public function editPassword($name)

@@ -23,8 +23,6 @@
                 @endforeach
             </ul>
 
-
-
             <ul class="nav navbar-nav navbar-right">
                 @guest
                     <li>
@@ -41,7 +39,7 @@
                         @if (auth()->user()->can('administrator'))
                         <li><a href="{{ route('admin.home') }}">进入后台</a></li>
                         @endif
-                        <li><a href="{{ route('logout') }}">退出</a></li>
+                        <li><a onclick="return confirm('确定要退出吗?')" href="{{ route('logout') }}">退出</a></li>
                     </ul>
                 </li>
                 @endauth
