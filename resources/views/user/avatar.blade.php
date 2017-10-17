@@ -45,7 +45,7 @@
                             <div class="thumbnail">
 
                                 <div id="preview-img-div" class="form-group">
-                                    <img id="preview-img" alt="{{ $user->avatar }}" src="/uploads/avatars/{{ $user->avatar }}" data-holder-rendered="true" style="height: 380px; width: 380px; display: block;">
+                                    <img id="preview-img" alt="{{ $user->showAvatar(380) }}" src="{{ $user->showAvatar(380) }}" data-holder-rendered="true" style="height: 380px; width: 380px; display: block;">
                                 </div>
 
                                 <div class="caption">

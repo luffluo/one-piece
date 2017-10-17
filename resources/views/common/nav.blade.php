@@ -32,7 +32,7 @@
 
                 @auth
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->displayName() }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->showName() }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
                         <li><a href="{{ route('user.edit_profile', auth()->user()->name) }}">编辑信息</a></li>

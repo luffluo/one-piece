@@ -9,14 +9,14 @@
         ?>
         <pubDate>{{ $date }}</pubDate>
         <lastBuildDate>{{ $date }}</lastBuildDate>
-        <generator>{{ count($posts) > 0 ? $posts[0]->user->displayName() : config('app.name') }}</generator>
+        <generator>{{ count($posts) > 0 ? $posts[0]->user->showName() : config('app.name') }}</generator>
         @foreach ($posts as $post)
             <item>
                 <title>{{ $post->title }}</title>
                 <link>{{ route('post.show',$post->id) }}</link>
                 <description>{{ $post->summary() }}</description>
                 <pubDate>{{ $post->created_at->format('D, d M Y H:i:s T') }}</pubDate>
-                <author>{{ $post->user->email }} ({{$post->user->displayName()}})</author>
+                <author>{{ $post->user->email }} ({{$post->user->showName()}})</author>
                 <guid>{{ route('post.show', $post->id) }}</guid>
                 @foreach ($post->tags as $tag)
                     <tag>{{ $tag->name }}</tag>

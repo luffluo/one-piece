@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Comment;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct()
+    protected $imageService;
+
+    public function __construct(ImageService $imageService)
     {
         $this->middleware('auth', [
             'except' => [
                 'center',
             ],
         ]);
+
+        $this->imageService = $imageService;
     }
 
     /**
@@ -121,12 +126,20 @@ class UserController extends Controller
             ]
         );
 
-        $avatar = $request->file('avatar');
-        $fileName = $user->id . '_200x200.' . ($avatar->clientExtension() ?? 'jpg');
-        $avatar->move(public_path('uploads/avatars'), $fileName);
+        try {
 
-        $user->avatar = $fileName;
+            $ext = $this->imageService->saveForAvatar($request->file('avatar'), $user->id);
+
+        } catch (\Exception $e) {
+            return redirect()->route('user.edit_avatar', $user->name)->withErrors('头像上传失败');
+        }
+
+        $user->avatar = $ext;
         $user->save();
+
+        if (! $user->save()) {
+            return redirect()->route('user.edit_avatar', $user->name)->withErrors('头像上传失败');
+        }
 
         return redirect()->route('user.edit_avatar', $user->name)->withMessage('上传成功');
     }

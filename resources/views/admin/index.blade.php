@@ -52,7 +52,7 @@
                                 @forelse($comments as $comment)
                                     <li>
                                         <span>{{ $comment->created_at->format('n.j') }}</span>
-                                        {{ $comment->user->displayName() }}:&nbsp;{{ $comment->text }}
+                                        {{ $comment->user->showName() }}:&nbsp;{{ $comment->text }}
                                     </li>
                                 @empty
                                     <li><em>暂时没有回复</em></li>

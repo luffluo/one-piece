@@ -22,7 +22,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             @auth
-                <p>登录身份: {{ auth()->user()->displayName() }}. <a href="{{ route('logout') }}" title="Logout">退出 »</a></p>
+                <p>登录身份: {{ auth()->user()->showName() }}. <a href="{{ route('logout') }}" title="Logout">退出 »</a></p>
             @endauth
 
             @guest

@@ -1,9 +1,9 @@
 <li itemscope="" itemtype="#" id="comment-{{ $comment->id }}" class="comment-body{{ $comment->liClass() }}">
     <div class="comment-author" itemprop="creator" itemscope="" itemtype="#">
         <span itemprop="image">
-            <img class="avatar" src="http://www.gravatar.com/avatar/?s=32&amp;r=G&amp;d=" alt="{{ $comment->user->displayName() }}" height="32" width="32">
+            <img class="avatar" src="{{ $comment->user->showAvatar(100) }}" alt="{{ $comment->user->showName() }}" height="32" width="32">
         </span>
-        <cite class="fn" itemprop="name">{{ $comment->user->displayName() }}</cite>
+        <cite class="fn" itemprop="name">{{ $comment->user->showName() }}</cite>
     </div>
 
     <div class="comment-meta">

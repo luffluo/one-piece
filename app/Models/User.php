@@ -103,7 +103,12 @@ class User extends Model implements
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function displayName()
+    /**
+     * 输出用户名称
+     *
+     * @return string
+     */
+    public function showName()
     {
         $name = $this->nickname;
 
@@ -112,6 +117,18 @@ class User extends Model implements
         }
 
         return $name;
+    }
+
+    /**
+     * 输出用户头像
+     *
+     * @param int $size 头像的尺寸 100 200 380
+     *
+     * @return string
+     */
+    public function showAvatar($size = 100)
+    {
+        return asset('/uploads/avatars/' . $this->id . '-' . $size . '.' . $this->avatar);
     }
 
     /**

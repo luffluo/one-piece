@@ -82,7 +82,7 @@
                                 <br>
                                 —
                                 <br>
-                                本文由 <span>{{ $post->user->displayName() }}</span> 撰写于 {{ $post->created_at->diffForHumans() }}
+                                本文由 <span>{{ $post->user->showName() }}</span> 撰写于 {{ $post->created_at->diffForHumans() }}
                                 <br>
                                 最后更新于 {{ $post->updated_at->diffForHumans() }}
                             </div>
