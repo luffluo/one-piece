@@ -17,6 +17,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string              $email
  * @property string              $nickname
  * @property string              $avatar
+ * @property string              $profile
  * @property string              $password
  * @property \Carbon\Carbon|null $activated_at
  * @property \Carbon\Carbon|null $created_at
@@ -43,11 +44,11 @@ class User extends Model implements
         'email',
         'nickname',
         'avatar',
+        'profile',
         'password',
         'group',
         'activated_at',
         'last_seen_time',
-
     ];
 
     protected $dates = ['activated_at', 'last_seen_time'];
@@ -69,7 +70,6 @@ class User extends Model implements
         'subscriber'    => 3,
         'visitor'       => 4,
     ];
-
 
     public function setPassword($password)
     {
@@ -111,7 +111,6 @@ class User extends Model implements
     public function showName()
     {
         $name = $this->nickname;
-
         if (empty($name)) {
             $name = $this->name;
         }
@@ -126,9 +125,26 @@ class User extends Model implements
      *
      * @return string
      */
-    public function showAvatar($size = 100)
+    public function showAvatar($size = 'small')
     {
-        return asset('/uploads/avatars/' . $this->id . '-' . $size . '.' . $this->avatar);
+        if (empty($this->avatar)) {
+            return asset('/uploads/avatars/default.png');
+        }
+
+        $array = [
+            'small'  => 100,
+            'medium' => 200,
+            'large'  => 380,
+        ];
+
+        array_key_exists($size, $array) || $size = 'small';
+
+        return asset('/uploads/avatars/' . $this->id . '-' . $array[$size] . '.' . $this->avatar);
+    }
+
+    public function introduction($length = null)
+    {
+        return $length ? str_limit($this->profile, $length) : $this->profile;
     }
 
     /**

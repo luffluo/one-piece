@@ -68,6 +68,13 @@
 
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
+                            <label>个人简介</label>
+                            <textarea name="profile" id="profile" cols="30" rows="5" class="form-control">{{ old('nickname', $user->nickname) }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-6 col-md-offset-3">
                             <button type="submit" class="btn btn-primary btn-sm">保存</button>
                         </div>
                     </div>

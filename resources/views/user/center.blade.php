@@ -5,10 +5,10 @@
 @section('content')
     <div class="col-md-3">
         <div class="thumbnail">
-            <img alt="用户头像" src="{{ $user->showAvatar(380) }}" data-holder-rendered="true" style="height: 250px; width: 250px; display: block;">
+            <img alt="用户头像" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true" style="height: 250px; width: 250px; display: block;">
             <div class="caption">
                 <h3>{{ $user->showName() }}</h3>
-                <p>执子之手，与子偕老.</p>
+                <p>{{ $user->introduction() }}</p>
                 <hr>
                 <p>最后登录: 1 天前</p>
                 @if(auth()->check() && $user->id === auth()->user()->id)

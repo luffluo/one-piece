@@ -18,13 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique()->comment('用户名 可用于登录');
             $table->string('email')->unique()->comment('可用于登录');
             $table->string('nickname')->nullable()->comment('昵称 用于显示的名称');
-            $table->string('introduction')->nullable()->comment('个人简介');
+            $table->string('profile')->nullable()->comment('个人简介');
             $table->string('avatar')->nullable()->comment('头像');
             $table->string('password');
             $table->string('group', 16)->default('visitor')
                 ->comment('administrator-管理员－0 editor－编辑－1 contributor－贡献者-2 subscriber－关注者－3 visitor-访问者－4 数字越小权限越高');
-            $table->timestamp('activated_at')->nullable()->comment('激活时间');
-            $table->timestamp('last_seen_time')->nullable()->comment('最后登录时间');
+            $table->timestamp('activated_at')->nullable()->comment('最后活动时间');
+            $table->timestamp('last_seen_at')->nullable()->comment('最后登录时间');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

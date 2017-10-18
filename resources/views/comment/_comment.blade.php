@@ -1,7 +1,7 @@
 <li itemscope="" itemtype="#" id="comment-{{ $comment->id }}" class="comment-body{{ $comment->liClass() }}">
     <div class="comment-author" itemprop="creator" itemscope="" itemtype="#">
         <span itemprop="image">
-            <img class="avatar" src="{{ $comment->user->showAvatar(100) }}" alt="{{ $comment->user->showName() }}" height="32" width="32">
+            <img class="avatar" src="{{ $comment->user->showAvatar() }}" alt="{{ $comment->user->showName() }}" height="32" width="32">
         </span>
         <cite class="fn" itemprop="name">{{ $comment->user->showName() }}</cite>
     </div>

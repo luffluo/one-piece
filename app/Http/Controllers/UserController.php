@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use App\Models\Comment;
-use App\Services\ImageService;
 use Illuminate\Http\Request;
+use App\Services\ImageService;
 
 class UserController extends Controller
 {
@@ -29,7 +30,7 @@ class UserController extends Controller
      */
     public function center($name)
     {
-        $user = User::query()
+        $user     = User::query()
             ->with('comments.post')
             ->where('name', $name)
             ->firstOrFail();
@@ -78,17 +79,18 @@ class UserController extends Controller
             [
                 'email'    => 'required|email|unique:users,email,' . $user->id,
                 'nickname' => 'nullable|string|max:20',
+                'profile'  => 'nullable|string|max:254',
             ],
             [
                 'email.required' => '请输入邮箱',
                 'email.email'    => '邮箱格式不正确',
                 'email.unique'   => '邮箱已经存在',
                 'nickname.max'   => '昵称最大 20 个字符',
+                'profile.max'    => '个人简介最大 240 个字符',
             ]
         );
 
         $user->fill($request->all());
-
         if (! $user->save()) {
             return redirect()->route('user.edit_profile', $user->name)->withErrors('保存失败');
         }
@@ -127,16 +129,13 @@ class UserController extends Controller
         );
 
         try {
-
             $ext = $this->imageService->saveForAvatar($request->file('avatar'), $user->id);
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('user.edit_avatar', $user->name)->withErrors('头像上传失败');
         }
 
         $user->avatar = $ext;
         $user->save();
-
         if (! $user->save()) {
             return redirect()->route('user.edit_avatar', $user->name)->withErrors('头像上传失败');
         }
@@ -160,7 +159,7 @@ class UserController extends Controller
             ->firstOrFail();
 
         if ($user->id !== auth()->user()->id) {
-            return redirect()->route('user.edit_profile', $user->name)->withErrors('非法操作');
+            return redirect()->route('user.edit_password', $user->name)->withErrors('非法操作');
         }
 
         $this->validate(
