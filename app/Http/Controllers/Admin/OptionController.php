@@ -36,10 +36,12 @@ class OptionController extends Controller
     {
         $commentDateFormat = option('comment_date_format');
         $commentsListSize  = option('comments_list_size');
+        $commentsPageSize  = option('comments_page_size');
+        $commentsShow      = json_decode(option('comments_show', '[]'));
 
         return admin_view(
             'option.discussion',
-            compact('commentDateFormat', 'commentsListSize')
+            compact('commentDateFormat', 'commentsListSize', 'commentsPageSize', 'commentsShow')
         );
     }
 
@@ -47,6 +49,8 @@ class OptionController extends Controller
     {
         option(['comment_date_format', request()->input('commentDateFormat')]);
         option(['comments_list_size', request()->input('commentsListSize')]);
+        option(['comments_page_size', request()->input('commentsPageSize')]);
+        option(['comments_show', json_encode(request()->input('commentsShow', []))]);
 
         return redirect()->route('admin.options.discussion')->withMessage('设置已经保存');
     }

@@ -36,9 +36,13 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
                         <li><a href="{{ route('user.edit_profile', auth()->user()->name) }}">编辑信息</a></li>
+
                         @if (auth()->user()->can('administrator'))
                         <li><a href="{{ route('admin.home') }}">进入后台</a></li>
                         @endif
+
+                        <li role="separator" class="divider"></li>
+
                         <li><a onclick="return confirm('确定要退出吗?')" href="{{ route('logout') }}">退出</a></li>
                     </ul>
                 </li>

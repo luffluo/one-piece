@@ -12,10 +12,10 @@ class AuthenticateWithAdminAuth
         if (! auth()->guard($guard)->user()->can('administrator')) {
 
             if ($request->ajax()) {
-                return new JsonResponse('Unauthorized', 401);
+                return new JsonResponse('Not Found', 404);
             }
 
-            return abort(401, 'Unauthorized');
+            return abort(404);
         }
 
         return $next($request);

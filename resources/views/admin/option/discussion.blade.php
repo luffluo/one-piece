@@ -1,6 +1,14 @@
 @extends('admin::layouts.default')
 @section('title')评论设置@endsection
 
+@section('admin-css')
+    <style>
+        input.num {
+            width: 40px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="page clearfix">
 
@@ -30,6 +38,21 @@
                                 <label>评论列表数目</label>
                                 <input class="form-control" type="text" name="commentsListSize" value="{{ old('commentsListSize', $commentsListSize) }}">
                                 <span class="help-block">此数目用于指定显示在侧边栏中的评论列表数目.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-6 col-md-offset-3">
+                                <label class="">评论显示</label>
+                                <br>
+                                @if(in_array('comments_page_break', $commentsShow))
+                                    <input name="commentsShow[]" value="comments_page_break" checked id="commentsShow-commentsPageBreak" type="checkbox">
+                                @else
+                                    <input name="commentsShow[]" value="comments_page_break" id="commentsShow-commentsPageBreak" type="checkbox">
+                                @endif
+                                <label for="commentsShow-commentsPageBreak">启用分页, 并且每页显示 </label>
+                                <input class="num" value="{{ $commentsPageSize }}" id="commentsShow-commentsPageSize" name="commentsPageSize" type="text">
+                                <label for="commentsShow-commentsPageSize"> 篇评论.</label>
                             </div>
                         </div>
 
