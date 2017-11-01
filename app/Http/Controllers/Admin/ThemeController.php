@@ -13,14 +13,14 @@ class ThemeController extends Controller
 
     public function showOptions()
     {
-        $sidebarBlock = sidebar_block();
+        $sidebarBlock = option('sidebar_block');
 
         return admin_view('theme.options', compact('sidebarBlock'));
     }
 
     public function handleOptions()
     {
-        option(['sidebar_block', json_encode(request()->get('sidebarBlock', []))]);
+        option(['sidebar_block' => request()->get('sidebarBlock', [])]);
 
         return redirect()->route('admin.theme.options')->withMessage('外观设置已经保存');
     }

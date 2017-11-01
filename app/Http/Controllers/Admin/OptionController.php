@@ -25,9 +25,9 @@ class OptionController extends Controller
 
     public function handleGeneral()
     {
-        option(['title', request()->input('title')]);
-        option(['keywords', request()->input('keywords')]);
-        option(['description', request()->input('description')]);
+        option(['title' => request()->input('title')]);
+        option(['keywords' => request()->input('keywords')]);
+        option(['description' => request()->input('description')]);
 
         return redirect()->route('admin.options.general')->withMessage('设置已经保存');
     }
@@ -37,7 +37,7 @@ class OptionController extends Controller
         $commentDateFormat = option('comment_date_format');
         $commentsListSize  = option('comments_list_size');
         $commentsPageSize  = option('comments_page_size');
-        $commentsShow      = json_decode(option('comments_show', '[]'));
+        $commentsShow      = option('comments_show');
 
         return admin_view(
             'option.discussion',
@@ -47,10 +47,10 @@ class OptionController extends Controller
 
     public function handleDiscussion()
     {
-        option(['comment_date_format', request()->input('commentDateFormat')]);
-        option(['comments_list_size', request()->input('commentsListSize')]);
-        option(['comments_page_size', request()->input('commentsPageSize')]);
-        option(['comments_show', json_encode(request()->input('commentsShow', []))]);
+        option(['comment_date_format' => request()->input('commentDateFormat')]);
+        option(['comments_list_size' => request()->input('commentsListSize')]);
+        option(['comments_page_size' => request()->input('commentsPageSize')]);
+        option(['comments_show' => request()->input('commentsShow', [])]);
 
         return redirect()->route('admin.options.discussion')->withMessage('设置已经保存');
     }
@@ -69,9 +69,9 @@ class OptionController extends Controller
 
     public function handleReading()
     {
-        option(['post_date_format', request()->get('postDateFormat')]);
-        option(['posts_list_size', request()->get('postsListSize')]);
-        option(['page_size', request()->get('pageSize')]);
+        option(['post_date_format' => request()->get('postDateFormat')]);
+        option(['posts_list_size' => request()->get('postsListSize')]);
+        option(['page_size' => request()->get('pageSize')]);
 
         return redirect()->route('admin.options.reading')->withMessage('设置已经保存');
     }

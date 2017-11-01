@@ -42,30 +42,20 @@ if (! function_exists('option')) {
      *
      * @return mixed
      */
-    function option($key = null, $default = null, $user_id = 0)
+    function option($key = null, $default = null)
     {
 
-        $option = app('option.repository');
+        $option = app('option');
 
         if (is_null($key)) {
             return $option;
         }
 
         if (is_array($key)) {
-
-            switch (count($key)) {
-                case 2:
-                    return $option->set($key[0], $key[1]);
-
-                case 3:
-                    return $option->set($key[0], $key[1], $key[2]);
-
-                default:
-                    return;
-            }
+            return $option->set(key($key), $key[key($key)]);
         }
 
-        return $option->get($key, $default, $user_id);
+        return $option->get($key, $default);
     }
 }
 
@@ -77,7 +67,7 @@ if (! function_exists('sidebar_block')) {
      * @return array
      */
     function sidebar_block() {
-        $sidebarBlock = json_decode(option('sidebar_block', ''), true);
+        $sidebarBlock = option('sidebar_block');
 
         return is_array($sidebarBlock) ? $sidebarBlock : [];
     }

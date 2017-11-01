@@ -1,25 +1,13 @@
-<?php
-
-/**
- * 系统的一些初始化设置
- */
-return [
-    'title'       => 'Luff',
-    'keywords'    => 'luff,php,blog',
-    'description' => 'Just So So ...',
-
-    'page_size'        => 20, // 每页显示文章数
-    'posts_list_size'  => 10, // 显示在侧边栏中的文章列表数目
-    'post_date_format' => 'Y-m-d', // 文章日期格式
-
-    'comment_date_format' => 'Y-m-d H:i:s', // 评论日期格式
-    'comments_list_size'  => 10, // 显示在侧边栏中的评论列表数目
-    'comments_page_size'  => 20, // 每页显示评论数
-
-    'sidebar_block' => json_encode([
-        'show_recent_posts', // 显示最近文章
-        'show_tag', // 显示标签栏
-        'show_archive', // 显示归档
-        'show_other', // 显示其它杂项
-    ]),
-];
+<?php return array (
+  'title' => 'Luff',
+  'keywords' => 'luff,php,blog',
+  'description' => 'Learn to Live in the Present Moment.',
+  'comment_date_format' => 'Y-m-d H:i:s',
+  'comments_list_size' => '10',
+  'comments_page_size' => '20',
+  'comments_show' => '["comments_page_break"]',
+  'post_date_format' => 'Y-m-d',
+  'posts_list_size' => '10',
+  'page_size' => '20',
+  'sidebar_block' => '["show_recent_posts","show_recent_comments","show_tag","show_archive","show_other"]',
+);
