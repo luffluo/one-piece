@@ -38,7 +38,12 @@
                     </li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->showName() }} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
+                                <img src="{{ auth()->user()->showAvatar() }}" class="img-responsive" width="25px" height="25px" style="border-radius:3px;">
+                            </span>
+                            {{ auth()->user()->showName() }} <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
                             <li><a href="{{ route('user.edit_profile', auth()->user()->name) }}">编辑信息</a></li>
