@@ -32,5 +32,5 @@
 
     </div>
 
-    @include('common.sidebar')
+    @include('common._sidebar')
 @endsection
