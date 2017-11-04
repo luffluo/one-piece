@@ -1,6 +1,19 @@
 <?php
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
+
+if (! function_exists('route_class')) {
+
+    /**
+     * 将当前请求的路由名称转换为 CSS 类名称
+     *
+     * @return string
+     */
+    function route_class() {
+        return str_replace('.', '-', Route::currentRouteName());
+    }
+}
 
 if (! function_exists('admin_view')) {
 

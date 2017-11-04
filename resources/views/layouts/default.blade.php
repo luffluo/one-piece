@@ -15,13 +15,13 @@ ______                            _              _                              
 -->
 
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@section('title')@show - {{ option('title', config('app.name')) }}</title>
+    <title>@yield('title', option('title', config('app.name'))) - {{ option('title', config('app.name')) }}</title>
 
     <meta name="keywords" content="{{ option('keywords') }}">
     <meta name="description" content="{{ option('description') }}">
@@ -37,9 +37,9 @@ ______                            _              _                              
     @show
 </head>
 
-<body>
+<body id="app" class="{{ route_class() }}-page">
 
-    @include('common.nav')
+    @include('common._nav')
 
     <div class="container">
 
@@ -49,7 +49,7 @@ ______                            _              _                              
 
         </div>
 
-        @include('common.footer')
+        @include('common._footer')
     </div>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>

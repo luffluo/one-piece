@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('navTrigger', session('nav.trigger', false));
         });
 
-        View::composer('common.nav', function ($view) {
+        View::composer('common._nav', function ($view) {
             $navigations = cache()->remember('navigations', $this->cacheTime, function () {
                 return Nav::select('title', 'slug', 'text', 'order')
                     ->show()

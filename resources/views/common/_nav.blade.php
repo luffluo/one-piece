@@ -2,12 +2,20 @@
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
             <a href="{{ route('home') }}" class="navbar-brand">
                 {{ option('title', config('app.name')) }}
             </a>
         </div>
 
-        <div class="collapse navbar-collapse">
+        <div id="app-navbar-collapse" class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
 
@@ -28,25 +36,23 @@
                     <li>
                         <a href="{{ route('login') }}" role="button" aria-haspopup="true" aria-expanded="false">登录</a>
                     </li>
+                @else
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->showName() }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
+                            <li><a href="{{ route('user.edit_profile', auth()->user()->name) }}">编辑信息</a></li>
+
+                            @if (auth()->user()->can('administrator'))
+                                <li><a href="{{ route('admin.home') }}">进入后台</a></li>
+                            @endif
+
+                            <li role="separator" class="divider"></li>
+
+                            <li><a onclick="return confirm('确定要退出吗?')" href="{{ route('logout') }}">退出</a></li>
+                        </ul>
+                    </li>
                 @endguest
-
-                @auth
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->showName() }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
-                        <li><a href="{{ route('user.edit_profile', auth()->user()->name) }}">编辑信息</a></li>
-
-                        @if (auth()->user()->can('administrator'))
-                        <li><a href="{{ route('admin.home') }}">进入后台</a></li>
-                        @endif
-
-                        <li role="separator" class="divider"></li>
-
-                        <li><a onclick="return confirm('确定要退出吗?')" href="{{ route('logout') }}">退出</a></li>
-                    </ul>
-                </li>
-                @endauth
             </ul>
 
             <form class="navbar-form navbar-right" role="search" method="get" action="{{ route('search') }}">

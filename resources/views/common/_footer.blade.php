@@ -1,4 +1,4 @@
-<footer id="footer" role="contentinfo">
+<footer id="footer" class="footer" role="contentinfo">
     <div class="row">
         <div class="col-md-12 text-center">&copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ option('title', config('app.name')) }}</a>.</div>
     </div>
