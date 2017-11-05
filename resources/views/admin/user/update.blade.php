@@ -1,4 +1,4 @@
-@extends('admin::layouts.default')
+@extends('admin::layouts.app')
 @section('title')编辑用户 {{ $user->name }}@endsection
 @section('content')
     <div class="page clearfix">

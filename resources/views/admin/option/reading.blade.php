@@ -1,4 +1,4 @@
-@extends('admin::layouts.default')
+@extends('admin::layouts.app')
 @section('title')阅读设置@endsection
 
 @section('content')

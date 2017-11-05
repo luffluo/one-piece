@@ -11,7 +11,7 @@
 |
 */
 
-/* Front routes start */
+/***************************** Front routes start *****************************/
 Route::get('/', 'HomeController@index')->name('home');
 
 // Search
@@ -29,7 +29,7 @@ Route::get('t/{slug}', 'TagController@posts')->name('tag.posts');
 
 // Archive
 Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
-    ->where(['year' => '[0-9]+', 'month' => '[0-9]+', 'day' => '[0-9]+'])
+    ->where(['year' => '[0-9]{4}', 'month' => '[0-9]{1,2}', 'day' => '[0-9]{1,2}'])
     ->name('archive');
 
 // User
@@ -64,11 +64,12 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
     Route::get('register', 'RegisterController@showRegister')->name('register');
     Route::post('register', 'RegisterController@handleRegister');
 
-    Route::get('logout', 'LogoutController')->name('logout');
+    Route::post('logout', 'LogoutController')->name('logout');
 });
-/* Front routes end */
+/***************************** Front routes end *****************************/
 
-/* Admin routes start */
+
+/***************************** Admin routes start *****************************/
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Home
@@ -151,4 +152,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         ],
     ]);
 });
-/* Admin routes end */
+/***************************** Admin routes end *****************************/

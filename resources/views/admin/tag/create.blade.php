@@ -1,4 +1,4 @@
-@extends('admin::layouts.default')
+@extends('admin::layouts.app')
 @section('title')添加标签@endsection
 @section('content')
     <div class="page clearfix">

@@ -1,4 +1,4 @@
-@extends('admin::layouts.default')
+@extends('admin::layouts.app')
 @section('title')
     @if(isset($cid) && $post)
         {{ $post->headline() . ' 的评论' }}
@@ -89,7 +89,7 @@
     </div>
 @endsection
 
-@section('admin-js')
+@section('admin-js-inner')
     @parent
     <script>
         $(document).ready(function () {

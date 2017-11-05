@@ -102,21 +102,25 @@
 @endsection
 
 @section('admin-js')
+    @parent
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/i18n/zh-CN.js"></script>
 
+    {!! editor_js() !!}
+@endsection
+
+@section('admin-js-inner')
+    @parent
     <script>
-      $(function () {
+        $(function () {
 
-        $('#tags').select2({
-            tags: true,
-            placeholder: "标签"
+            $('#tags').select2({
+                tags: true,
+                placeholder: "标签"
+            });
+
         });
-
-      });
 
         $('#title').select();
     </script>
-
-    {!! editor_js() !!}
 @endsection

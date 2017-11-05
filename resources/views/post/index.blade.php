@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('title', isset($title) && !empty($title) ? $title : '首页')
 

@@ -1,4 +1,4 @@
-@extends('admin::layouts.default')
+@extends('admin::layouts.app')
 @section('title')添加文章 - 文章@endsection
 @section('content')
     <div class="page clearfix">

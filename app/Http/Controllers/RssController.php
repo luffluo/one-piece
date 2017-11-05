@@ -18,7 +18,7 @@ class RssController extends Controller
                 ->recent()
                 ->get();
 
-            return view('rss', compact('posts'))->render();
+            return view('home.rss', compact('posts'))->render();
         });
 
         return response($view)->header('Content-Type', 'text/xml');

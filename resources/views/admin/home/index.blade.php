@@ -1,4 +1,4 @@
-@extends('admin::layouts.default')
+@extends('admin::layouts.app')
 @section('title')网站概要@endsection
 @section('content')
     <div class="page clearfix">

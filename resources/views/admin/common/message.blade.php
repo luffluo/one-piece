@@ -19,7 +19,7 @@
     </div>
 @endif
 
-@section('admin-js')
+@section('admin-js-inner')
     @parent
     <script>
         $(function ($) {

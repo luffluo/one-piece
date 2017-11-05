@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('navigations', $navigations);
         });
 
-        View::composer(['index', 'tag.index', 'post.show', 'common.sidebar'], function ($view) {
+        View::composer(['home.index', 'tag.index', 'post.show', 'common._sidebar'], function ($view) {
 
             if (sidebar_block_open('show_recent_posts')) {
 

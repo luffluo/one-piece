@@ -32,9 +32,9 @@ ______                            _              _                              
 </head>
 
 @if ($navTrigger)
-    <body class="app" data-url="{{ route('admin.nav.trigger') }}">
+    <body data-url="{{ route('admin.nav.trigger') }}" class="app {{ route_class() }}-page">
 @else
-    <body class="app nav-min" data-url="{{ route('admin.nav.trigger') }}">
+    <body data-url="{{ route('admin.nav.trigger') }}" class="app nav-main {{ route_class() }}-page">
 @endif
 
 <header class="site-head clearfix" id="site-head">
@@ -50,9 +50,9 @@ ______                            _              _                              
         <div class="btn-group btn-group-sm pull-right" role="group">
             <a class="btn btn-default" href="{{ route('admin.users.edit', auth()->user()->id) }}">{{ auth()->user()->showName() }}</a>
 
-            <a class="btn btn-default" href="{{ route('logout') }}">登出</a>
+            <a id="logout-a" class="btn btn-default" href="{{ route('logout') }}" data-method="post">登出</a>
 
-            <a class="btn btn-default" href="{{ url('') }}" target="_blank">网站</a>
+            <a class="btn btn-default" href="{{ url('/') }}" target="_blank">网站</a>
         </div>
     </div>
 </header>
@@ -97,10 +97,32 @@ ______                            _              _                              
     </footer>
 </div>
 
+@section('admin-js')
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/admin/js/perfect-scrollbar.jquery.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/main.js') }}"></script>
-@yield('admin-js')
+@show
+
+@section('admin-js-inner')
+    <script>
+        'use strict';
+
+        $(function () {
+            $(document).on('click', '#logout-a', function (e) {
+                e.preventDefault();
+
+                if (! confirm('确定要退出吗?')) {
+                    return false;
+                }
+
+                let form = $('<form id="logout-form" action="' + $(this).attr('href') + '" method="' + $(this).data('method') + '">'
+                    + '<input type="hidden" name="_token" value="' + $('meta[name=csrf-token]').attr('content') + '">'
+                    + '</form>').insertAfter($(this));
+                form.submit();
+            });
+        });
+    </script>
+@show
 
 </body>
 </html>

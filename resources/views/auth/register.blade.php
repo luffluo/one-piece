@@ -67,7 +67,7 @@
 
 @endsection
 
-@section('admin-js')
+@section('admin-js-inner')
 
     <script>
         $(function () {

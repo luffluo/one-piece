@@ -22,8 +22,12 @@
         </footer>
     </div>
 
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/matchMedia.js') }}"></script>
-    @yield('admin-js')
+    @section('admin-js')
+        <script src="{{ asset('assets/js/app.js') }}"></script>
+        <script src="{{ asset('assets/admin/js/matchMedia.js') }}"></script>
+    @show
+
+    @section('admin-js-inner')
+    @show
 </body>
 </html>

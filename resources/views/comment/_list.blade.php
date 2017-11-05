@@ -43,7 +43,7 @@
     @endif
 </div>
 
-@section('js')
+@section('js-inner')
     @parent
     <script>
         (function () {

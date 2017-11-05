@@ -30,7 +30,7 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        return admin_view('index', compact('posts', 'posts_count', 'tags_count', 'comments'));
+        return admin_view('home.index', compact('posts', 'posts_count', 'tags_count', 'comments'));
     }
 
     public function navTrigger()

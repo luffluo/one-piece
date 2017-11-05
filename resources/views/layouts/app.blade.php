@@ -52,7 +52,10 @@ ______                            _              _                              
         @include('common._footer')
     </div>
 
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    @section('js')@show
+    @section('js')
+        <script src="{{ asset('assets/js/app.js') }}"></script>
+    @show
+
+    @section('js-inner')@show
 </body>
 </html>

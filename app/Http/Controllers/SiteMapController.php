@@ -15,7 +15,7 @@ class SiteMapController extends Controller
                 ->recent()
                 ->get();
 
-            return view('sitemap', compact('posts'))->render();
+            return view('home.sitemap', compact('posts'))->render();
         });
 
         return response($view)->header('Content-Type', 'text/xml');

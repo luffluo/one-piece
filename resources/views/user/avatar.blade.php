@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('title', '修改头像')
 
@@ -70,7 +70,7 @@
     </div>
 @endsection
 
-@section('js')
+@section('js-inner')
     @parent
 
     <script>
