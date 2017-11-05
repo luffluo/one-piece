@@ -52,7 +52,7 @@ class OptionServiceProvider extends ServiceProvider
 
     public function provides()
     {
-        [
+        return [
             'option',
             Option::class,
             'option.repository.file',

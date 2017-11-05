@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Post;
@@ -141,7 +142,6 @@ class Installer
         return $this;
     }
 
-
     /**
      * @return \Illuminate\Database\Connection
      */
@@ -238,9 +238,8 @@ class Installer
             $insert  = [];
             foreach ($options as $key => $value) {
                 $insert[] = [
-                    'name'    => $key,
-                    'value'   => $value,
-                    'user_id' => 0,
+                    'name'  => $key,
+                    'value' => $value,
                 ];
             }
             option()->table()->insert($insert);
@@ -280,7 +279,6 @@ class Installer
             $post->comments()->save($comment);
 
             DB::commit();
-
         } catch (Exception $e) {
             DB::rollBack();
         }
