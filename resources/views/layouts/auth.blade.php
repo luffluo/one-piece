@@ -14,12 +14,16 @@
 
 <body class="app theme-one body-full">
 
-    <div class="main-container clearfix">
-        <div class="content-container" id="content">@yield('content')</div>
-        <footer id="site-foot" class="site-foot clearfix">
-            <p class="left">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
-            <p class="right">v{{ app()->version() }}</p>
-        </footer>
+    <div id="app" class="{{ route_class() }}-page">
+
+        <div class="main-container clearfix">
+            <div class="content-container" id="content">@yield('content')</div>
+            <footer id="site-foot" class="site-foot clearfix">
+                <p class="left">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
+                <p class="right">v{{ app()->version() }}</p>
+            </footer>
+        </div>
+
     </div>
 
     @section('admin-js')

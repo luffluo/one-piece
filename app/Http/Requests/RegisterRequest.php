@@ -15,6 +15,7 @@ class RegisterRequest extends Request
             'name'     => 'required|alpha_dash|unique:users,name',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'captcha'  => 'required|captcha',
         ];
     }
 
@@ -30,6 +31,8 @@ class RegisterRequest extends Request
             'password.required'  => '请输入密码',
             'password.min'       => '密码长度最小 6 位',
             'password.confirmed' => '两次密码不一致',
+            'captcha.required'   => '请输入验证码',
+            'captcha.captcha'    => '验证码不正确',
         ];
     }
 }

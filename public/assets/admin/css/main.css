@@ -4545,3 +4545,10 @@ table tr:hover td .hidden-by-mouse {
   border-radius: 2px;
 }
 /* 重写 select2 样式 end */
+
+/* User register page */
+.register-page img.captcha {
+  margin-bottom: 0px;
+  margin-top: 10px;
+  cursor: pointer;
+}
