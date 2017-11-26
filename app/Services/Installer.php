@@ -270,7 +270,7 @@ class Installer
             $post->save();
 
             // 初始化文章标签关系
-            $post->tags()->sync([$tag->id]);
+            $post->tags()->sync($tag->id);
 
             // 初始化评论
             $comment           = new Comment;

@@ -161,7 +161,7 @@ if (function_exists('fix_html')) {
         // 关闭自闭合标签
         $startPos = mb_strrpos($string, "<");
 
-        if (false == $startPos) {
+        if (false === $startPos) {
             return $string;
         }
 

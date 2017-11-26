@@ -5,7 +5,7 @@
                 <h3 class="widget-title">最新文章</h3>
                 <ul class="widget-list">
                     @foreach ($sidebarRecentPosts as $sidebarRecentPost)
-                        <li><a href="{{ route('post.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a></li>
+                        <li><a href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a></li>
                     @endforeach
                 </ul>
             </section>
@@ -27,7 +27,7 @@
                 <h3 class="widget-title">标签</h3>
                 <ol class="widget-list">
                     @foreach ($sidebarTags as $sidebarTag)
-                        <li><a href="{{ route('tag.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }} ({{ $sidebarTag->count }})</a></li>
+                        <li><a href="{{ route('tags.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }} ({{ $sidebarTag->count }})</a></li>
                     @endforeach
                 </ol>
             </section>

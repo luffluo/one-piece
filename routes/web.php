@@ -18,14 +18,14 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('search', 'HomeController@index')->name('search');
 
 // Post
-Route::get('a/{id}', 'PostController@show')->name('post.show');
+Route::get('a/{post}', 'PostController@show')->name('posts.show');
 
 // 文章评论
-Route::post('a/{post_id}/comment', 'PostController@handleComment')->name('post.comment');
+Route::post('a/{post}/comment', 'PostController@handleComment')->name('posts.comment');
 
 // Tags
-Route::get('tags', 'TagController@index')->name('tags');
-Route::get('t/{slug}', 'TagController@posts')->name('tag.posts');
+Route::get('tags', 'TagController@index')->name('tags.index');
+Route::get('t/{slug}', 'TagController@posts')->name('tags.posts');
 
 // Archive
 Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
@@ -35,25 +35,25 @@ Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
 // User
 Route::group(['prefix' => 'u'], function () {
 
-    Route::get('{user}', 'UserController@center')->name('user.center');
+    Route::get('{user}', 'UserController@center')->name('users.center');
 
-    Route::get('{user}/profile', 'UserController@editProfile')->name('user.edit_profile');
-    Route::patch('{user}/profile', 'UserController@updateProfile')->name('user.update_profile');
+    Route::get('{user}/profile', 'UserController@editProfile')->name('users.edit_profile');
+    Route::patch('{user}/profile', 'UserController@updateProfile')->name('users.update_profile');
 
-    Route::get('{user}/avatar', 'UserController@editAvatar')->name('user.edit_avatar');
-    Route::patch('{user}/avatar', 'UserController@updateAvatar')->name('user.update_avatar');
+    Route::get('{user}/avatar', 'UserController@editAvatar')->name('users.edit_avatar');
+    Route::patch('{user}/avatar', 'UserController@updateAvatar')->name('users.update_avatar');
 
-    Route::get('{user}/password', 'UserController@editPassword')->name('user.edit_password');
-    Route::patch('{user}/password', 'UserController@updatePassword')->name('user.update_password');
+    Route::get('{user}/password', 'UserController@editPassword')->name('users.edit_password');
+    Route::patch('{user}/password', 'UserController@updatePassword')->name('users.update_password');
 });
 
 
 
 // SiteMap
-Route::get('sitemap', 'SiteMapController')->name('sitemap');
+Route::get('sitemap', 'PagesController@sitemap')->name('sitemap');
 
 // RSS
-Route::get('feed', 'RssController')->name('feed');
+Route::get('feed', 'PagesController@rss')->name('feed');
 
 // Auth
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
@@ -80,24 +80,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Option
     Route::group(['prefix' => 'options'], function () {
-        Route::get('general', 'OptionController@showGeneral')->name('admin.options.general');
-        Route::post('general', 'OptionController@handleGeneral');
+        Route::get('general', 'OptionsController@showGeneral')->name('admin.options.general');
+        Route::post('general', 'OptionsController@handleGeneral');
 
-        Route::get('discussion', 'OptionController@showDiscussion')->name('admin.options.discussion');
-        Route::post('discussion', 'OptionController@handleDiscussion');
+        Route::get('discussion', 'OptionsController@showDiscussion')->name('admin.options.discussion');
+        Route::post('discussion', 'OptionsController@handleDiscussion');
 
-        Route::get('reading', 'OptionController@showReading')->name('admin.options.reading');
-        Route::post('reading', 'OptionController@handleReading');
+        Route::get('reading', 'OptionsController@showReading')->name('admin.options.reading');
+        Route::post('reading', 'OptionsController@handleReading');
     });
 
     // theme
-    Route::group(['prefix' => 'theme'], function () {
-        Route::get('options', 'ThemeController@showOptions')->name('admin.theme.options');
-        Route::post('options', 'ThemeController@handleOptions');
+    Route::group(['prefix' => 'themes'], function () {
+        Route::get('option', 'ThemesController@showOption')->name('admin.themes.option');
+        Route::post('option', 'ThemesController@handleOption');
     });
 
     // Post
-    Route::resource('posts', 'PostController', [
+    Route::resource('posts', 'PostsController', [
         'except' => ['show'],
         'names'  => [
             'index'   => 'admin.posts.index',
@@ -110,13 +110,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     ]);
 
     // Comment
-    Route::get('comments', 'CommentController@index')->name('admin.comments.index');
-    Route::post('comments/{comment}', 'CommentController@reply')->name('admin.comments.reply');
-    Route::patch('comments/{comment}', 'CommentController@update')->name('admin.comments.update');
-    Route::delete('comments/{comment}', 'CommentController@destroy')->name('admin.comments.destroy');
+    Route::get('comments', 'CommentsController@index')->name('admin.comments.index');
+    Route::post('comments/{comment}', 'CommentsController@reply')->name('admin.comments.reply');
+    Route::patch('comments/{comment}', 'CommentsController@update')->name('admin.comments.update');
+    Route::delete('comments/{comment}', 'CommentsController@destroy')->name('admin.comments.destroy');
 
     // Tag
-    Route::resource('tags', 'TagController', [
+    Route::resource('tags', 'TagsController', [
         'except' => ['show'],
         'names'  => [
             'index'   => 'admin.tags.index',
@@ -129,7 +129,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     ]);
 
     // 导航
-    Route::resource('navs', 'NavController', [
+    Route::resource('navs', 'NavsController', [
         'except' => ['show'],
         'names'  => [
             'index'   => 'admin.navs.index',
@@ -142,7 +142,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     ]);
 
     // User
-    Route::resource('users', 'UserController', [
+    Route::resource('users', 'UsersController', [
         'except' => ['create', 'store', 'show'],
         'names'  => [
             'index'   => 'admin.users.index',

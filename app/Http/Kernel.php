@@ -49,7 +49,7 @@ class Kernel extends HttpKernel
         'check.installed' => \App\Http\Middleware\CheckInstalled::class,
         'auth'            => \App\Http\Middleware\Authenticate::class,
         'auth.admin'      => \App\Http\Middleware\AuthenticateWithAdminAuth::class,
-        // 'bindings'        => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'bindings'        => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'guest'           => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'        => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];

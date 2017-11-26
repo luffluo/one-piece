@@ -15,8 +15,8 @@ return [
             ],
             [
                 'title'  => '外观',
-                'active' => 'admin/theme/options*',
-                'url'    => 'admin/theme/options',
+                'active' => 'admin/themes/option*',
+                'url'    => 'admin/themes/option',
             ],
         ],
     ],

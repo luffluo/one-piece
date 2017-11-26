@@ -22,7 +22,7 @@
                             <ul class="list-inline" style="margin-left: 0;">
                                 <li><a href="{{ route('admin.posts.create') }}">撰写新文章</a></li>
                                 <li><a href="{{ route('admin.navs.index') }}">导航设置</a></li>
-                                <li><a href="{{ route('admin.theme.options') }}">外观设置</a></li>
+                                <li><a href="{{ route('admin.themes.option') }}">外观设置</a></li>
                                 <li><a href="{{ route('admin.options.reading') }}">阅读设置</a></li>
                                 <li><a href="{{ route('admin.options.general') }}">系统设置</a></li>
                             </ul>
@@ -38,7 +38,7 @@
                                 @forelse($posts as $post)
                                     <li>
                                         <span>{{ $post->created_at->format('n.j') }}</span>
-                                        <a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('post.show', $post->id) }}">{{ $post->headline(50) }}</a>
+                                        <a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->headline(50) }}</a>
                                     </li>
                                 @empty
                                     <li><em>暂时没有文章</em></li>

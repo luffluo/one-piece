@@ -135,4 +135,9 @@ class Option
 
         return $value;
     }
+
+    public function table()
+    {
+        return $this->databaseRepository->table();
+    }
 }
