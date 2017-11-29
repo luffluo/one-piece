@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use App\Services\ImageService;
+use App\Handlers\ImageUploadHandler;
 
 class UsersController extends Controller
 {
-    protected $imageService;
-
-    public function __construct(ImageService $imageService)
+    public function __construct()
     {
         $this->middleware('auth', [
             'except' => [
                 'center',
             ],
         ]);
-
-        $this->imageService = $imageService;
     }
 
     /**
@@ -107,7 +102,7 @@ class UsersController extends Controller
         return view('users.avatar', compact('user'));
     }
 
-    public function updateAvatar(Request $request, $name)
+    public function updateAvatar(Request $request, ImageUploadHandler $uploader, $name)
     {
         $user = User::query()
             ->where('name', $name)
@@ -120,21 +115,20 @@ class UsersController extends Controller
         $this->validate(
             $request,
             [
-                'avatar' => 'required|image:jpeg,jpg,png,gig',
+                'avatar' => 'required|image:' . $uploader->getAllowedExtsString(),
             ],
             [
                 'avatar.required' => '请选择图片',
-                'avatar.image'    => '图片格式 jpeg, jpg, png, gif',
+                'avatar.image'    => '图片格式 ' . $uploader->getAllowedExtsString(', '),
             ]
         );
 
-        try {
-            $ext = $this->imageService->saveForAvatar($request->file('avatar'), $user->id);
-        } catch (Exception $e) {
+        $result = $uploader->save($request->avatar, 'avatars', $user->id, 362);
+        if (! $result) {
             return redirect()->route('users.edit_avatar', $user->name)->withErrors('头像上传失败');
         }
 
-        $user->avatar = $ext;
+        $user->avatar = $result['path'];
         $user->save();
         if (! $user->save()) {
             return redirect()->route('users.edit_avatar', $user->name)->withErrors('头像上传失败');

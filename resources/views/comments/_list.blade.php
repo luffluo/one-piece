@@ -18,7 +18,7 @@
 
         <h3 id="response">添加新评论</h3>
 
-        <form method="post" action="{{ route('post.comment', $post->id) }}" id="comment-form" role="form">
+        <form method="post" action="{{ route('posts.comment', $post->id) }}" id="comment-form" role="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             @auth

@@ -14,7 +14,7 @@
                 @if(auth()->check() && $user->id === auth()->user()->id)
                     <hr>
                     <p>
-                        <a href="{{ route('user.edit_profile', $user->name) }}" class="btn btn-info btn-sm" style="display: block">
+                        <a href="{{ route('users.edit_profile', $user->name) }}" class="btn btn-info btn-sm" style="display: block">
                             <i class="fa fa-edit"> </i>
                             编辑个人信息
                         </a>

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @include('user._secondary')
+    @include('users._secondary')
 
     <div id="main" class="settings col-md-10">
         <div class="panel panel-default">
@@ -14,7 +14,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="user-" action="{{ route('user.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                        <form id="user-" action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="patch">
 

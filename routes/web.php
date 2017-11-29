@@ -18,33 +18,33 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('search', 'HomeController@index')->name('search');
 
 // Post
-Route::get('a/{post}', 'PostController@show')->name('posts.show');
+Route::get('a/{post}', 'PostsController@show')->name('posts.show');
 
 // 文章评论
-Route::post('a/{post}/comment', 'PostController@handleComment')->name('posts.comment');
+Route::post('a/{post}/comment', 'PostsController@handleComment')->name('posts.comment');
 
 // Tags
-Route::get('tags', 'TagController@index')->name('tags.index');
-Route::get('t/{slug}', 'TagController@posts')->name('tags.posts');
+Route::get('tags', 'TagsController@index')->name('tags.index');
+Route::get('t/{slug}', 'TagsController@posts')->name('tags.posts');
 
 // Archive
-Route::get('/{year}/{month?}/{day?}', 'PostController@archive')
+Route::get('/{year}/{month?}/{day?}', 'PostsController@archive')
     ->where(['year' => '[0-9]{4}', 'month' => '[0-9]{1,2}', 'day' => '[0-9]{1,2}'])
     ->name('archive');
 
 // User
 Route::group(['prefix' => 'u'], function () {
 
-    Route::get('{user}', 'UserController@center')->name('users.center');
+    Route::get('{user}', 'UsersController@center')->name('users.center');
 
-    Route::get('{user}/profile', 'UserController@editProfile')->name('users.edit_profile');
-    Route::patch('{user}/profile', 'UserController@updateProfile')->name('users.update_profile');
+    Route::get('{user}/profile', 'UsersController@editProfile')->name('users.edit_profile');
+    Route::patch('{user}/profile', 'UsersController@updateProfile')->name('users.update_profile');
 
-    Route::get('{user}/avatar', 'UserController@editAvatar')->name('users.edit_avatar');
-    Route::patch('{user}/avatar', 'UserController@updateAvatar')->name('users.update_avatar');
+    Route::get('{user}/avatar', 'UsersController@editAvatar')->name('users.edit_avatar');
+    Route::patch('{user}/avatar', 'UsersController@updateAvatar')->name('users.update_avatar');
 
-    Route::get('{user}/password', 'UserController@editPassword')->name('users.edit_password');
-    Route::patch('{user}/password', 'UserController@updatePassword')->name('users.update_password');
+    Route::get('{user}/password', 'UsersController@editPassword')->name('users.edit_password');
+    Route::patch('{user}/password', 'UsersController@updatePassword')->name('users.update_password');
 });
 
 

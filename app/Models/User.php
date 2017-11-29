@@ -125,21 +125,13 @@ class User extends Model implements
      *
      * @return string
      */
-    public function showAvatar($size = 'small')
+    public function showAvatar()
     {
         if (empty($this->avatar)) {
-            return asset('/uploads/avatars/default.png');
+            return asset('/uploads/images/avatars/default.png');
         }
 
-        $array = [
-            'small'  => 100,
-            'medium' => 200,
-            'large'  => 380,
-        ];
-
-        array_key_exists($size, $array) || $size = 'small';
-
-        return asset('/uploads/avatars/' . $this->id . '-' . $array[$size] . '.' . $this->avatar);
+        return $this->avatar;
     }
 
     public function introduction($length = null)

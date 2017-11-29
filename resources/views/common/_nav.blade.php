@@ -45,8 +45,8 @@
                             {{ auth()->user()->showName() }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ route('user.center', auth()->user()->name) }}">个人中心</a></li>
-                            <li><a href="{{ route('user.edit_profile', auth()->user()->name) }}">编辑信息</a></li>
+                            <li><a href="{{ route('users.center', auth()->user()->name) }}">个人中心</a></li>
+                            <li><a href="{{ route('users.edit_profile', auth()->user()->name) }}">编辑信息</a></li>
 
                             @if (auth()->user()->can('administrator'))
                                 <li><a href="{{ route('admin.home') }}">进入后台</a></li>

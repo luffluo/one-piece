@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
         Post::setMarkdown(Parsedown::instance());
 
+        Post::observe(\App\Observers\PostObserver::class);
+
         View::composer('admin*', function ($view) {
             $view->with('navTrigger', session('nav.trigger', false));
         });

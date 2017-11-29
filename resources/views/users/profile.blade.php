@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @include('user._secondary')
+    @include('users._secondary')
 
     <div id="main" class="settings col-md-10">
         <div class="panel panel-default">
@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body">
-                <form action="{{ route('user.update_profile', $user->name) }}" class="form-horizontal" method="post">
+                <form action="{{ route('users.update_profile', $user->name) }}" class="form-horizontal" method="post">
                     <input type="hidden" name="_method" value="PATCH">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
