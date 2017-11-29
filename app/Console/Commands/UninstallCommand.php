@@ -45,14 +45,17 @@ class UninstallCommand extends Command
      */
     public function handle()
     {
-        $this->info('---');
+        $this->info('卸载开始 ...');
+
+        $this->call('cache:clear');
+        $this->call('config:clear');
+        $this->call('view:clear');
+        $this->call('route:clear');
 
         $this->installer->removeInstalledFile();
 
         $this->call('migrate:reset');
 
-        $this->info('卸载成功.');
-
-        $this->info('---');
+        $this->info('卸载成功');
     }
 }

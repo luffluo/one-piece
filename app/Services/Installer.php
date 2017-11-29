@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\InstallException;
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Symfony\Component\Console\Output\NullOutput;
@@ -167,21 +168,25 @@ class Installer
      */
     public function start()
     {
-        // 写入数据库链接信息到 ENV
-        $this->writeNewEnvironmentFileWith();
+        try {
+            // 写入数据库链接信息到 ENV
+            $this->writeNewEnvironmentFileWith();
 
-        $this->setDatabaseConfig();
+            $this->setDatabaseConfig();
 
-        // 执行数据库迁移
-        $this->executeAllMigrations();
+            // 执行数据库迁移
+            $this->executeAllMigrations();
 
-        // 初始化系统数据，添加一些默认数据
-        $this->initLuff();
+            // 初始化系统数据，添加一些默认数据
+            $this->initLuff();
 
-        // Create installed file
-        $this->createInstalledFile();
+            // Create installed file
+            $this->createInstalledFile();
 
-        $this->resetDataToNull();
+            $this->resetDataToNull();
+        } catch (\Exception $e) {
+            throw new InstallException($e->getMessage());
+        }
     }
 
     /**
@@ -281,6 +286,8 @@ class Installer
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+
+            throw new InstallException($e->getMessage());
         }
     }
 

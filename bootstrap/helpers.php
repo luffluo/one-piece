@@ -53,11 +53,11 @@ if (! function_exists('option')) {
      * @param mixed        $default
      * @param integer      $user_id
      *
-     * @return mixed
+     * @return \App\Services\Option|mixed
      */
     function option($key = null, $default = null)
     {
-
+        /* @var $option \App\Services\Option */
         $option = app('option');
 
         if (is_null($key)) {

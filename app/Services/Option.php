@@ -2,9 +2,18 @@
 
 namespace App\Services;
 
+use BadMethodCallException;
 use App\Repositories\OptionFileRepository;
 use App\Repositories\OptionDatabaseRepository;
 
+/**
+ * Class Option
+ *
+ * @method \Illuminate\Database\Query\Builder table()
+ * @see \App\Repositories\OptionDatabaseRepository::table()
+ *
+ * @package App\Services
+ */
 class Option
 {
     /**
@@ -83,6 +92,8 @@ class Option
      *
      * @param string $key
      * @param null   $value
+     *
+     * @return void
      */
     public function set(string $key, $value = null)
     {
@@ -136,8 +147,16 @@ class Option
         return $value;
     }
 
-    public function table()
+    public function __call($method, $parameters)
     {
-        return $this->databaseRepository->table();
+        if (method_exists($this->databaseRepository, $method)) {
+            return $this->databaseRepository->$method($parameters);
+        }
+
+        if (method_exists($this->fileRepository, $method)) {
+            return $this->fileRepository->$method($parameters);
+        }
+
+        throw new BadMethodCallException("Method [{$method}] does not exist.");
     }
 }

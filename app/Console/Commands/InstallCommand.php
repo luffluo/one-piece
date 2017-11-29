@@ -48,28 +48,25 @@ class InstallCommand extends Command
     {
         if ($this->installer->installed()) {
 
-            $this->info('---');
-            $this->error('程序已安装！');
-            $this->info('---');
+            $this->error('程序已安装 ...');
 
             return;
         }
 
         // 从 console 中获取信息
-        $this->installer->setData($this->getData())
+        $this->installer
+            ->setData($this->getData())
             ->setNullOutput();
 
-        $this->info('---');
+        $this->info('安装开始 ...');
 
         $this->installer->start();
-
-        $this->info('Luff 安装成功!');
-
-        $this->info('---');
 
         if ($this->option('seed')) {
             $this->call('db:seed');
         }
+
+        $this->info('Luff 安装成功!');
     }
 
     protected function getData()
