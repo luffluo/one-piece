@@ -2,9 +2,9 @@
 一个简单的博客程序。基于 `Laravel 5.5.*` 开发。
 
 ## 预览
-![luff-front](http://wx4.sinaimg.cn/large/006fVPCvly1fjri6ju7yuj31400p0q56.jpg)
+![luff-front](https://i.imgur.com/nZHK5W3.png)
 
-![luff-admin](http://wx2.sinaimg.cn/large/006fVPCvly1fjri75enimj31400p0dhx.jpg)
+![luff-admin](https://i.imgur.com/7kUKJG6.png)
 
 ## 基本特性
 * 用户

@@ -16,7 +16,12 @@
                 <h3 class="widget-title">最近回复</h3>
                 <ul class="widget-list">
                     @foreach ($sidebarRecentComments as $sidebarRecentComment)
-                        <li><span>{{ $sidebarRecentComment->user->showName() }}: </span>{{ $sidebarRecentComment->text }}</li>
+                        <li>
+                            <a title="{{ $sidebarRecentComment->user->showName() }}" href="{{ route('users.center', $sidebarRecentComment->user->name) }}">
+                                {{ $sidebarRecentComment->user->showName() }}:
+                            </a>
+                            {{ $sidebarRecentComment->text }}
+                        </li>
                     @endforeach
                 </ul>
             </section>
