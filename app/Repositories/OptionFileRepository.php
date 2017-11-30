@@ -10,13 +10,27 @@ use Illuminate\Filesystem\Filesystem;
  */
 class OptionFileRepository
 {
+    /**
+     * @var array
+     */
     protected $attributes;
 
+    /**
+     * @var Filesystem
+     */
     protected $files;
 
-    public function __construct(Filesystem $files)
+    /**
+     * 配置文件名称
+     *
+     * @var string
+     */
+    protected $filename;
+
+    public function __construct(Filesystem $files, $filename = 'option')
     {
-        $this->attributes = config('option');
+        $this->filename   = $filename;
+        $this->attributes = config($this->filename);
         $this->files      = $files;
     }
 
@@ -95,7 +109,7 @@ class OptionFileRepository
             apc_compile_file($filePath);
         }
 
-        config()->set('option', $this->attributes);
+        config()->set($this->filename, $this->attributes);
     }
 
     /**
@@ -105,6 +119,6 @@ class OptionFileRepository
      */
     public function getOptionConfigPath()
     {
-        return config_path('option.php');
+        return storage_path('app/option.php');
     }
 }

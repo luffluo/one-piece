@@ -34,7 +34,7 @@ class OptionServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('option.repository.database', function ($app) {
-            return new OptionDatabaseRepository($app['db']->connection(), $app['cache']->store());
+            return new OptionDatabaseRepository($app['db']->connection());
         });
 
         $this->app->singleton('option', function ($app) {
