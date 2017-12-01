@@ -127,10 +127,6 @@ class Option
      */
     public function cast(string $key, $value)
     {
-        if (is_null($value)) {
-            return $value;
-        }
-
         if (array_key_exists($key, $this->casts)) {
             switch ($this->casts[$key]) {
                 case 'array':
@@ -138,7 +134,7 @@ class Option
                     if (is_array($value)) {
                         return json_encode($value);
                     } else {
-                        return json_decode($value);
+                        return (array) json_decode($value);
                     }
 
             }

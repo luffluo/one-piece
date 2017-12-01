@@ -13,7 +13,7 @@ class OptionFileRepository
     /**
      * @var array
      */
-    protected $attributes;
+    protected $attributes = [];
 
     /**
      * @var Filesystem
@@ -30,8 +30,13 @@ class OptionFileRepository
     public function __construct(Filesystem $files, $filename = 'option')
     {
         $this->filename   = $filename;
-        $this->attributes = config($this->filename);
         $this->files      = $files;
+
+        if (! file_exists(storage_path('app/option.php'))) {
+            $this->save();
+        }
+
+        $this->attributes = require $this->getOptionConfigPath();
     }
 
     /**
@@ -108,8 +113,6 @@ class OptionFileRepository
         if (function_exists('apc_compile_file')) {
             apc_compile_file($filePath);
         }
-
-        config()->set($this->filename, $this->attributes);
     }
 
     /**
