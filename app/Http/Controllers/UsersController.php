@@ -50,6 +50,8 @@ class UsersController extends Controller
             ->where('name', $name)
             ->firstOrFail();
 
+        $this->authorize('update', $user);
+
         return view('users.profile', compact('user'));
     }
 
@@ -64,6 +66,8 @@ class UsersController extends Controller
         $user = User::query()
             ->where('name', $name)
             ->firstOrFail();
+
+        $this->authorize('update', $user);
 
         if ($user->id !== auth()->user()->id) {
             return redirect()->route('users.edit_profile', $user->name)->withErrors('非法操作');
@@ -99,6 +103,8 @@ class UsersController extends Controller
             ->where('name', $name)
             ->firstOrFail();
 
+        $this->authorize('update', $user);
+
         return view('users.avatar', compact('user'));
     }
 
@@ -107,6 +113,8 @@ class UsersController extends Controller
         $user = User::query()
             ->where('name', $name)
             ->firstOrFail();
+
+        $this->authorize('update', $user);
 
         if ($user->id !== auth()->user()->id) {
             return redirect()->route('users.edit_profile', $user->name)->withErrors('非法操作');
@@ -143,6 +151,8 @@ class UsersController extends Controller
             ->where('name', $name)
             ->firstOrFail();
 
+        $this->authorize('update', $user);
+
         return view('users.password', compact('user'));
     }
 
@@ -152,9 +162,7 @@ class UsersController extends Controller
             ->where('name', $name)
             ->firstOrFail();
 
-        if ($user->id !== auth()->user()->id) {
-            return redirect()->route('users.edit_password', $user->name)->withErrors('非法操作');
-        }
+        $this->authorize('update', $user);
 
         $this->validate(
             $request,

@@ -15,6 +15,15 @@ class PostsController extends Controller
         $this->middleware('auth', ['only' => ['handleComment']]);
     }
 
+    /**
+     * 文章归档
+     *
+     * @param      $year
+     * @param null $month
+     * @param null $day
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function archive($year, $month = null, $day = null)
     {
         if (! empty($year) && ! empty($month) && ! empty($day)) {
@@ -61,6 +70,13 @@ class PostsController extends Controller
         return view('posts.index', compact('posts', 'title'));
     }
 
+    /**
+     * 查看单个文章
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
         $post = Post::query()->where('id', $id)
@@ -77,11 +93,20 @@ class PostsController extends Controller
         return view('posts.show', compact('post', 'comments'));
     }
 
+    /**
+     * 评论文章
+     *
+     * @param CommentRequest $request
+     * @param                $postId
+     *
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function handleComment(CommentRequest $request, $postId)
     {
+        /* @var $post Post */
         $post = Post::find($postId);
 
-        if (empty($post)) {
+        if (! $post || ! $post->exists) {
             return back()->withInput()->withErrors(['text' => '文章不存在']);
         }
 

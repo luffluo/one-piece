@@ -5,13 +5,13 @@
 @section('content')
     <div class="col-md-3">
         <div class="thumbnail">
-            <img alt="用户头像" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true" style="height: 250px; width: 250px; display: block;">
+            <img alt="用户头像" src="{{ $user->showAvatar() }}" data-holder-rendered="true" style="height: 250px; width: 250px; display: block;">
             <div class="caption">
                 <h3>{{ $user->showName() }}</h3>
                 <p>{{ $user->introduction() }}</p>
                 <hr>
                 <p>最后登录: 1 天前</p>
-                @if(auth()->check() && $user->id === auth()->user()->id)
+                @can('update', $user)
                     <hr>
                     <p>
                         <a href="{{ route('users.edit_profile', $user->name) }}" class="btn btn-info btn-sm" style="display: block">
