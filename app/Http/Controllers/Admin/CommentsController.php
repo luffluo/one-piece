@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CommentRequest;
 use App\Models\Post;
 use App\Models\Comment;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 
 class CommentsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $query = Comment::query();
 
         $post = null;
-        if ($cid = request()->get('cid')) {
+        if ($cid = $request->get('cid')) {
             $post = Post::findOrFail($cid);
             $query->where('content_id', $cid);
         }

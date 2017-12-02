@@ -8,7 +8,6 @@ use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Comment;
-use App\Listeners\MenuRouteMatched;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -32,12 +31,33 @@ class AppServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(resource_path('views/admin'), 'admin');
 
-        $this->app['events']->subscribe(MenuRouteMatched::class);
-
         Post::setMarkdown(Parsedown::instance());
 
-        Post::observe(\App\Observers\PostObserver::class);
+        $this->registerObservers();
 
+        $this->registerViewData();
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    protected function registerObservers()
+    {
+        Post::observe(\App\Observers\PostObserver::class);
+    }
+
+    /**
+     * 注册一些视图数据
+     */
+    protected function registerViewData()
+    {
         View::composer('admin*', function ($view) {
             $view->with('navTrigger', session('nav.trigger', false));
         });
@@ -124,15 +144,5 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('sidebarArchives', $result);
             }
         });
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

@@ -6,6 +6,19 @@ use App\Models\Post;
 
 class PostObserver
 {
+    public function created(Post $post)
+    {
+        cache()->forget('sitemap');
+        cache()->forget('post.feed');
+        cache()->forget('post.archive');
+    }
+
+    public function updated(Post $post)
+    {
+        cache()->forget('sitemap');
+        cache()->forget('post.feed');
+    }
+
     public function saving(Post $post)
     {
         if (! $post->exists) {
@@ -78,5 +91,9 @@ class PostObserver
 
         // 删除文章和标签的所有关联
         $post->tags()->sync([]);
+
+        cache()->forget('sitemap');
+        cache()->forget('post.feed');
+        cache()->forget('post.archive');
     }
 }

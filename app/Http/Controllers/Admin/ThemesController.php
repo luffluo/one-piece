@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ThemesController extends Controller
@@ -18,9 +19,9 @@ class ThemesController extends Controller
         return admin_view('themes.option', compact('sidebarBlock'));
     }
 
-    public function handleOption()
+    public function handleOption(Request $request)
     {
-        option(['sidebar_block' => request()->get('sidebarBlock', [])]);
+        option(['sidebar_block' => $request->get('sidebarBlock', [])]);
 
         return redirect()->route('admin.themes.option')->withMessage('外观设置已经保存');
     }

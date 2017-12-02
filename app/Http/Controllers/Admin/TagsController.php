@@ -66,16 +66,16 @@ class TagsController extends Controller
             $input = request()->get('q');
 
             if (empty($input)) {
-                return response()->json([]);
+                return [];
             }
 
             $tags = Tag::select('id', 'name')->where('name', 'like', "%{$input}%")->get();
 
             if (count($tags) < 1) {
-                return response()->json([]);
+                return [];
             }
 
-            return response()->json(['items' => $tags->toArray()]);
+            return ['items' => $tags->toArray()];
         }
     }
 }
