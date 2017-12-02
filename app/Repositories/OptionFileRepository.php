@@ -32,11 +32,7 @@ class OptionFileRepository
         $this->filename   = $filename;
         $this->files      = $files;
 
-        if (! file_exists(storage_path('app/option.php'))) {
-            $this->save();
-        }
-
-        $this->attributes = require $this->getOptionConfigPath();
+        $this->attributes = $this->load();
     }
 
     /**
@@ -86,6 +82,20 @@ class OptionFileRepository
     }
 
     /**
+     * 加载文件
+     *
+     * @return array
+     */
+    public function load() : array
+    {
+        if (! file_exists($this->getOptionConfigPath())) {
+            $this->save();
+        }
+
+        return require $this->getOptionConfigPath();
+    }
+
+    /**
      * 保存配置到文件，并更新缓存
      */
     public function save()
@@ -101,7 +111,7 @@ class OptionFileRepository
         );
 
         /**
-         * 下面连个检测是用来清除缓存导致的不能及时显示已更新数据的
+         * 下面两个检测是用来清除缓存导致的不能及时显示已更新数据的
          * 效果:
          * 如果没有清除缓存, 我更新了一个数据, 保存设置后是没有改变的, 要刷新一遍页面才看得见效果
          */

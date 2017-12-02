@@ -82,7 +82,7 @@ class Option
             $value = $this->databaseRepository->get($key);
         }
 
-        $value = $this->cast($key, $value);
+        $value = $this->castAttribute($key, $value);
 
         return is_null($value) ? $default : $value;
     }
@@ -97,7 +97,9 @@ class Option
      */
     public function set(string $key, $value = null)
     {
-        $value = $this->cast($key, $value);
+        if ($this->isJsonCastable($key) && ! is_null($value)) {
+            $value = $this->asJson($value);
+        }
 
         $this->fileRepository->set($key, $value);
 
@@ -125,22 +127,16 @@ class Option
      *
      * @return mixed
      */
-    public function cast(string $key, $value)
+    public function castAttribute(string $key, $value)
     {
-        if (array_key_exists($key, $this->casts)) {
-            switch ($this->casts[$key]) {
-                case 'array':
+        switch ($this->getCastType($key)) {
+            case 'array':
+                return $this->fromJson($value);
 
-                    if (is_array($value)) {
-                        return json_encode($value);
-                    } else {
-                        return (array) json_decode($value);
-                    }
+            default:
+                return $value;
 
-            }
         }
-
-        return $value;
     }
 
     public function __call($method, $parameters)
@@ -154,5 +150,76 @@ class Option
         }
 
         throw new BadMethodCallException("Method [{$method}] does not exist.");
+    }
+
+    /**
+     * 是否是 json 类型的转换
+     *
+     * @param $key
+     *
+     * @return bool
+     */
+    protected function isJsonCastable($key)
+    {
+        return in_array($this->getCastType($key), ['array', 'json']);
+    }
+
+    /**
+     * 对变量进行 JSON 编码
+     *
+     * @param $value
+     *
+     * @return string
+     */
+    protected function asJson($value)
+    {
+        return json_encode($value);
+    }
+
+    /**
+     * 对变量进行 JSON 解码
+     *
+     * @param      $value
+     * @param bool $asObject
+     *
+     * @return mixed
+     */
+    protected function fromJson($value, $asObject = false)
+    {
+        $value = json_decode($value, ! $asObject);
+
+        if (! $asObject) {
+            $value = (array) $value;
+        }
+
+        return $value;
+    }
+
+    /**
+     * 获取转换的类型
+     *
+     * @param $key
+     *
+     * @return mixed|null
+     */
+    protected function getCastType($key)
+    {
+        if ($this->hasCast($key)) {
+            return $this->casts[$key];
+        }
+
+        return null;
+    }
+
+    /**
+     * 是否需要转换
+     *
+     * @param $key
+     *
+     * @return bool
+     */
+    protected function hasCast($key)
+    {
+        return array_key_exists($key, $this->casts);
     }
 }
