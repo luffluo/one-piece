@@ -72,13 +72,25 @@ class ImageUploadHandler
     {
         // 先实例化，传参是文件的磁盘物理路径
         /* @var $image \Intervention\Image\Image */
-        $image = Image::make($filePath);
+        $image     = Image::make($filePath);
+        $oriWidth  = $image->getWidth();
+        $oriHeight = $image->getHeight();
 
-        $image->resize($maxWidth, null, function ($constraint) {
+        $maxHeight = null;
+        // 高度和宽度谁大按照谁来缩放，另一个等比例
+        switch ($oriWidth <=> $oriHeight) {
+            case -1:
+                $maxHeight = $maxWidth;
+                $maxWidth  = null;
+                break;
+        }
+
+        $image->resize($maxWidth, $maxHeight, function ($constraint) {
 
             // 设定宽度是 $max_width，高度等比例双方缩放
             $constraint->aspectRatio();
 
+            // 防止裁图时图片尺寸变大
             $constraint->upsize();
         });
 
