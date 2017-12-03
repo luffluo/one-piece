@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\MarkdownHelper;
+
 class Post extends Content
 {
+    use MarkdownHelper;
     /**
      * 类型 文章
      */
@@ -13,11 +16,6 @@ class Post extends Content
      * 文章草稿
      */
     const TYPE_DRAFT = 'post_draft';
-
-    /**
-     * @var \Parsedown
-     */
-    protected static $markdown;
 
     protected $fillable = [
         'title',
@@ -90,11 +88,6 @@ class Post extends Content
         }
     }
 
-    public static function setMarkdown($markdown)
-    {
-        static::$markdown = $markdown;
-    }
-
     /**
      * 作者
      *
@@ -161,9 +154,7 @@ class Post extends Content
      */
     public function parserContent()
     {
-        return static::$markdown
-            ->setMarkupEscaped(true)
-            ->text($this->text);
+        return $this->parserMarkdown($this->text);
     }
 
     /**

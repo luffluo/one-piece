@@ -12,7 +12,7 @@
     </div>
 
     <div class="comment-content" itemprop="commentText">
-        {{ $comment->text }}
+        {!! $comment->content() !!}
     </div>
 
     <div class="comment-reply">

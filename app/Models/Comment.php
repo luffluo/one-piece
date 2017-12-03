@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\MarkdownHelper;
+
 /**
  * Class Comment
  *
@@ -18,6 +20,8 @@ namespace App\Models;
  */
 class Comment extends Model
 {
+    use MarkdownHelper;
+
     const TYPE_APPROVED = 'approved';
 
     const TYPE_WAITING = 'waiting';
@@ -71,7 +75,7 @@ class Comment extends Model
             $class .= ' comment-parent';
         }
 
-        if ($this->user_id == $this->owner_id) {
+        if ($this->user_id === $this->owner_id) {
             $class .= ' comment-by-author';
         } else {
             $class .= ' comment-by-user';
@@ -82,6 +86,6 @@ class Comment extends Model
 
     public function content()
     {
-        return $this->text;
+        return $this->parserMarkdown($this->text);
     }
 }

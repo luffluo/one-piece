@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->loadViewsFrom(resource_path('views/admin'), 'admin');
 
         Post::setMarkdown(Parsedown::instance());
+        Comment::setMarkdown(Parsedown::instance());
 
         $this->registerObservers();
 

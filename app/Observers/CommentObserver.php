@@ -13,7 +13,7 @@ class CommentObserver
         }
 
         // XSS 过滤
-        $comment->text = clean($comment->text, 'user_comment_content');
+        // $comment->text = clean($comment->text, 'user_comment_content');
     }
 
     public function saved(Comment $comment)
