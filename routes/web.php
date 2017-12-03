@@ -12,16 +12,16 @@
 */
 
 /***************************** Front routes start *****************************/
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'PostsController@index')->name('home');
 
 // Search
-Route::get('search', 'HomeController@index')->name('search');
+Route::get('search', 'PostsController@index')->name('search');
 
 // Post
 Route::get('a/{post}', 'PostsController@show')->name('posts.show');
 
-// 文章评论
-Route::post('a/{post}/comment', 'PostsController@handleComment')->name('posts.comment');
+// Post comment
+Route::resource('comments', 'CommentsController', ['only' => ['store', 'destroy']]);
 
 // Tags
 Route::get('tags', 'TagsController@index')->name('tags.index');
@@ -46,8 +46,6 @@ Route::group(['prefix' => 'u'], function () {
     Route::get('{user}/password', 'UsersController@editPassword')->name('users.edit_password');
     Route::patch('{user}/password', 'UsersController@updatePassword')->name('users.update_password');
 });
-
-
 
 // SiteMap
 Route::get('sitemap', 'PagesController@sitemap')->name('sitemap');

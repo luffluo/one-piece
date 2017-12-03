@@ -28,7 +28,7 @@
 
         </article>
 
-        @include('comments._list', ['collections' => $comments[0]])
+        @include('comments._list', ['collections' => $comments->first(null, [])])
 
     </div>
 

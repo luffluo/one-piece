@@ -120,9 +120,12 @@ class Post extends Content
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getComments()
+    public function getCommentsGroupByParentId()
     {
-        return $this->comments()->with('user')->get()->groupBy('parent_id');
+        return $this->comments()
+            ->with('user')
+            ->get()
+            ->groupBy('parent_id');
     }
 
     /**

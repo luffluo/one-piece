@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use Parsedown;
-use Carbon\Carbon;
 use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -51,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
     protected function registerObservers()
     {
         Post::observe(\App\Observers\PostObserver::class);
+        \App\Models\Comment::observe(\App\Observers\CommentObserver::class);
     }
 
     /**

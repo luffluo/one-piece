@@ -1,7 +1,8 @@
 <div id="comments">
-    @if(count($collections))
+
     <h3>{{ $post->commentsNum('暂无评论', '仅有一条评论', '已有 %d 条评论') }}</h3>
 
+    @if(count($collections) > 0)
     <ol class="comment-list">
         @foreach($collections as $comment)
             @include('comments._comment', ['comment' => $comment])
@@ -18,8 +19,9 @@
 
         <h3 id="response">添加新评论</h3>
 
-        <form method="post" action="{{ route('posts.comment', $post->id) }}" id="comment-form" role="form">
+        <form method="post" action="{{ route('comments.store') }}" id="comment-form" role="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="post_id" value="{{ $post->id }}">
 
             @auth
                 <p>登录身份: {{ auth()->user()->showName() }}. <a href="{{ route('logout') }}" title="Logout">退出 »</a></p>
@@ -30,7 +32,7 @@
             @endguest
 
             <p>
-                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required=""></textarea>
+                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required></textarea>
             </p>
 
             <p>

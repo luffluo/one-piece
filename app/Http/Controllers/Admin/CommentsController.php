@@ -31,12 +31,12 @@ class CommentsController extends Controller
 
     public function reply(CommentRequest $request, Comment $parentComment)
     {
-        $comment = new Comment([
-            'owner_id' => $parentComment->owner_id,
-            'content_id' => $parentComment->content_id,
-            'text' => $request->get('text'),
-            'parent_id' => $parentComment->id,
+        $comment             = new Comment([
+            'text' => $request->text,
         ]);
+        $comment->owner_id   = $parentComment->owner_id;
+        $comment->content_id = $parentComment->content_id;
+        $comment->parent_id  = $parentComment->id;
 
         if (! $comment->save()) {
             return [

@@ -140,6 +140,18 @@ class User extends Model implements
     }
 
     /**
+     * 是作者否
+     *
+     * @param $model
+     *
+     * @return bool
+     */
+    public function isAuthorOf(\Illuminate\Database\Eloquent\Model $model)
+    {
+        return $this->id === $model->user_id;
+    }
+
+    /**
      * 判断用户权限
      *
      * @param string $group 用户组
@@ -153,5 +165,15 @@ class User extends Model implements
         }
 
         return false;
+    }
+
+    /**
+     * 是否是超级管理员
+     *
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        return $this->can('administrator');
     }
 }
