@@ -17,6 +17,8 @@ class CommentObserver
     {
         // 文章数 +1
         $comment->post->increment('comments_count');
+
+        $this->clearCommentCache();
     }
 
     public function deleted(Comment $comment)
@@ -27,5 +29,12 @@ class CommentObserver
         // 把该评论的子评论，变成该评论的父评论的子评论
         Comment::where('parent_id', $comment->id)
             ->update(['parent_id' => $comment->parent_id]);
+
+        $this->clearCommentCache();
+    }
+
+    public function clearCommentCache()
+    {
+        cache()->forget('comment.recent');
     }
 }
