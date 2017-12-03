@@ -11,6 +11,9 @@ class CommentObserver
         if (! $comment->exists) {
             $comment->user_id = auth()->guest() ? 1 : auth()->user()->id;
         }
+
+        // XSS 过滤
+        $comment->text = clean($comment->text, 'user_comment_content');
     }
 
     public function saved(Comment $comment)
