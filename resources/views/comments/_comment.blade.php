@@ -18,13 +18,9 @@
     <div class="comment-reply">
 
         @can('delete', $comment)
-        <a rel="nofollow" href="{{ route('comments.destroy', [$comment->id]) }}" onclick="event.preventDefault();document.getElementById('comment-delete-form').submit();">删除</a>
+        <a rel="nofollow" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
 
         |
-            <form id="comment-delete-form" action="{{ route('comments.destroy', [$comment->id]) }}" method="post" style="display: none;">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="_method" value="DELETE">
-            </form>
         @endcan
 
         <a href="{{ route('posts.show', $comment->content_id) . '?replyTo-post-' . $comment->content_id }}" onclick="return LuffComment.reply('comment-{{ $comment->id }}', {{ $comment->id }})" rel="nofollow">回复</a>

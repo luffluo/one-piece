@@ -55,10 +55,7 @@
                             <li role="separator" class="divider"></li>
 
                             <li>
-                                <a id="logout-a" href="{{ route('logout') }}">退出</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="post">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                </form>
+                                <a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a>
                             </li>
                         </ul>
                     </li>
@@ -79,23 +76,3 @@
     </div>
 </nav>
 </div>
-
-@section('js-inner')
-    @parent
-    <script>
-        'use strict';
-
-        $(function () {
-            $(document).on('click', '#logout-a', function (e) {
-
-                e.preventDefault();
-
-                if (! confirm('确定要退出吗?')) {
-                    return false;
-                }
-
-                $('#logout-form').submit();
-            });
-        });
-    </script>
-@endsection

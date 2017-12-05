@@ -45,15 +45,11 @@
                         </span>
 
                         <div class="reply-body markdown-reply content-body">
-                            {{ $comment->content() }}
+                            {!! $comment->content() !!}
                         </div>
 
                         <div class="comment-button clearfix">
-                            <a class="pull-right" href="{{ route('comments.destroy', [$comment->id]) }}" onclick="event.preventDefault();document.getElementById('comment-delete-form').submit()">删除</a>
-                            <form id="comment-delete-form" action="{{ route('comments.destroy', [$comment->id]) }}" method="post" style="display: none;">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="_method" value="DELETE">
-                            </form>
+                            <a class="pull-right" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                         </div>
                     </li>
                     @empty
