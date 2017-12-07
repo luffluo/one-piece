@@ -52,7 +52,10 @@
                                 @forelse($comments as $comment)
                                     <li>
                                         <span>{{ $comment->created_at->format('n.j') }}</span>
-                                        {{ $comment->user->showName() }}:&nbsp;{{ $comment->text }}
+                                        <a href="{{ route('users.center', [$comment->user->name]) }}" title="{{ $comment->user->showName() }}" target="_blank">
+                                            {{ $comment->user->showName() }}
+                                        </a>
+                                        :&nbsp;{{ strip_tags($comment->content()) }}
                                     </li>
                                 @empty
                                     <li><em>暂时没有回复</em></li>

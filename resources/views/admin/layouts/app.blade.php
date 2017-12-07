@@ -50,7 +50,7 @@ ______                            _              _                              
         <div class="btn-group btn-group-sm pull-right" role="group">
             <a class="btn btn-default" href="{{ route('admin.users.edit', auth()->user()->id) }}">{{ auth()->user()->showName() }}</a>
 
-            <a id="logout-a" class="btn btn-default" href="{{ route('logout') }}" data-method="post">登出</a>
+            <a class="btn btn-default" href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a>
 
             <a class="btn btn-default" href="{{ url('/') }}" target="_blank">网站</a>
         </div>
@@ -104,24 +104,6 @@ ______                            _              _                              
 @show
 
 @section('admin-js-inner')
-    <script>
-        'use strict';
-
-        $(function () {
-            $(document).on('click', '#logout-a', function (e) {
-                e.preventDefault();
-
-                if (! confirm('确定要退出吗?')) {
-                    return false;
-                }
-
-                let form = $('<form id="logout-form" action="' + $(this).attr('href') + '" method="' + $(this).data('method') + '">'
-                    + '<input type="hidden" name="_token" value="' + $('meta[name=csrf-token]').attr('content') + '">'
-                    + '</form>').insertAfter($(this));
-                form.submit();
-            });
-        });
-    </script>
 @show
 
 </body>
