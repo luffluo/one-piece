@@ -57,7 +57,7 @@ if (! function_exists('option')) {
      */
     function option($key = null, $default = null)
     {
-        /* @var $option \App\Services\Option */
+        /* @var \App\Services\Option $option */
         $option = app('option');
 
         if (is_null($key)) {

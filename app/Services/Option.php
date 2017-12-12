@@ -129,13 +129,16 @@ class Option
      */
     public function castAttribute(string $key, $value)
     {
+        if (is_null($value)) {
+            return $value;
+        }
+
         switch ($this->getCastType($key)) {
             case 'array':
                 return $this->fromJson($value);
 
             default:
                 return $value;
-
         }
     }
 
@@ -186,13 +189,7 @@ class Option
      */
     protected function fromJson($value, $asObject = false)
     {
-        $value = json_decode($value, ! $asObject);
-
-        if (! $asObject) {
-            $value = (array) $value;
-        }
-
-        return $value;
+        return json_decode($value, ! $asObject);
     }
 
     /**

@@ -1,5 +1,9 @@
 <?php
 return [
+    'upload_path' => 'uploads/images/', // 上传文件的地址
+    'upload_type' => '', // 上传的方式 qiniu 或者 本地,默认为本地
+    'upload_http' => '', // https或者为空 本地:'',七牛:'qiniu'
+
     'width'              => '100%',
     // 宽度建议100%
     'height'             => '700',
@@ -10,9 +14,9 @@ return [
     // 显示区域的主题分为default和pastel-on-dark 注:如果想要配置其他主题，请参考vendor/editormd/lib/theme目录下的css文件
     'previewTheme'       => 'default',
     // 编辑区域的主题分为default,dark,
-    'flowChart'          => 'true',
+    'flowChart'          => 'false',
     // 流程图
-    'tex'                => 'true',
+    'tex'                => 'false',
     // 开启科学公式TeX语言支持
     'searchReplace'      => 'true',
     // 搜索替换
@@ -30,6 +34,6 @@ return [
     // 任务列表
     'imageUpload'        => 'true',
     // 图片本地上传支持
-    'sequenceDiagram'    => 'true',
+    'sequenceDiagram'    => 'false',
     // 开启时序/序列图支持
 ];

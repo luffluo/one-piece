@@ -1,9 +1,15 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "luffluo/luff-blog",
+    "description": "A simple blog.",
+    "keywords": ["blog", "luff", "CMS"],
     "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "Luff Luo",
+            "homepage": "http://github.com/luffluo"
+        }
+    ],
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",

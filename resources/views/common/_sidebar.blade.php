@@ -20,7 +20,7 @@
                             <a title="{{ $sidebarRecentComment->user->showName() }}" href="{{ route('users.center', $sidebarRecentComment->user->name) }}">
                                 {{ $sidebarRecentComment->user->showName() }}:
                             </a>
-                            {{ $sidebarRecentComment->text }}
+                            {{ strip_tags($sidebarRecentComment->content()) }}
                         </li>
                     @endforeach
                 </ul>
@@ -53,12 +53,10 @@
             <section class="widget">
                 <h3 class="widget-title">其它</h3>
                 <ol class="widget-list">
-                    @guest
-                    <li><a href="{{ route('login') }}">登录</a></li>
-                    @endguest
-
                     @auth
-                    <li><a href="{{ route('logout') }}">退出</a></li>
+                        <li><a href="{{ route('logout') }}">退出</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}">登录</a></li>
                     @endauth
 
                     <li><a href="{{ route('feed') }}">文章 RSS</a></li>
