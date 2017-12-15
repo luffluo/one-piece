@@ -70,13 +70,14 @@ ______                            _              _                              
                                 <span class="text">{{ $first['title'] }}</span>
                                 <i class="arrow fa fa-angle-right right"></i>
                             </a>
-                            @foreach ($first['sub'] as $second)
+
                             <ul class="inner-drop list-unstyled">
-                                <li class="{{ $second['active'] }}">
-                                    <a title="{{ $first['title'] }}" href="{{ url($second['url']) }}">{{ $second['title'] }}</a>
-                                </li>
+                                @foreach ($first['sub'] as $second)
+                                    <li class="{{ $second['active'] }}">
+                                        <a title="{{ $first['title'] }}" href="{{ url($second['url']) }}">{{ $second['title'] }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
-                            @endforeach
                         </li>
                     @else
                     <li class="{{ $first['active'] }}">
