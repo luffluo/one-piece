@@ -14,6 +14,21 @@
 /***************************** Front routes start *****************************/
 Route::get('/', 'PostsController@index')->name('home');
 
+// Authentication Routes...
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login');
+$this->post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+$this->post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+$this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+$this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+$this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
 // Search
 Route::get('search', 'PostsController@index')->name('search');
 
@@ -54,16 +69,16 @@ Route::get('sitemap', 'PagesController@sitemap')->name('sitemap');
 Route::get('feed', 'PagesController@rss')->name('feed');
 
 // Auth
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-
-    Route::get('login', 'LoginController@showLogin')->name('login');
-    Route::post('login', 'LoginController@handleLogin');
-
-    Route::get('register', 'RegisterController@showRegister')->name('register');
-    Route::post('register', 'RegisterController@handleRegister');
-
-    Route::post('logout', 'LogoutController')->name('logout');
-});
+// Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+//
+//     Route::get('login', 'LoginController@showLogin')->name('login');
+//     Route::post('login', 'LoginController@handleLogin');
+//
+//     Route::get('register', 'RegisterController@showRegister')->name('register');
+//     Route::post('register', 'RegisterController@handleRegister');
+//
+//     Route::post('logout', 'LogoutController')->name('logout');
+// });
 /***************************** Front routes end *****************************/
 
 
