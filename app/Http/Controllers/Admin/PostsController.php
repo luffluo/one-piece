@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
@@ -15,11 +16,11 @@ class PostsController extends Controller
         $this->middleware(['auth', 'auth.admin']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $query = Post::query();
 
-        if ($tag = request()->get('tag')) {
+        if ($tag = $request->get('tag')) {
             $tagModel = Tag::where('id', $tag)
                 ->with('posts')
                 ->first();
@@ -28,13 +29,13 @@ class PostsController extends Controller
             $query->whereIn('id', $post_ids);
         }
 
-        if ($keywords = request()->get('keywords')) {
+        if ($keywords = $request->get('keywords')) {
             $query->where('title', 'like', "%{$keywords}%");
         }
 
         $cloneQuery = clone $query;
 
-        if ($status = request()->get('status')) {
+        if ($status = $request->get('status')) {
             if ('draft' == $status) {
                 $query->draft();
             }
@@ -121,10 +122,6 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        if (! $post || ! $post->exists) {
-            return redirect()->back()->withErrors('文章不存在.');
-        }
-
         DB::beginTransaction();
 
         if (! $post->delete()) {

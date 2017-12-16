@@ -13,9 +13,9 @@ class UsersController extends Controller
         $this->middleware(['auth', 'auth.admin']);
     }
 
-    public function index()
+    public function index(User $user)
     {
-        $lists = User::paginate(20);
+        $lists = $user->recent()->paginate(20);
 
         return admin_view('users.index', compact('lists'));
     }
@@ -38,5 +38,22 @@ class UsersController extends Controller
         }
 
         return redirect()->route('admin.users.edit', $user->id)->withMessage('用户编辑成功!');
+    }
+
+    public function destroy(User $user)
+    {
+        if (1 == $user->id) {
+            return back()->withErrors('超级管理员不允许删除.');
+        }
+
+        if ($user->posts()->count() || $user->comments()->count()) {
+            return back()->withErrors('该用户下还有内容，请先删除内容.');
+        }
+
+        if (! $user->delete()) {
+            return back()->withErrors('删除失败，请刷新重试.');
+        }
+
+        return redirect()->route('admin.users.index')->withSuccess('删除成功.');
     }
 }

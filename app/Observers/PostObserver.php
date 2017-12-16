@@ -81,6 +81,9 @@ class PostObserver
         // 删除文章和标签的所有关联
         $post->tags()->sync([]);
 
+        // 删除评论
+        $post->comments()->delete();
+
         $this->clearPostCache();
     }
 

@@ -42,12 +42,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('admin.tags.destroy', ['id' => $list->id]) }}" method="post">
-                                        {!! csrf_field() !!}
-                                        {!! method_field('DELETE') !!}
-
-                                        <button type="submit" class="btn btn-danger btn-xs" action-confirm="确定要删除吗？">删除</button>
-                                    </form>
+                                    <a href="{{ route('admin.tags.destroy', ['id' => $list->id]) }}" class="btn btn-danger btn-xs" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                                 </td>
                             </tr>
                         @empty

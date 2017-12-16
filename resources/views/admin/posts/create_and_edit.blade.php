@@ -23,7 +23,7 @@
                     <div class="col-md-8">
                         <div class="form-group form-group-lg">
                             <div class="col-md-12">
-                                <input id="title" type="text" class="form-control input-lg" style="font-weight: bold;" name="title" placeholder="请输入标题" value="{{ old('title', $post->title) }}">
+                                <input id="title" type="text" class="form-control input-lg" style="font-weight: bold;" name="title" placeholder="请输入标题" value="{{ old('title', $post->title) }}" autofocus>
                             </div>
                         </div>
 
@@ -130,7 +130,5 @@
             });
 
         });
-
-        $('#title').select();
     </script>
 @endsection

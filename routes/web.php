@@ -68,17 +68,6 @@ Route::get('sitemap', 'PagesController@sitemap')->name('sitemap');
 // RSS
 Route::get('feed', 'PagesController@rss')->name('feed');
 
-// Auth
-// Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-//
-//     Route::get('login', 'LoginController@showLogin')->name('login');
-//     Route::post('login', 'LoginController@handleLogin');
-//
-//     Route::get('register', 'RegisterController@showRegister')->name('register');
-//     Route::post('register', 'RegisterController@handleRegister');
-//
-//     Route::post('logout', 'LogoutController')->name('logout');
-// });
 /***************************** Front routes end *****************************/
 
 

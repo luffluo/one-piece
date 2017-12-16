@@ -68,7 +68,7 @@
 
                                     <a href="#comment-{{ $list->id }}" rel="{{ route('admin.comments.reply', $list->id) }}" class="operate-reply">回复</a>
 
-                                    <a href="#comment-{{ $list->id }}" rel="{{  route('admin.comments.destroy', $list->id) }}" class="operate-delete" action-confirm="确定要删除吗？">删除</a>
+                                    <a ref="#comment-{{ $list->id }}" href="{{  route('admin.comments.destroy', $list->id) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                                 </div>
                             </td>
 
@@ -171,20 +171,6 @@
 
                 return false;
             });
-
-            $(document).on('click', '.operate-delete', function () {
-
-                let t = $(this),
-                    form = $('<form action="' + t.attr('rel') + '" method="post">'
-                        + '<input type="hidden" name="_token" value="' + $('meta[name=csrf-token]').attr('content') + '">'
-                        + '<input type="hidden" name="_method" value="delete">'
-                        + '</form>').insertAfter(t);
-
-                form.submit();
-
-                return false;
-            });
-
         });
     </script>
 @endsection

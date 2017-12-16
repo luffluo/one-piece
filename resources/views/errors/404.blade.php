@@ -8,7 +8,7 @@
             <h2 class="post-title">404 - 页面没找到</h2>
             <p>你想查看的页面已被转移或删除了, 要不要搜索看看: </p>
             <form action="{{ route('search') }}" method="get">
-                <p><input type="text" name="q" class="text" autofocus /></p>
+                <p><input type="text" name="q" class="text" autofocus></p>
                 <p><button type="submit" class="submit">搜索</button></p>
             </form>
         </div>
