@@ -31,11 +31,7 @@ ______                            _              _                              
     @yield('admin-css')
 </head>
 
-@if ($navTrigger)
-    <body data-url="{{ route('admin.nav.trigger') }}" class="app {{ route_class() }}-page">
-@else
-    <body data-url="{{ route('admin.nav.trigger') }}" class="app nav-main {{ route_class() }}-page">
-@endif
+<body data-url="{{ route('admin.nav.trigger') }}" class="app {{ session('nav.trigger', false) ? 'nav-main' : '' }} {{ route_class() }}-page">
 
 <header class="site-head clearfix" id="site-head">
 

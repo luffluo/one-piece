@@ -3078,7 +3078,7 @@ html, body {
   width: 100%;
 }
 .page-auth {
-  background: rgba(0, 0, 0, 0) url("../images/background.png") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("images/background.png") repeat scroll 0 0;
 }
 .page-auth .site-logo {
   text-align: center;
@@ -4544,10 +4544,3 @@ table tr:hover td .hidden-by-mouse {
   border-radius: 2px;
 }
 /* 重写 select2 样式 end */
-
-/* User register page */
-.register-page img.captcha {
-  margin-bottom: 0px;
-  margin-top: 10px;
-  cursor: pointer;
-}

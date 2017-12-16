@@ -37,7 +37,7 @@ class HomeController extends Controller
     {
         if (request()->ajax()) {
 
-            if (session('nav.trigger', false)) {
+            if (session('nav.trigger')) {
                 session(['nav.trigger' => false]);
             } else {
                 session(['nav.trigger' => true]);

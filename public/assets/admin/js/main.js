@@ -14,7 +14,6 @@
             type: 'post',
             dataType: 'json',
             success: function (result) {
-                alert(result);
             }
         });
 
@@ -74,22 +73,5 @@
         }
 
         return confirm(message);
-    });
-
-    $('a[data-method]').on('click', function (e) {
-        e.preventDefault();
-
-        var method = $(this).data('method');
-
-        if (undefined !== $(this).attr('data-confirm') && ! confirm($(this).data('confirm'))) {
-            return false;
-        }
-
-        var form = $('<form style="display: none;" action="' + $(this).attr('href') + '" method="post">'
-            + '<input type="hidden" name="_token" value="' + $("meta[name='csrf-token']").attr('content') + '">'
-            + '<input type="hidden" name="_method" value="' + method.toUpperCase() + '">'
-            + '</form>').insertAfter($(this));
-
-        form.submit();
     });
 }(jQuery);
