@@ -51,6 +51,7 @@ class UninstallCommand extends Command
         $this->call('config:clear');
         $this->call('view:clear');
         $this->call('route:clear');
+        $this->laravel['session']->invalidate();
 
         $this->installer->removeInstalledFile();
 

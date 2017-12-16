@@ -23,7 +23,7 @@
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
                             <label>导航名称 *</label>
-                            <input type="text" class="form-control" name="title" placeholder="请输入名称" value="{{ old('title', $nav->title) }}">
+                            <input type="text" class="form-control" name="title" placeholder="请输入名称" value="{{ old('title', $nav->title) }}" autofocus>
                             <span class="help-block">这是导航在站点中显示的名称.</span>
                         </div>
                     </div>

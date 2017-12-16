@@ -23,7 +23,7 @@
                     <div class="form-group form-group-sm">
                         <div class="col-md-6 col-md-offset-3">
                             <label>标签名称 *</label>
-                            <input type="text" class="form-control" name="name" placeholder="请输入名称" value="{{ old('name', $tag->name) }}">
+                            <input type="text" class="form-control" name="name" placeholder="请输入名称" value="{{ old('name', $tag->name) }}" autofocus>
                             <span class="help-block">这是标签在站点中显示的名称.可以使用中文,如 "地球".</span>
                         </div>
                     </div>

@@ -63,12 +63,31 @@ class User extends Model implements
         'remember_token',
     ];
 
-    public $groups = [
+    /**
+     * 用户组
+     * 数字越小权限越大
+     *
+     * @var array
+     */
+    private $groups = [
         'administrator' => 0,
         'editor'        => 1,
         'contributor'   => 2,
         'subscriber'    => 3,
         'visitor'       => 4,
+    ];
+
+    /**
+     * 用户组对应名称
+     *
+     * @var array
+     */
+    private $groupLabels = [
+        'administrator' => '管理员',
+        'editor'        => '编辑者',
+        'contributor'   => '贡献者',
+        'subscriber'    => '关注者',
+        'visitor'       => '访问者',
     ];
 
     public function setPassword($password)
@@ -119,9 +138,17 @@ class User extends Model implements
     }
 
     /**
-     * 输出用户头像
+     * 输出用户组名称
      *
-     * @param int $size 头像的尺寸 100 200 380
+     * @return string
+     */
+    public function showGroupLabel()
+    {
+        return $this->groupLabels[$this->group] ?? '';
+    }
+
+    /**
+     * 输出用户头像
      *
      * @return string
      */
@@ -134,6 +161,13 @@ class User extends Model implements
         return $this->avatar;
     }
 
+    /**
+     * 用户简介
+     *
+     * @param null|int $length
+     *
+     * @return string
+     */
     public function introduction($length = null)
     {
         return $length ? str_limit($this->profile, $length) : $this->profile;
@@ -146,7 +180,7 @@ class User extends Model implements
      *
      * @return bool
      */
-    public function isAuthorOf(\Illuminate\Database\Eloquent\Model $model)
+    public function isAuthorOf($model)
     {
         return $this->id === $model->user_id;
     }
@@ -156,7 +190,7 @@ class User extends Model implements
      *
      * @param string $group 用户组
      *
-     * @return boolean
+     * @return bool
      */
     public function can($group)
     {

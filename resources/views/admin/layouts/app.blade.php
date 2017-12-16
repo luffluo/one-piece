@@ -31,7 +31,7 @@ ______                            _              _                              
     @yield('admin-css')
 </head>
 
-<body data-url="{{ route('admin.nav.trigger') }}" class="app {{ session('nav.trigger', false) ? 'nav-main' : '' }} {{ route_class() }}-page">
+<body data-url="{{ route('admin.nav.trigger') }}" class="app {{ session('admin_nav_trigger', false) ? 'nav-min' : '' }} {{ route_class() }}-page">
 
 <header class="site-head clearfix" id="site-head">
 

@@ -53,8 +53,8 @@ class InstallerServiceProvider extends ServiceProvider
                     'pdo_mysql'
                 ),
                 new WritablePath(
-                    public_path(),
-                    storage_path()
+                    storage_path(),
+                    base_path('bootstrap/cache')
                 )
             );
         });

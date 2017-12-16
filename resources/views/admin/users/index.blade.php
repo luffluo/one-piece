@@ -27,24 +27,16 @@
                         @forelse($lists as $list)
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', $list->id) }}">{{ $list->name }}</a>
+                                    <a title="编辑 {{ $list->name }}" href="{{ route('admin.users.edit', $list->id) }}">
+                                        {{ $list->name }}
+                                        <i class="fa fa-pencil"> </i>
+                                    </a>
                                 </td>
                                 <td>{{ $list->nickname }}</td>
                                 <td>
-                                    <a href="mailto:{{ $list->email }}" target="_blank">{{ $list->email }}</a>
+                                    <a title="发送邮件到 {{ $list->email }}" href="mailto:{{ $list->email }}" target="_blank">{{ $list->email }}</a>
                                 </td>
-                                <td>
-                                    @switch ($list->group)
-                                        @case('administrator')
-                                            管理员
-                                            @break;
-
-                                        @case('visitor')
-                                        @default
-                                            访问者
-                                            @break;
-                                    @endswitch
-                                </td>
+                                <td>{{ $list->showGroupLabel() }}</td>
                                 <td>
                                     <a href="{{ route('admin.users.destroy', ['id' => $list->id]) }}" class="btn btn-danger btn-xs" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                                 </td>
