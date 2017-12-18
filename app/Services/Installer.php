@@ -282,7 +282,7 @@ class Installer
 
             // 初始化文章
             $post          = new Post;
-            $post->title   = '欢迎使用 Luff';
+            $post->title   = '欢迎使用 ' . config('app.name');
             $post->text    = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
             $post->type    = Post::TYPE;
             $post->user_id = $user->id;

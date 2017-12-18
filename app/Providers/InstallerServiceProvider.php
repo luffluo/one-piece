@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Services\Composite;
 use App\Services\Installer;
-use App\Services\PhpVersion;
-use App\Services\PhpExtension;
-use App\Services\WritablePath;
-use App\Contracts\Prerequisite;
+use App\Contracts\Detectable;
+use App\Detections\Composite;
+use App\Detections\PhpVersion;
+use App\Detections\PhpExtension;
+use App\Detections\WritablePath;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\InstallController;
 
@@ -41,7 +41,7 @@ class InstallerServiceProvider extends ServiceProvider
             return new Installer($app, $app['config']);
         });
 
-        $this->app->bind(Prerequisite::class, function () {
+        $this->app->bind(Detectable::class, function () {
             return new Composite(
                 new PhpVersion('7.0.0'),
                 new PhpExtension(

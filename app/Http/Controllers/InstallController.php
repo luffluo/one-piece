@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Installer;
-use App\Contracts\Prerequisite;
+use App\Contracts\Detectable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\InstallRequest;
 
@@ -14,24 +14,23 @@ class InstallController extends Controller
      */
     protected $installer;
 
-    protected $prerequisite;
+    protected $detection;
 
-    public function __construct(Installer $installer, Prerequisite $prerequisite)
+    public function __construct(Installer $installer, Detectable $detection)
     {
-        $this->installer    = $installer;
-        $this->prerequisite = $prerequisite;
+        $this->installer = $installer;
+        $this->detection = $detection;
     }
 
     public function showInstall()
     {
         // 检测安装环境
-        if (! $result = $this->prerequisite->check()) {
+        if (! $result = $this->detection->check()) {
 
-            $messages = $this->prerequisite->getMessages();
+            $messages = $this->detection->getMessages();
 
             return view('install.check', compact('result', 'messages'));
         }
-
 
         return view('install.install');
     }
@@ -46,29 +45,13 @@ class InstallController extends Controller
                 ->makeConnection();
 
             $results = collect($connection->select(DB::raw('show tables')));
-            $tables = [];
-            array_map(function ($var) use (&$tables) {
-                if (! is_object($var)) {
-                    return;
-                }
+            $tables  = $this->handleTables($results->all(), 'migrations');
 
-                $array = get_object_vars($var);
-
-                if (! is_array($array)) {
-                    return;
-                }
-
-                $tables = array_merge($tables, array_values($array));
-
-            }, $results->all());
-
-            cache()->flush();
-
-            if ($results->count() && ! in_array('migrations', $tables)) {
+            if (count($tables)) {
                 return back()->withErrors(['db_database' => '数据库 [ ' . $request->get('db_database') . ' ] 已经存在数据表，请先清空数据库！'])->withInput();
             }
-
         } catch (\Exception $e) {
+
             switch ($e->getCode()) {
                 case 7:
                     $error = ['db_database' => '数据库账号或密码错误，或数据库不存在！'];
@@ -93,5 +76,34 @@ class InstallController extends Controller
         $password = $request->get('admin_password');
 
         return view('install.success', compact('username', 'password'));
+    }
+
+    /**
+     * 处理 show tables 查询出来的所有表
+     *
+     * @param array $tables 所有的表
+     * @param array $except 排除某些表
+     *
+     * @return array|null
+     */
+    public function handleTables(array $tables, $except = [])
+    {
+        $results = array_map(function ($var) {
+            if (! is_object($var)) {
+                return;
+            }
+
+            $array = get_object_vars($var);
+
+            if (! is_array($array)) {
+                return;
+            }
+
+            return array_values($array);
+        }, $tables);
+
+        $results = array_flatten($results);
+
+        return array_flip(array_except(array_flip($results), $except));
     }
 }

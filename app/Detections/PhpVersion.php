@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Detections;
 
-class PhpVersion extends Prerequisite
+class PhpVersion extends Detectable
 {
     protected $minVersion = '7.0.0';
 
@@ -17,12 +17,12 @@ class PhpVersion extends Prerequisite
     {
         $currentVersion = PHP_VERSION;
         if (version_compare($currentVersion, $this->minVersion, '<')) {
-            $this->messages['php_version'] = "PHP 版本必须至少为 {$this->minVersion} ，当前运行版本为 {$currentVersion} ！";
+            $this->messages['php_version'] = "PHP 版本必须至少为：{$this->minVersion} ，当前运行版本为：{$currentVersion} ！";
 
             return false;
         }
 
-        $this->messages['php_version'] = "PHP 版本检测通过，当前运行版本为 {$currentVersion} ！";
+        $this->messages['php_version'] = "PHP 版本检测通过，当前运行版本为：{$currentVersion} ！";
 
         return true;
     }

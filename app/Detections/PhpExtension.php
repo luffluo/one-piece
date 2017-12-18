@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Detections;
 
-class PhpExtension extends Prerequisite
+class PhpExtension extends Detectable
 {
     protected $extensions = [];
 
@@ -16,10 +16,10 @@ class PhpExtension extends Prerequisite
         $result = true;
         foreach ($this->extensions as $extension) {
             if (extension_loaded($extension)) {
-                $this->messages[$extension] = "PHP 扩展 {$extension} 已经安装。";
+                $this->messages[$extension] = "PHP 扩展 [{$extension}] 已经安装.";
             } else {
                 $result = false;
-                $this->messages[$extension] = "必须安装 PHP 扩展 {$extension}！";
+                $this->messages[$extension] = "必须安装 PHP 扩展 [{$extension}].";
             }
         }
 
