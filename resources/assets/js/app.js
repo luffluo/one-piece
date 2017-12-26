@@ -25,3 +25,32 @@ jQuery(function () {
         form.submit();
     });
 });
+
+window.luff = {
+    backTop: function (minHeight) {
+        var backTop = $('#backtop');
+
+        backTop.click(function () {
+            $('html, body').animate({scrollTop: 0}, 700);
+        }).hover(
+            function () {
+                $(this).addClass('hover');
+            },
+            function () {
+                $(this).removeClass('hover');
+            }
+        );
+
+        minHeight ? minHeight = minHeight : minHeight = 600;
+
+        $(window).scroll(function () {
+            var s = $(window).scrollTop();
+
+            if (s > minHeight) {
+                backTop.css('display', 'block').fadeIn(100);
+            } else {
+                backTop.fadeOut(100);
+            }
+        })
+    }
+};

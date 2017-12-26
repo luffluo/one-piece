@@ -33,8 +33,7 @@ ______                            _              _                              
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
-    @section('css')
-    @show
+    @section('css')@show
 </head>
 
 <body id="app" class="{{ route_class() }}-page">
@@ -52,10 +51,24 @@ ______                            _              _                              
         @include('common._footer')
     </div>
 
+    <div id="fixedTools" class="hidden-xs hidden-sm">
+        <a id="backtop" class="border-bottom" href="#">
+            <i class="fa fa-arrow-up"> </i>
+        </a>
+    </div>
+
     @section('js')
         <script src="{{ asset('assets/js/app.js') }}"></script>
     @show
 
-    @section('js-inner')@show
+    @section('js-inner')
+        <script>
+
+            $(function () {
+                luff.backTop();
+            });
+
+        </script>
+    @show
 </body>
 </html>

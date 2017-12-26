@@ -172,10 +172,10 @@ class Post extends Content
 </p>
 EOF;
 
-        mb_strlen($this->text) < 100 && $more = false;
+        mb_strlen($this->text) < 256 && $more = false;
 
         return false !== $more ?
-            sprintf('<p>%s</p>', $this->summary()) . sprintf($string, route('post.show', ['id' => $this->id]), $more)
+            sprintf('<p>%s</p>', $this->summary()) . sprintf($string, route('posts.show', ['id' => $this->id]), $more)
             : $this->parserContent();
     }
 
