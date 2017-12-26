@@ -53,14 +53,21 @@ class InstallCommand extends Command
             return;
         }
 
-        // 从 console 中获取信息
-        $this->installer
-            ->setData($this->getData())
-            ->setNullOutput();
-
         $this->info('安装开始 ...');
 
-        $this->installer->start();
+        try {
+            // 从 console 中获取信息
+            $this->installer
+                ->setData($this->getData())
+                ->setNullOutput()
+                ->start();
+
+        } catch (\Exception $e) {
+
+            $this->error('Install failed: ' . $e->getMessage());
+
+            return;
+        }
 
         if ($this->option('seed')) {
             $this->call('db:seed');
@@ -69,6 +76,9 @@ class InstallCommand extends Command
         $this->info('Luff 安装成功!');
     }
 
+    /**
+     * @return array
+     */
     protected function getData()
     {
         $data['db_host']     = $this->ask('数据库地址：', 'localhost');
@@ -80,5 +90,7 @@ class InstallCommand extends Command
         $data['admin_username'] = $this->ask('管理员账号：', 'admin');
         $data['admin_password'] = $this->ask('管理员密码：', 'admin123');
         $data['admin_email']    = $this->ask('邮件地址：', 'webmaster@yourdomain.com');
+
+        return $data;
     }
 }
