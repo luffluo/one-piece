@@ -54,7 +54,7 @@
                 <h3 class="widget-title">其它</h3>
                 <ol class="widget-list">
                     @auth
-                        <li><a href="{{ route('logout') }}">退出</a></li>
+                        <li><a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a></li>
                     @else
                         <li><a href="{{ route('login') }}">登录</a></li>
                     @endauth
