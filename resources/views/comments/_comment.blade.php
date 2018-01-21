@@ -18,7 +18,7 @@
     <div class="comment-reply">
 
         @can('delete', $comment)
-        <a rel="nofollow" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
+        <a href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？" rel="nofollow">删除</a>
 
         |
         @endcan

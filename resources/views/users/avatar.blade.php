@@ -14,7 +14,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="user-" action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                        <form action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="patch">
 
@@ -44,8 +44,8 @@
 
                             <div class="thumbnail">
 
-                                <div id="preview-img-div" class="form-group">
-                                    <img id="preview-img" alt="{{ $user->showAvatar('large') }}" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true" style="height: 380px; width: 380px; display: block;">
+                                <div id="preview-img-div">
+                                    <img id="preview-img" alt="{{ $user->showAvatar('large') }}" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true" style="width: 100%;">
                                 </div>
 
                                 <div class="caption">
@@ -105,10 +105,7 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     // 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...'
-                    previewImg.attr('src', e.target.result)
-                        .css('display', 'block')
-                        .css('width', '380px')
-                        .css('height', '380px');
+                    previewImg.attr('src', e.target.result);
                 };
 
                 // 以 DataURL 的形式读取文件:

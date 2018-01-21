@@ -20,6 +20,7 @@
                 <li>
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('tags.posts', $tag->slug) }}">{{ $tag->name }}</a>
+                        @if (! $loop->last), @endif
                     @endforeach
                 </li>
             </ul>

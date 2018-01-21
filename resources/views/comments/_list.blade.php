@@ -24,7 +24,7 @@
             <input type="hidden" name="post_id" value="{{ $post->id }}">
 
             @auth
-                <p>登录身份: {{ auth()->user()->showName() }}. <a href="{{ route('logout') }}" title="Logout">退出 »</a></p>
+                <p>登录身份: {{ auth()->user()->showName() }}. <a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？" title="Logout">退出 »</a></p>
             @endauth
 
             @guest
@@ -32,11 +32,11 @@
             @endguest
 
             <p>
-                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required></textarea>
+                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea form-control" required></textarea>
             </p>
 
             <p>
-                <button type="submit" class="submit">提交评论</button>
+                <button type="submit" class="btn btn-default btn-sm">提交评论</button>
             </p>
         </form>
     </div>
