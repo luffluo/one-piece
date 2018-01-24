@@ -62,7 +62,7 @@ class PostObserver
             );
         }
 
-        $this->clearPostCache();
+        $this->clearPostsCache();
     }
 
     public function deleted(Post $post)
@@ -84,10 +84,10 @@ class PostObserver
         // 删除评论
         $post->comments()->delete();
 
-        $this->clearPostCache();
+        $this->clearPostsCache();
     }
 
-    public function clearPostCache()
+    protected function clearPostsCache()
     {
         cache()->forget('sitemap');
         cache()->forget('post.feed');

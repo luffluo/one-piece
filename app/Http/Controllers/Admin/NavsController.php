@@ -43,8 +43,6 @@ class NavsController extends Controller
 
         DB::commit();
 
-        cache()->forget('navigations');
-
         return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被添加");
     }
 
@@ -68,8 +66,6 @@ class NavsController extends Controller
 
         DB::commit();
 
-        cache()->forget('navigations');
-
         return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被更新");
     }
 
@@ -85,8 +81,6 @@ class NavsController extends Controller
         }
 
         DB::commit();
-
-        cache()->forget('navigations');
 
         return redirect()->route('admin.navs.index')->with('message', "导航 {$nav->title} 已经被删除");
     }

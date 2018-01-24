@@ -53,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Post::observe(\App\Observers\PostObserver::class);
         \App\Models\Comment::observe(\App\Observers\CommentObserver::class);
+        Nav::observe(\App\Observers\NavObserver::class);
     }
 
     /**
@@ -137,7 +138,6 @@ class AppServiceProvider extends ServiceProvider
 
                     return $result;
                 });
-
 
                 $view->with('sidebarArchives', $result);
             }
