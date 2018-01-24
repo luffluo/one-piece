@@ -48,7 +48,7 @@ Route::get('/{year}/{month?}/{day?}', 'PostsController@archive')
     ->name('archive');
 
 // User
-Route::group(['prefix' => 'u'], function () {
+Route::prefix('u')->group(function () {
 
     Route::get('{user}', 'UsersController@center')->name('users.center');
 
@@ -72,86 +72,56 @@ Route::get('feed', 'PagesController@rss')->name('feed');
 
 
 /***************************** Admin routes start *****************************/
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
 
     // Home
-    Route::get('/', 'HomeController@index')->name('admin.home');
+    Route::get('/', 'HomeController@index')->name('home');
 
     // 侧边栏开关
-    Route::post('nav_trigger', 'HomeController@navTrigger')->name('admin.nav.trigger');
+    Route::post('nav_trigger', 'HomeController@navTrigger')->name('nav.trigger');
 
     // Option
-    Route::group(['prefix' => 'options'], function () {
-        Route::get('general', 'OptionsController@showGeneral')->name('admin.options.general');
+    Route::prefix('options')->group(function () {
+        Route::get('general', 'OptionsController@showGeneral')->name('options.general');
         Route::post('general', 'OptionsController@handleGeneral');
 
-        Route::get('discussion', 'OptionsController@showDiscussion')->name('admin.options.discussion');
+        Route::get('discussion', 'OptionsController@showDiscussion')->name('options.discussion');
         Route::post('discussion', 'OptionsController@handleDiscussion');
 
-        Route::get('reading', 'OptionsController@showReading')->name('admin.options.reading');
+        Route::get('reading', 'OptionsController@showReading')->name('options.reading');
         Route::post('reading', 'OptionsController@handleReading');
     });
 
     // theme
-    Route::group(['prefix' => 'themes'], function () {
-        Route::get('option', 'ThemesController@showOption')->name('admin.themes.option');
+    Route::prefix('themes')->group(function () {
+        Route::get('option', 'ThemesController@showOption')->name('themes.option');
         Route::post('option', 'ThemesController@handleOption');
     });
 
     // Post
     Route::resource('posts', 'PostsController', [
         'except' => ['show'],
-        'names'  => [
-            'index'   => 'admin.posts.index',
-            'create'  => 'admin.posts.create',
-            'store'   => 'admin.posts.store',
-            'edit'    => 'admin.posts.edit',
-            'update'  => 'admin.posts.update',
-            'destroy' => 'admin.posts.destroy',
-        ],
     ]);
 
     // Comment
-    Route::get('comments', 'CommentsController@index')->name('admin.comments.index');
-    Route::post('comments/{comment}', 'CommentsController@reply')->name('admin.comments.reply');
-    Route::patch('comments/{comment}', 'CommentsController@update')->name('admin.comments.update');
-    Route::delete('comments/{comment}', 'CommentsController@destroy')->name('admin.comments.destroy');
+    Route::get('comments', 'CommentsController@index')->name('comments.index');
+    Route::post('comments/{comment}', 'CommentsController@reply')->name('comments.reply');
+    Route::patch('comments/{comment}', 'CommentsController@update')->name('comments.update');
+    Route::delete('comments/{comment}', 'CommentsController@destroy')->name('comments.destroy');
 
     // Tag
     Route::resource('tags', 'TagsController', [
         'except' => ['show'],
-        'names'  => [
-            'index'   => 'admin.tags.index',
-            'create'  => 'admin.tags.create',
-            'store'   => 'admin.tags.store',
-            'edit'    => 'admin.tags.edit',
-            'update'  => 'admin.tags.update',
-            'destroy' => 'admin.tags.destroy',
-        ],
     ]);
 
     // 导航
     Route::resource('navs', 'NavsController', [
         'except' => ['show'],
-        'names'  => [
-            'index'   => 'admin.navs.index',
-            'create'  => 'admin.navs.create',
-            'store'   => 'admin.navs.store',
-            'edit'    => 'admin.navs.edit',
-            'update'  => 'admin.navs.update',
-            'destroy' => 'admin.navs.destroy',
-        ],
     ]);
 
     // User
     Route::resource('users', 'UsersController', [
         'except' => ['create', 'store', 'show'],
-        'names'  => [
-            'index'   => 'admin.users.index',
-            'edit'    => 'admin.users.edit',
-            'update'  => 'admin.users.update',
-            'destroy' => 'admin.users.destroy',
-        ],
     ]);
 });
 /***************************** Admin routes end *****************************/
