@@ -20,7 +20,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        \App\Listeners\MenuRouteMatched::class
+        \App\Listeners\MenuRouteMatched::class,
+        \App\Listeners\UserMetadataUpdater::class,
     ];
 
     /**

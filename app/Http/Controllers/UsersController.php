@@ -25,10 +25,13 @@ class UsersController extends Controller
      */
     public function center($name)
     {
-        $user     = User::query()
-            ->with('comments.post')
-            ->where('name', $name)
-            ->firstOrFail();
+        if (auth()->check() && auth()->user()->name === $name) {
+            $user = auth()->user();
+        } else {
+            $user = User::query()
+                ->where('name', $name)
+                ->firstOrFail();
+        }
 
         $comments = Comment::query()
             ->where('user_id', $user->id)
@@ -46,9 +49,7 @@ class UsersController extends Controller
      */
     public function editProfile($name)
     {
-        $user = User::query()
-            ->where('name', $name)
-            ->firstOrFail();
+        $user = auth()->user();
 
         $this->authorize('update', $user);
 
@@ -63,9 +64,7 @@ class UsersController extends Controller
      */
     public function updateProfile(Request $request, $name)
     {
-        $user = User::query()
-            ->where('name', $name)
-            ->firstOrFail();
+        $user = auth()->user();
 
         $this->authorize('update', $user);
 
@@ -99,9 +98,7 @@ class UsersController extends Controller
 
     public function editAvatar($name)
     {
-        $user = User::query()
-            ->where('name', $name)
-            ->firstOrFail();
+        $user = auth()->user();
 
         $this->authorize('update', $user);
 
@@ -110,9 +107,7 @@ class UsersController extends Controller
 
     public function updateAvatar(Request $request, ImageUploadHandler $uploader, $name)
     {
-        $user = User::query()
-            ->where('name', $name)
-            ->firstOrFail();
+        $user = auth()->user();
 
         $this->authorize('update', $user);
 
@@ -147,9 +142,7 @@ class UsersController extends Controller
 
     public function editPassword($name)
     {
-        $user = User::query()
-            ->where('name', $name)
-            ->firstOrFail();
+        $user = auth()->user();
 
         $this->authorize('update', $user);
 
@@ -158,9 +151,7 @@ class UsersController extends Controller
 
     public function updatePassword(Request $request, $name)
     {
-        $user = User::query()
-            ->where('name', $name)
-            ->firstOrFail();
+        $user = auth()->user();
 
         $this->authorize('update', $user);
 

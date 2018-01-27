@@ -5,12 +5,28 @@
 @section('content')
     <div class="col-md-3">
         <div class="thumbnail">
-            <img alt="用户头像" src="{{ $user->showAvatar() }}" data-holder-rendered="true" style="height: 250px; width: 250px; display: block;">
+            <img alt="用户头像" src="{{ $user->showAvatar() }}" data-holder-rendered="true" width="250px" height="250px">
             <div class="caption">
-                <h3>{{ $user->showName() }}</h3>
+                <div class="user-name">
+                    <h3 style="display: inline-block">
+                        {{ $user->showName() }}
+                    </h3>
+
+                    @if ($user->isOnline())
+                        &nbsp;<span class="fa fa-circle" style="color: #0d9f47;" title="在线"> </span>
+                    @else
+                        &nbsp;<span class="fa fa-circle" style="color: gray;" title="离线"> </span>
+                    @endif
+                </div>
+
                 <p>{{ $user->introduction() }}</p>
+
                 <hr>
-                <p>最后登录: 1 天前</p>
+                <p>
+                    <span>最后登录于: </span>
+                    <span>{{ $user->logged_at->diffForHumans() }}</span>
+                </p>
+
                 @can('update', $user)
                     <hr>
                     <p>

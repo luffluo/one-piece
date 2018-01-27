@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('group', 16)->default('visitor')
                 ->comment('administrator-管理员－0 editor－编辑－1 contributor－贡献者-2 subscriber－关注者－3 visitor-访问者－4 数字越小权限越高');
             $table->timestamp('activated_at')->nullable()->comment('最后活动时间');
-            $table->timestamp('last_seen_at')->nullable()->comment('最后登录时间');
+            $table->timestamp('logged_at')->nullable()->comment('上次登录最后活跃时间');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

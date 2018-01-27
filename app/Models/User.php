@@ -22,7 +22,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property \Carbon\Carbon|null $activated_at
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property \Carbon\Carbon|null $last_seen_time
+ * @property \Carbon\Carbon|null $logged_at
  *
  * @package App\Models
  */
@@ -48,10 +48,10 @@ class User extends Model implements
         'password',
         'group',
         'activated_at',
-        'last_seen_time',
+        'logged_at',
     ];
 
-    protected $dates = ['activated_at', 'last_seen_time'];
+    protected $dates = ['activated_at', 'logged_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -209,5 +209,57 @@ class User extends Model implements
     public function isSuperAdmin()
     {
         return $this->can('administrator');
+    }
+
+    /**
+     * 更新最后登录时间
+     *
+     * @return $this
+     */
+    public function updateLoggedAt()
+    {
+        $this->logged_at = now()->toDateTimeString();
+
+        return $this;
+    }
+
+    /**
+     * 更新最后活动时间
+     *
+     * @return $this
+     */
+    public function updateActivatedAt()
+    {
+        $this->activated_at = now()->toDateTimeString();
+
+        return $this;
+    }
+
+    /**
+     * 记录最后活动，并更新用户最后活动时间
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function logLastActivity()
+    {
+        // 是否在线
+        $expiresAt = now()->addMinutes(5);
+        cache()->put('user-is-online-' . $this->id, true, $expiresAt);
+
+        // $this->updateActivatedAt();
+
+        return $this;
+    }
+
+    /**
+     * 是否在线
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function isOnline()
+    {
+        return cache()->has('user-is-online-' . $this->id);
     }
 }
