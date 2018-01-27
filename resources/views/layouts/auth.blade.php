@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-    <title>@yield('title')@if (! empty(option('title'))) - {{ option('title') }}@endif - Powered by Luff</title>
+    <title>@yield('title', option('title', config('app.name'))) - {{ option('title', config('app.name')) }}</title>
 
     <style>
         body {

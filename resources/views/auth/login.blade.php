@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', '登录')
+
 @section('content')
 <div class="middle-box text-center loginscreen">
 
