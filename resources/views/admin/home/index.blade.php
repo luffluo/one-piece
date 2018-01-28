@@ -3,7 +3,7 @@
 @section('content')
     <div class="page clearfix">
 
-        <div class="page-wrap luff-dashboard">
+        <div class="page-wrap op-dashboard">
             <div class="panel panel-lined">
                 <div class="panel-heading"><h4>概要</h4></div>
 

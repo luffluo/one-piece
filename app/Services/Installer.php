@@ -178,7 +178,7 @@ class Installer
             $this->executeAllMigrations();
 
             // 初始化系统数据，添加一些默认数据
-            $this->initLuff();
+            $this->initOnePiece();
 
             // Create installed file
             $this->createInstalledFile();
@@ -232,7 +232,7 @@ class Installer
     /**
      * @return void
      */
-    public function initLuff()
+    public function initOnePiece()
     {
         try {
 

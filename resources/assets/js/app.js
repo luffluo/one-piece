@@ -26,7 +26,7 @@ jQuery(function () {
     });
 });
 
-window.luff = {
+window.op = {
     backTop: function (minHeight) {
         var backTop = $('#backtop');
 

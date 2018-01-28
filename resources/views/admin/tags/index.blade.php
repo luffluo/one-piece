@@ -46,7 +46,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <td colspan="4"><h6 class="luff-list-table-title">没有任何标签</h6></td>
+                            <td colspan="4"><h6 class="op-list-table-title">没有任何标签</h6></td>
                         @endforelse
                     </tbody>
                 </table>

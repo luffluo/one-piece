@@ -12,14 +12,14 @@ class UninstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'luff:uninstall';
+    protected $signature = 'op:uninstall';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Uninstall Luff';
+    protected $description = 'Uninstall One Piece';
 
     /**
      * @var \App\Services\Installer

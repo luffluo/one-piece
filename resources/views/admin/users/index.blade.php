@@ -42,7 +42,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <td colspan="5"><h6 class="luff-list-table-title">没有任何用户</h6></td>
+                            <td colspan="5"><h6 class="op-list-table-title">没有任何用户</h6></td>
                         @endforelse
                     </tbody>
                 </table>

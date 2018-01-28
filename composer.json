@@ -1,7 +1,7 @@
 {
-    "name": "luffluo/luff-blog",
+    "name": "luffluo/one-piece",
     "description": "A simple blog.",
-    "keywords": ["blog", "luff", "CMS"],
+    "keywords": ["blog", "one-piece", "CMS"],
     "license": "MIT",
     "type": "project",
     "authors": [

@@ -46,7 +46,7 @@ class ImageUploadHandler
         $filename = $filePrefix . '_' . time() . '_' . str_random(10) . '.' . $extension;
 
         // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径
-        // 值如：/home/vagrant/Code/luff/public/uploads/images/avatars/201709/21
+        // 值如：/home/vagrant/Code/one-piece/public/uploads/images/avatars/201709/21
         $uploadPath = public_path() . DIRECTORY_SEPARATOR . $folderName;
 
         $file->move($uploadPath . DIRECTORY_SEPARATOR, $filename);

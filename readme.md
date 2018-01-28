@@ -1,10 +1,10 @@
-# Luff - A simple blog
+# One Piece - A simple blog
 一个简单的博客程序。基于 `Laravel 5.5.*` 开发。
 
 ## 预览
-![luff-front](https://i.imgur.com/a4GZJjZ.png)
+![op-front](https://i.imgur.com/TfnCZbL.png)
 
-![luff-admin](https://i.imgur.com/3NIUA3Y.png)
+![op-admin](https://i.imgur.com/eaJs8sT.png)
 
 ## 基本特性
 * 用户
@@ -17,7 +17,7 @@
 
 ## 运行环境要求
 * PHP 7.0+
-* Mysql 5.6+
+* Mysql 5.7+
 * OpenSSL PHP Extension
 * PDO_MySQL PHP Extension
 * Mbstring PHP Extension
@@ -25,11 +25,12 @@
 ## 安装
 1. 获取程序
 ```
-composer create luffluo/luff-blog
+composer create luffluo/one-piece
 ```
 Or
 ```
-git clone https://git.coding.net/luffluo/luff-blog.git
+git clone https://git.coding.net/luffluo/one-piece.git
+git clone https://github.com/luffluo/one-piece.git
 ```
 2. 安装程序依赖扩展包
 ```
@@ -37,11 +38,11 @@ php composer install
 ```
 3. 命令行安装 or 浏览器安装
 ```
-在浏览器输入预设好的域名，如 `luff.blog`
+在浏览器输入预设好的域名，如 `one-piece.blog`
 ```
 Or
 ```
-php artisan luff:install 通过命令行安装，可以选择是否填充假数据
+php artisan op:install 通过命令行安装，可以选择是否填充假数据
 ```
 
 ## How can you help?

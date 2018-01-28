@@ -12,7 +12,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'luff:install 
+    protected $signature = 'op:install 
                     {--seed : Indicates if the seed task should be re-run.}';
 
     /**
@@ -20,7 +20,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install Luff';
+    protected $description = 'Install One Piece';
 
     /**
      * @var \App\Services\Installer
@@ -73,7 +73,7 @@ class InstallCommand extends Command
             $this->call('db:seed');
         }
 
-        $this->info('Luff 安装成功!');
+        $this->info('One Piece 安装成功!');
     }
 
     /**
@@ -84,7 +84,7 @@ class InstallCommand extends Command
         $data['db_host']     = $this->ask('数据库地址：', 'localhost');
         $data['db_username'] = $this->ask('数据库用户名：', 'root');
         $data['db_password'] = $this->ask('数据库密码：');
-        $data['db_database'] = $this->ask('数据库：', 'luff');
+        $data['db_database'] = $this->ask('数据库：', 'one-piece');
         $data['db_charset']  = $this->ask('数据库字符集：', 'utf8mb4');
 
         $data['admin_username'] = $this->ask('管理员账号：', 'admin');

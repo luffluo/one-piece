@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                             <label for="db_database">数据库</label>
-                            <input type="text" class="form-control" id="db_database" name="db_database" value="{{ old('db_database', 'luff') }}">
+                            <input type="text" class="form-control" id="db_database" name="db_database" value="{{ old('db_database', 'one-piece') }}">
                             <span class="help-block">请您指定数据库名称</span>
                         </div>
 

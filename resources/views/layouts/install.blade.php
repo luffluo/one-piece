@@ -30,7 +30,7 @@ ______                            _              _                              
 
     @section('css')
         <style>
-            .luff-install {
+            .op-install {
                 padding-bottom: 2em;
             }
         </style>
@@ -43,7 +43,7 @@ ______                            _              _                              
     </div>
 
     <div class="container">
-        <div class="luff-install">
+        <div class="op-install">
             @yield('content')
         </div>
     </div>
