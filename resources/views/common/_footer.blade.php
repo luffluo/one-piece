@@ -1,9 +1,10 @@
-<footer id="footer" class="footer" role="contentinfo">
-    <div class="row">
-        <div class="col-md-12 text-center">&copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ option('title', config('app.name')) }}</a>.</div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
+<footer id="footer" class="ui footer center aligned basic segment" role="contentinfo">
+    <div class="ui text container">
+        <div>
+            &copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ option('title', config('app.name')) }}</a>.
+        </div>
+
+        <div>
             <span class="developed-by">Developed By <span>Luff</span></span>,&nbsp;
             <span class="powered-by">Powered By <span>Laravel</span></span>.
         </div>

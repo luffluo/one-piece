@@ -3,77 +3,91 @@
 @section('title', '注册')
 
 @section('content')
-<div class="middle-box text-center loginscreen">
 
-    <h3>注册</h3>
+    <h3 class="ui centered header">注册</h3>
 
-    <form class="m-t" method="POST" action="{{ route('register') }}" role="form">
+    <form class="ui form" method="POST" action="{{ route('register') }}" role="form">
         {{ csrf_field() }}
 
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+        <div class="field{{ $errors->has('name') ? ' error' : '' }}">
 
-            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="用户名" required autofocus>
+            <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="用户名" required autofocus>
+            </div>
 
             @if ($errors->has('name'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('name') }}</strong>
-                </span>
+                <div class="ui basic red pointing prompt label transition visible">
+                    {{ $errors->first('name') }}
+                </div>
             @endif
         </div>
 
-        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+        <div class="field{{ $errors->has('email') ? ' error' : '' }}">
 
-            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="邮箱" required>
+            <div class="ui left icon input">
+                <i class="mail icon"></i>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="邮箱" required>
+            </div>
 
             @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
+                <div class="ui basic red pointing prompt label transition visible">
+                    {{ $errors->first('email') }}
+                </div>
             @endif
         </div>
 
-        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <input id="password" type="password" class="form-control" name="password" placeholder="密码" required>
+        <div class="field{{ $errors->has('password') ? ' error' : '' }}">
+
+            <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input id="password" type="password" name="password" placeholder="密码" required>
+            </div>
 
             @if ($errors->has('password'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
+                <div class="ui basic red pointing prompt label transition visible">
+                    {{ $errors->first('password') }}
+                </div>
             @endif
         </div>
 
-        <div class="form-group">
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="确认密码" required>
+        <div class="field">
+            <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input id="password-confirm" type="password" name="password_confirmation" placeholder="确认密码" required>
+            </div>
         </div>
 
-        <div class="form-group {{ $errors->has('captcha') ? ' has-error' : '' }}">
+        <div class="field {{ $errors->has('captcha') ? ' error' : '' }}">
 
-            <input id="captcha" class="form-control" type="text" name="captcha" placeholder="验证码" required>
+            <div class="ui left icon input">
+                <i class="font icon"></i>
+                <input id="captcha" type="text" name="captcha" placeholder="验证码" required>
+            </div>
 
-            <img class="thumbnail captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
+            <img class="ui rounded image captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
 
             @if ($errors->has('captcha'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('captcha') }}</strong>
-                </span>
+                <div class="ui basic red pointing prompt label transition visible">
+                    {{ $errors->first('captcha') }}
+                </div>
             @endif
         </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">
-                注册
-            </button>
-        </div>
-
-        <div class="form-group">
-            <a class="btn btn-link pull-left" href="{{ route('login') }}">
-                已有账号？登录
-            </a>
-
-            <a class="btn btn-link pull-right" href="{{ route('password.request') }}">
-                忘记密码?
-            </a>
-        </div>
+        <button type="submit" class="ui fluid primary button">
+            注册
+        </button>
     </form>
-</div>
+
+    <div class="ui text menu">
+        <a class="ui link left floated item" href="{{ route('login') }}">
+            <i class="long arrow left icon"></i>
+            已有账号？登录
+        </a>
+
+        <a class="ui link right floated item" href="{{ route('password.request') }}">
+            忘记密码?
+            <i class="long arrow right icon"></i>
+        </a>
+    </div>
 @endsection
