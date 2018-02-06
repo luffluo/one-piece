@@ -24,30 +24,56 @@ ______                            _              _                              
 
     <meta name="_token" content="{{ csrf_token() }}">
 
+    <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     @section('css')
         <style>
-            .op-install {
+            .ui.grid.message {
+                background-color: #eeeeee;
+                box-shadow: none;
+                border-radius: 0;
+                padding-top: 2em;
                 padding-bottom: 2em;
+            }
+            .ui.grid.message .row {
+                margin-top: 2em;
+                margin-bottom: 2em;
+            }
+
+            .ui.inverted.success.segment {
+                background-color: #dff0d8 !important;
+                color: #000 !important;
             }
         </style>
     @show
 </head>
 
 <body>
-    <div class="jumbotron text-center">
-        <h1 class="title">{{ config('app.name') }}</h1>
-    </div>
-
-    <div class="container">
-        <div class="op-install">
-            @yield('content')
+    <div class="ui grid massive message">
+        <div class="ui center aligned container">
+            <div class="row">
+                <h1 class="ui h1 teal huge header">{{ config('app.name') }}</h1>
+            </div>
         </div>
     </div>
 
+    <div class="ui container">
+        @yield('content')
+    </div>
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.message .close').on('click', function() {
+                $(this).closest('.message').transition('fade');
+            });
+        })
+    </script>
 </body>
 </html>

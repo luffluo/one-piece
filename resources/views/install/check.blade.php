@@ -1,22 +1,20 @@
 @extends('layouts.install')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h2>环境检测</h2>
-        </div>
+    <div class="ui header">
+        <h2>环境检测</h2>
     </div>
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-
-            <dl class="dl-horizontal">
-                @foreach($messages as $name => $message)
-                    <dt>{{ $name }}：</dt>
-                    <dd class="text-info">{{ $message }}</dd>
-                @endforeach
-            </dl>
-
+    <div class="ui center aligned basic segment">
+        <div class="ui grid">
+            @foreach($messages as $name => $message)
+                <div class="four wide column">
+                    <div class="ui medium header">
+                        {{ $name }}：
+                    </div>
+                </div>
+                <div class="twelve wide column">{{ $message }}</div>
+            @endforeach
         </div>
     </div>
 @endsection
