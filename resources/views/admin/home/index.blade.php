@@ -1,70 +1,67 @@
 @extends('admin::layouts.app')
-@section('title')网站概要@endsection
+@section('title', '网站概要')
 @section('content')
-    <div class="page clearfix">
 
-        <div class="page-wrap op-dashboard">
-            <div class="panel panel-lined">
-                <div class="panel-heading"><h4>概要</h4></div>
+    <div class="ui header">
+        <h3>概要</h3>
+    </div>
 
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>
-                                目前有 <em class="lead">{{ $posts_count }}</em> 篇文章, 在 <em class="lead">{{ $tags_count }}</em> 个标签中.
-                            </p>
+    <div class="ui content">
+        <div class="statistics">
+            <div class="ui horizontal statistic">
+                <div class="label">目前有</div>
+                <div class="value">{{ $posts_count }}</div>
+                <div class="label"> 篇文章,</div>
+            </div>
+            <div class="ui horizontal statistic">
+                <div class="label">在</div>
+                <div class="value">{{ $tags_count }}</div>
+                <div class="label">个标签中.</div>
+            </div>
+        </div>
+
+        <p class="sub header">点击下面的链接快速开始:</p>
+
+        <div class="ui secondary large menu">
+            <a class="item" href="{{ route('admin.posts.create') }}">撰写新文章</a>
+            <a class="item" href="{{ route('admin.navs.index') }}">导航设置</a>
+            <a class="item" href="{{ route('admin.themes.option') }}">外观设置</a>
+            <a class="item" href="{{ route('admin.options.reading') }}">阅读设置</a>
+            <a class="item" href="{{ route('admin.options.general') }}">系统设置</a>
+        </div>
+
+        <div class="ui inverted section divider"></div>
+
+        <div class="ui two column grid">
+            <div class="column">
+                <h5>最近发布的文章</h5>
+                <div class="ui list">
+                    @forelse($posts as $post)
+                        <div class="item">
+                            <span>{{ $post->created_at->format('n.j') }}</span>
+                            <a title="浏览 {{ $post->headline() }}" class="content" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->headline(50) }}</a>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>点击下面的链接快速开始:</p>
-                            <ul class="list-inline" style="margin-left: 0;">
-                                <li><a href="{{ route('admin.posts.create') }}">撰写新文章</a></li>
-                                <li><a href="{{ route('admin.navs.index') }}">导航设置</a></li>
-                                <li><a href="{{ route('admin.themes.option') }}">外观设置</a></li>
-                                <li><a href="{{ route('admin.options.reading') }}">阅读设置</a></li>
-                                <li><a href="{{ route('admin.options.general') }}">系统设置</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>最近发布的文章</h5>
-                            <ul class="list-unstyled latest-link">
-                                @forelse($posts as $post)
-                                    <li>
-                                        <span>{{ $post->created_at->format('n.j') }}</span>
-                                        <a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->headline(50) }}</a>
-                                    </li>
-                                @empty
-                                    <li><em>暂时没有文章</em></li>
-                                @endforelse
-                            </ul>
-                        </div>
-
-                        <div class="col-md-6">
-                            <h5>最近得到的回复</h5>
-                            <ul class="list-unstyled latest-link">
-                                @forelse($comments as $comment)
-                                    <li>
-                                        <span>{{ $comment->created_at->format('n.j') }}</span>
-                                        <a href="{{ route('users.center', [$comment->user->name]) }}" title="{{ $comment->user->showName() }}" target="_blank">
-                                            {{ $comment->user->showName() }}
-                                        </a>
-                                        :&nbsp;{{ strip_tags($comment->content()) }}
-                                    </li>
-                                @empty
-                                    <li><em>暂时没有回复</em></li>
-                                @endforelse
-                            </ul>
-                        </div>
-                    </div>
+                    @empty
+                        <div class="item"><em>暂时没有文章</em></div>
+                    @endforelse
                 </div>
+            </div>
 
+            <div class="column">
+                <h5>最近得到的回复</h5>
+                <div class="ui list">
+                    @forelse($comments as $comment)
+                        <div class="item">
+                            <span>{{ $comment->created_at->format('n.j') }}</span>
+                            <a title="{{ $comment->user->showName() }}" class="content" href="{{ route('users.center', [$comment->user->name]) }}" target="_blank">
+                                {{ $comment->user->showName() }}
+                            </a>
+                            :&nbsp;{{ strip_tags($comment->content()) }}
+                        </div>
+                    @empty
+                        <div class="item"><em>暂时没有回复</em></div>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>

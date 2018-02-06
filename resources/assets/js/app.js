@@ -5,9 +5,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
++function ($) {
 
-jQuery(function () {
+    'use strict';
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('a[data-method]').on('click', function (e) {
         e.preventDefault();
 
@@ -24,7 +31,7 @@ jQuery(function () {
 
         form.submit();
     });
-});
+}(jQuery);
 
 window.op = {
     backTop: function (minHeight) {

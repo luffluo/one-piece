@@ -77,9 +77,6 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     // Home
     Route::get('/', 'HomeController@index')->name('home');
 
-    // 侧边栏开关
-    Route::post('nav_trigger', 'HomeController@navTrigger')->name('nav.trigger');
-
     // Option
     Route::prefix('options')->group(function () {
         Route::get('general', 'OptionsController@showGeneral')->name('options.general');

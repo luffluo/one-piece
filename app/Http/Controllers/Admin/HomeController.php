@@ -32,19 +32,4 @@ class HomeController extends Controller
 
         return admin_view('home.index', compact('posts', 'posts_count', 'tags_count', 'comments'));
     }
-
-    /**
-     * 异步保持开关侧边导航
-     */
-    public function navTrigger()
-    {
-        if (request()->ajax()) {
-
-            if (session('admin_nav_trigger')) {
-                session(['admin_nav_trigger' => false]);
-            } else {
-                session(['admin_nav_trigger' => true]);
-            }
-        }
-    }
 }

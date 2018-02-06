@@ -11,19 +11,20 @@ class UserRequest extends Request
      */
     public function rules()
     {
-        $userId = $this->route('user');
-        $rules  = [];
+        $user = $this->route('user');
 
-        if (empty($userId)) {
-            $rules['name'] = 'required|unique:users,name';
+        if (! $user || ! $user->exists) {
+            $rules = [
+                'name'     => 'required|unique:users',
+                'email'    => 'required|email|unique:users',
+                'password' => 'required|confirmed',
+            ];
         } else {
-            $rules['email'] = 'required|email|unique:users,email,' . $userId;
-        }
-
-        if (! empty($userId)) {
-            $rules['password'] = 'nullable|confirmed';
-        } else {
-            $rules['password'] = 'required|confirmed';
+            $rules = [
+                'name'     => 'required|unique:users,name,' . $user->id,
+                'email'    => 'required|email|unique:users,email,' . $user->id,
+                'password' => 'nullable|confirmed',
+            ];
         }
 
         $rules['group'] = 'required|in:administrator,visitor';

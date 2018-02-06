@@ -12,13 +12,14 @@ class TagRequest extends Request
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'unique:metas,name'],
+            'name' => 'required|unique:metas,name',
             'slug' => 'sometimes|unique:metas,slug',
         ];
 
-        if ($this->route('id')) {
-            $rules['name'] .= ",{$this->route('id')}";
-            $rules['slug'] .= ",{$this->route('id')}";
+        $tag = $this->route('tag');
+        if ($tag && $tag->exists) {
+            $rules['name'] .= ",{$tag->id}";
+            $rules['slug'] .= ",{$tag->id}";
         }
 
         return $rules;

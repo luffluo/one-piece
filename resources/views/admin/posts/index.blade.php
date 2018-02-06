@@ -2,52 +2,58 @@
 @section('title')管理文章@endsection
 
 @section('content')
-    <div class="page clearfix">
-        <div class="page-wrap">
+    <div class="ui header">
+        <h3>
+            @yield('title')
+            <a class="ui mini compact button" href="{{ route('admin.posts.create') }}">新增</a>
+        </h3>
+    </div>
 
-            @include('admin::common.message')
+    <div class="ui content">
 
-            <div class="panel panel-lined clearfix mb30">
-                <div class="panel-heading mb20" style="float: left;">
-                    <div>
-                        <h4 style="display: inline-block;">管理文章</h4>
+        @include('admin::common.message')
 
-                        <a href="{{ route('admin.posts.create') }}" class="btn btn-default btn-sm">新增</a>
-                    </div>
+        <div class="">
+            <div class="option-tabs left">
+                <div class="ui small basic buttons" role="group" aria-label="tabs">
+                    @if (!isset($status) || empty($status))
+                        <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="ui button active">可用</a>
+                    @else
+                        <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="ui button">可用</a>
+                    @endif
+
+                    @if (isset($status) && 'draft' == $status)
+                        <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="ui button active">
+                            {!! $draft_count > 0 ? '草稿 <span class="ui circular small compact label">' . $draft_count . '</span>' : '草稿' !!}
+                        </a>
+                    @else
+                        <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="ui button">
+                            {!! $draft_count > 0 ? '草稿 <span class="ui circular small compact label">' . $draft_count . '</span>' : '草稿' !!}
+                        </a>
+                    @endif
                 </div>
+            </div>
 
-                <div class="col-md-12">
-                    <div class="btn-group btn-group-sm" role="group" aria-label="tabs">
-                        @if (!isset($status) || empty($status))
-                            <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="btn btn-default active">可用</a>
-                        @else
-                            <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="btn btn-default">可用</a>
-                        @endif
+            <div class="search right">
+                <form class="ui form" action="{{ route('admin.posts.index') }}" method="get">
 
-                        @if (isset($status) && 'draft' == $status)
-                            <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="btn btn-default active">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
-                        @else
-                            <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="btn btn-default">{!! $draft_count > 0 ? '草稿 <span class="badge">' . $draft_count . '</span>' : '草稿' !!}</a>
-                        @endif
-                    </div>
+                    <div class="fields">
 
-                    <div class="pull-right">
-                        <form class="form-inline" action="{{ route('admin.posts.index') }}" method="get">
-
-                            @if (! empty($tag) || ! empty($keywords))
-                                <div class="form-group form-group-sm">
-                                    <a href="{{ route('admin.posts.index') }}">
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"> </i> 取消筛选
-                                    </a>
-                                </div>
-                            @endif
-
-                            <div class="form-group form-group-sm">
-                                <input class="form-control input-sm" type="text" name="keywords" value="{{ $keywords }}" placeholder="请输入关键字">
+                        @if (! empty($tag) || ! empty($keywords))
+                            <div class="field" style="display:flex;display: -webkit-flex;align-items:center;">
+                                <a href="{{ route('admin.posts.index') }}">
+                                    <i class="angle double left icon" aria-hidden="true"></i>取消筛选
+                                </a>
                             </div>
+                        @endif
 
-                            <select name="tag" id="tag" class="form-control input-sm">
-                                <option value="">所有标签</option>
+                        <div class="field">
+                            <input type="text" name="keywords" value="{{ $keywords }}" placeholder="请输入关键字">
+                        </div>
+
+                        <div class="field">
+                            <select name="tag" class="ui dropdown">
+                                <option value="" {{ empty($tag) ? 'selected' : '' }}>所有标签</option>
                                 @foreach($tags as $loopTag)
                                     @if ($loopTag->id == $tag)
                                         <option selected="selected" value="{{ $loopTag->id }}">{{ $loopTag->name }}</option>
@@ -56,63 +62,73 @@
                                     @endif
                                 @endforeach
                             </select>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary btn-sm">筛选</button>
-                        </form>
+                        <div class="field">
+                            <button type="submit" class="ui button">筛选</button>
+                        </div>
                     </div>
-                </div>
+                </form>
+            </div>
+        </div>
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th class="col-md-1"></th>
-                            <th class="col-md-4">标题</th>
-                            <th class="col-md-2">标签</th>
-                            <th class="col-md-1">日期</th>
-                            <th class="col-md-1"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($lists as $list)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('admin.comments.index', ['cid' => $list->id]) }}" title="{{ $list->comments_count }} 评论">
-                                        <span class="badge">{{ $list->comments_count }}</span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
-                                        {{ $list->headline(40) }}
-                                        <i class="fa fa-pencil"> </i>
-                                    </a>
+        <table class="ui very basic selectable table">
+            <thead>
+            <tr>
+                <th class="one wide"></th>
+                <th class="six wide">标题</th>
+                <th class="two wide">标签</th>
+                <th class="two wide">日期</th>
+                <th class="two wide"></th>
+            </tr>
+            </thead>
 
-                                    @if ('post_draft' == $list->type)
-                                        <span class="label label-default">草稿</span>
-                                    @endif
+            <tbody>
+            @forelse ($lists as $list)
+                <tr>
+                    <td>
+                        <a class="ui circular label" href="{{ route('admin.comments.index', ['cid' => $list->id]) }}" title="{{ $list->comments_count }} 评论">
+                            {{ $list->comments_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.posts.edit', $list->id) }}">
+                            {{ $list->headline(40) }}
+                        </a>
 
-                                    <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->headline(40) }}"><i class="fa fa-external-link"> </i></a>
-                                </td>
-                                <td>{{ $list->tags->implode('name', ' | ') }}</td>
-                                <td>{{ $list->created_at->diffForHumans() }}</td>
-                                <td>
-                                    <a href="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" class="btn btn-danger btn-xs" data-method="delete" data-confirm="确定要删除吗？">删除</a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5"><h6 class="op-list-table-title">没有任何文章</h6></td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
+                            <i class="write icon"></i>
+                        </a>
 
-                <div class="panel-footer clearfix">
-                    @if (isset($status) &&  ! empty($status))
-                        <nav class="right">{{ $lists->appends(['tag' => $tag, 'status' => $status])->links() }}</nav>
-                    @else
-                        <nav class="right">{{ $lists->appends(['tag' => $tag])->links() }}</nav>
-                    @endif
-                </div>
+                        @if ('post_draft' == $list->type)
+                            <span class="ui label">草稿</span>
+                        @endif
+
+                        <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->headline(40) }}">
+                            <i class="external icon"></i>
+                        </a>
+                    </td>
+                    <td>{{ $list->tags->implode('name', ' | ') }}</td>
+                    <td>{{ $list->created_at->diffForHumans() }}</td>
+                    <td>
+                        <a href="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" class="ui compact mini negative button" data-method="delete" data-confirm="确定要删除吗？">删除</a>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">没有任何文章</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+
+        <div class="ui buttons">
+            <div class="panel-footer clearfix">
+                @if (isset($status) &&  ! empty($status))
+                    <nav class="right">{{ $lists->appends(['tag' => $tag, 'status' => $status])->links() }}</nav>
+                @else
+                    <nav class="right">{{ $lists->appends(['tag' => $tag])->links() }}</nav>
+                @endif
             </div>
         </div>
     </div>

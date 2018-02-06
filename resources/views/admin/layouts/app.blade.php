@@ -8,12 +8,11 @@ ______                            _              _                              
                                           __/ |
                                          |___/
   ========================================================
-                                           Luff
+                                           luff.fun
 
   --------------------------------------------------------
   Powered by Luff
 -->
-
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -23,84 +22,113 @@ ______                            _              _                              
     <meta name="author" content="Luff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}">
 
     <title>@yield('title')@if (! empty(option('title'))) - {{ option('title') }}@endif - Powered by Luff</title>
 
     @yield('admin-css')
+    <style>
+        .ui.inverted.menu .focus.item {
+            background: rgba(255,255,255,.15);
+            color: #fff !important;
+        }
+        .ui.nav.menu {
+            border-radius: 0;
+        }
+        .main.container {
+            padding-top: 30px;
+        }
+
+        .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em 0em;
+            border-bottom: none;
+        }
+        .option-tabs.left {
+            float: left;
+        }
+        .search.right {
+            float: right;
+        }
+
+        .ui[class*="very basic"].table:not(.sortable):not(.striped) td:first-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:first-child {
+            padding-left: 10px;
+        }
+    </style>
 </head>
 
-<body data-url="{{ route('admin.nav.trigger') }}" class="app {{ session('admin_nav_trigger', false) ? 'nav-min' : '' }} {{ route_class() }}-page">
+<body class="{{ route_class() }}-page">
 
-<header class="site-head clearfix" id="site-head">
+    <div class="ui mini inverted nav menu">
 
-    <div class="nav-head">
-        <a href="{{ url('admin') }}" class="site-logo"><span>{{ config('app.name') }}</span></a>
-        <span class="nav-trigger fa fa-outdent hidden-xs" data-toggle="nav-min"></span>
-        <span class="nav-trigger fa fa-navicon visible-xs" data-toggle="off-canvas"></span>
-    </div>
+        <div class="header item">
+            <h3>
+                <a title="网站" href="{{ url('/') }}" target="_blank">
+                    {{ option('title', config('app.name')) }}
+                </a>
+            </h3>
+        </div>
 
-    <div class="head-wrap clearfix">
+        @foreach (config('admin') as $first)
+            @if (isset($first['sub']))
+                <div class="ui simple dropdown item medium header {{ $first['active'] }}">
+                    <a href="{{ url($first['sub'][0]['url'] ?? '') }}">{{ $first['title'] }}</a>
+                    <i class="dropdown icon"> </i>
+                    <div class="menu">
+                        @foreach ($first['sub'] as $second)
+                            @if (! $second['display'])
+                                @continue
+                            @endif
+                            <a title="{{ $second['title'] }}" href="{{ url($second['url']) }}" class="{{ $second['active'] }} item">{{ $second['title'] }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            @else
+                @if (! $first['display'])
+                    @continue
+                @endif
+                <a title="{{ $first['title'] }}" href="{{ url($first['url']) }}" class="ui medium header {{ $first['active'] }} item">{{ $first['title'] }}</a>
+            @endif
+        @endforeach
 
-        <div class="btn-group btn-group-sm pull-right" role="group">
-            <a class="btn btn-default" href="{{ route('admin.users.edit', auth()->user()->id) }}">{{ auth()->user()->showName() }}</a>
-
-            <a class="btn btn-default" href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a>
-
-            <a class="btn btn-default" href="{{ url('/') }}" target="_blank">网站</a>
+        <div class="right menu">
+            <a title="{{ auth()->user()->showName() }}" class="ui medium header item" href="{{ route('admin.users.edit', auth()->user()->id) }}">{{ auth()->user()->showName() }}</a>
+            <a title="退出" class="ui medium header item" href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a>
+            <a title="网站" class="ui medium header item" href="{{ url('/') }}" target="_blank">网站</a>
         </div>
     </div>
-</header>
 
-<div class="main-container clearfix">
-    <aside class="nav-wrap" id="site-nav" data-toggle="scrollbar">
-        @if (count(config('admin', [])) > 0)
-            <nav class="site-nav clearfix" role="navigation" data-toggle="nav-accordion">
-                @foreach (config('admin') as $first)
-                <ul class="list-unstyled nav-list">
-                    @if (isset($first['sub']))
-                        <li class="{{ $first['active'] }}">
-                            <a href="javascript:;">
-                                <i class="fa {{ $first['icon'] }} icon"></i>
-                                <span class="text">{{ $first['title'] }}</span>
-                                <i class="arrow fa fa-angle-right right"></i>
-                            </a>
+    <div class="ui main container">
 
-                            <ul class="inner-drop list-unstyled">
-                                @foreach ($first['sub'] as $second)
-                                    <li class="{{ $second['active'] }}">
-                                        <a title="{{ $first['title'] }}" href="{{ url($second['url']) }}">{{ $second['title'] }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @else
-                    <li class="{{ $first['active'] }}">
-                        <a title="{{ $first['title'] }}" href="{{ url($first['url']) }}"><i class="fa {{ $first['icon'] }} icon"></i> <span class="text">{{ $first['title'] }}</span></a>
-                    </li>
-                    @endif
-                </ul>
-                @endforeach
-            </nav>
-        @endif
-    </aside>
+        @yield('content')
 
-    <div class="content-container" id="content">@yield('content')</div>
+    </div>
 
-    <footer id="site-foot" class="site-foot clearfix">
-        <p class="left">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
-        <p class="right">{{ config('app.version') }}</p>
-    </footer>
-</div>
+    <div class="ui vertical footer segment">
+        <div class="ui center aligned container">
+            <img src="{{ asset('favicon.ico') }}" alt="" class="ui centered mini image">
+            <div class="ui horizontal small divided link list">
+                <p class="item">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
+                <p class="item">{{ config('app.version') }}</p>
+            </div>
+        </div>
+    </div>
 
 @section('admin-js')
-<script src="{{ asset('assets/js/app.js') }}"></script>
-<script src="{{ asset('assets/admin/js/perfect-scrollbar.jquery.min.js') }}"></script>
-<script src="{{ asset('assets/admin/js/main.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 @show
 
 @section('admin-js-inner')
+    <script>
+        $(function () {
+
+            $('select.dropdown').dropdown();
+
+        });
+    </script>
 @show
 
 </body>
