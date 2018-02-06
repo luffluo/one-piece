@@ -86,7 +86,7 @@
     </div>
 @endsection
 
-@section('admin-js-inner')
+@section('script-inner')
     @parent
     <script>
         $(document).ready(function () {

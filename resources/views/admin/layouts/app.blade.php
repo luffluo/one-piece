@@ -27,35 +27,36 @@ ______                            _              _                              
 
     <title>@yield('title')@if (! empty(option('title'))) - {{ option('title') }}@endif - Powered by Luff</title>
 
-    @yield('admin-css')
-    <style>
-        .ui.inverted.menu .focus.item {
-            background: rgba(255,255,255,.15);
-            color: #fff !important;
-        }
-        .ui.nav.menu {
-            border-radius: 0;
-        }
-        .main.container {
-            padding-top: 30px;
-        }
+    @section('css')
+        <style>
+            .ui.inverted.menu .focus.item {
+                background: rgba(255,255,255,.15);
+                color: #fff !important;
+            }
+            .ui.nav.menu {
+                border-radius: 0;
+            }
+            .main.container {
+                padding-top: 30px;
+            }
 
-        .ui.footer.segment {
-            margin: 5em 0em 0em;
-            padding: 5em 0em 0em;
-            border-bottom: none;
-        }
-        .option-tabs.left {
-            float: left;
-        }
-        .search.right {
-            float: right;
-        }
+            .ui.footer.segment {
+                margin: 5em 0em 0em;
+                padding: 5em 0em 0em;
+                border-bottom: none;
+            }
+            .option-tabs.left {
+                float: left;
+            }
+            .search.right {
+                float: right;
+            }
 
-        .ui[class*="very basic"].table:not(.sortable):not(.striped) td:first-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:first-child {
-            padding-left: 10px;
-        }
-    </style>
+            .ui[class*="very basic"].table:not(.sortable):not(.striped) td:first-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:first-child {
+                padding-left: 10px;
+            }
+        </style>
+    @show
 </head>
 
 <body class="{{ route_class() }}-page">
@@ -115,13 +116,13 @@ ______                            _              _                              
         </div>
     </div>
 
-@section('admin-js')
+@section('script')
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
 @show
 
-@section('admin-js-inner')
+@section('script-inner')
     <script>
         $(function () {
 
@@ -130,6 +131,5 @@ ______                            _              _                              
         });
     </script>
 @show
-
 </body>
 </html>
