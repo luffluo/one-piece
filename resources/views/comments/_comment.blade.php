@@ -1,33 +1,35 @@
-<li itemscope="" itemtype="#" id="comment-{{ $comment->id }}" class="comment-body{{ $comment->liClass() }}">
-    <div class="comment-author" itemprop="creator" itemscope="" itemtype="#">
-        <span itemprop="image">
-            <img class="avatar" src="{{ $comment->user->showAvatar() }}" alt="{{ $comment->user->showName() }}" height="32" width="32">
-        </span>
-        <cite class="fn" itemprop="name">{{ $comment->user->showName() }}</cite>
-    </div>
+<div itemscope="" itemtype="#" id="comment-{{ $comment->id }}" class="comment comment-body{{ $comment->liClass() }}">
 
-    <div class="comment-meta">
-        <a href="{{ route('posts.show', $comment->content_id) . '#comment-' . $comment->id }}">
-            <time itemprop="commentTime" datetime="">{{ $comment->created_at->format(option('comment_date_format')) }}</time></a>
-    </div>
+    <a href="{{ route('users.center', $comment->user_id) }}" class="avatar" alt="{{ $comment->user->showName() }}">
+        <img src="{{ $comment->user->showAvatar() }}" alt="{{ $comment->user->showName() }}">
+    </a>
 
-    <div class="comment-content" itemprop="commentText">
-        {!! $comment->content() !!}
-    </div>
+    <div class="content">
+        <a href="{{ route('users.center', $comment->user_id) }}" alt="{{ $comment->user->showName() }}" class="author">
+            {{ $comment->user->showName() }}
+        </a>
 
-    <div class="comment-reply">
+        <div class="metadata">
+            <span class="date">{{ $comment->created_at->format(option('comment_date_format')) }}</span>
+        </div>
 
-        @can('delete', $comment)
-        <a href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？" rel="nofollow">删除</a>
+        <div class="text">
+            {!! $comment->content() !!}
+        </div>
 
-        |
-        @endcan
+        <div class="actions">
 
-        <a href="{{ route('posts.show', $comment->content_id) . '?replyTo-post-' . $comment->content_id }}" onclick="return LuffComment.reply('comment-{{ $comment->id }}', {{ $comment->id }})" rel="nofollow">回复</a>
+            <div class="ui small horizontal divided list">
+                @can('delete', $comment)
+                    <a class="delete item" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？" rel="nofollow">删除</a>
+                @endcan
 
+                <a class="reply item" href="{{ route('posts.show', $comment->content_id) . '?replyTo-post-' . $comment->content_id }}" onclick="return OpComment.reply('comment-{{ $comment->id }}', {{ $comment->id }})" rel="nofollow">回复</a>
+            </div>
+        </div>
     </div>
 
     @if(isset($comments[$comment->id]) && count($comments[$comment->id]) > 0)
         @include('comments._children', ['collections' => $comments[$comment->id]])
     @endif
-</li>
+</div>

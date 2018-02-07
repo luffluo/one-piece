@@ -65,7 +65,7 @@
                 <input id="captcha" type="text" name="captcha" placeholder="验证码" required>
             </div>
 
-            <img class="ui rounded image captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
+            <img class="ui rounded bordered image captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
 
             @if ($errors->has('captcha'))
                 <div class="ui basic red pointing prompt label transition visible">

@@ -1,47 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">忘记密码</div>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<div class="eight wide centered column">
+    <h2>忘记密码</h2>
+    <div class="ui divider"></div>
 
-                    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
-                        {{ csrf_field() }}
+    @include('common._message')
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">邮箱</label>
+    <form class="ui form" method="POST" action="{{ route('password.email') }}">
+        {{ csrf_field() }}
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+        <div class="field{{ $errors->has('email') ? ' error' : '' }}">
+            <label for="email">邮箱</label>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    发送密码重置链接
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            @if ($errors->has('email'))
+                <div class="ui basic red pointing prompt label transition visible">
+                    {{ $errors->first('email') }}
                 </div>
-            </div>
+            @endif
         </div>
-    </div>
+
+        <button type="submit" class="ui primary button">
+            发送密码重置链接
+        </button>
+    </form>
 </div>
 @endsection

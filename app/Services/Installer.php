@@ -278,6 +278,7 @@ class Installer
                 'group' => 'administrator',
             ]);
             $user->setPassword($this->data->get('admin_password'));
+            $user->updateLoggedAt();
             $user->save();
 
             // 初始化文章

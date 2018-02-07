@@ -1,21 +1,24 @@
-<div class="col-md-2">
-    <div class="list-group">
+<div class="four wide column">
+    <div class="ui fluid vertical pointing menu">
+
+        <div class="item header bg-gray">账号设置</div>
+
         @if(request()->fullUrlIs(route('users.edit_profile', $user->name)))
-            <li class="list-group-item active">个人信息</li>
+            <div class="item active">基本资料</div>
         @else
-            <a href="{{ route('users.edit_profile', $user->name) }}" class="list-group-item">个人信息</a>
+            <a href="{{ route('users.edit_profile', $user->name) }}" class="item">基本资料</a>
         @endif
 
         @if(request()->fullUrlIs(route('users.edit_avatar', $user->name)))
-            <li class="list-group-item active">修改头像</li>
+            <div class="item active">修改头像</div>
         @else
-            <a href="{{ route('users.edit_avatar', $user->name) }}" class="list-group-item">修改头像</a>
+            <a href="{{ route('users.edit_avatar', $user->name) }}" class="item">修改头像</a>
         @endif
 
         @if(request()->fullUrlIs(route('users.edit_password', $user->name)))
-            <li class="list-group-item active">修改密码</li>
+            <div class="item active">修改密码</div>
         @else
-            <a href="{{ route('users.edit_password', $user->name) }}" class="list-group-item">修改密码</a>
+            <a href="{{ route('users.edit_password', $user->name) }}" class="item">修改密码</a>
         @endif
     </div>
 </div>

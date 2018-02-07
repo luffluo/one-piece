@@ -29,44 +29,87 @@ ______                            _              _                              
     <meta name="author" content="Luff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
-    @section('css')@show
+    @section('css')
+        <style>
+
+            .ui.borderless.menu {
+                background-color: #f8f8f8;
+                border-radius: 0;
+                margin-bottom: 2em;
+            }
+            .ui.borderless.menu .row > a.header.item {
+                font-size: 1.2em;
+            }
+
+            .ui.vertical.menu > .item {
+                padding-left: 1.428em;
+            }
+            .ui.vertical.menu .item .title .dropdown.icon {
+                float: none;
+            }
+            .ui.vertical.menu .item .content .item {
+                padding: 0.5em 1em;
+            }
+            .ui.vertical.menu .header.item {
+                text-transform: uppercase;
+            }
+
+            #article {
+                font-size: 16px;
+                line-height: 1.3;
+            }
+            #article h2 {
+                font-size: 22px;
+            }
+
+            .ui.footer.segment {
+                margin-bottom: 0;
+            }
+
+            .bg-gray {
+                background: #F6F7FA!important;
+            }
+        </style>
+    @show
 </head>
 
 <body id="app" class="{{ route_class() }}-page">
 
     @include('common._nav')
 
-    <div class="container">
+    <div class="ui stackable grid container">
 
-        <div class="row">
+        @yield('content')
 
-            @yield('content')
-
-        </div>
-
-        @include('common._footer')
     </div>
+
+    @include('common._footer')
 
     <div id="fixedTools" class="hidden-xs hidden-sm">
         <a id="backtop" class="border-bottom" href="#">
-            <i class="fa fa-arrow-up"> </i>
+            <i class="arrow up icon"> </i>
         </a>
     </div>
 
-    @section('js')
+    @section('script')
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
         <script src="{{ asset('assets/js/app.js') }}"></script>
     @show
 
-    @section('js-inner')
+    @section('script-inner')
         <script>
 
             $(function () {
                 op.backTop();
+                $('.message .close').on('click', function() {
+                    $(this).closest('.message').transition('fade');
+                });
             });
 
         </script>

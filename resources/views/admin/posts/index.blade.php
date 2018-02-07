@@ -122,14 +122,10 @@
             </tbody>
         </table>
 
-        <div class="ui buttons">
-            <div class="panel-footer clearfix">
-                @if (isset($status) &&  ! empty($status))
-                    <nav class="right">{{ $lists->appends(['tag' => $tag, 'status' => $status])->links() }}</nav>
-                @else
-                    <nav class="right">{{ $lists->appends(['tag' => $tag])->links() }}</nav>
-                @endif
-            </div>
-        </div>
+        @if (isset($status) &&  ! empty($status))
+            {{ $lists->appends(['tag' => $tag, 'status' => $status])->links() }}
+        @else
+            {{ $lists->appends(['tag' => $tag])->links() }}
+        @endif
     </div>
 @endsection

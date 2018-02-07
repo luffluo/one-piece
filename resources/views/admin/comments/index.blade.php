@@ -80,9 +80,7 @@
             </tbody>
         </table>
 
-        <div class="ui buttons">
-            {{ $lists->appends(['cid' => $cid])->links() }}
-        </div>
+        {{ $lists->appends(['cid' => $cid])->links() }}
     </div>
 @endsection
 

@@ -4,73 +4,36 @@
 
 @section('content')
 
-    @include('users._secondary')
+    <div class="row">
+        @include('users._secondary')
 
-    <div id="main" class="settings col-md-10">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">@yield('title')</h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" name="_method" value="patch">
+        <div class="twelve wide column">
+            <h2>修改头像</h2>
+            <div class="ui divider"></div>
 
-                            @if(isset($message) && ! empty($message))
-                                <div class="col-md-6 col-md-offset-3">
-                                    <div class="alert alert-success alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <p>{{ $message }}</p>
-                                    </div>
-                                </div>
-                            @endif
+            @include('common._message')
+            @include('common._error')
 
-                            @if(count($errors))
-                                <div class="col-md-6 col-md-offset-3">
-                                    <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        @foreach($errors->all() as $error)
-                                            <p>{{ $error }}</p>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
+            <form class="ui form" action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" value="patch">
 
-                            <div class="thumbnail">
-
-                                <div id="preview-img-div">
-                                    <img id="preview-img" alt="{{ $user->showAvatar('large') }}" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true" style="width: 100%;">
-                                </div>
-
-                                <div class="caption">
-                                    <div class="form-group">
-                                        <p><input id="file" type="file" name="avatar"></p>
-                                        <p id="preview-img-info"></p>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <p>
-                                            <button id="upload-button" type="submit" class="btn btn-primary" role="button">上传头像</button>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div id="preview-img-div" class="field">
+                    <img class="ui image large rounded" id="preview-img" alt="{{ $user->showAvatar('large') }}" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true">
                 </div>
 
-            </div>
+                <div class="field">
+                    <input id="file" type="file" name="avatar">
+                    <p id="preview-img-info"></p>
+                </div>
+
+                <button id="upload-button" type="submit" class="ui primary button" role="button">上传头像</button>
+            </form>
         </div>
     </div>
 @endsection
 
-@section('js-inner')
+@section('script-inner')
     @parent
 
     <script>

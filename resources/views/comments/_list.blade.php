@@ -1,42 +1,43 @@
-<div id="comments">
+<div id="comments" class="ui threaded comments">
 
-    <h3>{{ $post->commentsNum('暂无评论', '仅有一条评论', '已有 %d 条评论') }}</h3>
+    <h3 class="ui dividing header">{{ $post->commentsNum('暂无评论', '仅有一条评论', '已有 %d 条评论') }}</h3>
 
     @if(count($collections) > 0)
-    <ol class="comment-list">
         @foreach($collections as $comment)
             @include('comments._comment', ['comment' => $comment])
         @endforeach
-    </ol>
     @endif
 
     @if($post->allow_comment)
     <div id="respond-post-{{ $post->id }}" class="respond">
 
         <div class="cancel-comment-reply">
-            <a id="cancel-comment-reply-link" href="{{ route('posts.show', $post->id) }}#respond-post-{{ $post->id }}" rel="nofollow" style="display:none" onclick="return LuffComment.cancelReply();">取消回复</a>
+            <a id="cancel-comment-reply-link" href="{{ route('posts.show', $post->id) }}#respond-post-{{ $post->id }}" rel="nofollow" style="display:none" onclick="return OpComment.cancelReply();">取消回复</a>
         </div>
 
-        <h3 id="response">添加新评论</h3>
+        <h3 id="response" class="ui dividing header">添加新评论</h3>
 
-        <form method="post" action="{{ route('comments.store') }}" id="comment-form" role="form">
+        <form class="ui reply form" method="post" action="{{ route('comments.store') }}" id="comment-form" role="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="post_id" value="{{ $post->id }}">
 
             @auth
-                <p>登录身份: {{ auth()->user()->showName() }}. <a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？" title="Logout">退出 »</a></p>
+                <p>
+                    登录身份: {{ auth()->user()->showName() }}.
+                    <a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？" title="Logout">
+                        退出 <i class="angle double right icon"></i>
+                    </a>
+                </p>
+            @else
+                <p><a href="{{ route('login') }}" title="Login">登录</a>后评论</p>
             @endauth
 
-            @guest
-                <p><a href="{{ route('login') }}" title="Login">登录</a>后评论</p>
-            @endguest
-
-            <p>
-                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea form-control" required></textarea>
+            <p class="field">
+                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required></textarea>
             </p>
 
             <p>
-                <button type="submit" class="btn btn-default btn-sm">提交评论</button>
+                <button type="submit" class="ui basic button">提交评论</button>
             </p>
         </form>
     </div>
@@ -45,14 +46,14 @@
     @endif
 </div>
 
-@section('js-inner')
+@section('script-inner')
     @parent
     <script>
         (function () {
 
             'use strict';
 
-            window.LuffComment = {
+            window.OpComment = {
 
                 dom : function (id) {
                     return document.getElementById(id);

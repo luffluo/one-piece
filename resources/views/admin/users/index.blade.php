@@ -46,8 +46,6 @@
             </tbody>
         </table>
 
-        <div class="ui right buttons">
-            {{ $lists->links() }}
-        </div>
+        {{ $lists->links() }}
     </div>
 @endsection

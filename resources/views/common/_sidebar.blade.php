@@ -1,66 +1,74 @@
 @if (count(sidebar_block()) > 0)
-    <div id="secondary" class="col-md-3 col-md-offset-1" role="complementary">
+    <div id="secondary" class="four wide right floated column" role="complementary">
         @if (sidebar_block_open('show_recent_posts'))
             <section class="widget">
-                <h3 class="widget-title">最新文章</h3>
-                <ul class="widget-list">
+                <h4 class="ui header">最新文章</h4>
+                <div class="ui list">
                     @foreach ($sidebarRecentPosts as $sidebarRecentPost)
-                        <li><a href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a></li>
+                        <a class="item" href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a>
                     @endforeach
-                </ul>
+                </div>
             </section>
+            <div class="ui hidden divider"></div>
         @endif
 
         @if (sidebar_block_open('show_recent_comments'))
             <section class="widget">
-                <h3 class="widget-title">最近回复</h3>
-                <ul class="widget-list">
+                <h4 class="ui header">最近回复</h4>
+                <div class="ui list">
                     @foreach ($sidebarRecentComments as $sidebarRecentComment)
-                        <li>
+                        <div class="item">
                             <a title="{{ $sidebarRecentComment->user->showName() }}" href="{{ route('users.center', $sidebarRecentComment->user->name) }}">
                                 {{ $sidebarRecentComment->user->showName() }}:
                             </a>
                             {{ strip_tags($sidebarRecentComment->content()) }}
-                        </li>
+                        </div>
                     @endforeach
-                </ul>
+                </div>
             </section>
+            <div class="ui hidden divider"></div>
         @endif
 
         @if (sidebar_block_open('show_tag'))
             <section class="widget">
-                <h3 class="widget-title">标签</h3>
-                <ol class="widget-list">
+                <a href="{{ route('tags.index') }}">
+                    <h4 class="ui header">
+                        标签
+                    </h4>
+                </a>
+                <div class="ui list">
                     @foreach ($sidebarTags as $sidebarTag)
-                        <li><a href="{{ route('tags.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }} ({{ $sidebarTag->count }})</a></li>
+                        <a class="item" href="{{ route('tags.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }} ({{ $sidebarTag->count }})</a>
                     @endforeach
-                </ol>
+                </div>
             </section>
+            <div class="ui hidden divider"></div>
         @endif
 
         @if (sidebar_block_open('show_archive'))
             <section class="widget">
-                <h3 class="widget-title">归档</h3>
-                <ol class="widget-list">
+                <h4 class="ui header">归档</h4>
+                <div class="ui list">
                     @foreach ($sidebarArchives as $sidebarArchive)
-                        <li><a href="{{ route('archive', ['year' => $sidebarArchive['year'], 'month' => $sidebarArchive['month']]) }}">{{ $sidebarArchive['date'] }}</a></li>
+                        <a class="item" href="{{ route('archive', ['year' => $sidebarArchive['year'], 'month' => $sidebarArchive['month']]) }}">{{ $sidebarArchive['date'] }}</a>
                     @endforeach
-                </ol>
+                </div>
             </section>
+            <div class="ui hidden divider"></div>
         @endif
 
         @if (sidebar_block_open('show_other'))
             <section class="widget">
-                <h3 class="widget-title">其它</h3>
-                <ol class="widget-list">
+                <h4 class="ui header">其它</h4>
+                <div class="ui list">
                     @auth
-                        <li><a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a></li>
+                        <a class="item" href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">退出</a>
                     @else
-                        <li><a href="{{ route('login') }}">登录</a></li>
+                        <a class="item" href="{{ route('login') }}">登录</a>
                     @endauth
 
-                    <li><a href="{{ route('feed') }}">文章 RSS</a></li>
-                </ol>
+                    <a class="item" href="{{ route('feed') }}">文章 RSS</a>
+                </div>
             </section>
         @endif
     </div>
