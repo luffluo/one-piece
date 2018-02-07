@@ -1,13 +1,13 @@
 @extends('admin::layouts.app')
 @section('title'){{ $post->exists ? '编辑文章 ' . $post->title : '撰写新文章' }}@endsection
 @section('content')
-    <div class="ui header">
-        <h3>
+    <div class="row">
+        <h3 class="ui header">
             @yield('title')
         </h3>
     </div>
 
-    <div class="ui content">
+    <div class="ui container">
         @include('admin::common.message')
 
         <form action="{{ $post->exists ? route('admin.posts.update', [$post->id]) : route('admin.posts.store') }}" class="ui form" enctype="multipart/form-data" method="post">
@@ -17,7 +17,7 @@
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            <div class="ui two column grid">
+            <div class="ui two column stackable grid">
                 <div class="twelve wide column">
                     <div class="field">
                         <input id="title" type="text" class="big form" style="font-weight: bold;" name="title" placeholder="请输入标题" value="{{ old('title', $post->title) }}" autofocus>

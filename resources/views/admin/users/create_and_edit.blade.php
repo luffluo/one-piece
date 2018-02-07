@@ -2,8 +2,8 @@
 @section('title'){{ $user->exists ? '编辑用户 ' . $user->name : '添加用户' }}@endsection
 @section('content')
 
-    <div class="ui header">
-        <h3>@yield('title')</h3>
+    <div class="row">
+        <h3 class="ui header">@yield('title')</h3>
     </div>
 
     <div class="ui text content container">

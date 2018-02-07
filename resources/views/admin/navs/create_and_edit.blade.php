@@ -2,8 +2,8 @@
 @section('title'){{ $nav->exists ? '编辑导航 ' . $nav->title : '添加导航' }}@endsection
 @section('content')
 
-    <div class="ui header">
-        <h3>@yield('title')</h3>
+    <div class="row">
+        <h3 class="ui header">@yield('title')</h3>
     </div>
 
     <div class="ui text content container">

@@ -2,8 +2,8 @@
 @section('title'){{ $tag->exists ? '编辑标签 ' . $tag->name : '添加标签' }}@endsection
 @section('content')
 
-    <div class="ui header">
-        <h3>@yield('title')</h3>
+    <div class="row">
+        <h3 class="ui header">@yield('title')</h3>
     </div>
 
     <div class="ui text content container">

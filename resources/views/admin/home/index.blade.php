@@ -2,11 +2,11 @@
 @section('title', '网站概要')
 @section('content')
 
-    <div class="ui header">
-        <h3>概要</h3>
+    <div class="row">
+        <h3 class="ui header">概要</h3>
     </div>
 
-    <div class="ui content">
+    <div class="ui container">
         <div class="statistics">
             <div class="ui horizontal statistic">
                 <div class="label">目前有</div>
@@ -22,7 +22,7 @@
 
         <p class="sub header">点击下面的链接快速开始:</p>
 
-        <div class="ui secondary large menu">
+        <div class="ui secondary large stackable menu">
             <a class="item" href="{{ route('admin.posts.create') }}">撰写新文章</a>
             <a class="item" href="{{ route('admin.navs.index') }}">导航设置</a>
             <a class="item" href="{{ route('admin.themes.option') }}">外观设置</a>
@@ -32,7 +32,7 @@
 
         <div class="ui inverted section divider"></div>
 
-        <div class="ui two column grid">
+        <div class="ui two column stackable grid">
             <div class="column">
                 <h5>最近发布的文章</h5>
                 <div class="ui list">

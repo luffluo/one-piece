@@ -61,7 +61,7 @@ ______                            _              _                              
 
 <body class="{{ route_class() }}-page">
 
-    <div class="ui mini inverted nav menu">
+    <div class="ui stackable mini inverted nav menu">
 
         <div class="header item">
             <h3>
@@ -100,7 +100,7 @@ ______                            _              _                              
         </div>
     </div>
 
-    <div class="ui main container">
+    <div class="ui main stackable grid container">
 
         @yield('content')
 
@@ -109,7 +109,7 @@ ______                            _              _                              
     <div class="ui vertical footer segment">
         <div class="ui center aligned container">
             <img src="{{ asset('favicon.ico') }}" alt="" class="ui centered mini image">
-            <div class="ui horizontal small divided link list">
+            <div class="ui horizontal small divided list">
                 <p class="item">&copy; Copyright {{ date('Y') }} <strong>Luff</strong>, All rights reserved.</p>
                 <p class="item">{{ config('app.version') }}</p>
             </div>

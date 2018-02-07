@@ -3,14 +3,14 @@
 
 @section('content')
 
-    <div class="ui header">
-        <h3>
+    <div class="row">
+        <h3 class="ui header">
             @yield('title')
             <a class="ui mini compact button" href="{{ route('admin.navs.create') }}">新增</a>
         </h3>
     </div>
 
-    <div class="ui content">
+    <div class="row">
 
         @include('admin::common.message')
 

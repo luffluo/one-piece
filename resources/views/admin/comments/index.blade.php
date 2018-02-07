@@ -8,13 +8,13 @@
 @endsection
 
 @section('content')
-    <div class="ui header">
-        <h3>
+    <div class="row">
+        <h3 class="ui header">
             @yield('title')
         </h3>
     </div>
 
-    <div class="ui content">
+    <div class="row">
 
         @include('admin::common.message')
 

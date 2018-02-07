@@ -3,11 +3,11 @@
 
 @section('content')
 
-    <div class="ui header">
-        <h3>@yield('title')</h3>
+    <div class="row">
+        <h3 class="ui header">@yield('title')</h3>
     </div>
 
-    <div class="ui text content container">
+    <div class="ui text container">
 
         @include('admin::common.message')
 
