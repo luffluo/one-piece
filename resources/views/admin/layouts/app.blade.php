@@ -124,9 +124,19 @@ ______                            _              _                              
 
 @section('script-inner')
     <script>
+        'use strict';
         $(function () {
 
-            $('select.dropdown').dropdown();
+            $('.message .close').on('click', function() {
+                $(this).closest('.message').transition('fade');
+            });
+
+            var $closeButton = $('.message .close');
+            if ($closeButton.length) {
+                setTimeout(function () {
+                    $closeButton.closest('.message').transition('fade');
+                }, 5000);
+            }
 
         });
     </script>

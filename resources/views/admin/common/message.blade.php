@@ -15,23 +15,3 @@
         </ul>
     </div>
 @endif
-
-@section('script-inner')
-    @parent
-    <script>
-        $(function () {
-
-            $('.message .close').on('click', function() {
-                $(this).closest('.message').transition('fade');
-            });
-
-            var $closeButton = $('[class=close]');
-            if ($closeButton.length) {
-                setTimeout(function () {
-                    $('.message .close').closest('.message').transition('fade');
-                }, 5000);
-            }
-
-        });
-    </script>
-@endsection

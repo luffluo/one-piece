@@ -8,7 +8,7 @@
         </h3>
     </div>
 
-    <div class="row">
+    <div class="ui container">
 
         @include('admin::common.message')
 

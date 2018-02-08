@@ -60,8 +60,18 @@ class PostsController extends Controller
     {
         $post->allow_feed    = true;
         $post->allow_comment = true;
-        $tags                = Tag::query()->select('id', 'name')->get();
-
+        $tags                = Tag::query()
+            ->select('id', 'name')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'name'     => $item['name'],
+                    'value'    => $item['id'],
+                    'selected' => false,
+                ];
+            })
+            ->toArray();
+        // array_unshift($tags, ['name' => '请选择标签', 'value' => '', 'selected' => true]);
 
         return admin_view('posts.create_and_edit', compact('post', 'tags'));
     }
@@ -89,11 +99,22 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        $tags = Tag::select('id', 'name')->get();
-
         if (! $post || ! $post->exists) {
             return redirect()->back()->withErrors('文章不存在.');
         }
+
+        $post->load(['tags' => function ($query) {
+            $query->select('id', 'name');
+        }]);
+        $selectedTagIds = $post->tags->pluck('id')->toArray();
+        $tags           = Tag::select('id', 'name')->get();
+        $tags = $tags->map(function ($item) use ($selectedTagIds) {
+            return [
+                'name'     => $item['name'],
+                'value'    => $item['id'],
+                'selected' => in_array($item['id'], $selectedTagIds),
+            ];
+        })->toArray();
 
         return admin_view('posts.create_and_edit', compact('post', 'tags'));
     }

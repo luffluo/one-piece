@@ -24,11 +24,10 @@
                     </div>
 
                     <div class="field">
-                        <select id="tags" class="ui dropdown" name="tags[]" multiple="multiple">
-                            <option value="">请输入标签</option>
+                        <select id="tags" class="ui fluid search dropdown" name="tags[]" multiple="multiple">
                             @foreach ($tags as $tag)
-                                <option {{ $post->tags->where('id', $tag->id)->isEmpty() ? '' : 'selected' }} value="{{ $tag->id }}">
-                                    {{ $tag->name }}
+                                <option {{ $tag['selected'] ? 'selected' : '' }} value="{{ $tag['value'] }}">
+                                    {{ $tag['name'] }}
                                 </option>
                             @endforeach
                         </select>
@@ -85,4 +84,19 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('script-inner')
+    @parent
+    <script>
+        'use strict';
+        $(document).ready(function () {
+
+            $('#tags').dropdown({
+                values: @json($tags),
+                placeholder: '请选择标签',
+            });
+
+        });
+    </script>
 @endsection
