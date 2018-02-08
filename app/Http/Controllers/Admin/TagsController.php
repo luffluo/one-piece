@@ -59,23 +59,4 @@ class TagsController extends Controller
 
         return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被删除");
     }
-
-    public function getByName()
-    {
-        if (request()->ajax() || request()->wantsJson()) {
-            $input = request()->get('q');
-
-            if (empty($input)) {
-                return [];
-            }
-
-            $tags = Tag::select('id', 'name')->where('name', 'like', "%{$input}%")->get();
-
-            if (count($tags) < 1) {
-                return [];
-            }
-
-            return ['items' => $tags->toArray()];
-        }
-    }
 }
