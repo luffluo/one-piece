@@ -11,8 +11,11 @@ class TagObserver
         $this->clearTagsCache();
     }
 
-    public function deleted()
+    public function deleted(Tag $tag)
     {
+        // 删除文章标签关系
+        $tag->posts()->sync([]);
+
         $this->clearTagsCache();
     }
 

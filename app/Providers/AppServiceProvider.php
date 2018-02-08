@@ -51,10 +51,10 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerObservers()
     {
-        Post::observe(\App\Observers\PostObserver::class);
-        \App\Models\Comment::observe(\App\Observers\CommentObserver::class);
         Nav::observe(\App\Observers\NavObserver::class);
         Tag::observe(\App\Observers\TagObserver::class);
+        Post::observe(\App\Observers\PostObserver::class);
+        Comment::observe(\App\Observers\CommentObserver::class);
     }
 
     /**
