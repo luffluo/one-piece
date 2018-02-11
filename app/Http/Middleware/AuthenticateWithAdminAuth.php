@@ -9,7 +9,7 @@ class AuthenticateWithAdminAuth
 {
     public function handle($request, Closure $next, $guard = null)
     {
-        if (! auth()->guard($guard)->user()->can('administrator')) {
+        if (! auth()->guard($guard)->user()->may('administrator')) {
 
             if ($request->ajax()) {
                 return new JsonResponse('Not Found', 404);

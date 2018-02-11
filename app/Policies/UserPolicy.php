@@ -16,6 +16,6 @@ class UserPolicy
 
     public function enterAdminDashboard(User $loginUser)
     {
-        return $loginUser->can('administrator');
+        return $loginUser->may('administrator');
     }
 }

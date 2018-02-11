@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Parsedown;
 use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
+use HyperDown\Parser;
 use App\Models\Comment;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
@@ -31,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(resource_path('views/admin'), 'admin');
 
-        Post::setMarkdown(Parsedown::instance());
-        Comment::setMarkdown(Parsedown::instance());
+        Post::setMarkdown(new Parser);
+        Comment::setMarkdown(new Parser);
 
         $this->registerObservers();
 

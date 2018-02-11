@@ -12,6 +12,7 @@
   "devDependencies": {
     "cross-env": "^5.0.1",
     "font-awesome": "^4.7.0",
+    "hyperdown": "^2.3.1",
     "jquery": "^3.2.0",
     "laravel-mix": "^1.7",
     "lodash": "^4.17.4",

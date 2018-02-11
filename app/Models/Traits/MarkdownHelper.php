@@ -5,7 +5,7 @@ namespace App\Models\Traits;
 trait MarkdownHelper
 {
     /**
-     * @var \Parsedown
+     * @var \HyperDown\Parser
      */
     protected static $markdown;
 
@@ -22,7 +22,6 @@ trait MarkdownHelper
     public function parserMarkdown($content)
     {
         return static::$markdown
-            ->setMarkupEscaped(true)
-            ->text($content);
+            ->makeHtml($content);
     }
 }

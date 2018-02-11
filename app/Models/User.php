@@ -6,7 +6,9 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
@@ -27,10 +29,11 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @package App\Models
  */
 class User extends Model implements
+    AuthorizableContract,
     AuthenticatableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword, Notifiable;
+    use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
     protected $table = 'users';
 
@@ -192,7 +195,7 @@ class User extends Model implements
      *
      * @return bool
      */
-    public function can($group)
+    public function may($group)
     {
         if (array_key_exists($group, $this->groups) && $this->groups[$this->group] <= $this->groups[$group]) {
             return true;
@@ -208,7 +211,7 @@ class User extends Model implements
      */
     public function isSuperAdmin()
     {
-        return $this->can('administrator');
+        return $this->may('administrator');
     }
 
     /**
