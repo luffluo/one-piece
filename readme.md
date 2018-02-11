@@ -17,10 +17,10 @@
 
 ## 运行环境要求
 * PHP 7.0+
-* Mysql 5.7+
 * OpenSSL PHP Extension
-* PDO_MySQL PHP Extension
+* PDO PHP Extension
 * Mbstring PHP Extension
+* XML PHP Extension
 
 ## 安装
 1. 获取程序
@@ -42,7 +42,7 @@ php composer install
 ```
 Or
 ```
-php artisan op:install 通过命令行安装，可以选择是否填充假数据
+php artisan op:install 通过命令行安装，--seed 可以选择是否填充假数据
 ```
 
 ## How can you help?
