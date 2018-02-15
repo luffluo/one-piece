@@ -61,7 +61,7 @@ ______                            _              _                              
 
 <body class="{{ route_class() }}-page">
 
-    <div class="ui stackable mini inverted nav menu">
+    <div class="ui stackable mini inverted nav menu op-head-nav">
 
         <div class="header item">
             <h3>
@@ -100,7 +100,7 @@ ______                            _              _                              
         </div>
     </div>
 
-    <div class="ui main stackable grid container">
+    <div id="content" class="ui main stackable grid container">
 
         @yield('content')
 
@@ -118,6 +118,7 @@ ______                            _              _                              
 
 @section('script')
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/onepiece.js') }}"></script>
     <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
 @show
