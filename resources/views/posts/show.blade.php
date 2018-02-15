@@ -16,8 +16,7 @@
 
                 <div class="item">
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('tags.posts', $tag->slug) }}">{{ $tag->name }}</a>
-                        @if (! $loop->last), @endif
+                        <a href="{{ route('tags.posts', $tag->slug) }}">{{ $tag->name }}</a>@if (! $loop->last),&nbsp;@endif
                     @endforeach
                 </div>
             </div>
@@ -25,6 +24,8 @@
             <div class="post-content">{!! $post->content() !!}</div>
 
         </article>
+
+        <div class="ui divider"></div>
 
         @include('comments._list', ['collections' => $comments->first(null, [])])
     </div>

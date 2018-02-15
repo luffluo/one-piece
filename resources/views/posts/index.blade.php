@@ -31,8 +31,7 @@
                         @if(count($post->tags))
                             <div class="item">
                                 @foreach ($post->tags as $tag)
-                                    <a href="{{ route('tags.posts', $tag->slug) }}">{{ $tag->name }}</a>@if (!$loop->last)
-                                        ,&nbsp;@endif
+                                    <a href="{{ route('tags.posts', $tag->slug) }}">{{ $tag->name }}</a>@if (! $loop->last),&nbsp;@endif
                                 @endforeach
                             </div>
                         @endif

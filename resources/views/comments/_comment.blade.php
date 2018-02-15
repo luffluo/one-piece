@@ -24,7 +24,7 @@
                     <a class="delete item" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？" rel="nofollow">删除</a>
                 @endcan
 
-                <a class="reply item" href="{{ route('posts.show', $comment->content_id) . '?replyTo-post-' . $comment->content_id }}" onclick="return OpComment.reply('comment-{{ $comment->id }}', {{ $comment->id }})" rel="nofollow">回复</a>
+                <a class="reply item" href="{{ route('posts.show', $comment->content_id) . '?replyTo-post-' . $comment->content_id }}" onclick="return OPComment.reply('comment-{{ $comment->id }}', {{ $comment->id }})" rel="nofollow">回复</a>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-<nav class="ui borderless stackable menu">
+<nav class="ui stackable mini borderless menu">
     <div class="ui container">
         <div class="header item">
             <a href="{{ route('home') }}" class="navbar-brand">
@@ -7,7 +7,7 @@
         </div>
 
         @foreach($navigations as $navigation)
-            <a class="{{ request()->fullUrlIs($navigation->text . '*') ? 'active ' : '' }}item" href="{{ url($navigation->text) }}" title="{{ $navigation->title }}">
+            <a class="ui medium header {{ request()->fullUrlIs($navigation->text . '*') ? 'active ' : '' }}item" href="{{ url($navigation->text) }}" title="{{ $navigation->title }}">
                 @if ($navigation->slug)<i class="{{ $navigation->slug }} icon"> </i>@endif{{ $navigation->title }}</a>
         @endforeach
 
@@ -22,10 +22,10 @@
             </div>
 
             @guest
-                <a class="item" href="{{ route('login') }}" role="button" aria-haspopup="true" aria-expanded="false">登录</a>
-                <a class="item" href="{{ route('register') }}" role="button" aria-haspopup="true" aria-expanded="false">注册</a>
+                <a class="ui medium header item" href="{{ route('login') }}" role="button" aria-haspopup="true" aria-expanded="false">登录</a>
+                <a class="ui medium header item" href="{{ route('register') }}" role="button" aria-haspopup="true" aria-expanded="false">注册</a>
             @else
-                <div class="ui simple dropdown item">
+                <div class="ui simple dropdown medium header item">
                     <div class="text">
                         <img class="ui avatar image" src="{{ auth()->user()->showAvatar() }}">
                         {{ auth()->user()->showName() }}

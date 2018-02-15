@@ -16,10 +16,10 @@
         <table class="ui very basic selectable table">
             <thead>
             <tr>
-                <th class="three wide">名称</th>
-                <th class="four wide">缩略名</th>
-                <th class="one wide">文章数</th>
-                <th class="two wide"></th>
+                <th class="six wide">名称</th>
+                <th class="six wide">缩略名</th>
+                <th class="three wide">文章数</th>
+                <th class="one wide"></th>
             </tr>
             </thead>
 

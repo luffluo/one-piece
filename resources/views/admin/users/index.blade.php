@@ -17,9 +17,9 @@
             <tr>
                 <th class="three wide">用户名</th>
                 <th class="three wide">昵称</th>
-                <th class="five wide">电子邮件</th>
+                <th class="six wide">电子邮件</th>
                 <th class="three wide">用户组</th>
-                <th class="two"></th>
+                <th class="one wide"></th>
             </tr>
             </thead>
 

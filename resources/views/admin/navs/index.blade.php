@@ -17,11 +17,11 @@
         <table class="ui very basic selectable table">
             <thead>
             <tr>
-                <th class="three wide">名称</th>
-                <th class="two wide">图标</th>
-                <th class="five wide">链接</th>
-                <th class="one wide">顺序</th>
-                <th class="two wide"></th>
+                <th class="four wide">名称</th>
+                <th class="three wide">图标</th>
+                <th class="six wide">链接</th>
+                <th class="two wide">顺序</th>
+                <th class="one wide"></th>
             </tr>
             </thead>
 
@@ -45,7 +45,7 @@
                     </td>
                     <td>{{ $list->order }}</td>
                     <td>
-                        <a href="{{ route('admin.navs.destroy', ['id' => $list->id]) }}" class="btn btn-danger btn-xs" data-method="delete" data-confirm="确定要删除吗？">删除</a>
+                        <a href="{{ route('admin.navs.destroy', ['id' => $list->id]) }}" class="ui negative mini compact button" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                     </td>
                 </tr>
             @empty

@@ -1,6 +1,6 @@
 <div id="comments" class="ui threaded comments">
 
-    <h3 class="ui dividing header">{{ $post->commentsNum('暂无评论', '仅有一条评论', '已有 %d 条评论') }}</h3>
+    <h3 class="ui header">{{ $post->commentsNum('暂无评论', '仅有一条评论', '已有 %d 条评论') }}</h3>
 
     @if(count($collections) > 0)
         @foreach($collections as $comment)
@@ -11,11 +11,11 @@
     @if($post->allow_comment)
     <div id="respond-post-{{ $post->id }}" class="respond">
 
-        <div class="cancel-comment-reply">
-            <a id="cancel-comment-reply-link" href="{{ route('posts.show', $post->id) }}#respond-post-{{ $post->id }}" rel="nofollow" style="display:none" onclick="return OpComment.cancelReply();">取消回复</a>
+        <div class="cancel-comment-reply ui right floated list">
+            <a id="cancel-comment-reply-link" class="item" href="{{ route('posts.show', $post->id) }}#respond-post-{{ $post->id }}" rel="nofollow" style="display:none" onclick="return OPComment.cancelReply();">取消回复</a>
         </div>
 
-        <h3 id="response" class="ui dividing header">添加新评论</h3>
+        <h3 id="response" class="ui header">添加新评论</h3>
 
         <form class="ui reply form" method="post" action="{{ route('comments.store') }}" id="comment-form" role="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -53,7 +53,7 @@
 
             'use strict';
 
-            window.OpComment = {
+            window.OPComment = {
 
                 dom : function (id) {
                     return document.getElementById(id);
@@ -70,10 +70,16 @@
                 },
 
                 reply : function (cid, coid) {
-                    let comment = this.dom(cid), parent = comment.parentNode,
+                    let comments = this.dom('comments'),
+                        comment = this.dom(cid), parent = comment.parentNode,
                         response = this.dom('respond-post-{{ $post->id }}'), input = this.dom('comment-parent'),
                         form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
-                        textarea = response.getElementsByTagName('textarea')[0];
+                        textarea = response.getElementsByTagName('textarea')[0],
+                        dividerLine = this.create('div', {
+                            'class': 'ui divider',
+                        });
+
+                    $('.ui.divider', comments).remove();
 
                     if (null == input) {
                         input = this.create('input', {
@@ -94,7 +100,7 @@
 
                         response.parentNode.insertBefore(holder, response);
                     }
-
+                    comment.appendChild(dividerLine);
                     comment.appendChild(response);
 
                     this.dom('cancel-comment-reply-link').style.display = '';
@@ -108,7 +114,10 @@
 
                 cancelReply : function () {
                     let response = this.dom('respond-post-{{ $post->id }}'),
+                        responseParentNode = response.parentNode,
                         holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+                    responseParentNode.removeChild(response.previousElementSibling);
 
                     if (null != input) {
                         input.parentNode.removeChild(input);
