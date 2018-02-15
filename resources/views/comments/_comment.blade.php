@@ -1,11 +1,11 @@
 <div itemscope="" itemtype="#" id="comment-{{ $comment->id }}" class="comment comment-body{{ $comment->liClass() }}">
 
-    <a href="{{ route('users.center', $comment->user_id) }}" class="avatar" alt="{{ $comment->user->showName() }}">
+    <a href="{{ route('users.center', $comment->user->name) }}" class="avatar" alt="{{ $comment->user->showName() }}">
         <img src="{{ $comment->user->showAvatar() }}" alt="{{ $comment->user->showName() }}">
     </a>
 
     <div class="content">
-        <a href="{{ route('users.center', $comment->user_id) }}" alt="{{ $comment->user->showName() }}" class="author">
+        <a href="{{ route('users.center', $comment->user->name) }}" alt="{{ $comment->user->showName() }}" class="author">
             {{ $comment->user->showName() }}
         </a>
 
