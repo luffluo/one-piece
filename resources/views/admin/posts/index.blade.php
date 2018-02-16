@@ -93,10 +93,10 @@
                     </td>
                     <td>
                         <a href="{{ route('admin.posts.edit', $list->id) }}">
-                            {{ $list->headline(40) }}
+                            {{ $list->heading(40) }}
                         </a>
 
-                        <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
+                        <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->heading(40) }}">
                             <i class="write icon"></i>
                         </a>
 
@@ -104,7 +104,7 @@
                             <span class="ui label">草稿</span>
                         @endif
 
-                        <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->headline(40) }}">
+                        <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->heading(40) }}">
                             <i class="external icon"></i>
                         </a>
                     </td>

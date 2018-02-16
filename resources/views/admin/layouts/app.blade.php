@@ -132,12 +132,12 @@ ______                            _              _                              
                 $(this).closest('.message').transition('fade');
             });
 
-            var $closeButton = $('.message .close');
-            if ($closeButton.length) {
-                setTimeout(function () {
-                    $closeButton.closest('.message').transition('fade');
-                }, 5000);
-            }
+            // var $closeButton = $('.message .close');
+            // if ($closeButton.length) {
+            //     setTimeout(function () {
+            //         $closeButton.closest('.message').transition('fade');
+            //     }, 5000);
+            // }
 
         });
     </script>

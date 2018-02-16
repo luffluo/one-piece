@@ -53,8 +53,8 @@
                                 <div class="content">
                                     <div class="meta">
                                         <a target="_blank" href="{{ route('posts.show', $comment->post->id) }}"
-                                           title="{{ $comment->post->headline() }}" class="remove-padding-left">
-                                            {{ $comment->post->headline() }}
+                                           title="{{ $comment->post->heading() }}" class="remove-padding-left">
+                                            {{ $comment->post->heading() }}
                                         </a>
                                         <span class="date" title="{{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}">
                                             {{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}
@@ -65,7 +65,7 @@
                                     </div>
 
                                     <div class="extra actions">
-                                        <div class="ui horizontal list">
+                                        <div class="ui right floated horizontal list">
                                             <a class="item" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                                         </div>
                                     </div>

@@ -10,7 +10,8 @@ if (! function_exists('route_class')) {
      *
      * @return string
      */
-    function route_class() {
+    function route_class()
+    {
         return str_replace('.', '-', Route::currentRouteName());
     }
 }
@@ -79,7 +80,8 @@ if (! function_exists('sidebar_block')) {
      *
      * @return array
      */
-    function sidebar_block() {
+    function sidebar_block()
+    {
         $sidebarBlock = option('sidebar_block');
 
         return is_array($sidebarBlock) ? $sidebarBlock : [];
@@ -95,7 +97,8 @@ if (! function_exists('sidebar_block_open')) {
      *
      * @return bool
      */
-    function sidebar_block_open(string $block) {
+    function sidebar_block_open(string $block)
+    {
         return in_array($block, sidebar_block());
     }
 }
@@ -142,7 +145,7 @@ if (! function_exists('slug_name')) {
     }
 }
 
-if (function_exists('fix_html')) {
+if (! function_exists('fix_html')) {
 
     /**
      * 自闭合 html 修复函数
@@ -157,7 +160,8 @@ if (function_exists('fix_html')) {
      *
      * @return string
      */
-    function fix_html($string) {
+    function fix_html($string)
+    {
         // 关闭自闭合标签
         $startPos = mb_strrpos($string, "<");
 

@@ -7,7 +7,7 @@
     <div id="main" class="eleven wide column" role="main">
         <article class="post">
 
-            <h2 class="ui sub header" itemprop="name headline">{{ $post->headline() }}</h2>
+            <h2 class="ui sub header" itemprop="name headline">{{ $post->heading() }}</h2>
 
             <div class="ui small horizontal divided list">
                 <div class="item">

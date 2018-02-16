@@ -39,7 +39,7 @@
                     @forelse($posts as $post)
                         <div class="item">
                             <span>{{ $post->created_at->format('n.j') }}</span>
-                            <a title="浏览 {{ $post->headline() }}" class="content" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->headline(50) }}</a>
+                            <a title="浏览 {{ $post->heading() }}" class="content" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->heading(50) }}</a>
                         </div>
                     @empty
                         <div class="item"><em>暂时没有文章</em></div>

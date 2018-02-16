@@ -38,9 +38,9 @@ ______                            _              _                              
         <style>
 
             .ui.borderless.menu {
-                background-color: #f8f8f8;
                 border-radius: 0;
-                margin-bottom: 2em;
+                margin-bottom: 2.5em;
+                border: none;
             }
             .ui.borderless.menu .row > a.header.item {
                 font-size: 1.2em;
@@ -61,7 +61,7 @@ ______                            _              _                              
 
             #article {
                 font-size: 16px;
-                line-height: 1.3;
+                line-height: 1.5;
             }
             #article h2 {
                 font-size: 22px;

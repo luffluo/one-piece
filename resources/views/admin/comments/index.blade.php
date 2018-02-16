@@ -1,7 +1,7 @@
 @extends('admin::layouts.app')
 @section('title')
     @if(isset($cid) && $post)
-        {{ $post->headline() . ' 的评论' }}
+        {{ $post->heading() . ' 的评论' }}
     @else
         管理评论
     @endif
@@ -51,7 +51,7 @@
                     <td valign="top" class="comment-body">
                         <div class="comment-date">{{ $list->created_at->diffForHumans() }} 于 <a
                                     href="{{ route('posts.show', $list->content_id) }}#comment-{{ $list->id }}"
-                                    target="_blank">{{ $list->post->headline() }}</a></div>
+                                    target="_blank">{{ $list->post->heading() }}</a></div>
                         <div class="comment-content">
                             {{ $list->text }}
                         </div>

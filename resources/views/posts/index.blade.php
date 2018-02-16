@@ -21,7 +21,7 @@
             @forelse ($posts as $post)
                 <article class="post">
                     <h2 class="ui sub header" itemprop="name headline">
-                        <a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->headline() }}</a>
+                        <a href="{{ route('posts.show', ['post' => $post->id]) }}">{{ $post->heading() }}</a>
                     </h2>
                     <div class="ui small horizontal divided list">
                         <div class="item">

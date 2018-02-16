@@ -13,6 +13,11 @@ class Post extends Content
     const TYPE = 'post';
 
     /**
+     * 阅读更多标识
+     */
+    const MORE_FLAG = '<!--more-->';
+
+    /**
      * 文章草稿
      */
     const TYPE_DRAFT = 'post_draft';
@@ -122,42 +127,6 @@ class Post extends Content
     }
 
     /**
-     * 文章标题
-     *
-     * @param int    $length
-     * @param string $trim
-     *
-     * @return string
-     */
-    public function headline($length = 0, $trim = '...')
-    {
-        return $length > 0 ? str_limit($this->title, $length, $trim) : $this->title;
-    }
-
-    /**
-     * 文章摘要
-     *
-     * @return string
-     */
-    public function summary()
-    {
-        $plainTxt = str_replace("\n", '', trim(strip_tags($this->parserContent())));
-        $plainTxt = $plainTxt ?: $this->title;
-
-        return str_limit($plainTxt);
-    }
-
-    /**
-     * 解析 md 格式的文章
-     *
-     * @return string
-     */
-    public function parserContent()
-    {
-        return $this->parserMarkdown($this->text);
-    }
-
-    /**
      * 文章内容
      *
      * @param bool $more
@@ -167,16 +136,56 @@ class Post extends Content
     public function content($more = false)
     {
         $string = <<<EOF
-<p class="more">
-    <a href="%s" role="button">%s</a>
-</p>
+<div class="more ui basic center aligned segment">
+    <a href="%s" title="%s" role="button">%s</a>
+</div>
 EOF;
 
-        mb_strlen($this->text) < 256 && $more = false;
+        if (false !== $more && false !== strpos($this->text, self::MORE_FLAG)) {
+            return $this->getExcerpt() . sprintf($string, route('posts.show', ['id' => $this->id]), $this->heading(), $more);
+        }
 
-        return false !== $more ?
-            sprintf('<p>%s</p>', $this->summary()) . sprintf($string, route('posts.show', ['id' => $this->id]), $more)
-            : $this->parserContent();
+        return $this->parserMarkdown($this->text);
+    }
+
+    /**
+     * 获取文章摘要
+     *
+     * @return string
+     */
+    public function getExcerpt()
+    {
+        $content = $this->parserMarkdown($this->text);
+        $contents = explode(self::MORE_FLAG, $content);
+        list($excerpt) = $contents;
+
+        return fix_html($excerpt);
+    }
+
+    /**
+     * 输出文章摘要
+     *
+     * @param int    $length 摘要截取长度
+     * @param string $trim 摘要后缀
+     *
+     * @return string
+     */
+    public function excerpt($length = 100, $trim = '...')
+    {
+        return str_limit(strip_tags($this->getExcerpt()), $length, $trim);
+    }
+
+    /**
+     * 输出标题
+     *
+     * @param int    $length 标题截取长度
+     * @param string $trim 截取后缀
+     *
+     * @return string
+     */
+    public function heading($length = 0, $trim = '...')
+    {
+        return $length > 0 ? str_limit($this->title, $length, $trim) : $this->title;
     }
 
     /**

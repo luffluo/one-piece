@@ -5,7 +5,7 @@
                 <h4 class="ui header">最新文章</h4>
                 <div class="ui list">
                     @foreach ($sidebarRecentPosts as $sidebarRecentPost)
-                        <a class="item" href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a>
+                        <a class="item" href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->heading(30) }}</a>
                     @endforeach
                 </div>
             </section>
