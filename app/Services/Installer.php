@@ -264,10 +264,11 @@ class Installer
             option()->table()->insert($insert);
 
             // 初始化标签
-            $tag        = new Tag;
-            $tag->name  = '默认';
-            $tag->slug  = 'default';
-            $tag->count += 1;
+            $tag              = new Tag;
+            $tag->name        = '默认标签';
+            $tag->slug        = 'default';
+            $tag->description = '只是一个默认标签';
+            $tag->count       += 1;
             $tag->save();
 
             // 初始用户
