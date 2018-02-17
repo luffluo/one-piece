@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Traits\MarkdownHelper;
+use App\Services\Markdown;
 
 class Post extends Content
 {
-    use MarkdownHelper;
     /**
      * 类型 文章
      */
@@ -145,7 +144,7 @@ EOF;
             return $this->getExcerpt() . sprintf($string, route('posts.show', ['id' => $this->id]), $this->heading(), $more);
         }
 
-        return $this->parserMarkdown($this->text);
+        return $this->markdown($this->text);
     }
 
     /**
@@ -155,7 +154,7 @@ EOF;
      */
     public function getExcerpt()
     {
-        $content = $this->parserMarkdown($this->text);
+        $content = $this->markdown($this->text);
         $contents = explode(self::MORE_FLAG, $content);
         list($excerpt) = $contents;
 
@@ -206,6 +205,28 @@ EOF;
         return sprintf($args[$num] ?? array_pop($args), $num);
     }
 
+    /**
+     * markdown
+     *
+     * @param mixed $text
+     *
+     * @return string
+     */
+    public function markdown($text)
+    {
+        /* @var \App\Services\Markdown $markdown */
+        $markdown = app()->make(Markdown::class);
+
+        return $markdown->convert($text);
+    }
+
+    /**
+     * 过滤 文章和文章草稿
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopePostAndDraft($query)
     {
         return $query->where(function ($query) {
@@ -214,16 +235,36 @@ EOF;
         });
     }
 
+    /**
+     * 过滤 发布的
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopePublished($query)
     {
         return $query->where('type', static::TYPE);
     }
 
+    /**
+     * 过滤 草稿
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopeDraft($query)
     {
         return $query->where('type', static::TYPE_DRAFT);
     }
 
+    /**
+     * 过滤 允许聚合
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopeAllowFeed($query)
     {
         return $query->where('allow_feed', '=', 1);

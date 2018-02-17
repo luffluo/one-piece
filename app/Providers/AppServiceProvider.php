@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
-use HyperDown\Parser;
 use App\Models\Comment;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
@@ -30,9 +29,6 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('zh');
 
         $this->loadViewsFrom(resource_path('views/admin'), 'admin');
-
-        Post::setMarkdown(new Parser);
-        Comment::setMarkdown(new Parser);
 
         $this->registerObservers();
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Traits\MarkdownHelper;
+use App\Services\Markdown;
 
 /**
  * Class Comment
@@ -20,8 +20,6 @@ use App\Models\Traits\MarkdownHelper;
  */
 class Comment extends Model
 {
-    use MarkdownHelper;
-
     const TYPE_APPROVED = 'approved';
 
     const TYPE_WAITING = 'waiting';
@@ -86,6 +84,14 @@ class Comment extends Model
 
     public function content()
     {
-        return $this->parserMarkdown($this->text);
+        return $this->markdown($this->text);
+    }
+
+    public function markdown($text)
+    {
+        /* @var \App\Services\Markdown $markdown */
+        $markdown = app()->make(Markdown::class);
+
+        return $markdown->convert($text);
     }
 }
