@@ -38,7 +38,7 @@
 
                         <div class="item" itemprop="interactionCount">
                             <a itemprop="discussionUrl"
-                               href="{{ route('posts.show', $post->id) }}#comments">{{ $post->commentsNum('评论', '%d 评论') }}</a>
+                               href="{{ route('posts.show', $post->id) }}#comments">{{ $post->commentsNum('评论', '%d 条评论') }}</a>
                         </div>
                     </div>
 

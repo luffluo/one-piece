@@ -163,38 +163,42 @@ if (! function_exists('fix_html')) {
     function fix_html($string)
     {
         // 关闭自闭合标签
-        $startPos = mb_strrpos($string, "<");
+        $startPos = strrpos($string, "<");
 
-        if (false === $startPos) {
+        if (false == $startPos) {
             return $string;
         }
 
-        $trimString = mb_substr($string, $startPos);
+        $trimString = substr($string, $startPos);
 
-        if (false === mb_strpos($trimString, ">")) {
-            $string = mb_substr($string, 0, $startPos);
+        if (false === strpos($trimString, ">")) {
+            $string = substr($string, 0, $startPos);
         }
 
-        // 非自闭合 html 标签列表
+        // 非自闭合html标签列表
         preg_match_all("/<([_0-9a-zA-Z-\:]+)\s*([^>]*)>/is", $string, $startTags);
         preg_match_all("/<\/([_0-9a-zA-Z-\:]+)>/is", $string, $closeTags);
 
-        if (! empty($startTags[1]) && is_array($startTags[1])) {
+        if (!empty($startTags[1]) && is_array($startTags[1])) {
             krsort($startTags[1]);
             $closeTagsIsArray = is_array($closeTags[1]);
-
             foreach ($startTags[1] as $key => $tag) {
                 $attrLength = strlen($startTags[2][$key]);
                 if ($attrLength > 0 && "/" == trim($startTags[2][$key][$attrLength - 1])) {
                     continue;
                 }
-                if (! empty($closeTags[1]) && $closeTagsIsArray) {
+
+                // 白名单
+                if (preg_match("/^(area|base|br|col|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/i", $tag)) {
+                    continue;
+                }
+
+                if (!empty($closeTags[1]) && $closeTagsIsArray) {
                     if (false !== ($index = array_search($tag, $closeTags[1]))) {
                         unset($closeTags[1][$index]);
                         continue;
                     }
                 }
-
                 $string .= "</{$tag}>";
             }
         }

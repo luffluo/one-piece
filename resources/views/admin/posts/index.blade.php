@@ -15,7 +15,7 @@
 
         <div class="">
             <div class="option-tabs left">
-                <div class="ui small basic buttons" role="group" aria-label="tabs">
+                <div class="ui tiny basic buttons" role="group" aria-label="tabs">
                     @if (!isset($status) || empty($status))
                         <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="ui button active">可用</a>
                     @else
@@ -24,11 +24,11 @@
 
                     @if (isset($status) && 'draft' == $status)
                         <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="ui button active">
-                            {!! $draft_count > 0 ? '草稿 <span class="ui circular small compact label">' . $draft_count . '</span>' : '草稿' !!}
+                            {!! $draft_count > 0 ? '草稿 <span class="ui circular tiny compact label">' . $draft_count . '</span>' : '草稿' !!}
                         </a>
                     @else
                         <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="ui button">
-                            {!! $draft_count > 0 ? '草稿 <span class="ui circular small compact label">' . $draft_count . '</span>' : '草稿' !!}
+                            {!! $draft_count > 0 ? '草稿 <span class="ui circular tiny compact label">' . $draft_count . '</span>' : '草稿' !!}
                         </a>
                     @endif
                 </div>
@@ -101,7 +101,7 @@
                         </a>
 
                         @if ('post_draft' == $list->type)
-                            <span class="ui label">草稿</span>
+                            <span class="ui tiny compact label">草稿</span>
                         @endif
 
                         <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->heading(40) }}">
