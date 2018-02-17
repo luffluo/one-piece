@@ -35,7 +35,7 @@ class MenuRouteMatched
 
                         if (request()->routeIs($second['route'])) {
                             $menus[$first_key]['active']                      = 'focus';
-                            $menus[$first_key]['sub'][$second_key]['url']     = request()->fullUrl();
+                            $menus[$first_key]['sub'][$second_key]['url']     = request()->url();
                             $menus[$first_key]['sub'][$second_key]['active']  = 'active';
                             $menus[$first_key]['sub'][$second_key]['display'] = true;
                         }
@@ -45,7 +45,7 @@ class MenuRouteMatched
                     $menus[$first_key]['active'] = '';
                     if (request()->routeIs($first['route'])) {
                         $menus[$first_key]['active']  = 'active';
-                        $menus[$first_key]['url']     = request()->fullUrl();
+                        $menus[$first_key]['url']     = request()->url();
                         $menus[$first_key]['display'] = true;
                     }
                 }

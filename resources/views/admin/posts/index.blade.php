@@ -1,6 +1,16 @@
 @extends('admin::layouts.app')
 @section('title')管理文章@endsection
 
+@section('css')
+    @parent
+    <style>
+        /*.option-tabs a.button:hover {*/
+            /*-webkit-box-shadow: none;*/
+            /*color: black;*/
+        /*}*/
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <h3 class="ui header">
@@ -13,22 +23,24 @@
 
         @include('admin::common.message')
 
-        <div class="">
+        <div>
             <div class="option-tabs left">
-                <div class="ui tiny basic buttons" role="group" aria-label="tabs">
+                <div class="ui compact basic tiny buttons" role="group" aria-label="tabs">
                     @if (!isset($status) || empty($status))
-                        <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="ui button active">可用</a>
+                        <button class="ui button active">可用</button>
                     @else
-                        <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="ui button">可用</a>
+                        <a href="{{ route('admin.posts.index', ['tag' => $tag]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                            可用
+                        </a>
                     @endif
 
                     @if (isset($status) && 'draft' == $status)
-                        <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="ui button active">
-                            {!! $draft_count > 0 ? '草稿 <span class="ui circular tiny compact label">' . $draft_count . '</span>' : '草稿' !!}
-                        </a>
+                        <button class="ui button active">
+                            {!! $draft_count > 0 ? '草稿 <span class="ui compact circular tiny label">' . $draft_count . '</span>' : '草稿' !!}
+                        </button>
                     @else
                         <a href="{{ route('admin.posts.index', ['tag' => $tag, 'status' => 'draft']) }}" class="ui button">
-                            {!! $draft_count > 0 ? '草稿 <span class="ui circular tiny compact label">' . $draft_count . '</span>' : '草稿' !!}
+                            {!! $draft_count > 0 ? '草稿 <span class="ui compact circular tiny label">' . $draft_count . '</span>' : '草稿' !!}
                         </a>
                     @endif
                 </div>
@@ -93,7 +105,7 @@
                     </td>
                     <td>
                         <a href="{{ route('admin.posts.edit', $list->id) }}">
-                            {{ $list->heading(40) }}
+                            {{ $list->title }}
                         </a>
 
                         <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->heading(40) }}">
@@ -105,7 +117,7 @@
                         @endif
 
                         <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->heading(40) }}">
-                            <i class="external icon"></i>
+                            <i class="grey external link icon"></i>
                         </a>
                     </td>
                     <td>
@@ -120,7 +132,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">没有任何文章</td>
+                    <td class="ui tiny disabled center aligned header" colspan="5">没有任何文章</td>
                 </tr>
             @endforelse
             </tbody>

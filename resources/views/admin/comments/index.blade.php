@@ -74,7 +74,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="2">没有评论</td>
+                    <td class="ui tiny disabled center aligned header" colspan="2">没有评论</td>
                 </tr>
             @endforelse
             </tbody>

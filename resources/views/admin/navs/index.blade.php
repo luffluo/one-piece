@@ -50,7 +50,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">没有任何导航</td>
+                    <td class="ui tiny disabled center aligned header" colspan="5">没有任何导航</td>
                 </tr>
             @endforelse
             </tbody>

@@ -43,7 +43,7 @@
                     </td>
                 </tr>
             @empty
-                <td colspan="4">没有任何标签</td>
+                <td class="ui tiny disabled center aligned header" colspan="4">没有任何标签</td>
             @endforelse
             </tbody>
         </table>

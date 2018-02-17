@@ -41,7 +41,7 @@
                     </td>
                 </tr>
             @empty
-                <td colspan="5">没有任何用户</td>
+                <td class="ui tiny disabled center aligned header" colspan="5">没有任何用户</td>
             @endforelse
             </tbody>
         </table>
