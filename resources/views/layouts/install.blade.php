@@ -22,7 +22,7 @@ ______                            _              _                              
 
     <title>安装 - {{ config('app.name') }}</title>
 
-    <meta name="_token" content="{{ csrf_token() }}">
+    <meta name="author" content="Luff">
 
     <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\View;
 
 class PostsController extends Controller
 {
@@ -15,6 +16,7 @@ class PostsController extends Controller
     public function index()
     {
         $query = Post::query();
+        $data  = [];
 
         if ($search = request()->get('q')) {
 
@@ -38,6 +40,12 @@ class PostsController extends Controller
                         return $query;
                     });
             });
+
+            $data['search'] = $search;
+
+            View::composer('layouts.app', function ($view) use ($search) {
+                $view->with('keywords', $search);
+            });
         }
 
         $posts = $query
@@ -46,7 +54,9 @@ class PostsController extends Controller
             ->with('tags')
             ->paginate(option('page_size', 20));
 
-        return view('posts.index', compact('posts', 'search'));
+        $data['posts'] = $posts;
+
+        return view('posts.index', $data);
     }
 
     /**
@@ -58,7 +68,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        /* @var $post Post */
+        /* @var Post $post */
         $post = Post::query()
             ->where('id', $id)
             ->published()
@@ -71,6 +81,11 @@ class PostsController extends Controller
         $post->save();
 
         $comments = $post->getCommentsGroupByParentId();
+
+        View::composer('layouts.app', function ($view) use ($post) {
+            $view->with('keywords', '');
+            $view->with('description', $post->description());
+        });
 
         return view('posts.show', compact('post', 'comments'));
     }
@@ -96,7 +111,6 @@ class PostsController extends Controller
             $to         = $endDate->endOfDay();
 
             $title = sprintf('%d年%d月%d日', $year, $month, $day);
-
         } elseif (! empty($year) && ! empty($month)) {
 
             // 如果按月归档
@@ -107,7 +121,6 @@ class PostsController extends Controller
             $to         = $endDate->endOfMonth();
 
             $title = sprintf('%d年%d月', $year, $month);
-
         } elseif (! empty($year)) {
 
             // 如果按年归档

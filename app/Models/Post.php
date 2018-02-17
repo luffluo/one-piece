@@ -148,6 +148,19 @@ EOF;
     }
 
     /**
+     * 对文章的简短纯文本描述
+     *
+     * @return string
+     */
+    public function description()
+    {
+        $plainTxt = str_replace("\n", '', trim(strip_tags($this->getExcerpt())));
+        $plainTxt = $plainTxt ?: $this->title;
+
+        return str_limit($plainTxt, 100, '...');
+    }
+
+    /**
      * 获取文章摘要
      *
      * @return string

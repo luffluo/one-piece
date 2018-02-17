@@ -58,6 +58,11 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function registerViewData()
     {
+        View::composer('layouts.app', function ($view) {
+            $view->with('keywords', option('keywords', ''));
+            $view->with('description', option('description', ''));
+        });
+
         View::composer('common._nav', function ($view) {
             $navigations = cache()->remember('navigations', $this->cacheTime, function () {
                 return Nav::select('title', 'slug', 'text', 'order')

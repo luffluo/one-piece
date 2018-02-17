@@ -179,7 +179,7 @@ if (! function_exists('fix_html')) {
         preg_match_all("/<([_0-9a-zA-Z-\:]+)\s*([^>]*)>/is", $string, $startTags);
         preg_match_all("/<\/([_0-9a-zA-Z-\:]+)>/is", $string, $closeTags);
 
-        if (!empty($startTags[1]) && is_array($startTags[1])) {
+        if (! empty($startTags[1]) && is_array($startTags[1])) {
             krsort($startTags[1]);
             $closeTagsIsArray = is_array($closeTags[1]);
             foreach ($startTags[1] as $key => $tag) {
@@ -189,11 +189,12 @@ if (! function_exists('fix_html')) {
                 }
 
                 // 白名单
-                if (preg_match("/^(area|base|br|col|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/i", $tag)) {
+                if (preg_match("/^(area|base|br|col|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/i",
+                    $tag)) {
                     continue;
                 }
 
-                if (!empty($closeTags[1]) && $closeTagsIsArray) {
+                if (! empty($closeTags[1]) && $closeTagsIsArray) {
                     if (false !== ($index = array_search($tag, $closeTags[1]))) {
                         unset($closeTags[1][$index]);
                         continue;

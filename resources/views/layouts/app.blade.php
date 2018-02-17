@@ -24,8 +24,10 @@ ______                            _              _                              
 
     <title>@yield('title', option('title', config('app.name'))) - {{ option('title', config('app.name')) }}</title>
 
-    <meta name="keywords" content="{{ option('keywords') }}">
-    <meta name="description" content="{{ option('description') }}">
+    @if(! empty($keywords))
+    <meta name="keywords" content="{{ $keywords }}">
+    @endif
+    <meta name="description" content="{{ $description }}">
     <meta name="author" content="Luff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -36,7 +38,6 @@ ______                            _              _                              
 
     @section('css')
         <style>
-
             .ui.borderless.menu {
                 border-radius: 0;
                 margin-bottom: 2.5em;

@@ -1,7 +1,7 @@
 <nav class="ui stackable mini borderless menu">
     <div class="ui container">
         <div class="header item">
-            <a href="{{ route('home') }}" class="navbar-brand">
+            <a title="{{ option('description') }}" href="{{ route('home') }}" class="navbar-brand">
                 <h2>{{ option('title', config('app.name')) }}</h2>
             </a>
         </div>

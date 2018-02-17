@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Post;
+use Illuminate\Support\Facades\View;
 
 class TagsController extends Controller
 {
@@ -28,6 +29,11 @@ class TagsController extends Controller
         }
 
         $postIds = $tag ? $tag->posts()->get()->pluck('id')->all() : [];
+
+        View::composer('layouts.app', function ($view) use ($tag) {
+            $view->with('keywords', $tag->name);
+            $view->with('description', $tag->description);
+        });
 
         $posts = Post::query()
             ->whereIn('id', $postIds)
