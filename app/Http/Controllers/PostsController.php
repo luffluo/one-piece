@@ -84,7 +84,7 @@ class PostsController extends Controller
 
         View::composer('layouts.app', function ($view) use ($post) {
             $view->with('keywords', '');
-            $view->with('description', $post->description());
+            $view->with('description', $post->description);
         });
 
         return view('posts.show', compact('post', 'comments'));

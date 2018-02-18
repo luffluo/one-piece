@@ -38,8 +38,12 @@
                 <div class="ui list">
                     @forelse($posts as $post)
                         <div class="item">
-                            <span>{{ $post->created_at->format('n.j') }}</span>
-                            <a title="浏览 {{ $post->heading() }}" class="content" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->heading(50) }}</a>
+                            <div class="ui small horizontal divided list">
+                                <div class="item">{{ $post->created_at->format('n.j') }}</div>
+                                <div class="item">
+                                    <a title="浏览 {{ $post->heading() }}" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->heading(50) }}</a>
+                                </div>
+                            </div>
                         </div>
                     @empty
                         <div class="item"><em>暂时没有文章</em></div>
@@ -52,11 +56,15 @@
                 <div class="ui list">
                     @forelse($comments as $comment)
                         <div class="item">
-                            <span>{{ $comment->created_at->format('n.j') }}</span>
-                            <a title="{{ $comment->user->showName() }}" class="content" href="{{ route('users.center', [$comment->user->name]) }}" target="_blank">
-                                {{ $comment->user->showName() }}
-                            </a>
-                            :&nbsp;{{ strip_tags($comment->content()) }}
+                            <div class="ui small horizontal divided list">
+                                <div class="item">{{ $comment->created_at->format('n.j') }}</div>
+                                <div class="item">
+                                    <a title="{{ $comment->user->showName() }}" href="{{ route('users.center', [$comment->user->name]) }}" target="_blank">
+                                        {{ $comment->user->showName() }}
+                                    </a>
+                                    :&nbsp;{{ strip_tags($comment->content()) }}
+                                </div>
+                            </div>
                         </div>
                     @empty
                         <div class="item"><em>暂时没有回复</em></div>

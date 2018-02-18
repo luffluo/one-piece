@@ -55,6 +55,16 @@ ______                            _              _                              
             .ui[class*="very basic"].table:not(.sortable):not(.striped) td:first-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:first-child {
                 padding-left: 10px;
             }
+
+            .op-list-table tr td .hidden-by-mouse {
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                opacity: 0;
+            }
+
+            .op-list-table tr:hover td .hidden-by-mouse {
+                filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+                opacity: 1;
+            }
         </style>
     @show
 </head>

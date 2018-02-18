@@ -4,6 +4,14 @@ namespace App\Models;
 
 use App\Services\Markdown;
 
+/**
+ * Class Post
+ *
+ * @property string description
+ * @property string excerpt
+ *
+ * @package App\Models
+ */
 class Post extends Content
 {
     /**
@@ -126,6 +134,33 @@ class Post extends Content
     }
 
     /**
+     * 对文章的简短纯文本描述
+     *
+     * @return string
+     */
+    public function getDescriptionAttribute()
+    {
+        $plainTxt = str_replace("\n", '', trim(strip_tags($this->excerpt)));
+        $plainTxt = $plainTxt ?: $this->title;
+
+        return str_limit($plainTxt, 100, '...');
+    }
+
+    /**
+     * 获取文章摘要
+     *
+     * @return string
+     */
+    public function getExcerptAttribute()
+    {
+        $content = $this->markdown($this->text);
+        $contents = explode(self::MORE_FLAG, $content);
+        list($excerpt) = $contents;
+
+        return fix_html($excerpt);
+    }
+
+    /**
      * 文章内容
      *
      * @param bool $more
@@ -141,37 +176,10 @@ class Post extends Content
 EOF;
 
         if (false !== $more && false !== strpos($this->text, self::MORE_FLAG)) {
-            return $this->getExcerpt() . sprintf($string, route('posts.show', ['id' => $this->id]), $this->heading(), $more);
+            return $this->excerpt . sprintf($string, route('posts.show', ['id' => $this->id]), $this->title, $more);
         }
 
         return $this->markdown($this->text);
-    }
-
-    /**
-     * 对文章的简短纯文本描述
-     *
-     * @return string
-     */
-    public function description()
-    {
-        $plainTxt = str_replace("\n", '', trim(strip_tags($this->getExcerpt())));
-        $plainTxt = $plainTxt ?: $this->title;
-
-        return str_limit($plainTxt, 100, '...');
-    }
-
-    /**
-     * 获取文章摘要
-     *
-     * @return string
-     */
-    public function getExcerpt()
-    {
-        $content = $this->markdown($this->text);
-        $contents = explode(self::MORE_FLAG, $content);
-        list($excerpt) = $contents;
-
-        return fix_html($excerpt);
     }
 
     /**
@@ -184,7 +192,7 @@ EOF;
      */
     public function excerpt($length = 100, $trim = '...')
     {
-        return str_limit(strip_tags($this->getExcerpt()), $length, $trim);
+        return str_limit(strip_tags($this->excerpt), $length, $trim);
     }
 
     /**
@@ -219,7 +227,7 @@ EOF;
     }
 
     /**
-     * markdown
+     * markdown 解析
      *
      * @param mixed $text
      *
