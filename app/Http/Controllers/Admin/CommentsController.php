@@ -21,15 +21,32 @@ class CommentsController extends Controller
             $query->where('content_id', $cid);
         }
 
+        if ($keywords = $request->get('keywords', null)) {
+            $query->where('text', 'like', "%{$keywords}%");
+        }
+
+        $waitingQuery  = clone $query;
+        $spamQuery     = clone $query;
+        $waiting_count = $waitingQuery->ofWaiting()->count();
+        $spam_count    = $spamQuery->ofSpam()->count();
+
+        if (! $status = $request->get('status', null)) {
+            $status = Comment::STATUS_APPROVED;
+        }
+        $query->where('status', $status);
+
         $lists = $query
             ->with('user', 'post')
             ->recent()
             ->paginate(20);
 
-        return admin_view('comments.index', compact('lists', 'cid', 'post'));
+        return admin_view(
+            'comments.index',
+            compact('lists', 'cid', 'post', 'keywords', 'status', 'waiting_count', 'spam_count')
+        );
     }
 
-    public function reply(CommentRequest $request, Comment $parentComment)
+    public function store(CommentRequest $request, Comment $parentComment)
     {
         $comment             = new Comment([
             'text' => $request->text,
@@ -72,6 +89,66 @@ class CommentsController extends Controller
                 'text' => $comment->text,
             ],
         ];
+    }
+
+    /**
+     * 审核等
+     *
+     * @param Comment $comment
+     * @param         $status
+     *
+     * @return $this
+     */
+    public function changeStatus(Request $request, Comment $comment, $status)
+    {
+        if (! in_array($status, [Comment::STATUS_APPROVED, Comment::STATUS_WAITING, Comment::STATUS_SPAM])) {
+            return back()->withErrors('请求参数错误.');
+        }
+
+        $oldStatus = $comment->status;
+        $comment->status = $status;
+
+        if (! $comment->save()) {
+
+            $error = '';
+            switch ($status) {
+                case Comment::STATUS_APPROVED:
+                    $error = '评论通过失败.';
+                    break;
+
+                case Comment::STATUS_WAITING:
+                    $error = '评论标记为待审核失败.';
+                    break;
+
+                case Comment::STATUS_SPAM:
+                    $error = '评论标记为垃圾失败.';
+                    break;
+            }
+
+            return back()->withErrors($error);
+        }
+
+        $success = '';
+        switch ($status) {
+            case Comment::STATUS_APPROVED:
+                $success = '评论已经被通过.';
+                break;
+
+            case Comment::STATUS_WAITING:
+                $success = '评论已经被标记为待审核.';
+                break;
+
+            case Comment::STATUS_SPAM:
+                $success = '评论已经被标记为垃圾.';
+                break;
+        }
+
+        $returnUrl = $request->headers->get('referer');
+        if (empty($returnUrl)) {
+            $returnUrl = route('admin.comments.index', ['status' => $oldStatus]);
+        }
+
+        return redirect()->to($returnUrl)->withSuccess($success);
     }
 
     public function destroy(Comment $comment)

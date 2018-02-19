@@ -25,15 +25,19 @@ class UsersController extends Controller
      */
     public function center($name)
     {
+        $commentQuery = Comment::query();
+
         if (auth()->check() && auth()->user()->name === $name) {
             $user = auth()->user();
         } else {
             $user = User::query()
                 ->where('name', $name)
                 ->firstOrFail();
+
+            $commentQuery->ofApproved();
         }
 
-        $comments = Comment::query()
+        $comments = $commentQuery
             ->where('user_id', $user->id)
             ->with('post')
             ->recent()

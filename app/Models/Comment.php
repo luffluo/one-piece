@@ -20,21 +20,25 @@ use App\Services\Markdown;
  */
 class Comment extends Model
 {
-    const TYPE_APPROVED = 'approved';
+    /**
+     * 通过
+     */
+    const STATUS_APPROVED = 'approved';
 
-    const TYPE_WAITING = 'waiting';
+    /**
+     * 待审核
+     */
+    const STATUS_WAITING = 'waiting';
 
-    const TYPE_SPAM = 'spam';
+    /**
+     * 垃圾
+     */
+    const STATUS_SPAM = 'spam';
 
     protected $table = 'comments';
 
     protected $fillable = [
-        // 'content_id',
-        // 'owner_id',
-        // 'user_id',
         'text',
-        // 'type',
-        // 'status',
         'parent_id',
     ];
 
@@ -56,6 +60,36 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(Post::class, 'content_id', 'id');
+    }
+
+    /**
+     * 是通过的
+     *
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return Comment::STATUS_APPROVED === $this->status;
+    }
+
+    /**
+     * 是待审核的
+     *
+     * @return bool
+     */
+    public function isWaiting()
+    {
+        return Comment::STATUS_WAITING === $this->status;
+    }
+
+    /**
+     * 是垃圾的
+     *
+     * @return bool
+     */
+    public function isSpam()
+    {
+        return Comment::STATUS_SPAM === $this->status;
     }
 
     /**
@@ -93,5 +127,41 @@ class Comment extends Model
         $markdown = app()->make(Markdown::class);
 
         return $markdown->convert($text);
+    }
+
+    /**
+     * 过滤 通过的
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeOfApproved($query)
+    {
+        return $query->where('status', self::STATUS_APPROVED);
+    }
+
+    /**
+     * 过滤 待审核
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeOfWaiting($query)
+    {
+        return $query->where('status', self::STATUS_WAITING);
+    }
+
+    /**
+     * 过滤 垃圾
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeOfSpam($query)
+    {
+        return $query->where('status', self::STATUS_SPAM);
     }
 }

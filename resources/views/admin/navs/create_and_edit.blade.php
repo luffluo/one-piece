@@ -8,7 +8,8 @@
 
     <div class="ui text content container">
 
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
 
         <form action="{{ $nav->exists ? route('admin.navs.update', [$nav->id]) : route('admin.navs.store') }}" class="ui form" method="post">
             @if ($nav->exists)

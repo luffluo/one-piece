@@ -16,7 +16,70 @@
 
     <div class="ui container">
 
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
+
+        <div class="option-tabs left">
+            <div class="ui compact basic tiny buttons" role="group" aria-label="tabs">
+                @if (\App\Models\Comment::STATUS_APPROVED === $status)
+                    <button class="ui button active">
+                        已通过
+                    </button>
+                @else
+                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_APPROVED]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                        已通过
+                    </a>
+                @endif
+
+                @if (\App\Models\Comment::STATUS_WAITING === $status)
+                    <button class="ui button active">
+                        待审核
+                        {!! $waiting_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $waiting_count . '</span>' : '' !!}
+                    </button>
+                @else
+                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_WAITING]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                        待审核
+                        {!! $waiting_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $waiting_count . '</span>' : '' !!}
+                    </a>
+                @endif
+
+                @if (\App\Models\Comment::STATUS_SPAM === $status)
+                    <button class="ui button active">
+                        垃圾
+                        {!! $spam_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $spam_count . '</span>' : '' !!}
+                    </button>
+                @else
+                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_SPAM]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                        垃圾
+                        {!! $spam_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $spam_count . '</span>' : '' !!}
+                    </a>
+                @endif
+            </div>
+        </div>
+
+        <div class="search right">
+            <form class="ui form" action="{{ route('admin.comments.index') }}" method="get">
+                <input type="hidden" name="status" value="{{ $status }}">
+                <div class="fields">
+
+                    @if (! empty($keywords))
+                        <div class="field" style="display:flex;display: -webkit-flex;align-items:center;">
+                            <a href="{{ route('admin.comments.index', ['status' => $status]) }}">
+                                <i class="angle double left icon" aria-hidden="true"></i>取消筛选
+                            </a>
+                        </div>
+                    @endif
+
+                    <div class="field">
+                        <input type="text" name="keywords" value="{{ $keywords }}" placeholder="请输入关键字">
+                    </div>
+
+                    <div class="field">
+                        <button type="submit" class="ui button">筛选</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <table class="op-list-table ui very basic selectable table">
             <thead>
@@ -55,19 +118,32 @@
                         <div class="comment-content">
                             <div class="ui basic compact segment" style="padding-left: 0;">{{ $list->text }}</div>
                         </div>
-                        <div class="comment-action hidden-by-mouse">
-                            {{--<span class="weak">通过</span>--}}
+                        <div class="comment-action hidden-by-mouse ui horizontal list">
 
-                            {{--<a href="action/comments-edit?do=waiting&amp;coid=6&amp;_=ec9ab78cf5ef60f03dd88643aa669a68" class="operate-waiting">待审核</a>--}}
+                            @if(\App\Models\Comment::STATUS_APPROVED === $status)
+                                <span class="weak item">通过</span>
+                            @else
+                                <a href="{{ route('admin.comments.change.status', ['comment' => $list->id, 'status' => \App\Models\Comment::STATUS_APPROVED]) }}" data-method="patch" data-confirm="确认要通过评论吗？" class="operate-approved item">通过</a>
+                            @endif
 
-                            {{--<a href="action/comments-edit?do=spam&amp;coid=6&amp;_=ec9ab78cf5ef60f03dd88643aa669a68" class="operate-spam">垃圾</a>--}}
+                            @if(\App\Models\Comment::STATUS_WAITING === $status)
+                                <span class="weak item">待审核</span>
+                            @else
+                                <a href="{{ route('admin.comments.change.status', ['comment' => $list->id, 'status' => \App\Models\Comment::STATUS_WAITING]) }}"  data-method="patch" data-confirm="确认要标记为待审核吗？" class="operate-waiting item">待审核</a>
+                            @endif
+
+                            @if(\App\Models\Comment::STATUS_SPAM === $status)
+                                <span class="weak item">垃圾</span>
+                            @else
+                                <a href="{{ route('admin.comments.change.status', ['comment' => $list->id, 'status' => \App\Models\Comment::STATUS_SPAM]) }}"  data-method="patch" data-confirm="确认要标记为垃圾吗？" class="operate-spam item">垃圾</a>
+                            @endif
 
                             <a href="#comment-{{ $list->id }}"
-                               rel="{{ route('admin.comments.update', $list->id) }}" class="operate-edit">编辑</a>
+                               rel="{{ route('admin.comments.update', $list->id) }}" class="operate-edit item">编辑</a>
 
-                            <a href="#comment-{{ $list->id }}" rel="{{ route('admin.comments.reply', $list->id) }}" class="operate-reply">回复</a>
+                            <a href="#comment-{{ $list->id }}" rel="{{ route('admin.comments.store', $list->id) }}" class="operate-reply item">回复</a>
 
-                            <a ref="#comment-{{ $list->id }}" href="{{  route('admin.comments.destroy', $list->id) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
+                            <a class="item" ref="#comment-{{ $list->id }}" href="{{  route('admin.comments.destroy', $list->id) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                         </div>
                     </td>
 

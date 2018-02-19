@@ -9,7 +9,8 @@
 
     <div class="ui text content container">
 
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
 
         <form action="{{ route('admin.options.discussion') }}" autocomplete="off" class="ui form" method="post">
             {{ csrf_field() }}

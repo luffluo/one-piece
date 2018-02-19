@@ -6,6 +6,28 @@ use App\Models\Comment;
 
 class CommentObserver
 {
+    public function created(Comment $comment)
+    {
+        // 文章数 +1
+        $comment->post->increment('comments_count');
+    }
+
+    public function updated(Comment $comment)
+    {
+        $dirty = $comment->getDirty();
+
+        if (isset($dirty['status'])) {
+
+            $original = $comment->getOriginal();
+
+            if (Comment::STATUS_APPROVED === $original['status'] && (Comment::STATUS_WAITING === $comment->status || Comment::STATUS_SPAM === $comment->status)) {
+                $comment->post->decrement('comments_count');
+            } elseif ((Comment::STATUS_WAITING === $original['status'] || Comment::STATUS_SPAM === $original['status']) && Comment::STATUS_APPROVED === $comment->status) {
+                $comment->post->increment('comments_count');
+            }
+        }
+    }
+    
     public function saving(Comment $comment)
     {
         if (! $comment->exists) {
@@ -16,11 +38,8 @@ class CommentObserver
         // $comment->text = clean($comment->text, 'user_comment_content');
     }
 
-    public function saved(Comment $comment)
+    public function saved()
     {
-        // 文章数 +1
-        $comment->post->increment('comments_count');
-
         $this->clearCommentCache();
     }
 

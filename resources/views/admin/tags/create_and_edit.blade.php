@@ -8,7 +8,8 @@
 
     <div class="ui text content container">
 
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
 
         <form action="{{ $tag->exists ? route('admin.tags.update', [$tag->id]) : route('admin.tags.store') }}" class="ui form" method="post">
             @if ($tag->exists)

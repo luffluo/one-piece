@@ -102,8 +102,9 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
 
     // Comment
     Route::get('comments', 'CommentsController@index')->name('comments.index');
-    Route::post('comments/{comment}', 'CommentsController@reply')->name('comments.reply');
+    Route::post('comments/{comment}', 'CommentsController@store')->name('comments.store');
     Route::patch('comments/{comment}', 'CommentsController@update')->name('comments.update');
+    Route::patch('comments/{comment}/{status}', 'CommentsController@changeStatus')->name('comments.change.status');
     Route::delete('comments/{comment}', 'CommentsController@destroy')->name('comments.destroy');
 
     // Tag

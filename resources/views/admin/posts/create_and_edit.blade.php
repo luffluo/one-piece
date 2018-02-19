@@ -9,7 +9,8 @@
     </div>
 
     <div id="post-area-container" class="ui container op-post-area">
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
 
         <form action="{{ $post->exists ? route('admin.posts.update', [$post->id]) : route('admin.posts.store') }}" class="ui form" enctype="multipart/form-data" method="post">
             @if ($post->exists)

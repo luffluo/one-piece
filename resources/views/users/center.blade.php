@@ -59,6 +59,14 @@
                                         <span class="date" title="{{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}">
                                             {{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}
                                         </span>
+
+                                        @if($comment->isWaiting())
+                                            <span class="ui tiny compact label">待审核</span>
+                                        @endif
+
+                                        @if($comment->isSpam())
+                                            <span class="ui tiny compact label">垃圾</span>
+                                        @endif
                                     </div>
                                     <div class="description">
                                         {!! $comment->content() !!}

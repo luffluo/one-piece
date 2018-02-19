@@ -10,7 +10,8 @@
 
     <div class="ui container">
 
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
 
         <table class="ui very basic selectable table">
             <thead>

@@ -128,6 +128,7 @@ class Post extends Content
     public function getCommentsGroupByParentId()
     {
         return $this->comments()
+            ->ofApproved()
             ->with('user')
             ->get()
             ->groupBy('parent_id');

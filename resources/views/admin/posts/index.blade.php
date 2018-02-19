@@ -1,16 +1,6 @@
 @extends('admin::layouts.app')
 @section('title')管理文章@endsection
 
-@section('css')
-    @parent
-    <style>
-        /*.option-tabs a.button:hover {*/
-            /*-webkit-box-shadow: none;*/
-            /*color: black;*/
-        /*}*/
-    </style>
-@endsection
-
 @section('content')
     <div class="row">
         <h3 class="ui header">
@@ -21,7 +11,8 @@
 
     <div class="ui container">
 
-        @include('admin::common.message')
+        @include('common._message')
+        @include('common._error')
 
         <div>
             <div class="option-tabs left">
