@@ -116,7 +116,9 @@
                                     href="{{ route('posts.show', $list->content_id) }}#comment-{{ $list->id }}"
                                     target="_blank">{{ $list->post->heading() }}</a></div>
                         <div class="comment-content">
-                            <div class="ui basic compact segment" style="padding-left: 0;">{{ $list->text }}</div>
+                            <div class="ui basic compact segment" style="padding-left: 0;">
+                                {!! $list->content() !!}
+                            </div>
                         </div>
                         <div class="comment-action hidden-by-mouse ui horizontal list">
 
