@@ -46,16 +46,17 @@ class CommentsController extends Controller
         );
     }
 
-    public function store(CommentRequest $request, Comment $parentComment)
+    public function store(CommentRequest $request, Comment $comment)
     {
-        $comment             = new Comment([
+        $newComment             = new Comment([
             'text' => $request->text,
         ]);
-        $comment->owner_id   = $parentComment->owner_id;
-        $comment->content_id = $parentComment->content_id;
-        $comment->parent_id  = $parentComment->id;
 
-        if (! $comment->save()) {
+        $newComment->owner_id   = $comment->owner_id;
+        $newComment->content_id = $comment->content_id;
+        $newComment->parent_id  = $comment->id;
+
+        if (! $newComment->save()) {
             return [
                 'code'    => 500,
                 'message' => '未知错误',
@@ -66,7 +67,7 @@ class CommentsController extends Controller
             'code'    => 200,
             'message' => 'OK',
             'comment' => [
-                'text' => $comment->text,
+                'text' => $newComment->content(),
             ],
         ];
     }

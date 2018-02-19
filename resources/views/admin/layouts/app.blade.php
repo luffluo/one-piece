@@ -56,6 +56,10 @@ ______                            _              _                              
                 padding-left: 10px;
             }
 
+            .ui[class*="very basic"].table:not(.sortable):not(.striped) td:last-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:last-child {
+                padding-right: 10px;
+            }
+
             .op-list-table tr td .hidden-by-mouse {
                 filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
                 opacity: 0;

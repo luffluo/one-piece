@@ -1,7 +1,7 @@
 <div class="four wide column">
     <div class="ui fluid vertical pointing menu">
 
-        <div class="item header bg-gray">账号设置</div>
+        <div class="item header bg-grey">账号设置</div>
 
         @if(request()->fullUrlIs(route('users.edit_profile', $user->name)))
             <div class="item active">基本资料</div>

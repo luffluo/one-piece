@@ -71,10 +71,6 @@ ______                            _              _                              
             .ui.footer.segment {
                 margin-bottom: 0;
             }
-
-            .bg-gray {
-                background: #F6F7FA!important;
-            }
         </style>
     @show
 </head>

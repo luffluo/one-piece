@@ -120,6 +120,7 @@
                                 {!! $list->content() !!}
                             </div>
                         </div>
+
                         <div class="comment-action hidden-by-mouse ui horizontal list">
 
                             @if(\App\Models\Comment::STATUS_APPROVED === $status)
@@ -216,31 +217,33 @@
                 let td = $(this).parents('td'), t = $(this);
 
                 if ($('.comment-reply', td).length > 0) {
+                    $('.comment-reply').next().remove();
                     $('.comment-reply').remove();
                 } else {
                     let form = $('<form method="post" action="' + t.attr('rel') + '" class="ui form comment-reply">'
                         + '<div class="field"><label for="text">内容</label><textarea id="text" name="text" rows="3"></textarea></div>'
                         + '<div class="field"><button type="submit" class="ui compact tiny primary button">回复</button> <button type="button" class="ui compact tiny button cancel">取消</button></div>'
                         + '</form>').insertBefore($('.comment-action', td));
+                    let divider = $('<div class="ui hidden divider"></div>').insertAfter(form);
 
                     $('.cancel', form).click(function () {
                         $(this).parents('.comment-reply').remove();
+                        divider.remove();
                     });
 
-                    let textarea = $('textarea', form).focus();
+                    $('textarea', form).focus();
 
                     form.submit(function () {
 
-                        let t = $(this), tr = t.parents('tr'),
-                            reply = $('<div class="comment-reply-content"></div>').insertAfter($('.comment-content', tr));
-
-                        reply.html('<p>' + textarea.val() + '</p>');
+                        let t = $(this), tr = t.parents('tr');
+                        var reply = $('<div class="comment-reply-content ui basic segment bg-grey"></div>').insertAfter($('.comment-content', tr));
 
                         $.post(t.attr('action'), t.serialize(), function (o) {
-                            reply.html('<p>' + o.comment.text + '</p>').effect('highlight');
+                            reply.html(o.comment.text);
                         }, 'json');
 
                         form.remove();
+                        divider.remove();
 
                         return false;
                     });
