@@ -19,8 +19,8 @@
             <tr>
                 <th class="six wide">名称</th>
                 <th class="six wide">缩略名</th>
-                <th class="three wide">文章数</th>
-                <th class="one wide"></th>
+                <th class="two wide">文章数</th>
+                <th class="two wide"></th>
             </tr>
             </thead>
 
@@ -39,7 +39,7 @@
                             {{ $list->count }}
                         </a>
                     </td>
-                    <td>
+                    <td class="right aligned">
                         <a role="button" href="{{ route('admin.tags.destroy', ['id' => $list->id]) }}" class="ui negative compact mini button" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                     </td>
                 </tr>

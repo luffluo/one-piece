@@ -79,10 +79,10 @@
             <thead>
             <tr>
                 <th class="one wide"></th>
-                <th class="seven wide">标题</th>
+                <th class="six wide">标题</th>
                 <th class="four wide">标签</th>
                 <th class="two wide">日期</th>
-                <th class="one wide"></th>
+                <th class="two wide"></th>
             </tr>
             </thead>
 
@@ -117,7 +117,7 @@
                         @endforeach
                     </td>
                     <td>{{ $list->created_at->diffForHumans() }}</td>
-                    <td>
+                    <td class="right aligned">
                         <a href="{{ route('admin.posts.destroy', ['id' => $list->id]) }}" class="ui compact mini negative button" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                     </td>
                 </tr>

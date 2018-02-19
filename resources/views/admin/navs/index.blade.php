@@ -21,8 +21,8 @@
                 <th class="four wide">名称</th>
                 <th class="three wide">图标</th>
                 <th class="six wide">链接</th>
-                <th class="two wide">顺序</th>
-                <th class="one wide"></th>
+                <th class="one wide">顺序</th>
+                <th class="two wide"></th>
             </tr>
             </thead>
 
@@ -45,7 +45,7 @@
                             {!! $list->text !!} <i class="fa fa-external-link"> </i></a>
                     </td>
                     <td>{{ $list->order }}</td>
-                    <td>
+                    <td class="right aligned">
                         <a href="{{ route('admin.navs.destroy', ['id' => $list->id]) }}" class="ui negative mini compact button" data-method="delete" data-confirm="确定要删除吗？">删除</a>
                     </td>
                 </tr>

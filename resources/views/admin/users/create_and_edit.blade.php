@@ -50,11 +50,15 @@
 
             <div class="required field">
                 <label>用户组</label>
-                <select name="group" id="group" class="ui fluid dropdown">
-                    @foreach(['administrator' => '管理员', 'visitor' => '访问者'] as $gkey => $gval)
-                        <option value="{{ $gkey }}" {{ $gkey == $user->group ? 'selected' : '' }}>{{ $gval }}</option>
-                    @endforeach
-                </select>
+                @if(1 == $user->id)
+                    <input type="text" name="group" readonly value="{{ $user->showGroupLabel() }}">
+                @else
+                    <select name="group" id="group" class="ui fluid dropdown">
+                        @foreach(['administrator' => '管理员', 'visitor' => '访问者'] as $gkey => $gval)
+                            <option value="{{ $gkey }}" {{ $gkey == $user->group ? 'selected' : '' }}>{{ $gval }}</option>
+                        @endforeach
+                    </select>
+                @endif
                 <span class="help-block">不同的用户组拥有不同的权限.<br>具体的权限分配表请参考这里.</span>
             </div>
 

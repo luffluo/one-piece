@@ -74,3 +74,12 @@
         </form>
     </div>
 @endsection
+
+@section('script-inner')
+    @parent
+    <script>
+        $(function () {
+            $('.ui.checkbox').checkbox();
+        })
+    </script>
+@endsection

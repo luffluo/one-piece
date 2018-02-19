@@ -49,14 +49,14 @@
                             <label>权限控制</label>
 
                             <div class="grouped fields">
-                                <div class="field op-post-option">
+                                <div class="field">
                                     <div class="ui checkbox">
                                         <input id="allow_comment" name="allow_comment" value="1" {{ $post->allow_comment ? 'checked' : '' }} type="checkbox">
                                         <label for="allow_comment">允许评论</label>
                                     </div>
                                 </div>
 
-                                <div class="field op-post-option">
+                                <div class="field">
                                     <div class="ui checkbox">
                                         <input id="allow_feed" name="allow_feed" value="1" {{ $post->allow_feed ? 'checked' : '' }} type="checkbox">
                                         <label for="allow_feed">允许在聚合中出现</label>
@@ -66,10 +66,9 @@
                         </div>
 
                         @if ($post->exists)
-
                             <div class="field op-post-option">
                                 <div class="row">
-                                    <br>
+                                    <div class="ui hidden divider"></div>
                                     —
                                     <br>
                                     本文由 <span>{{ $post->user->showName() }}</span> 撰写于 {{ $post->created_at->diffForHumans() }}
@@ -102,6 +101,8 @@
                 values: @json($tags),
                 placeholder: '请选择标签',
             });
+
+            $('.ui.checkbox').checkbox();
 
             // text 自动拉伸
             OP.editorResize('text');

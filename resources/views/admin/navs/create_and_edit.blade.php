@@ -33,7 +33,9 @@
             <div class="field">
                 <label>导航图标</label>
                 <input type="text" name="slug" placeholder="请输入标识" value="{{ old('slug', $nav->slug) }}">
-                <span class="help-block">导航图标用于给导航添加一个 <code>Font Awesome</code> 的字体图标.</span>
+                <span class="help-block">导航图标用于给导航添加一个 <a href="https://semantic-ui.com/elements/icon.html" target="_blank">Font Awesome</a> 的字体图标.
+                    <br>如：<code>idea</code> <i class="idea icon"></i>
+                </span>
             </div>
 
             <div class="field">
