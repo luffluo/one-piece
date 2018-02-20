@@ -60,14 +60,17 @@ class PostsController extends Controller
     {
         $post->allow_feed    = true;
         $post->allow_comment = true;
+
+        $defaultTagId = option('defaultTag', 1);
+
         $tags                = Tag::query()
             ->select('id', 'name')
             ->get()
-            ->map(function ($item) {
+            ->map(function ($item) use ($defaultTagId) {
                 return [
                     'name'     => $item['name'],
                     'value'    => $item['id'],
-                    'selected' => false,
+                    'selected' => $item['id'] == $defaultTagId ? true : false,
                 ];
             })
             ->toArray();

@@ -111,6 +111,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::resource('tags', 'TagsController', [
         'except' => ['show'],
     ]);
+    Route::patch('tags/{tag}/default', 'TagsController@setDefault')->name('tags.set.default');
 
     // 导航
     Route::resource('navs', 'NavsController', [

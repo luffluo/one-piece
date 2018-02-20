@@ -14,11 +14,12 @@
         @include('common._message')
         @include('common._error')
 
-        <table class="ui very basic selectable table">
+        <table class="op-list-table ui very basic selectable table">
             <thead>
             <tr>
-                <th class="six wide">名称</th>
-                <th class="six wide">缩略名</th>
+                <th class="five wide">名称</th>
+                <th class="five wide">缩略名</th>
+                <th class="two wide"></th>
                 <th class="two wide">文章数</th>
                 <th class="two wide"></th>
             </tr>
@@ -32,8 +33,19 @@
                             {{ $list->name }}
                             <i class="fa fa-pencil"> </i>
                         </a>
+
+                        <a title="浏览 {{ $list->name }}" href="{{ route('tags.posts', $list->slug) }}" target="_blank">
+                            <i class="grey external link icon"></i>
+                        </a>
                     </td>
                     <td>{{ $list->slug }}</td>
+                    <td>
+                        @if($list->id == $defaultTag)
+                            默认
+                        @else
+                            <a class="hidden-by-mouse" href="{{ route('admin.tags.set.default', $list->id) }}" data-method="patch" data-confirm="确认要设为默认标签吗？">默认</a>
+                        @endif
+                    </td>
                     <td>
                         <a class="ui circular label" href="{{ route('admin.posts.index', ['tag' => $list->id]) }}">
                             {{ $list->count }}

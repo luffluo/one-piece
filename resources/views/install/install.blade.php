@@ -5,17 +5,9 @@
         <h2>安&nbsp;装</h2>
     </div>
 
-    <div class="ui basic segment">
-        @if (isset($errors) && count($errors) > 0)
-            <div class="ui error message" role="alert">
-                <i class="close icon"></i>
-                <ul class="list">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <div class="ui text container">
+        <div class="ui basic segment">
+            @include('common._error')
 
             <form class="ui form" action="{{ route('install') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -86,5 +78,12 @@
 
                 <button type="submit" class="ui primary button">安装</button>
             </form>
+        </div>
     </div>
+
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
 @endsection

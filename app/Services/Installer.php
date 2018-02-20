@@ -252,6 +252,7 @@ class Installer
                 'posts_list_size'     => 10,
                 'page_size'           => 20,
                 'sidebar_block'       => '["show_recent_posts","show_recent_comments","show_tag","show_archive","show_other"]',
+                'defaultTag'          => 1,
             ];
 
             $insert = [];

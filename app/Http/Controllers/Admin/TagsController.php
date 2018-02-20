@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use App\Http\Requests\TagRequest;
 use App\Http\Controllers\Controller;
 
@@ -17,7 +18,9 @@ class TagsController extends Controller
     {
         $lists = Tag::paginate(20);
 
-        return admin_view('tags.index', compact('lists'));
+        $defaultTag = option('defaultTag', 1);
+
+        return admin_view('tags.index', compact('lists', 'defaultTag'));
     }
 
     public function create(Tag $tag)
@@ -49,6 +52,23 @@ class TagsController extends Controller
         }
 
         return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被更新");
+    }
+
+    public function setDefault(Request $request, Tag $tag)
+    {
+        try {
+            option(['defaultTag' => $tag->id]);
+
+            $returnUrl = $request->headers->get('referer');
+            if (empty($returnUrl)) {
+                $returnUrl = route('admin.tags.index');
+            }
+
+            return redirect()->to($returnUrl)->withSuccess("{$tag->name} 已经被设为默认标签");
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('设置默认标签失败，请重试.');
+        }
     }
 
     public function destroy(Tag $tag)

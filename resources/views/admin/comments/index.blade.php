@@ -26,7 +26,7 @@
                         已通过
                     </button>
                 @else
-                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_APPROVED]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_APPROVED, 'cid' => $cid]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
                         已通过
                     </a>
                 @endif
@@ -37,7 +37,7 @@
                         {!! $waiting_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $waiting_count . '</span>' : '' !!}
                     </button>
                 @else
-                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_WAITING]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_WAITING, 'cid' => $cid]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
                         待审核
                         {!! $waiting_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $waiting_count . '</span>' : '' !!}
                     </a>
@@ -49,7 +49,7 @@
                         {!! $spam_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $spam_count . '</span>' : '' !!}
                     </button>
                 @else
-                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_SPAM]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
+                    <a href="{{ route('admin.comments.index', ['status' => \App\Models\Comment::STATUS_SPAM, 'cid' => $cid]) }}" class="ui button" style="display:flex;display: -webkit-flex;align-items:center;">
                         垃圾
                         {!! $spam_count > 0 ? '&nbsp;<span class="ui compact circular tiny label">' . $spam_count . '</span>' : '' !!}
                     </a>
@@ -60,11 +60,12 @@
         <div class="search right">
             <form class="ui form" action="{{ route('admin.comments.index') }}" method="get">
                 <input type="hidden" name="status" value="{{ $status }}">
+                <input type="hidden" name="cid" value="{{ $cid }}">
                 <div class="fields">
 
                     @if (! empty($keywords))
                         <div class="field" style="display:flex;display: -webkit-flex;align-items:center;">
-                            <a href="{{ route('admin.comments.index', ['status' => $status]) }}">
+                            <a href="{{ route('admin.comments.index', ['status' => $status, 'cid' => $cid]) }}">
                                 <i class="angle double left icon" aria-hidden="true"></i>取消筛选
                             </a>
                         </div>
