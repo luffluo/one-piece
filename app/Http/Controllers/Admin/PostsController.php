@@ -71,7 +71,6 @@ class PostsController extends Controller
                 ];
             })
             ->toArray();
-        // array_unshift($tags, ['name' => '请选择标签', 'value' => '', 'selected' => true]);
 
         return admin_view('posts.create_and_edit', compact('post', 'tags'));
     }
@@ -94,7 +93,7 @@ class PostsController extends Controller
 
         DB::commit();
 
-        return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被创建");
+        return redirect()->route('admin.posts.edit', [$post->id])->withMessage("文章 {$post->title} 已经被创建");
     }
 
     public function edit(Post $post)
@@ -138,7 +137,7 @@ class PostsController extends Controller
 
         DB::commit();
 
-        return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被更新");
+        return redirect()->route('admin.posts.edit', [$post->id])->withMessage("文章 {$post->title} 已经被更新");
     }
 
     public function destroy(Post $post)

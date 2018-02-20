@@ -87,7 +87,7 @@ class CommentsController extends Controller
             'code'    => 200,
             'message' => 'OK',
             'comment' => [
-                'text' => $comment->text,
+                'text' => $comment->content(),
             ],
         ];
     }

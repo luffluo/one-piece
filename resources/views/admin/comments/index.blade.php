@@ -169,7 +169,7 @@
         $(document).ready(function () {
             'use strict';
 
-            $(document).on('click', '.operate-edit', function () {
+            $('.operate-edit').on('click', function () {
 
                 let tr = $(this).parents('tr'), oldTd = $(this).parents('td'), t = $(this), id = tr.attr('id'), comment = tr.data('comment');
 
@@ -197,10 +197,12 @@
                 $('form', edit).submit(function () {
                     let t = $(this), td = t.parents('td'), oldTd = td.prev();
 
-                    $('.comment-content', oldTd).html('<p>' + $('textarea[name=text]', form).val() + '</p>');
+                    // $('.comment-content', oldTd).html('<p>' + $('textarea[name=text]', t).val() + '</p>');
 
                     $.post(t.attr('action'), t.serialize(), function (o) {
-                        $('.comment-content', oldTd).html('<p>' + o.comment.text + '</p>').effect('highlight');
+                        console.log(o.comment.text);
+                        console.log($('.comment-content > .ui.segment', oldTd));
+                        $('.comment-content > .ui.segment', oldTd).html(o.comment.text);
                     }, 'json');
 
                     oldTd.show();
@@ -212,7 +214,7 @@
                 return false;
             });
 
-            $(document).on('click', '.operate-reply', function () {
+            $('.operate-reply').on('click', function () {
 
                 let td = $(this).parents('td'), t = $(this);
 
