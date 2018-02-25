@@ -32,7 +32,35 @@
                 <span class="help-block">请以半角逗号 "," 分割多个关键字.</span>
             </div>
 
+            <div class="field">
+                <label>是否允许注册</label>
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" {{ !$allowRegister ? 'checked' : '' }} name="allowRegister" value="0" tabindex="0" class="hidden">
+                            <label>不允许</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" {{ $allowRegister ? 'checked' : '' }} name="allowRegister" value="1" tabindex="0" class="hidden">
+                            <label>允许</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <button class="ui small primary button" type="submit">保存设置</button>
         </form>
     </div>
+@endsection
+
+@section('script-inner')
+    @parent
+    <script>
+        $(function () {
+            $('.ui.radio.checkbox').checkbox();
+        });
+    </script>
 @endsection

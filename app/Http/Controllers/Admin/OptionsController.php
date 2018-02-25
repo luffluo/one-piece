@@ -14,13 +14,14 @@ class OptionsController extends Controller
 
     public function showGeneral()
     {
-        $title       = option('title');
-        $keywords    = option('keywords');
-        $description = option('description');
+        $title         = option('title');
+        $keywords      = option('keywords');
+        $description   = option('description');
+        $allowRegister = option('allow_register');
 
         return admin_view(
             'options.general',
-            compact('title', 'keywords', 'description')
+            compact('title', 'keywords', 'description', 'allowRegister')
         );
     }
 
@@ -29,6 +30,7 @@ class OptionsController extends Controller
         option(['title' => $request->input('title')]);
         option(['keywords' => $request->input('keywords')]);
         option(['description' => $request->input('description')]);
+        option(['allow_register' => $request->input('allowRegister')]);
 
         return redirect()->route('admin.options.general')->withMessage('设置已经保存');
     }

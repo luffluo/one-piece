@@ -50,10 +50,12 @@
     </form>
 
     <div class="ui text menu">
-        <a class="ui link left floated item" href="{{ route('register') }}">
-            <i class="long arrow left icon"></i>
-            没有账号？注册
-        </a>
+        @if(option('allow_register'))
+            <a class="ui link left floated item" href="{{ route('register') }}">
+                <i class="long arrow left icon"></i>
+                没有账号？注册
+            </a>
+        @endif
 
         <a class="ui link right floated item" href="{{ route('password.request') }}">
             忘记密码?

@@ -23,7 +23,9 @@
 
             @guest
                 <a class="ui medium header item" href="{{ route('login') }}" role="button" aria-haspopup="true" aria-expanded="false">登录</a>
-                <a class="ui medium header item" href="{{ route('register') }}" role="button" aria-haspopup="true" aria-expanded="false">注册</a>
+                @if(option('allow_register'))
+                    <a class="ui medium header item" href="{{ route('register') }}" role="button" aria-haspopup="true" aria-expanded="false">注册</a>
+                @endif
             @else
                 <div class="ui simple dropdown medium header item">
                     <div class="text">
