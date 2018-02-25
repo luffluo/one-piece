@@ -39,8 +39,10 @@
                         <textarea style="height: 300px" rows="3" autocomplete="off" id="text" name="text" class="mono">{{ old('text', $post->text) }}</textarea>
                     </div>
 
-                    <button type="submit" name="do" value="publish" class="ui small primary right floated button">发布文章</button>
-                    <button type="submit" name="do" value="save" class="ui small right floated button">保存草稿</button>
+                    <div class="field submit">
+                        <button type="submit" name="do" value="publish" class="ui small primary right floated button">发布文章</button>
+                        <button type="submit" name="do" value="save" class="ui small right floated button">保存草稿</button>
+                    </div>
                 </div>
 
                 <div id="post-area-right" class="four wide column">
@@ -238,14 +240,14 @@
                 }
             });
 
-            var th = textarea.height(), ph = preview.height(),
-                uploadBtn = $('<button type="button" id="btn-fullscreen-upload" class="btn btn-link">'
-                    + '<i class="i-upload">附件</i></button>')
-                    .prependTo('.submit .right')
-                    .click(function() {
-                        $('a', $('.typecho-option-tabs li').not('.active')).trigger('click');
-                        return false;
-                    });
+            var th = textarea.height(), ph = preview.height();
+                // uploadBtn = $('<button type="button" id="btn-fullscreen-upload" class="btn btn-link">'
+                //     + '<i class="i-upload">附件</i></button>')
+                //     .prependTo('.submit .right')
+                //     .click(function() {
+                //         $('a', $('.typecho-option-tabs li').not('.active')).trigger('click');
+                //         return false;
+                //     });
 
             $('.typecho-option-tabs li').click(function () {
                 uploadBtn.find('i').toggleClass('i-upload-active',
