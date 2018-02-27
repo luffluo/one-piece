@@ -25,11 +25,13 @@
                     </h2>
                     <div class="ui small horizontal divided list">
                         <div class="item">
+                            时间:&nbsp;
                             <time>{{ $post->created_at->format(option('post_date_format', 'Y-m-d')) }}</time>
                         </div>
 
                         @if(count($post->tags))
                             <div class="item">
+                                标签:&nbsp;
                                 @foreach ($post->tags as $tag)
                                     <a href="{{ route('tags.posts', $tag->slug) }}">{{ $tag->name }}</a>@if (! $loop->last),&nbsp;@endif
                                 @endforeach
@@ -47,8 +49,6 @@
                             </div>
                         @endcan
                     </div>
-
-                    {{--<div class="ui hidden divider"></div>--}}
 
                     <div class="post-content" itemprop="articleBody">
                         {!! $post->content('- 阅读剩余部分 -') !!}

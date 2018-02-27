@@ -88,8 +88,8 @@ ______                            _              _                              
     @include('common._footer')
 
     <div id="fixedTools" class="hidden-xs hidden-sm">
-        <a id="backtop" class="border-bottom" href="#">
-            <i class="arrow up icon"> </i>
+        <a id="backtop" class="ui basic icon button" href="#">
+            <i class="chevron up icon"> </i>
         </a>
     </div>
 
