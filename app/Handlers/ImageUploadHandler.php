@@ -56,9 +56,7 @@ class ImageUploadHandler
         }
 
         return [
-            'path' => rtrim(config('app.url'), '/') . DIRECTORY_SEPARATOR
-                . $folderName
-                . DIRECTORY_SEPARATOR . $filename,
+            'path' => $folderName . DIRECTORY_SEPARATOR . $filename,
         ];
     }
 

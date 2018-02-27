@@ -40,6 +40,12 @@
                             <a itemprop="discussionUrl"
                                href="{{ route('posts.show', $post->id) }}#comments">{{ $post->commentsNum('评论', '%d 条评论') }}</a>
                         </div>
+
+                        @can('update', $post)
+                            <div class="item">
+                                <a title="编辑: {{ $post->heading() }}" target="_blank" href="{{ route('admin.posts.edit', $post->id) }}">编辑</a>
+                            </div>
+                        @endcan
                     </div>
 
                     {{--<div class="ui hidden divider"></div>--}}

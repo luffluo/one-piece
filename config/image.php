@@ -18,6 +18,6 @@ return [
     'driver' => 'gd',
 
     // 允许的上传的图片格式
-    'allowed_exts' => ['jpg', 'bng', 'gif', 'jpeg'],
+    'allowed_exts' => ['jpg', 'png', 'gif', 'jpeg'],
 
 ];
