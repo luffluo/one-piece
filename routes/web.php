@@ -68,6 +68,20 @@ Route::get('sitemap', 'PagesController@sitemap')->name('sitemap');
 // RSS
 Route::get('feed', 'PagesController@rss')->name('feed');
 
+Route::post('action/upload', function (\Illuminate\Http\Request $request) {
+
+    $handle = new \App\Handlers\ImageUploadHandler;
+    $result = $handle->save($request->img, 'posts');
+
+    return [
+        'code' => 200,
+        'data' => [
+            'url' => asset($result['path']),
+        ],
+    ];
+
+})->middleware('auth.admin');
+
 /***************************** Front routes end *****************************/
 
 

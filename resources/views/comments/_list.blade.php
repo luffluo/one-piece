@@ -21,24 +21,24 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="post_id" value="{{ $post->id }}">
 
-            @auth
-                <p>
+            <div class="field">
+                @auth
                     登录身份: {{ auth()->user()->showName() }}.
                     <a href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？" title="Logout">
                         退出 <i class="angle double right icon"></i>
                     </a>
-                </p>
-            @else
-                <p><a href="{{ route('login') }}" title="Login">登录</a>后评论</p>
-            @endauth
+                @else
+                    <a href="{{ route('login') }}" title="Login">登录</a>后评论
+                @endauth
+            </div>
 
-            <p class="field">
-                <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required></textarea>
-            </p>
+            <div class="field">
+                <textarea name="text" id="textarea" class="textarea" required></textarea>
+            </div>
 
-            <p>
+            <div class="field">
                 <button type="submit" class="ui basic button">提交评论</button>
-            </p>
+            </div>
         </form>
     </div>
     @else

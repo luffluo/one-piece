@@ -105,6 +105,11 @@
             });
 
             $('.ui.checkbox').checkbox();
+            $('.tabular.menu .item').tab();
+
+            // $(document).on('load', '.tabular.menu .item', function (event) {
+            //     console.log(event.type);
+            // });
 
             // text 自动拉伸
             OP.editorResize('text');
@@ -181,8 +186,17 @@
                 exitFullscreen: '退出全屏 - Ctrl+E',
                 fullscreenUnsupport: '此浏览器不支持全屏操作',
 
-                imagedialog: '<p><b>插入图片</b></p><p>请在下方的输入框内输入要插入的远程图片地址</p><p>您也可以使用附件功能插入上传的本地图片</p>',
-                linkdialog: '<p><b>插入链接</b></p><p>请在下方的输入框内输入要插入的链接地址</p>',
+                // <div class="ui tabular menu">
+                // <a class="item active" data-tab="first">First</a>
+                // <a class="item" data-tab="second">Second</a>
+                // <a class="item" data-tab="third">Third</a>
+                // </div>
+                // <div class="ui tab active" data-tab="first">First </div>
+                // <div class="ui tab" data-tab="second">Second </div>
+                // <div class="ui tab" data-tab="third">Third </div>
+
+                imagedialog: '<div class="ui header">插入图片</div><div class="ui tabular menu"><a class="active item" data-tab="local">本地上传</a><a class="item" data-tab="remote">远程地址获取</a></div>',
+                linkdialog: '<div class="ui header">插入链接</div><p>请在下方的输入框内输入要插入的链接地址</p>',
 
                 ok: '确定',
                 cancel: '取消',
@@ -304,28 +318,6 @@
 
             function initMarkdown() {
                 editor.run();
-
-                // var imageButton = $('#wmd-image-button'),
-                //     linkButton = $('#wmd-link-button');
-
-                // Typecho.insertFileToEditor = function (file, url, isImage) {
-                //     var button = isImage ? imageButton : linkButton;
-                //
-                //     options.strings[isImage ? 'imagename' : 'linkname'] = file;
-                //     button.trigger('click');
-                //
-                //     var checkDialog = setInterval(function () {
-                //         if ($('.wmd-prompt-dialog').length > 0) {
-                //             $('.wmd-prompt-dialog input').val(url).select();
-                //             clearInterval(checkDialog);
-                //             checkDialog = null;
-                //         }
-                //     }, 10);
-                // };
-                //
-                // Typecho.uploadComplete = function (file) {
-                //     Typecho.insertFileToEditor(file.title, file.url, file.isImage);
-                // };
 
                 // 编辑预览切换
                 var edittab = $('.editor').prepend('<div class="wmd-edittab"><a href="#wmd-editarea" class="active">撰写</a><a href="#wmd-preview">预览</a></div>'),

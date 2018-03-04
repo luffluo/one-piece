@@ -122,7 +122,7 @@ blockquote {
   margin-left: -200px;
   padding: 20px;
   width: 360px;
-  background: #F6F6F3; }
+  background: #fff; }
 
 .wmd-prompt-dialog p {
   margin: 0 0 5px; }
@@ -138,55 +138,49 @@ blockquote {
   margin-right: 10px; }
 
 /* 预览 */
+/* line 109, ../scss/components/_editor.scss */
 #wmd-preview {
   margin: 1em 0;
-  -webkit-appearance: none;
-  tap-highlight-color: rgba(255, 255, 255, 0);
   padding: 0.78571429em 1em;
-  background: #FFFFFF;
+  background: #FFF;
+  word-wrap: break-word;
+  overflow: auto;
+  -moz-border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
   border: 1px solid rgba(34, 36, 38, 0.15);
-  outline: none;
-  color: rgba(0, 0, 0, 0.87);
   border-radius: 0.28571429rem;
-  -webkit-box-shadow: 0em 0em 0em 0em transparent inset;
-  box-shadow: 0em 0em 0em 0em transparent inset;
-  -webkit-transition: color 0.1s ease, border-color 0.1s ease;
-  transition: color 0.1s ease, border-color 0.1s ease;
-  font-size: 1em;
-  line-height: 1.2857;
-  resize: vertical;
 }
-
+/* line 116, ../scss/components/_editor.scss */
 #wmd-preview img {
   max-width: 100%; }
-
+/* line 117, ../scss/components/_editor.scss */
 #wmd-preview code, #wmd-preview pre {
   padding: 2px 4px;
   background: #DDD;
   font-size: 14px; }
-
+/* line 122, ../scss/components/_editor.scss */
 #wmd-preview code {
   color: #C13; }
-
+/* line 123, ../scss/components/_editor.scss */
 #wmd-preview pre {
   padding: 1em; }
-
+/* line 125, ../scss/components/_editor.scss */
 #wmd-preview pre code {
   padding: 0;
   color: #444; }
-
+/* line 130, ../scss/components/_editor.scss */
 #wmd-preview blockquote {
   margin: 1em 1.5em;
   padding-left: 1.5em;
   border-left: 4px solid #E9E9E6;
   color: #777; }
-
+/* line 136, ../scss/components/_editor.scss */
 #wmd-preview hr {
   margin: 2em auto;
   width: 100px;
   border: 1px solid #E9E9E6;
   border-width: 2px 0 0 0; }
-
+/* line 142, ../scss/components/_editor.scss */
 #wmd-preview .summary:after {
   display: block;
   margin: 2em 0;
@@ -195,48 +189,26 @@ blockquote {
   font-size: .85714em;
   text-align: center;
   content: "- more -"; }
-
+/* line 152, ../scss/components/_editor.scss */
 #wmd-preview table {
   width: 100%; }
-
+/* line 156, ../scss/components/_editor.scss */
 #wmd-preview table th, #wmd-preview table td {
   border: 1px solid #DDD;
   padding: 5px 8px;
   word-break: break-all; }
-
+/* line 162, ../scss/components/_editor.scss */
 #wmd-preview table th {
   background: #EEE; }
-
+/* line 165, ../scss/components/_editor.scss */
 #wmd-preview span.line {
   display: inline;
   height: 1px;
   line-height: 1px;
   position: absolute; }
-
+/* line 172, ../scss/components/_editor.scss */
 #wmd-preview .focus, #wmd-preview .focus * {
   background-color: rgba(255, 230, 0, 0.5) !important; }
-
-/* 上传面板动画效果 */
-@keyframes fullscreen-upload {
-  0% {
-    right: -280px; }
-  100% {
-    right: -1px; } }
-@-moz-keyframes fullscreen-upload {
-  0% {
-    right: -280px; }
-  100% {
-    right: -1px; } }
-@-webkit-keyframes fullscreen-upload {
-  0% {
-    right: -280px; }
-  100% {
-    right: -1px; } }
-@-o-keyframes fullscreen-upload {
-  0% {
-    right: -280px; }
-  100% {
-    right: -1px; } }
 
 /* 编辑器全屏 */
 .fullscreen #wmd-button-bar, .fullscreen #text, .fullscreen #wmd-preview, .fullscreen .submit {
@@ -372,15 +344,6 @@ code, pre, .mono {
   right: 40px;
   bottom: 40px;
   z-index: 1001;
-
-  a {
-    display: none;
-  }
-
-  a:hover {
-    background: #F3F3F3;
-    text-decoration: none
-  }
 }
 
 @media (max-width: 414px) {
@@ -389,4 +352,31 @@ code, pre, .mono {
     display: none;
     z-index: -1
   }
+}
+
+/* -----------------
+ * Content format
+ *--------------- */
+.post-content, .comment-content {
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.post-content h2, .comment-content h2 {
+  font-size: 1.28571em;
+}
+.post-content img, .comment-content img,
+.post-content video, .comment-content video {
+  max-width: 100%;
+}
+.post-content a img,
+.comment-content a img {
+  background: #FFF;
+  position: relative;
+  bottom: -4px;  /* hidden img parent link border  */
+}
+.post-content hr, .comment-content hr {
+  margin: 2em auto;
+  width: 100px;
+  border: 1px solid #E9E9E9;
+  border-width: 2px 0 0 0;
 }

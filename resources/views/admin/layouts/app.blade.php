@@ -64,7 +64,6 @@ ______                            _              _                              
                 filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
                 opacity: 0;
             }
-
             .op-list-table tr:hover td .hidden-by-mouse {
                 filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
                 opacity: 1;
@@ -131,7 +130,7 @@ ______                            _              _                              
     </div>
 
 @section('script')
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/js/onepiece.js') }}"></script>
     <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>

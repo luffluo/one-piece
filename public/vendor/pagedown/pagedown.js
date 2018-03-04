@@ -2834,7 +2834,7 @@ else
         setTimeout(function () {
             createDialog();
         }, 0);
-    }
+    };
 
     // This simulates a modal dialog box and asks for the URL when you
     // click the hyperlink or image buttons.
@@ -2890,8 +2890,6 @@ else
             return false;
         };
 
-
-
         // Create the text input box form/window.
         var createDialog = function () {
 
@@ -2899,6 +2897,7 @@ else
             dialog = doc.createElement("div");
             dialog.className = "wmd-prompt-dialog";
             dialog.setAttribute("role", "dialog");
+
             /*
             dialog.style.padding = "10px;";
             dialog.style.position = "fixed";
@@ -2927,21 +2926,23 @@ else
             */
             dialog.appendChild(form);
 
-            var fieldDiv = doc.createElement("div");
-            fieldDiv.className = 'field';
-            form.appendChild(fieldDiv);
-
-            // The input text box
-            input = doc.createElement("input");
-            input.type = "text";
-            input.value = defaultInputText;
             /*
             style = input.style;
             style.display = "block";
             style.width = "80%";
             style.marginLeft = style.marginRight = "auto";
             */
+
+            var fieldDiv = doc.createElement("div");
+            fieldDiv.className = 'field';
+
+            // The input text box
+            input = doc.createElement("input");
+            input.type = "text";
+            input.value = defaultInputText;
+
             fieldDiv.appendChild(input);
+            form.appendChild(fieldDiv);
 
             // The ok button
             var okButton = doc.createElement("button");
@@ -3014,6 +3015,286 @@ else
             }
 
             input.focus();
+        }, 0);
+    };
+
+    ui.imagePrompt = function (text, defaultInputText, callback, ok, cancel) {
+
+        // These variables need to be declared at this level since they are used
+        // in multiple functions.
+        var dialog;         // The dialog box.
+        var localForm;
+        var remoteInput;         // The text box where you enter the hyperlink.
+
+
+        if (defaultInputText === undefined) {
+            defaultInputText = "";
+        }
+
+        // Used as a keydown event handler. Esc dismisses the prompt.
+        // Key code 27 is ESC.
+        var checkEscape = function (key) {
+            var code = (key.charCode || key.keyCode);
+            if (code === 27) {
+                close(true);
+            }
+        };
+
+        // Dismisses the hyperlink input box.
+        // isCancel is true if we don't care about the input text.
+        // isCancel is false if we are going to keep the text.
+        var close = function (isCancel) {
+            util.removeEvent(doc.body, "keydown", checkEscape);
+
+            var text = null;
+
+            if (! isCancel) {
+
+                text = remoteInput.value;
+
+                // Fixes common pasting errors.
+                text = text.replace(/^http:\/\/(https?|ftp):\/\//, '$1://');
+
+                // fix issue #552
+                if (!/^(?:https?|ftp):\/\//.test(text) && !/^[_a-z0-9-]+:/i.test(text))
+                    text = 'http://' + text;
+            }
+
+            dialog.parentNode.removeChild(dialog);
+
+            callback(text);
+
+            return false;
+        };
+
+        var localSubmit = function () {
+
+            console.log($(this));
+
+            var form = $(localForm);
+            var formData = new FormData(form[0]);
+                // formData.append("_token", $("[name=csrf-token]").attr("content"));
+
+            jQuery.ajax({
+                url: form.attr("action"),
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                processData: false, // 不处理数据
+                contentType: false, // 不设置内容类型
+                success: function (result) {
+
+                    console.log(result);
+                    // return false;
+                    // var data = JSON.parse(result.data);
+
+                    var text = result.data.url;
+
+                    // Fixes common pasting errors.
+                    text = text.replace(/^http:\/\/(https?|ftp):\/\//, '$1://');
+
+                    // fix issue #552
+                    if (!/^(?:https?|ftp):\/\//.test(text) && !/^[_a-z0-9-]+:/i.test(text))
+                        text = 'http://' + text;
+
+                    dialog.parentNode.removeChild(dialog);
+
+                    callback(text);
+
+                    return false;
+                },
+                error: function (result) {
+
+                }
+            });
+
+            return false;
+        };
+
+
+
+        // Create the text input box form/window.
+        var createDialog = function () {
+
+            // The main dialog box.
+            dialog = doc.createElement("div");
+            dialog.className = "wmd-prompt-dialog";
+            dialog.setAttribute("role", "dialog");
+
+            /*
+            dialog.style.padding = "10px;";
+            dialog.style.position = "fixed";
+            dialog.style.width = "400px";
+            dialog.style.zIndex = "1001";
+            */
+
+            dialog.innerHTML = text;
+
+            // local image
+            var localTab = doc.createElement("div");
+            localTab.className = "ui tab active";
+            localTab.setAttribute("data-tab", "local");
+
+            // The web form container for the text box and buttons.
+            localForm = doc.createElement("form");
+            localForm.className = "ui form";
+            localForm.setAttribute("action", "/action/upload");
+            localForm.setAttribute("method", "post");
+            localForm.setAttribute("enctype", "multipart/form-data");
+
+            localTab.appendChild(localForm);
+
+            // remote image
+            var remoteTab = doc.createElement("div");
+            remoteTab.className = "ui tab";
+            remoteTab.setAttribute("data-tab", "remote");
+            remoteTab.innerHTML = '<div>请在下方的输入框内输入要插入的远程图片地址</div>';
+
+            // The web form container for the text box and buttons.
+            var remoteForm = doc.createElement("form");
+            remoteForm.className = "ui form";
+
+            remoteTab.appendChild(remoteForm);
+
+            localForm.onsubmit = function () { return localSubmit(); };
+            remoteForm.onsubmit = function () { return close(false); };
+            /*
+            style.padding = "0";
+            style.margin = "0";
+            style.cssFloat = "left";
+            style.width = "100%";
+            style.textAlign = "center";
+            style.position = "relative";
+            */
+            dialog.appendChild(localTab);
+            dialog.appendChild(remoteTab);
+
+            /*
+            style = input.style;
+            style.display = "block";
+            style.width = "80%";
+            style.marginLeft = style.marginRight = "auto";
+            */
+
+            var localFieldDiv = doc.createElement("div");
+            localFieldDiv.className = "field";
+
+            // The input text box
+            var localInput = doc.createElement("input");
+            localInput.type = "file";
+            localInput.name = "img";
+            localInput.setAttribute("style", "overflow: hidden;");
+
+            localFieldDiv.appendChild(localInput);
+
+            var remoteFieldDiv = doc.createElement("div");
+            remoteFieldDiv.className = "field";
+
+            // The input text box
+            remoteInput = doc.createElement("input");
+            remoteInput.type = "text";
+            remoteInput.value = defaultInputText;
+            remoteFieldDiv.appendChild(remoteInput);
+
+            localForm.appendChild(localFieldDiv);
+            remoteForm.appendChild(remoteFieldDiv);
+
+            var localButtonField = doc.createElement("div");
+            localButtonField.className = "field";
+
+            var remoteButtonField = doc.createElement("div");
+            remoteButtonField.className = "field";
+
+            // The ok button
+            var localOkButton = doc.createElement("button");
+            localOkButton.type = "button";
+            localOkButton.className = "ui primary small button";
+            localOkButton.onclick = function () { return localSubmit(); };
+            localOkButton.innerHTML = ok;
+
+            // The ok button
+            var remoteOkButton = doc.createElement("button");
+            remoteOkButton.type = "button";
+            remoteOkButton.className = "ui primary small button";
+            remoteOkButton.onclick = function () { return close(false); };
+            remoteOkButton.innerHTML = ok;
+            /*
+            style = okButton.style;
+            style.margin = "10px";
+            style.display = "inline";
+            style.width = "7em";
+            */
+
+            // The cancel button
+            var localCancelButton = doc.createElement("button");
+            localCancelButton.type = "button";
+            localCancelButton.className = "ui default small button";
+            localCancelButton.onclick = function () { return close(true); };
+            localCancelButton.innerHTML = cancel;
+
+            // The cancel button
+            var remoteCancelButton = doc.createElement("button");
+            remoteCancelButton.type = "button";
+            remoteCancelButton.className = "ui default small button";
+            remoteCancelButton.onclick = function () { return close(true); };
+            remoteCancelButton.innerHTML = cancel;
+            /*
+            style = cancelButton.style;
+            style.margin = "10px";
+            style.display = "inline";
+            style.width = "7em";
+            */
+
+            localButtonField.appendChild(localOkButton);
+            localButtonField.appendChild(localCancelButton);
+            localForm.appendChild(localButtonField);
+
+            remoteButtonField.appendChild(remoteOkButton);
+            remoteButtonField.appendChild(remoteCancelButton);
+            remoteForm.appendChild(remoteButtonField);
+
+            util.addEvent(doc.body, "keydown", checkEscape);
+            /*
+            dialog.style.top = "50%";
+            dialog.style.left = "50%";
+            dialog.style.display = "block";
+            if (uaSniffed.isIE_5or6) {
+                dialog.style.position = "absolute";
+                dialog.style.top = doc.documentElement.scrollTop + 200 + "px";
+                dialog.style.left = "50%";
+            }
+            */
+            doc.body.appendChild(dialog);
+            jQuery('.tabular.menu .item').tab();
+
+            // This has to be done AFTER adding the dialog to the form if you
+            // want it to be centered.
+            /*
+            dialog.style.marginTop = -(position.getHeight(dialog) / 2) + "px";
+            dialog.style.marginLeft = -(position.getWidth(dialog) / 2) + "px";
+            */
+
+        };
+
+        // Why is this in a zero-length timeout?
+        // Is it working around a browser bug?
+        setTimeout(function () {
+
+            createDialog();
+
+            var defTextLen = defaultInputText.length;
+            if (remoteInput.selectionStart !== undefined) {
+                remoteInput.selectionStart = 0;
+                remoteInput.selectionEnd = defTextLen;
+            }
+            else if (remoteInput.createTextRange) {
+                var range = remoteInput.createTextRange();
+                range.collapse(false);
+                range.moveStart("character", -defTextLen);
+                range.moveEnd("character", defTextLen);
+                range.select();
+            }
+
         }, 0);
     };
 
@@ -3301,12 +3582,12 @@ else
             buttons.italic = makeButton("wmd-italic-button", getString("italic"), "-20px", bindCommand("doItalic"));
             makeSpacer(1);
             buttons.link = makeButton("wmd-link-button", getString("link"), "-40px", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, false);
+                return this.doLink(chunk, postProcessing);
             }));
             buttons.quote = makeButton("wmd-quote-button", getString("quote"), "-60px", bindCommand("doBlockquote"));
             buttons.code = makeButton("wmd-code-button", getString("code"), "-80px", bindCommand("doCode"));
             buttons.image = makeButton("wmd-image-button", getString("image"), "-100px", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, true);
+                return this.doImage(chunk, postProcessing);
             }));
             makeSpacer(2);
             buttons.olist = makeButton("wmd-olist-button", getString("olist"), "-120px", bindCommand(function (chunk, postProcessing) {
@@ -3576,7 +3857,7 @@ else
         });
     }
 
-    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
+    commandProto.doLink = function (chunk, postProcessing) {
 
         chunk.trimWhitespace();
         chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
@@ -3590,7 +3871,7 @@ else
 
         }
         else {
-            
+
             // We're moving start and end tag back into the selection, since (as we're in the else block) we're not
             // *removing* a link, but *adding* one, so whatever findTags() found is now back to being part of the
             // link text. linkEnteredCallback takes care of escaping any brackets.
@@ -3628,39 +3909,106 @@ else
                     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
                     // the first bracket could then not act as the "not a backslash" for the second.
                     chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-                    
+
                     var linkDef = " [999]: " + properlyEncoded(link);
 
                     var num = that.addLinkDef(chunk, linkDef);
-                    chunk.startTag = isImage ? "![" : "[";
+                    chunk.startTag = "[";
                     chunk.endTag = "][" + num + "]";
 
                     if (!chunk.selection) {
-                        if (isImage) {
-                            var imagename = that.getString("imagename");
-                            chunk.selection = imagename || that.getString("imagedescription");
-                        }
-                        else {
-                            var linkname = that.getString("linkname");
-                            chunk.selection = linkname || that.getString("linkdescription");
-                        }
+                        var linkname = that.getString("linkname");
+                        chunk.selection = linkname || that.getString("linkdescription");
                     }
                 }
                 postProcessing();
 
-                that.hooks.commandExecuted(isImage ? 'doImage' : 'doLink');
+                that.hooks.commandExecuted('doLink');
             };
 
             background = ui.createBackground();
 
-            if (isImage) {
-                if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback, this.getString("ok"), this.getString("cancel"));
+            if (!this.hooks.insertLinkDialog(linkEnteredCallback))
+                ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback, this.getString("ok"), this.getString("cancel"));
+
+            return true;
+        }
+    };
+
+    commandProto.doImage = function (chunk, postProcessing) {
+
+        chunk.trimWhitespace();
+        chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
+        var background;
+
+        if (chunk.endTag.length > 1 && chunk.startTag.length > 0) {
+
+            chunk.startTag = chunk.startTag.replace(/!?\[/, "");
+            chunk.endTag = "";
+            this.addLinkDef(chunk, null);
+
+        }
+        else {
+
+            // We're moving start and end tag back into the selection, since (as we're in the else block) we're not
+            // *removing* a link, but *adding* one, so whatever findTags() found is now back to being part of the
+            // link text. linkEnteredCallback takes care of escaping any brackets.
+            chunk.selection = chunk.startTag + chunk.selection + chunk.endTag;
+            chunk.startTag = chunk.endTag = "";
+
+            if (/\n\n/.test(chunk.selection)) {
+                this.addLinkDef(chunk, null);
+                return;
             }
-            else {
-                if (!this.hooks.insertLinkDialog(linkEnteredCallback))
-                    ui.prompt(this.getString("linkdialog"), linkDefaultText, linkEnteredCallback, this.getString("ok"), this.getString("cancel"));
-            }
+            var that = this;
+            // The function to be executed when you enter a link and press OK or Cancel.
+            // Marks up the link and adds the ref.
+            var linkEnteredCallback = function (link) {
+
+                background.parentNode.removeChild(background);
+
+                if (link !== null) {
+                    // (                          $1
+                    //     [^\\]                  anything that's not a backslash
+                    //     (?:\\\\)*              an even number (this includes zero) of backslashes
+                    // )
+                    // (?=                        followed by
+                    //     [[\]]                  an opening or closing bracket
+                    // )
+                    //
+                    // In other words, a non-escaped bracket. These have to be escaped now to make sure they
+                    // don't count as the end of the link or similar.
+                    // Note that the actual bracket has to be a lookahead, because (in case of to subsequent brackets),
+                    // the bracket in one match may be the "not a backslash" character in the next match, so it
+                    // should not be consumed by the first match.
+                    // The "prepend a space and finally remove it" steps makes sure there is a "not a backslash" at the
+                    // start of the string, so this also works if the selection begins with a bracket. We cannot solve
+                    // this by anchoring with ^, because in the case that the selection starts with two brackets, this
+                    // would mean a zero-width match at the start. Since zero-width matches advance the string position,
+                    // the first bracket could then not act as the "not a backslash" for the second.
+                    chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
+
+                    var linkDef = " [999]: " + properlyEncoded(link);
+
+                    var num = that.addLinkDef(chunk, linkDef);
+                    chunk.startTag = "![";
+                    chunk.endTag = "][" + num + "]";
+
+                    if (!chunk.selection) {
+                        var imagename = that.getString("imagename");
+                        chunk.selection = imagename || that.getString("imagedescription");
+                    }
+                }
+                postProcessing();
+
+                that.hooks.commandExecuted('doImage');
+            };
+
+            background = ui.createBackground();
+
+            if (!this.hooks.insertImageDialog(linkEnteredCallback))
+                ui.imagePrompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback, this.getString("ok"), this.getString("cancel"));
+
             return true;
         }
     };

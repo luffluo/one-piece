@@ -46,7 +46,6 @@ ______                            _              _                              
             .ui.borderless.menu .row > a.header.item {
                 font-size: 1.2em;
             }
-
             .ui.vertical.menu > .item {
                 padding-left: 1.428em;
             }
@@ -57,15 +56,17 @@ ______                            _              _                              
                 padding: 0.5em 1em;
             }
             .ui.vertical.menu .header.item {
-                text-transform: uppercase;
+                text-transform: none;
             }
-
             #article {
                 font-size: 16px;
                 line-height: 1.5;
             }
             #article h2 {
                 font-size: 22px;
+            }
+            #article .ui.sub.header {
+                text-transform: none;
             }
 
             .ui.footer.segment {
@@ -88,9 +89,9 @@ ______                            _              _                              
     @include('common._footer')
 
     <div id="fixedTools" class="hidden-xs hidden-sm">
-        <a id="backtop" class="ui basic icon button" href="#">
-            <i class="chevron up icon"> </i>
-        </a>
+        <button id="backtop" class="ui basic icon button" style="display: none;">
+            <i class="chevron up icon"></i>
+        </button>
     </div>
 
     @section('script')
