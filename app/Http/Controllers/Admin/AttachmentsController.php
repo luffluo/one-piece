@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AttachmentRequest;
 
 class AttachmentsController extends Controller
 {
@@ -23,14 +24,26 @@ class AttachmentsController extends Controller
         return admin_view('attachments.index', compact('lists', 'keywords'));
     }
 
-    public function edit(Request $request, Attachment $attachment)
+    public function edit(Attachment $attachment)
     {
-        
+        return admin_view('attachments.create_and_edit', compact('attachment'));
     }
 
-    public function update(Request $request, Attachment $attachment)
+    public function update(AttachmentRequest $request, Attachment $attachment)
     {
-        
+        $text                = $attachment->text;
+        $text['url']         = asset($text['path']);
+        $text['description'] = $request->description;
+
+        $attachment->title = $request->title;
+        $attachment->slug  = $request->slug;
+        $attachment->text  = $text;
+
+        if (! $attachment->save()) {
+            return back()->withErrors("文件 {$attachment->title} 修改失败");
+        }
+
+        return redirect()->route('admin.attachments.index')->withSuccess("文件 {$attachment->title} 已经被修改");
     }
 
     public function destroy(Attachment $attachment)

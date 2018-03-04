@@ -11,17 +11,14 @@ class ImageUploadHandler
 
     protected $defaultExt = 'jpg';
 
-    protected $folderPrefix = [
-        'uploads',
-        'images',
-    ];
+    protected $folderPrefix = 'uploads/images';
 
     public function __construct()
     {
         $this->allowedExts = config('image.allowed_exts', []);
     }
 
-    public function save(UploadedFile $file, $folder, $filePrefix = null, $maxWidth = false)
+    public function save(UploadedFile $file, $folder = null, $filePrefix = null, $maxWidth = false)
     {
         // 获取文件的后缀名，因图片从剪贴板里黏贴时后缀名为空，所以此处确保后缀一直存在
         $extension = strtolower($file->getClientOriginalExtension()) ?? $this->defaultExt;
@@ -32,14 +29,11 @@ class ImageUploadHandler
 
         // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21
         // 文件夹切割能让查找效率更高。
-        $folderName = implode(
-            DIRECTORY_SEPARATOR,
-            array_merge($this->folderPrefix, [
-                $folder,
-                date('Ym', time()),
-                date('d', time()),
-            ])
-        );
+        $folderName = $this->folderPrefix;
+        if ($folder) {
+            $folderName .= DIRECTORY_SEPARATOR . $folder;
+        }
+        $folderName .= DIRECTORY_SEPARATOR . date('Ym') . DIRECTORY_SEPARATOR . date('d');
 
         // 拼接文件名，加前缀是为了增加辨析度，前缀可以是相关数据模型的 ID
         // 值如：1_1493521050_7BVc9v9ujP.png

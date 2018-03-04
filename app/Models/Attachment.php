@@ -56,6 +56,21 @@ class Attachment extends Content
         return $this->belongsTo(Post::class, 'parent_id', 'id');
     }
 
+    public function getNameAttribute()
+    {
+        return $this->text['name'] ?? '';
+    }
+
+    public function getUrlAttribute()
+    {
+        return $this->text['url'] ?? asset($this->text['path']);
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->text['description'] ?? '';
+    }
+
     /**
      * 删除文件
      *

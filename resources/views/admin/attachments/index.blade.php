@@ -60,7 +60,7 @@
             @forelse ($lists as $list)
                 <tr>
                     <td>
-                        <i class="file image outline icon"></i>
+                        <a><i class="file image outline icon"></i></a>
                         <a href="{{ route('admin.attachments.edit', $list->id) }}">
                             {{ $list->title }}
                         </a>

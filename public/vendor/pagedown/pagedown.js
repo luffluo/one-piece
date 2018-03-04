@@ -3073,7 +3073,6 @@ else
 
             var form = $(localForm);
             var formData = new FormData(form[0]);
-                // formData.append("_token", $("[name=csrf-token]").attr("content"));
 
             jQuery.ajax({
                 url: form.attr("action"),
@@ -3083,10 +3082,6 @@ else
                 processData: false, // 不处理数据
                 contentType: false, // 不设置内容类型
                 success: function (result) {
-
-                    console.log(result);
-                    // return false;
-                    // var data = JSON.parse(result.data);
 
                     var text = result.data.url;
 
@@ -3099,7 +3094,7 @@ else
 
                     dialog.parentNode.removeChild(dialog);
 
-                    callback(text);
+                    callback(text, result.data.name);
 
                     return false;
                 },
@@ -3963,7 +3958,7 @@ else
             var that = this;
             // The function to be executed when you enter a link and press OK or Cancel.
             // Marks up the link and adds the ref.
-            var linkEnteredCallback = function (link) {
+            var linkEnteredCallback = function (link, imageDescription) {
 
                 background.parentNode.removeChild(background);
 
@@ -3993,6 +3988,9 @@ else
                     var num = that.addLinkDef(chunk, linkDef);
                     chunk.startTag = "![";
                     chunk.endTag = "][" + num + "]";
+
+                    if (undefined !== imageDescription)
+                        chunk.selection = imageDescription;
 
                     if (!chunk.selection) {
                         var imagename = that.getString("imagename");
