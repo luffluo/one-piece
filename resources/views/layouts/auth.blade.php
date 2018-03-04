@@ -50,7 +50,7 @@
     @include('common._footer')
 
     @section('script')
-        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
         <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
         <script src="{{ asset('assets/js/app.js') }}"></script>
     @show
