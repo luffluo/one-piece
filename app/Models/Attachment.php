@@ -35,4 +35,34 @@ class Attachment extends Content
             $builder->where('type', static::TYPE);
         });
     }
+
+    /**
+     * 上传者
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * 所属文章
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'parent_id', 'id');
+    }
+
+    /**
+     * 删除文件
+     *
+     * @return bool
+     */
+    public function deleteFile()
+    {
+        return @unlink(public_path($this->text['path']));
+    }
 }

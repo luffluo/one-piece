@@ -31,11 +31,6 @@ abstract class Content extends Model
 
     protected $table = 'contents';
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'content_meta', 'content_id', 'meta_id');
-    }
-
     public static function boot()
     {
         parent::boot();

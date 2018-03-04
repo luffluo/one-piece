@@ -123,6 +123,11 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         'except' => ['show'],
     ]);
 
+    // Attachment 附件
+    Route::resource('attachments', 'AttachmentsController', [
+        'except' => ['create', 'story', 'show']
+    ]);
+
     // User
     Route::resource('users', 'UsersController', [
         'except' => ['create', 'store', 'show'],

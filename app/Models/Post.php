@@ -58,6 +58,16 @@ class Post extends Content
         'updated_at',
     ];
 
+    /**
+     * 标签
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'content_meta', 'content_id', 'meta_id');
+    }
+
     public function setPostTags($post, $tags, $beforeCount = false, $afterCount = false)
     {
         $tags = array_unique(array_map('trim', $tags));

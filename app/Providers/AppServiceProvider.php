@@ -51,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         Tag::observe(\App\Observers\TagObserver::class);
         Post::observe(\App\Observers\PostObserver::class);
         Comment::observe(\App\Observers\CommentObserver::class);
+        \App\Models\Attachment::observe(\App\Observers\AttachmentObserver::class);
     }
 
     /**

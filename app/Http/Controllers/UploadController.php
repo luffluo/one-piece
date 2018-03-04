@@ -33,6 +33,7 @@ class UploadController extends Controller
 
         $attachment->title     = $result['name'];
         $attachment->text      = $result;
+        $attachment->user_id   = auth()->user()->id;
         $attachment->parent_id = $cid ?? 0;
 
         if (! $attachment->save()) {
