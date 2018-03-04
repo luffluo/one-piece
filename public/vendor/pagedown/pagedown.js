@@ -3018,7 +3018,7 @@ else
         }, 0);
     };
 
-    ui.imagePrompt = function (text, defaultInputText, callback, ok, cancel) {
+    ui.imagePrompt = function (text, defaultInputText, callback, ok, cancel, localUploadUrl) {
 
         // These variables need to be declared at this level since they are used
         // in multiple functions.
@@ -3138,7 +3138,7 @@ else
             // The web form container for the text box and buttons.
             localForm = doc.createElement("form");
             localForm.className = "ui form";
-            localForm.setAttribute("action", "/action/upload");
+            localForm.setAttribute("action", localUploadUrl);
             localForm.setAttribute("method", "post");
             localForm.setAttribute("enctype", "multipart/form-data");
 
@@ -4007,7 +4007,7 @@ else
             background = ui.createBackground();
 
             if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                ui.imagePrompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback, this.getString("ok"), this.getString("cancel"));
+                ui.imagePrompt(this.getString("imagedialog"), imageDefaultText, linkEnteredCallback, this.getString("ok"), this.getString("cancel"), this.getString('imageLocalUploadUrl'));
 
             return true;
         }

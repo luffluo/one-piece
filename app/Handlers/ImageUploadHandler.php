@@ -43,20 +43,24 @@ class ImageUploadHandler
 
         // 拼接文件名，加前缀是为了增加辨析度，前缀可以是相关数据模型的 ID
         // 值如：1_1493521050_7BVc9v9ujP.png
-        $filename = ($filePrefix ? '' : $filePrefix . '_') . time() . '_' . str_random(10) . '.' . $extension;
+        $filename = ($filePrefix ? '' : ($filePrefix . '_')) . time() . '_' . str_random(10) . '.' . $extension;
 
         // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径
         // 值如：/home/vagrant/Code/one-piece/public/uploads/images/avatars/201709/21
         $uploadPath = public_path() . DIRECTORY_SEPARATOR . $folderName;
 
-        $file->move($uploadPath . DIRECTORY_SEPARATOR, $filename);
+        $file->move(str_finish($uploadPath, DIRECTORY_SEPARATOR), $filename);
 
         if ($maxWidth && 'gif' !== $extension) {
             $this->reduceSize($uploadPath . DIRECTORY_SEPARATOR . $filename, $maxWidth);
         }
 
         return [
+            'name' => $file->getClientOriginalName(),
             'path' => $folderName . DIRECTORY_SEPARATOR . $filename,
+            'size' => $file->getClientSize(),
+            'type' => $extension,
+            'mime' => $file->getClientMimeType(),
         ];
     }
 

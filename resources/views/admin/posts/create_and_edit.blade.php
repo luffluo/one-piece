@@ -196,6 +196,7 @@
                 // <div class="ui tab" data-tab="third">Third </div>
 
                 imagedialog: '<div class="ui header">插入图片</div><div class="ui tabular menu"><a class="active item" data-tab="local">本地上传</a><a class="item" data-tab="remote">远程地址获取</a></div>',
+                imageLocalUploadUrl: '{{ route('upload', ['cid' => $post->id]) }}',
                 linkdialog: '<div class="ui header">插入链接</div><p>请在下方的输入框内输入要插入的链接地址</p>',
 
                 ok: '确定',
