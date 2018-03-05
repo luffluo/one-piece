@@ -54,4 +54,30 @@ class AttachmentsController extends Controller
 
         return redirect()->route('admin.attachments.index')->withSuccess("文件 {$attachment->title} 已经被删除");
     }
+
+    public function clear(Attachment $attachment)
+    {
+        $attachments = $attachment->newQuery()
+            ->undocumented()
+            ->get();
+
+        if (! $attachments->count()) {
+            return back()->withErrors('没有未归档文件被清理');
+        }
+
+        $aIds = $attachments->pluck('id')->all();
+        $result = $attachment->newQuery()
+            ->whereIn('id', $aIds)
+            ->delete();
+
+        if (! $result) {
+            return back()->withErrors('清理未归档文件失败');
+        }
+
+        foreach ($attachments as $loopAttachment) {
+            $loopAttachment->deleteFile();
+        }
+
+        return redirect()->route('admin.attachments.index')->withSuccess('未归档文件已经被清理');
+    }
 }

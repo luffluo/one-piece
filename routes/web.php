@@ -127,6 +127,8 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::resource('attachments', 'AttachmentsController', [
         'except' => ['create', 'story', 'show']
     ]);
+    // 清理未归档文件
+    Route::post('attachments/clear', 'AttachmentsController@clear')->name('attachments.clear');
 
     // User
     Route::resource('users', 'UsersController', [

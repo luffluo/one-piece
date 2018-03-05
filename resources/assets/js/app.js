@@ -15,7 +15,7 @@
         }
     });
 
-    $('a[data-method]').on('click', function (e) {
+    $('[data-method][href]').on('click', function (e) {
         e.preventDefault();
 
         var method = $(this).data('method');

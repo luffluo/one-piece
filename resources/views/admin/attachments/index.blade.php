@@ -15,7 +15,7 @@
 
         <div>
             <div class="option-tabs left">
-                <button class="ui negative button">
+                <button class="ui negative button" href="{{ route('admin.attachments.clear') }}" data-method="post" data-confirm="您确认要清理未归档的文件吗?">
                     清理未归档文件
                 </button>
             </div>

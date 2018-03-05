@@ -7,7 +7,7 @@
     <meta name="author" content="Luff">
 
     <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('assets/css/app.css') }}">
 
     <title>@yield('title', option('title', config('app.name'))) - {{ option('title', config('app.name')) }}</title>
 
@@ -52,7 +52,7 @@
     @section('script')
         <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
         <script src="{{ asset('vendor/semantic/semantic.min.js') }}"></script>
-        <script src="{{ asset('assets/js/app.js') }}"></script>
+        <script src="{{ mix('assets/js/app.js') }}"></script>
     @show
 
     @section('script-inner')

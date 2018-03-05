@@ -107,4 +107,12 @@ class Attachment extends Content
     {
         return @unlink(public_path($this->text['path']));
     }
+
+    /**
+     * 筛选 未归档
+     */
+    public function scopeUndocumented($query)
+    {
+        return $query->where('parent_id', '<', 1);
+    }
 }
