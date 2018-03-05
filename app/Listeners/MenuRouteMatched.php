@@ -38,6 +38,8 @@ class MenuRouteMatched
                             $menus[$first_key]['sub'][$second_key]['url']     = request()->url();
                             $menus[$first_key]['sub'][$second_key]['active']  = 'active';
                             $menus[$first_key]['sub'][$second_key]['display'] = true;
+                        } elseif ($second['display']) {
+                            $menus[$first_key]['sub'][$second_key]['url'] = route($second['route']);
                         }
                     }
                 } else {
@@ -47,6 +49,8 @@ class MenuRouteMatched
                         $menus[$first_key]['active']  = 'active';
                         $menus[$first_key]['url']     = request()->url();
                         $menus[$first_key]['display'] = true;
+                    } elseif ($first['display']) {
+                        $menus[$first_key]['url'] = route($first['route']);
                     }
                 }
             }

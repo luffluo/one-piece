@@ -158,7 +158,7 @@ class User extends Model implements
     public function showAvatar()
     {
         if (empty($this->avatar)) {
-            return asset('/uploads/images/avatars/default.png');
+            return asset('/images/noavatar.png');
         }
 
         return $this->avatar;

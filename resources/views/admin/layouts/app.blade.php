@@ -88,13 +88,12 @@ ______                            _              _                              
             @if (isset($first['sub']))
                 <div class="ui simple dropdown item medium header {{ $first['active'] }}">
                     <a href="{{ url($first['sub'][0]['url'] ?? '') }}">{{ $first['title'] }}</a>
-                    <i class="dropdown icon"> </i>
+                    <i class="dropdown icon"></i>
                     <div class="menu">
                         @foreach ($first['sub'] as $second)
-                            @if (! $second['display'])
-                                @continue
+                            @if ($second['display'])
+                                <a title="{{ $second['title'] }}" href="{{ url($second['url']) }}" class="{{ $second['active'] }} item">{{ $second['title'] }}</a>
                             @endif
-                            <a title="{{ $second['title'] }}" href="{{ url($second['url']) }}" class="{{ $second['active'] }} item">{{ $second['title'] }}</a>
                         @endforeach
                     </div>
                 </div>
