@@ -27,7 +27,9 @@ class UserRequest extends Request
             ];
         }
 
-        $rules['group'] = 'required|in:administrator,visitor';
+        if (1 != $user->id) {
+            $rules['group'] = 'required|in:administrator,visitor';
+        }
 
         return $rules;
     }

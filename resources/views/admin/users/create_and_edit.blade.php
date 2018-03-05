@@ -51,7 +51,7 @@
             <div class="required field">
                 <label>用户组</label>
                 @if(1 == $user->id)
-                    <input type="text" name="group" readonly value="{{ $user->showGroupLabel() }}">
+                    <input type="text" readonly value="{{ $user->showGroupLabel() }}">
                 @else
                     <select name="group" id="group" class="ui fluid dropdown">
                         @foreach(['administrator' => '管理员', 'visitor' => '访问者'] as $gkey => $gval)
