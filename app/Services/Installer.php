@@ -130,6 +130,8 @@ class Installer
      */
     public function setData(array $data)
     {
+        $this->data->put('app_url', $data['app_url']);
+
         $this->data->put('db_host', $data['db_host']);
         $this->data->put('db_database', $data['db_database']);
         $this->data->put('db_username', $data['db_username']);
@@ -314,6 +316,12 @@ class Installer
     public function writeNewEnvironmentFileWith()
     {
         file_put_contents($this->app->environmentFilePath(), preg_replace(
+            $this->appUrlReplacementPattern(),
+            'APP_URL=' . $this->data->get('app_url'),
+            file_get_contents($this->app->environmentFilePath())
+        ));
+
+        file_put_contents($this->app->environmentFilePath(), preg_replace(
             $this->dbConnectionReplacementPattern(),
             'DB_CONNECTION=mysql',
             file_get_contents($this->app->environmentFilePath())
@@ -342,6 +350,13 @@ class Installer
             'DB_PASSWORD=' . $this->data->get('db_password'),
             file_get_contents($this->app->environmentFilePath())
         ));
+    }
+
+    protected function appUrlReplacementPattern()
+    {
+        $escaped = preg_quote('=' . $this->config['app.url'], '/');
+
+        return "/^APP_URL{$escaped}/m";
     }
 
     protected function dbConnectionReplacementPattern()

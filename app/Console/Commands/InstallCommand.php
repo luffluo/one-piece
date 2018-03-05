@@ -61,7 +61,6 @@ class InstallCommand extends Command
                 ->setData($this->getData())
                 ->setNullOutput()
                 ->start();
-
         } catch (\Exception $e) {
 
             $this->error('Install failed: ' . $e->getMessage());
@@ -81,6 +80,8 @@ class InstallCommand extends Command
      */
     protected function getData()
     {
+        $data['app_url'] = $this->ask('站点 Url', 'https://one-piece.com');
+
         $data['db_host']     = $this->ask('数据库地址：', 'localhost');
         $data['db_username'] = $this->ask('数据库用户名：', 'root');
         $data['db_password'] = $this->ask('数据库密码：');

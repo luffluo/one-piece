@@ -70,7 +70,13 @@ class InstallController extends Controller
             return back()->withInput()->withErrors($error);
         }
 
-        $this->installer->start();
+        try {
+            $this->installer->start();
+        } catch (\Exception $e) {
+
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
 
         $username = $request->get('admin_username');
         $password = $request->get('admin_password');

@@ -14,6 +14,20 @@
 
                 <div class="ui segments">
                     <div class="ui heading segment">
+                        <h3 class="ui header">站点配置</h3>
+                    </div>
+
+                    <div class="ui body segment">
+                        <div class="field">
+                            <label for="app_url">站点 Url</label>
+                            <input type="text" id="app_url" name="app_url" value="{{ old('app_url', 'https://one-piece.com') }}">
+                            <span class="help-block">您可能会使用 "https://one-piece.com"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui segments">
+                    <div class="ui heading segment">
                         <h3 class="ui header">数据库配置</h3>
                     </div>
                     <div class="ui body segment">
