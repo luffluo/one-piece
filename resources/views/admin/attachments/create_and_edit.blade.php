@@ -28,7 +28,7 @@
                     <div class="field">
                         <a><i class="file image outline icon"></i></a>
                         <a>{{ $attachment->name }}</a>
-                        <span>{{ $attachment->text['size'] }} b</span>
+                        <span>{{ $attachment->size }} Kb</span>
                     </div>
 
                     <div class="field">

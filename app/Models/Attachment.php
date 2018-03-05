@@ -56,16 +56,43 @@ class Attachment extends Content
         return $this->belongsTo(Post::class, 'parent_id', 'id');
     }
 
+    /**
+     * 获取文件的原始名称
+     *
+     * @return string
+     */
     public function getNameAttribute()
     {
         return $this->text['name'] ?? '';
     }
 
+    /**
+     * 获取文件的大小
+     *
+     * @return float
+     */
+    public function getSizeAttribute()
+    {
+        $size = (int) ($this->text['size'] ?? 0);
+
+        return ceil($size / 1024);
+    }
+
+    /**
+     * 获取文件的 url
+     *
+     * @return string
+     */
     public function getUrlAttribute()
     {
         return $this->text['url'] ?? asset($this->text['path']);
     }
 
+    /**
+     * 获取文件的描述
+     *
+     * @return string
+     */
     public function getDescriptionAttribute()
     {
         return $this->text['description'] ?? '';
