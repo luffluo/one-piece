@@ -131,6 +131,16 @@ class Post extends Content
     }
 
     /**
+     * 附件
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'parent_id', 'id');
+    }
+
+    /**
      * 评论以 parent_id 来分组
      *
      * @return \Illuminate\Database\Eloquent\Collection
@@ -265,6 +275,29 @@ EOF;
             return $query->where('type', static::TYPE)
                 ->orWhere('type', static::TYPE_DRAFT);
         });
+    }
+
+    /**
+     * 同步附件
+     *
+     * @access protected
+     * @param integer $cid 内容id
+     * @return void
+     */
+    public function attach()
+    {
+        $attachments = request()->get('attachment');
+        if (! empty($attachments)) {
+            foreach ($attachments as $key => $attachment) {
+                Attachment::query()
+                    ->where('id', $attachment)
+                    ->update([
+                        'parent_id' => $this->id,
+                        'status' => static::STATUS_PUBLISH,
+                        'order' => $key + 1
+                    ]);
+            }
+        }
     }
 
     /**

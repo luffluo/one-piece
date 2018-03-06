@@ -67,6 +67,12 @@
                             </div>
                         </div>
 
+                        <div id="attachment">
+                            @foreach($post->attachments as $attachment)
+                                <input type="hidden" name="attachment[]" value="{{ $attachment->id }}">
+                            @endforeach
+                        </div>
+
                         @if ($post->exists)
                             <div class="field op-post-option">
                                 <div class="row">
@@ -105,11 +111,6 @@
             });
 
             $('.ui.checkbox').checkbox();
-            $('.tabular.menu .item').tab();
-
-            // $(document).on('load', '.tabular.menu .item', function (event) {
-            //     console.log(event.type);
-            // });
 
             // text 自动拉伸
             OP.editorResize('text');

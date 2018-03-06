@@ -3096,6 +3096,11 @@ else
 
                     callback(text, result.data.name);
 
+                    // console.log(result.data.cid);
+                    // console.log(jQuery("#attachment"));
+
+                    jQuery("#attachment").append('<input type="hidden" name="attachment[]" value="' + result.data.cid + '">');
+
                     return false;
                 },
                 error: function (result) {

@@ -47,6 +47,7 @@ class UploadController extends Controller
         return [
             'code' => 200,
             'data' => [
+                'cid'  => $attachment->id,
                 'name' => $result['name'],
                 'url'  => asset($result['path']),
             ],

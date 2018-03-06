@@ -105,9 +105,15 @@ class PostsController extends Controller
             return redirect()->back()->withErrors('文章不存在.');
         }
 
-        $post->load(['tags' => function ($query) {
-            $query->select('id', 'name');
-        }]);
+        $post->load([
+            'tags' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'attachments' => function ($query) {
+                $query->select('id', 'parent_id', 'order')->orderBy('order');
+            }
+        ]);
+
         $selectedTagIds = $post->tags->pluck('id')->toArray();
         $tags           = Tag::select('id', 'name')->get();
         $tags = $tags->map(function ($item) use ($selectedTagIds) {

@@ -62,6 +62,9 @@ class PostObserver
             );
         }
 
+        // 同步附件
+        $post->attach();
+
         $this->clearPostsCache();
     }
 
