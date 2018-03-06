@@ -51,7 +51,7 @@ class UsersController extends Controller
      *
      * @param $name
      */
-    public function editProfile($name)
+    public function editProfile()
     {
         $user = auth()->user();
 
@@ -66,15 +66,11 @@ class UsersController extends Controller
      * @param UserRequest $request
      * @param             $name
      */
-    public function updateProfile(Request $request, $name)
+    public function updateProfile(Request $request)
     {
         $user = auth()->user();
 
         $this->authorize('update', $user);
-
-        if ($user->id !== auth()->user()->id) {
-            return redirect()->route('users.edit_profile', $user->name)->withErrors('非法操作');
-        }
 
         $this->validate(
             $request,
@@ -100,7 +96,7 @@ class UsersController extends Controller
         return redirect()->route('users.edit_profile', $user->name)->withMessage('信息编辑成功');
     }
 
-    public function editAvatar($name)
+    public function editAvatar()
     {
         $user = auth()->user();
 
@@ -109,15 +105,11 @@ class UsersController extends Controller
         return view('users.avatar', compact('user'));
     }
 
-    public function updateAvatar(Request $request, ImageUploadHandler $uploader, $name)
+    public function updateAvatar(Request $request, ImageUploadHandler $uploader)
     {
         $user = auth()->user();
 
         $this->authorize('update', $user);
-
-        if ($user->id !== auth()->user()->id) {
-            return redirect()->route('users.edit_profile', $user->name)->withErrors('非法操作');
-        }
 
         $this->validate(
             $request,
@@ -135,16 +127,24 @@ class UsersController extends Controller
             return redirect()->route('users.edit_avatar', $user->name)->withErrors('头像上传失败');
         }
 
+        // 原来的头像
+        $oriAvatar = $user->avatar;
+
         $user->avatar = $result['path'];
         $user->save();
         if (! $user->save()) {
             return redirect()->route('users.edit_avatar', $user->name)->withErrors('头像上传失败');
         }
 
+        if (! empty($oriAvatar)) {
+            // 删除原来的头像
+            @unlink(public_path($oriAvatar));
+        }
+
         return redirect()->route('users.edit_avatar', $user->name)->withMessage('上传成功');
     }
 
-    public function editPassword($name)
+    public function editPassword()
     {
         $user = auth()->user();
 
@@ -153,7 +153,7 @@ class UsersController extends Controller
         return view('users.password', compact('user'));
     }
 
-    public function updatePassword(Request $request, $name)
+    public function updatePassword(Request $request)
     {
         $user = auth()->user();
 

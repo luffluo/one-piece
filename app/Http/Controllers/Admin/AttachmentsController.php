@@ -74,6 +74,9 @@ class AttachmentsController extends Controller
             return back()->withErrors('清理未归档文件失败');
         }
 
+        // 设置为不超时
+        set_time_limit(0);
+
         foreach ($attachments as $loopAttachment) {
             $loopAttachment->deleteFile();
         }

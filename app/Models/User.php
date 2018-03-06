@@ -151,6 +151,16 @@ class User extends Model implements
     }
 
     /**
+     * 是否有头像
+     *
+     * @return bool
+     */
+    public function hasAvatar()
+    {
+        return ! empty($this->avatar);
+    }
+
+    /**
      * 输出用户头像
      *
      * @return string
@@ -161,7 +171,7 @@ class User extends Model implements
             return asset('/images/noavatar.png');
         }
 
-        return $this->avatar;
+        return asset($this->avatar);
     }
 
     /**

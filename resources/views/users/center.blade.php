@@ -5,10 +5,24 @@
 @section('content')
     <div class="row">
         <div class="four wide column">
-            <div class="ui card">
+            <div class="ui special card">
+                @can('update', $user)
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <a href="{{ route('users.edit_avatar', $user->name) }}" class="ui primary button">上传头像</a>
+                            </div>
+                        </div>
+                    </div>
+                    <img alt="用户头像" src="{{ $user->showAvatar() }}" data-holder-rendered="true">
+                </div>
+                @else
                 <div class="image">
                     <img alt="用户头像" src="{{ $user->showAvatar() }}" data-holder-rendered="true">
                 </div>
+                @endcan
+
                 <div class="content">
                     <h3 class="header">
                         {{ $user->showName() }}
@@ -23,8 +37,10 @@
                 <div class="extra content">
                     @if ($user->isOnline())
                         &nbsp;<i class="user icon" style="color: #0d9f47;" title="在线"></i>
+                        在线
                     @else
                         &nbsp;<i class="user icon" style="color: gray;" title="离线"></i>
+                        离线
                     @endif
                         <span class="date right floated">最后登录于 {{ $user->logged_at->diffForHumans() }}</span>
                 </div>
@@ -74,7 +90,9 @@
 
                                     <div class="extra actions">
                                         <div class="ui right floated horizontal list">
+                                            @can('delete', $comment)
                                             <a class="item" href="{{ route('comments.destroy', [$comment->id]) }}" data-method="delete" data-confirm="确定要删除吗？">删除</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>
@@ -89,3 +107,16 @@
             </div>
     </div>
 @endsection
+
+@can('update', $user)
+@section('script-inner')
+    @parent
+    <script>
+        $(function () {
+            $('.ui.special.card .image').dimmer({
+                on: 'hover'
+            });
+        })
+    </script>
+@endsection
+@endcan
