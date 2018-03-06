@@ -62,7 +62,7 @@ ______                            _              _                              
                 font-size: 16px;
                 line-height: 1.5;
             }
-            #article h2 {
+            #article h1 {
                 font-size: 22px;
             }
             #article .ui.sub.header {

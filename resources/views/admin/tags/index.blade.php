@@ -56,7 +56,7 @@
                     </td>
                 </tr>
             @empty
-                <td class="ui tiny disabled center aligned header" colspan="4">没有任何标签</td>
+                <td class="disabled center aligned" colspan="4">没有任何标签</td>
             @endforelse
             </tbody>
         </table>

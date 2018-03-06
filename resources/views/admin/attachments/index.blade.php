@@ -82,7 +82,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="ui tiny disabled center aligned header" colspan="5">没有任何文件</td>
+                    <td class="disabled center aligned" colspan="5">没有任何文件</td>
                 </tr>
             @endforelse
             </tbody>

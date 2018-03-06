@@ -41,7 +41,7 @@
                             <div class="ui small horizontal divided list">
                                 <div class="item">{{ $post->created_at->format('n.j') }}</div>
                                 <div class="item">
-                                    <a title="浏览 {{ $post->heading() }}" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->heading(50) }}</a>
+                                    <a title="浏览 {{ $post->headline() }}" target="_blank" href="{{ route('posts.show', $post->id) }}">{{ $post->headline(50) }}</a>
                                 </div>
                             </div>
                         </div>

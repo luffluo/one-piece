@@ -33,13 +33,17 @@ class MenuRouteMatched
                             $menus[$first_key]['active'] = '';
                         }
 
+                        if (! isset($menus[$first_key]['sub'][$second_key]['active'])) {
+                            $menus[$first_key]['sub'][$second_key]['active'] = '';
+                        }
+
                         if (request()->routeIs($second['route'])) {
                             $menus[$first_key]['active']                      = 'focus';
                             $menus[$first_key]['sub'][$second_key]['url']     = request()->url();
                             $menus[$first_key]['sub'][$second_key]['active']  = 'active';
                             $menus[$first_key]['sub'][$second_key]['display'] = true;
                         } elseif ($second['display']) {
-                            $menus[$first_key]['sub'][$second_key]['url'] = route($second['route']);
+                            $menus[$first_key]['sub'][$second_key]['url']    = route($second['route']);
                         }
                     }
                 } else {

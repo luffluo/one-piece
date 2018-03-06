@@ -136,7 +136,7 @@ class Comment extends Model
      *
      * @return mixed
      */
-    public function scopeOfApproved($query)
+    public function scopeApproved($query)
     {
         return $query->where('status', self::STATUS_APPROVED);
     }

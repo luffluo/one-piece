@@ -99,7 +99,7 @@
                             {{ $list->title }}
                         </a>
 
-                        <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->heading(40) }}">
+                        <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
                             <i class="write icon"></i>
                         </a>
 
@@ -107,7 +107,7 @@
                             <span class="ui tiny compact label">草稿</span>
                         @endif
 
-                        <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->heading(40) }}">
+                        <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->headline(40) }}">
                             <i class="grey external link icon"></i>
                         </a>
                     </td>
@@ -123,7 +123,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="ui tiny disabled center aligned header" colspan="5">没有任何文章</td>
+                    <td class="disabled center aligned" colspan="5">没有任何文章</td>
                 </tr>
             @endforelse
             </tbody>

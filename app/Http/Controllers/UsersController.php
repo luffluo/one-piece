@@ -34,7 +34,7 @@ class UsersController extends Controller
                 ->where('name', $name)
                 ->firstOrFail();
 
-            $commentQuery->ofApproved();
+            $commentQuery->approved();
         }
 
         $comments = $commentQuery
@@ -51,9 +51,14 @@ class UsersController extends Controller
      *
      * @param $name
      */
-    public function editProfile()
+    public function editProfile($name)
     {
         $user = auth()->user();
+
+        if ($name !== $user->name) {
+            return redirect()
+                ->route('users.edit_profile', $user->name);
+        }
 
         $this->authorize('update', $user);
 
@@ -96,9 +101,22 @@ class UsersController extends Controller
         return redirect()->route('users.edit_profile', $user->name)->withMessage('信息编辑成功');
     }
 
-    public function editAvatar()
+    /**
+     * 上传头像
+     *
+     * @param $name
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function editAvatar($name)
     {
         $user = auth()->user();
+
+        if ($name !== $user->name) {
+            return redirect()
+                ->route('users.edit_avatar', $user->name);
+        }
 
         $this->authorize('update', $user);
 
@@ -131,7 +149,6 @@ class UsersController extends Controller
         $oriAvatar = $user->avatar;
 
         $user->avatar = $result['path'];
-        $user->save();
         if (! $user->save()) {
             return redirect()->route('users.edit_avatar', $user->name)->withErrors('头像上传失败');
         }
@@ -144,9 +161,22 @@ class UsersController extends Controller
         return redirect()->route('users.edit_avatar', $user->name)->withMessage('上传成功');
     }
 
-    public function editPassword()
+    /**
+     * 修改密码
+     *
+     * @param $name
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function editPassword($name)
     {
         $user = auth()->user();
+
+        if ($name !== $user->name) {
+            return redirect()
+                ->route('users.edit_password', $user->name);
+        }
 
         $this->authorize('update', $user);
 

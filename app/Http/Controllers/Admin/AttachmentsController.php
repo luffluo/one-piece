@@ -65,6 +65,18 @@ class AttachmentsController extends Controller
             return back()->withErrors('没有未归档文件被清理');
         }
 
+        // 设置为不超时
+        set_time_limit(0);
+
+        $result = false;
+        foreach ($attachments as $loopAttachment) {
+            $result = $loopAttachment->deleteFile();
+        }
+
+        if (! $result) {
+            return back()->withErrors('清理未归档文件失败');
+        }
+
         $aIds = $attachments->pluck('id')->all();
         $result = $attachment->newQuery()
             ->whereIn('id', $aIds)
@@ -72,13 +84,6 @@ class AttachmentsController extends Controller
 
         if (! $result) {
             return back()->withErrors('清理未归档文件失败');
-        }
-
-        // 设置为不超时
-        set_time_limit(0);
-
-        foreach ($attachments as $loopAttachment) {
-            $loopAttachment->deleteFile();
         }
 
         return redirect()->route('admin.attachments.index')->withSuccess('未归档文件已经被清理');

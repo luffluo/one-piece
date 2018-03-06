@@ -138,7 +138,7 @@ class Post extends Content
     public function getCommentsGroupByParentId()
     {
         return $this->comments()
-            ->ofApproved()
+            ->approved()
             ->with('user')
             ->get()
             ->groupBy('parent_id');
@@ -214,7 +214,7 @@ EOF;
      *
      * @return string
      */
-    public function heading($length = 0, $trim = '...')
+    public function headline($length = 0, $trim = '...')
     {
         return $length > 0 ? str_limit($this->title, $length, $trim) : $this->title;
     }

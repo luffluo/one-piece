@@ -27,8 +27,8 @@ class InstallRequest extends Request
     public function messages()
     {
         return [
-            'app_url.required'        => '请填写站点 Url',
-            'app_url.url'             => '请填写有效的站点 Url',
+            'app_url.required'        => '请填写站点地址',
+            'app_url.url'             => '请填写有效的站点地址',
             'db_host.required'        => '请填写服务器地址',
             'db_database.required'    => '请填写数据库',
             'db_username.required'    => '请填写数据库用户名',

@@ -80,7 +80,7 @@ class InstallCommand extends Command
      */
     protected function getData()
     {
-        $data['app_url'] = $this->ask('站点 Url', 'https://one-piece.com');
+        $data['app_url'] = $this->ask('站点地址', 'https://one-piece.com');
 
         $data['db_host']     = $this->ask('数据库地址：', 'localhost');
         $data['db_username'] = $this->ask('数据库用户名：', 'root');

@@ -46,7 +46,7 @@
                     </td>
                 </tr>
             @empty
-                <td class="ui tiny disabled center aligned header" colspan="5">没有任何用户</td>
+                <td class="disabled center aligned" colspan="5">没有任何用户</td>
             @endforelse
             </tbody>
         </table>

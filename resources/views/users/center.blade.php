@@ -63,14 +63,15 @@
                 <div class="ui divider"></div>
 
                 <div class="content">
+                    @if(count($comments) > 0)
                     <div class="ui divided items">
-                        @forelse($comments as $comment)
+                        @foreach($comments as $comment)
                             <div class="item hovered actions">
                                 <div class="content">
                                     <div class="meta">
                                         <a target="_blank" href="{{ route('posts.show', $comment->post->id) }}"
-                                           title="{{ $comment->post->heading() }}" class="remove-padding-left">
-                                            {{ $comment->post->heading() }}
+                                           title="{{ $comment->post->headline() }}" class="remove-padding-left">
+                                            {{ $comment->post->headline() }}
                                         </a>
                                         <span class="date" title="{{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}">
                                             {{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}
@@ -97,10 +98,13 @@
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <h5 class="item">没有任何评论</h5>
-                        @endforelse
+                        @endforeach
                     </div>
+                    @else
+                    <div class="ui tiny disabled centered header">
+                        没有任何评论
+                    </div>
+                    @endif
 
                     {!! $comments->links() !!}
                 </div>
