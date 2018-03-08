@@ -116,6 +116,19 @@ class Comment extends Model
         return $class;
     }
 
+    /**
+     * 输出摘要
+     *
+     * @param int    $length 摘要截取长度
+     * @param string $trim 摘要后缀
+     *
+     * @return string
+     */
+    public function excerpt($length = 100, $trim = '...')
+    {
+        return str_limit(strip_tags($this->content()), $length, $trim);
+    }
+
     public function content()
     {
         return $this->markdown($this->text);
@@ -148,7 +161,7 @@ class Comment extends Model
      *
      * @return mixed
      */
-    public function scopeOfWaiting($query)
+    public function scopeWaiting($query)
     {
         return $query->where('status', self::STATUS_WAITING);
     }
@@ -160,7 +173,7 @@ class Comment extends Model
      *
      * @return mixed
      */
-    public function scopeOfSpam($query)
+    public function scopeSpam($query)
     {
         return $query->where('status', self::STATUS_SPAM);
     }

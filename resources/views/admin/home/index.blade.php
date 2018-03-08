@@ -62,7 +62,7 @@
                                     <a title="{{ $comment->user->showName() }}" href="{{ route('users.center', [$comment->user->name]) }}" target="_blank">
                                         {{ $comment->user->showName() }}
                                     </a>
-                                    :&nbsp;{{ strip_tags($comment->content()) }}
+                                    :&nbsp;{{ strip_tags($comment->excerpt(35, '...')) }}
                                 </div>
                             </div>
                         </div>
