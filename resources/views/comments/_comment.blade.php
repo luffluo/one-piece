@@ -1,19 +1,27 @@
-<div itemscope="" itemtype="#" id="comment-{{ $comment->id }}" class="comment comment-body{{ $comment->liClass() }}">
+<div id="comment-{{ $comment->id }}" class="comment comment-body{{ $comment->liClass() }}" itemscope="" itemtype="http://schema.org/UserComments">
 
-    <a href="{{ route('users.center', $comment->user->name) }}" class="avatar" alt="{{ $comment->user->showName() }}">
-        <img src="{{ $comment->user->showAvatar() }}" alt="{{ $comment->user->showName() }}">
+    <a href="{{ route('users.center', $comment->user->name) }}" class="avatar" alt="{{ $comment->user->showName() }}" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="image">
+            <img src="{{ $comment->user->showAvatar() }}" alt="{{ $comment->user->showName() }}">
+        </span>
     </a>
 
     <div class="content">
-        <a href="{{ route('users.center', $comment->user->name) }}" alt="{{ $comment->user->showName() }}" class="author">
-            {{ $comment->user->showName() }}
-        </a>
+        <span class="author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+            <cite itemprop="name">
+                <a class="author" href="{{ route('users.center', $comment->user->name) }}" alt="{{ $comment->user->showName() }}" rel="external nofollow">
+                    {{ $comment->user->showName() }}
+                </a>
+            </cite>
+        </span>
 
         <div class="metadata">
-            <span class="date">{{ $comment->created_at->format(option('comment_date_format')) }}</span>
+            <a href="{{ route('posts.show', $comment->content_id) . '#comment-' . $comment->id }}">
+                <time class="date" itemprop="commentTime" datetime="{{ $comment->created_at->format('c') }}">{{ $comment->created_at->format(option('comment_date_format')) }}</time>
+            </a>
         </div>
 
-        <div class="text">
+        <div class="text" itemprop="commentText">
             {!! $comment->content() !!}
         </div>
 
