@@ -39,7 +39,7 @@
 
         <div class="field">
             <div class="ui checkbox">
-                <input class="hidden" type="checkbox" name="remember" checked>
+                <input class="hidden" type="checkbox" name="remember" value="1" {{ old('remember') === '1' ? 'checked' : '' }}>
                 <label>记住我</label>
             </div>
         </div>

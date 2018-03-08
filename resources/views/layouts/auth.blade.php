@@ -15,10 +15,14 @@
         body {
             background-color: #eee;
         }
-
-        .ui.content.container {
-            margin-top: 6em;
-            max-width: 22em !important;
+        body > .grid {
+            height: 100%;
+        }
+        .image {
+            margin-top: -100px;
+        }
+        .column {
+            max-width: 300px;
         }
 
         /* User register page */
@@ -34,12 +38,12 @@
 
     <div class="ui middle aligned center aligned grid">
 
-        <div class="ui content container">
-            <h1 class="ui huge centered header">
+        <div class="column">
+            <h2 class="ui huge header">
                 <a href="{{ route('home') }}">
                     {{ option('title', config('app.name')) }}
                 </a>
-            </h1>
+            </h2>
 
             @yield('content')
 
