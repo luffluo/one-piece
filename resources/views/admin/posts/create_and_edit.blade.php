@@ -44,7 +44,7 @@
                         <button type="submit" name="do" value="save" class="ui small right floated button">保存草稿</button>
                         @if ($post->exists)
                         <a title="浏览 {{ $post->headline() }}" href="{{ route('posts.show', $post->id) }}" class="ui small right floated button" target="_blank">
-                            浏览文章 <i class="external link icon"></i>
+                            浏览文章 <i class="external link alternate icon"></i>
                         </a>
                         @endif
                     </div>

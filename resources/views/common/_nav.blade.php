@@ -47,7 +47,7 @@
 
                         @if (Gate::allows('enter-admin-dashboard'))
                             <a class="item" href="{{ route('admin.home') }}">
-                                <i class="dashboard icon"></i>
+                                <i class="tachometer alternate icon"></i>
                                 进入后台
                             </a>
                         @endif
@@ -55,7 +55,7 @@
                         <div class="ui divider"></div>
 
                         <a class="item" href="{{ route('logout') }}" data-method="post" data-confirm="确定要退出吗？">
-                            <i class="sign out icon"></i>
+                            <i class="sign out alternate icon"></i>
                             退出
                         </a>
                     </div>

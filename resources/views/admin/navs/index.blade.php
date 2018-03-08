@@ -38,10 +38,14 @@
                         @if ('hidden' == $list->status)
                             <span class="label label-default">隐藏</span>
                         @endif
+
+                        <a target="_blank" href="{!! $list->text !!}" title="浏览导航 {{ $list->title }}">
+                            <i class="grey external link alternate icon"></i>
+                        </a>
                     </td>
                     <td>{{ $list->slug }}</td>
                     <td>
-                        <a title="浏览 {{ $list->title }}" target="_blank" href="{!! $list->text !!}">
+                        <a title="浏览导航 {{ $list->title }}" target="_blank" href="{!! $list->text !!}">
                             {!! $list->text !!} <i class="fa fa-external-link"> </i></a>
                     </td>
                     <td>{{ $list->order }}</td>

@@ -100,7 +100,7 @@
                         </a>
 
                         <a href="{{ route('admin.posts.edit', $list->id) }}" title="编辑 {{ $list->headline(40) }}">
-                            <i class="write icon"></i>
+                            <i class="pencil alternate icon"></i>
                         </a>
 
                         @if ('post_draft' == $list->type)
@@ -108,7 +108,7 @@
                         @endif
 
                         <a target="_blank" href="{{ route('posts.show', $list->id) }}" title="浏览 {{ $list->headline(40) }}">
-                            <i class="grey external link icon"></i>
+                            <i class="grey external link alternate icon"></i>
                         </a>
                     </td>
                     <td>

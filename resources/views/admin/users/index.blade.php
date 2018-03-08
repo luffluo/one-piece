@@ -33,7 +33,7 @@
                         </a>
 
                         <a title="浏览 {{ $list->showName() }}" href="{{ route('users.center', [$list->name]) }}" target="_blank">
-                            <i class="grey external link icon"></i>
+                            <i class="grey external link alternate icon"></i>
                         </a>
                     </td>
                     <td>{{ $list->nickname }}</td>

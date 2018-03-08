@@ -35,7 +35,7 @@
                         </a>
 
                         <a title="浏览 {{ $list->name }}" href="{{ route('tags.posts', $list->slug) }}" target="_blank">
-                            <i class="grey external link icon"></i>
+                            <i class="grey external link alternate icon"></i>
                         </a>
                     </td>
                     <td>{{ $list->slug }}</td>
