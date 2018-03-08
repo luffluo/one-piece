@@ -14,7 +14,7 @@
             <item>
                 <title>{{ $post->title }}</title>
                 <link>{{ route('posts.show',$post->id) }}</link>
-                <description>{{ $post->summary() }}</description>
+                <description>{{ $post->excerpt() }}</description>
                 <pubDate>{{ $post->created_at->format('D, d M Y H:i:s T') }}</pubDate>
                 <author>{{ $post->user->email }} ({{$post->user->showName()}})</author>
                 <guid>{{ route('posts.show', $post->id) }}</guid>

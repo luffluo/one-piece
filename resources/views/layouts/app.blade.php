@@ -68,7 +68,10 @@ ______                            _              _                              
             #article .ui.sub.header {
                 text-transform: none;
             }
-
+            .post-content div, .post-content p, .post-content li, .post-content pre,
+            #comments div, #comments p, #comments li, #comments pre {
+                line-height: 2em;
+            }
             .ui.footer.segment {
                 margin-bottom: 0;
             }
