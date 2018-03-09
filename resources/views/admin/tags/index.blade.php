@@ -34,7 +34,7 @@
                             <i class="fa fa-pencil"> </i>
                         </a>
 
-                        <a title="浏览 {{ $list->name }}" href="{{ route('tags.posts', $list->slug) }}" target="_blank">
+                        <a title="浏览 {{ $list->name }}" href="{{ route('tag.posts', $list->slug) }}" target="_blank">
                             <i class="grey external link alternate icon"></i>
                         </a>
                     </td>

@@ -16,7 +16,6 @@
             @include('common._error')
 
             <form action="{{ route('users.update_password', $user->name) }}" class="ui form" method="post">
-                <input type="hidden" name="_method" value="PATCH">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="field">

@@ -38,7 +38,7 @@
                 </a>
                 <div class="ui list">
                     @foreach ($sidebarTags as $sidebarTag)
-                        <a class="item" href="{{ route('tags.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }} ({{ $sidebarTag->count }})</a>
+                        <a class="item" href="{{ route('tag.posts', $sidebarTag->slug) }}">{{ $sidebarTag->name }} ({{ $sidebarTag->count }})</a>
                     @endforeach
                 </div>
             </section>

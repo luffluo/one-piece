@@ -3,9 +3,20 @@
 namespace App\Observers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostObserver
 {
+    public function created(Post $post)
+    {
+        // 设置文章 slug
+        if (empty($post->slug)) {
+            DB::table($post->getTable())
+                ->where('id', $post->id)
+                ->update(['slug' => $post->id]);
+        }
+    }
+
     public function saving(Post $post)
     {
         if (! $post->exists) {

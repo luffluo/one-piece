@@ -16,7 +16,6 @@
 
             <form class="ui form" action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="_method" value="patch">
 
                 <div id="preview-img-div" class="field">
                     <img class="ui image large rounded" id="preview-img" alt="{{ $user->showAvatar('large') }}" src="{{ $user->showAvatar('large') }}" data-holder-rendered="true">

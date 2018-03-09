@@ -33,14 +33,14 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('search', 'PostsController@index')->name('search');
 
 // Post
-Route::get('a/{post}', 'PostsController@show')->name('posts.show');
+Route::get('archives/{post}', 'PostsController@show')->name('posts.show');
 
 // Post comment
 Route::resource('comments', 'CommentsController', ['only' => ['store', 'destroy']]);
 
 // Tags
 Route::get('tags', 'TagsController@index')->name('tags.index');
-Route::get('t/{slug}', 'TagsController@posts')->name('tags.posts');
+Route::get('tag/{slug}', 'TagsController@posts')->name('tag.posts');
 
 // Archive
 Route::get('/{year}/{month?}/{day?}', 'PostsController@archive')
@@ -53,13 +53,13 @@ Route::prefix('u')->group(function () {
     Route::get('{user}', 'UsersController@center')->name('users.center');
 
     Route::get('{user}/profile', 'UsersController@editProfile')->name('users.edit_profile');
-    Route::patch('{user}/profile', 'UsersController@updateProfile')->name('users.update_profile');
+    Route::post('{user}/profile', 'UsersController@updateProfile')->name('users.update_profile');
 
     Route::get('{user}/avatar', 'UsersController@editAvatar')->name('users.edit_avatar');
-    Route::patch('{user}/avatar', 'UsersController@updateAvatar')->name('users.update_avatar');
+    Route::post('{user}/avatar', 'UsersController@updateAvatar')->name('users.update_avatar');
 
     Route::get('{user}/password', 'UsersController@editPassword')->name('users.edit_password');
-    Route::patch('{user}/password', 'UsersController@updatePassword')->name('users.update_password');
+    Route::post('{user}/password', 'UsersController@updatePassword')->name('users.update_password');
 });
 
 // SiteMap

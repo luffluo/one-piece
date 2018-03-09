@@ -263,21 +263,6 @@ EOF;
     }
 
     /**
-     * 过滤 文章和文章草稿
-     *
-     * @param $query
-     *
-     * @return mixed
-     */
-    public function scopePostAndDraft($query)
-    {
-        return $query->where(function ($query) {
-            return $query->where('type', static::TYPE)
-                ->orWhere('type', static::TYPE_DRAFT);
-        });
-    }
-
-    /**
      * 同步附件
      *
      * @access protected
@@ -298,6 +283,21 @@ EOF;
                     ]);
             }
         }
+    }
+
+    /**
+     * 过滤 文章和文章草稿
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopePostAndDraft($query)
+    {
+        return $query->where(function ($query) {
+            return $query->where('type', static::TYPE)
+                ->orWhere('type', static::TYPE_DRAFT);
+        });
     }
 
     /**
