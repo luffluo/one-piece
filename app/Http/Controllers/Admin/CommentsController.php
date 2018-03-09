@@ -27,8 +27,8 @@ class CommentsController extends Controller
 
         $waitingQuery  = clone $query;
         $spamQuery     = clone $query;
-        $waiting_count = $waitingQuery->ofWaiting()->count();
-        $spam_count    = $spamQuery->ofSpam()->count();
+        $waiting_count = $waitingQuery->waiting()->count();
+        $spam_count    = $spamQuery->spam()->count();
 
         if (! $status = $request->get('status', null)) {
             $status = Comment::STATUS_APPROVED;

@@ -37,14 +37,16 @@ class OptionsController extends Controller
 
     public function showDiscussion()
     {
-        $commentDateFormat = option('comment_date_format');
-        $commentsListSize  = option('comments_list_size');
-        $commentsPageSize  = option('comments_page_size');
-        $commentsShow      = option('comments_show');
+        $commentDateFormat    = option('comment_date_format');
+        $commentsListSize     = option('comments_list_size');
+        $commentsPageSize     = option('comments_page_size');
+        $commentsShow         = option('comments_show', []);
+        $commentsPost         = option('comments_post', []);
+        $commentsPostInterval = option('comments_post_interval', 1);
 
         return admin_view(
             'options.discussion',
-            compact('commentDateFormat', 'commentsListSize', 'commentsPageSize', 'commentsShow')
+            compact('commentDateFormat', 'commentsListSize', 'commentsPageSize', 'commentsShow', 'commentsPost', 'commentsPostInterval')
         );
     }
 
@@ -53,7 +55,11 @@ class OptionsController extends Controller
         option(['comment_date_format' => $request->input('commentDateFormat')]);
         option(['comments_list_size' => $request->input('commentsListSize')]);
         option(['comments_page_size' => $request->input('commentsPageSize')]);
+
         option(['comments_show' => $request->input('commentsShow', [])]);
+
+        option(['comments_post' => $request->input('commentsPost', [])]);
+        option(['comments_post_interval' => intval($request->input('commentsPostInterval'))]);
 
         return redirect()->route('admin.options.discussion')->withMessage('设置已经保存');
     }

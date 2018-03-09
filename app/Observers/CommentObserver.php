@@ -8,8 +8,10 @@ class CommentObserver
 {
     public function created(Comment $comment)
     {
-        // 文章数 +1
-        $comment->post->increment('comments_count');
+        if ($comment->status === Comment::STATUS_APPROVED) {
+            // 文章数 +1
+            $comment->post->increment('comments_count');
+        }
     }
 
     public function updated(Comment $comment)

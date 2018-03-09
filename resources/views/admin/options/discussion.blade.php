@@ -28,20 +28,47 @@
                 <span class="help-block">此数目用于指定显示在侧边栏中的评论列表数目.</span>
             </div>
 
-            <div class="field">
+            <div class="grouped fields">
                 <label>评论显示</label>
 
                 <div class="inline fields">
-                    @if(in_array('comments_page_break', $commentsShow))
-                        <input name="commentsShow[]" value="comments_page_break" checked id="commentsShow-commentsPageBreak" type="checkbox">
-                    @else
-                        <input name="commentsShow[]" value="comments_page_break" id="commentsShow-commentsPageBreak" type="checkbox">
-                    @endif
-                    <label for="commentsShow-commentsPageBreak">&nbsp;启用分页, 并且每页显示</label>
+                    <div class="ui checkbox">
+                        <input name="commentsShow[]" value="comments_page_break" {{ in_array('comments_page_break', $commentsShow) ? 'checked' : '' }} id="commentsShow-commentsPageBreak" type="checkbox">
+                        <label for="commentsShow-commentsPageBreak">启用分页, 并且每页显示&nbsp;</label>
+                    </div>
                     <div class="two wide field">
                         <input value="{{ $commentsPageSize }}" id="commentsShow-commentsPageSize" name="commentsPageSize" type="text">
                     </div>
-                    <label for="commentsShow-commentsPageSize"> 篇评论.</label>
+                    <label for="commentsShow-commentsPageSize">篇评论</label>
+                </div>
+            </div>
+
+            <div class="grouped fields">
+                <label>评论提交</label>
+
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input name="commentsPost[]" value="comments_require_moderation" {{ in_array('comments_require_moderation', $commentsPost) ? 'checked' : '' }} id="commentsPost-commentsRequireModeration" type="checkbox">
+                        <label for="commentsPost-commentsRequireModeration">所有评论必须经过审核</label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input name="commentsPost[]" value="comments_whitelist" {{ in_array('comments_whitelist', $commentsPost) ? 'checked' : '' }} id="commentsPost-commentsWhitelist" type="checkbox">
+                        <label for="commentsPost-commentsWhitelist">评论者之前须有评论通过了审核</label>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="ui checkbox">
+                        <input name="commentsPost[]" value="comments_post_interval_enable" {{ in_array('comments_post_interval_enable', $commentsPost) ? 'checked' : '' }} id="commentsPost-commentsPostIntervalEnable" type="checkbox">
+                        <label for="commentsPost-commentsPostIntervalEnable">同一 IP 发布评论的时间间隔限制为&nbsp;</label>
+                    </div>
+                    <div class="two wide field">
+                        <input value="{{ $commentsPostInterval }}" id="commentsPost-commentsPostInterval" name="commentsPostInterval" type="text">
+                    </div>
+                    <label for="commentsPost-commentsPostInterval">分钟</label>
                 </div>
             </div>
 

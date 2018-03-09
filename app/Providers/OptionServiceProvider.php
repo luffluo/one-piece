@@ -25,6 +25,7 @@ class OptionServiceProvider extends ServiceProvider
     protected $casts = [
         'sidebar_block' => 'array',
         'comments_show' => 'array',
+        'comments_post' => 'array',
     ];
 
     public function register()
