@@ -201,8 +201,6 @@
                     // $('.comment-content', oldTd).html('<p>' + $('textarea[name=text]', t).val() + '</p>');
 
                     $.post(t.attr('action'), t.serialize(), function (o) {
-                        console.log(o.comment.text);
-                        console.log($('.comment-content > .ui.segment', oldTd));
                         $('.comment-content > .ui.segment', oldTd).html(o.comment.text);
                     }, 'json');
 

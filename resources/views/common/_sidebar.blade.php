@@ -5,7 +5,7 @@
                 <h4 class="ui header">最新文章</h4>
                 <div class="ui list">
                     @foreach ($sidebarRecentPosts as $sidebarRecentPost)
-                        <a class="item" href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(30) }}</a>
+                        <a class="item" href="{{ route('posts.show', $sidebarRecentPost->id) }}">{{ $sidebarRecentPost->headline(45) }}</a>
                     @endforeach
                 </div>
             </section>
@@ -21,7 +21,7 @@
                             <a title="{{ $sidebarRecentComment->user->showName() }}" href="{{ route('users.center', $sidebarRecentComment->user->name) }}">
                                 {{ $sidebarRecentComment->user->showName() }}:
                             </a>
-                            {{ strip_tags($sidebarRecentComment->content()) }}
+                            {{ strip_tags($sidebarRecentComment->excerpt(45)) }}
                         </div>
                     @endforeach
                 </div>

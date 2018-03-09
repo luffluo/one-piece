@@ -191,7 +191,7 @@ class Post extends Content
     public function content($more = false)
     {
         $string = <<<EOF
-<div class="more ui basic center aligned segment">
+<div class="ui center aligned container more">
     <a href="%s" title="%s" role="button">%s</a>
 </div>
 EOF;
