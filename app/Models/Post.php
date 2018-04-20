@@ -174,7 +174,7 @@ class Post extends Content
      */
     public function getExcerptAttribute()
     {
-        $content = $this->markdown($this->text);
+        $content  = $this->markdown($this->text);
         $contents = explode(self::MORE_FLAG, $content);
         list($excerpt) = $contents;
 
@@ -207,26 +207,26 @@ EOF;
      * 输出文章摘要
      *
      * @param int    $length 摘要截取长度
-     * @param string $trim 摘要后缀
+     * @param string $end    摘要后缀
      *
      * @return string
      */
-    public function excerpt($length = 100, $trim = '...')
+    public function excerpt($length = 100, $end = '...')
     {
-        return str_limit(strip_tags($this->excerpt), $length, $trim);
+        return str_limit(strip_tags($this->excerpt), $length, $end);
     }
 
     /**
      * 输出标题
      *
      * @param int    $length 标题截取长度
-     * @param string $trim 截取后缀
+     * @param string $end    截取后缀
      *
      * @return string
      */
-    public function headline($length = 0, $trim = '...')
+    public function headline($length = 0, $end = '...')
     {
-        return $length > 0 ? str_limit($this->title, $length, $trim) : $this->title;
+        return $length > 0 ? str_limit($this->title, $length, $end) : $this->title;
     }
 
     /**
@@ -266,7 +266,9 @@ EOF;
      * 同步附件
      *
      * @access protected
+     *
      * @param integer $cid 内容id
+     *
      * @return void
      */
     public function attach()
@@ -278,8 +280,8 @@ EOF;
                     ->where('id', $attachment)
                     ->update([
                         'parent_id' => $this->id,
-                        'status' => static::STATUS_PUBLISH,
-                        'order' => $key + 1
+                        'status'    => static::STATUS_PUBLISH,
+                        'order'     => $key + 1,
                     ]);
             }
         }
@@ -326,6 +328,7 @@ EOF;
 
     /**
      * 过滤 允许聚合
+     *
      * @param $query
      *
      * @return mixed

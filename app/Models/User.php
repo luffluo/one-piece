@@ -20,6 +20,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property string              $nickname
  * @property string              $avatar
  * @property string              $profile
+ * @property string              $introduction
  * @property string              $password
  * @property \Carbon\Carbon|null $activated_at
  * @property \Carbon\Carbon|null $created_at
@@ -126,6 +127,16 @@ class User extends Model implements
     }
 
     /**
+     * 用户简介
+     *
+     * @return string
+     */
+    public function getIntroductionAttribute()
+    {
+        return $this->profile;
+    }
+
+    /**
      * 输出用户名称
      *
      * @return string
@@ -181,9 +192,9 @@ class User extends Model implements
      *
      * @return string
      */
-    public function introduction($length = null)
+    public function introduction($length = null, $end = '...')
     {
-        return $length ? str_limit($this->profile, $length) : $this->profile;
+        return $length ? str_limit($this->profile, $length, $end) : $this->profile;
     }
 
     /**

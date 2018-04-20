@@ -7,7 +7,7 @@
         <div class="four wide column">
             <div class="ui special card">
                 @can('update', $user)
-                <div class="blurring dimmable image">
+                <div class="user blurring dimmable image">
                     <div class="ui dimmer">
                         <div class="content">
                             <div class="center">
@@ -24,25 +24,26 @@
                 @endcan
 
                 <div class="content">
-                    <h3 class="header">
+                    <div class="header">
+                        <span class="ui right floated image">
+                            @if ($user->isOnline())
+                                <i class="small green user icon" title="在线"></i>
+                            @else
+                                <i class="small grey user icon" title="离线"></i>
+                            @endif
+                        </span>
                         {{ $user->showName() }}
-                    </h3>
-                    <div class="meta">
-                        <span class="date">{{ $user->created_at->diffForHumans() }} 加入</span>
                     </div>
 
-                    <div class="description">{{ $user->introduction() }}</div>
+                    <div class="meta">
+                        <span>{{ $user->created_at->diffForHumans() }}加入</span>
+                    </div>
+
+                    <div class="description">{{ $user->introduction }}</div>
                 </div>
 
                 <div class="extra content">
-                    @if ($user->isOnline())
-                        &nbsp;<i class="user icon" style="color: #0d9f47;" title="在线"></i>
-                        在线
-                    @else
-                        &nbsp;<i class="user icon" style="color: gray;" title="离线"></i>
-                        离线
-                    @endif
-                        <span class="date right floated">最后登录于 {{ $user->logged_at->diffForHumans() }}</span>
+                    <span class="date">最后登录于 {{ optional($user->logged_at)->diffForHumans() }}</span>
                 </div>
 
                 @can('update', $user)
@@ -117,7 +118,7 @@
     @parent
     <script>
         $(function () {
-            $('.ui.special.card .image').dimmer({
+            $('.ui.special.card .user.image').dimmer({
                 on: 'hover'
             });
         })
