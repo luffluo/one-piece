@@ -51,7 +51,7 @@ class PostsController extends Controller
         $posts = $query
             ->published()
             ->recent()
-            ->with('tags')
+            ->with('tags', 'user')
             ->paginate(option('page_size', 20));
 
         $data['posts'] = $posts;
