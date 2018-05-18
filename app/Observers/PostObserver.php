@@ -20,7 +20,7 @@ class PostObserver
     public function saving(Post $post)
     {
         if (! $post->exists) {
-            $post->user_id = auth()->guest() ? 1 : auth()->user()->id;
+            $post->user_id = auth()->user()->id;
         }
 
         if (! empty($post->do)) {
