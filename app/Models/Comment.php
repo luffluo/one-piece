@@ -63,6 +63,16 @@ class Comment extends Model
     }
 
     /**
+     * 文章作者
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
+    /**
      * 是通过的
      *
      * @return bool

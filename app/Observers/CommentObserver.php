@@ -6,10 +6,6 @@ use App\Models\Comment;
 
 class CommentObserver
 {
-    public function creating(Comment $comment)
-    {
-
-    }
     public function created(Comment $comment)
     {
         if ($comment->status === Comment::STATUS_APPROVED) {
@@ -22,7 +18,7 @@ class CommentObserver
     {
         $dirty = $comment->getDirty();
 
-        if (isset($dirty['status'])) {
+        if (! empty($dirty['status'])) {
 
             $original = $comment->getOriginal();
 
@@ -36,8 +32,8 @@ class CommentObserver
     
     public function saving(Comment $comment)
     {
-        if (! $comment->exists) {
-            $comment->user_id = auth()->user()->id;
+        if (! $comment->user_id) {
+            $comment->user()->associate(auth()->user()->id);
         }
 
         // XSS 过滤

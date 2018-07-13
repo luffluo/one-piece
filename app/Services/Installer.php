@@ -177,7 +177,7 @@ class Installer
             $this->setDatabaseConfig();
 
             // 执行数据库迁移
-            $this->executeAllMigrations();
+            $this->installMigrations();
 
             // 初始化系统数据，添加一些默认数据
             $this->initOnePiece();
@@ -216,7 +216,7 @@ class Installer
     /**
      * 执行数据迁移，安装所有的数据表
      */
-    public function executeAllMigrations()
+    public function installMigrations()
     {
         $kernel = $this->app[ConsoleKernelContract::class];
 
@@ -226,6 +226,21 @@ class Installer
             ], new NullOutput);
         } else {
             $kernel->call('migrate', [
+                '--force' => true,
+            ]);
+        }
+    }
+
+    public function resetMigrations()
+    {
+        $kernel = $this->app[ConsoleKernelContract::class];
+
+        if ($this->nullOutput) {
+            $kernel->call('migrate:reset', [
+                '--force' => true,
+            ], new NullOutput);
+        } else {
+            $kernel->call('migrate:reset', [
                 '--force' => true,
             ]);
         }
@@ -266,14 +281,6 @@ class Installer
             }
             option()->table()->insert($insert);
 
-            // 初始化标签
-            $tag              = new Tag;
-            $tag->name        = '默认标签';
-            $tag->slug        = 'default';
-            $tag->description = '只是一个默认标签';
-            $tag->count       += 1;
-            $tag->save();
-
             // 初始用户
             $user = new User;
             $user->forceFill([
@@ -285,26 +292,46 @@ class Installer
             $user->updateLoggedAt();
             $user->save();
 
+            // 初始化标签
+            $tag              = new Tag;
+            $tag->name        = '默认标签';
+            $tag->slug        = 'default';
+            $tag->description = '只是一个默认标签';
+            $tag->count       += 1;
+            $tag->save();
+
             // 初始化文章
-            $post          = new Post;
-            $post->title   = '欢迎使用 ' . config('app.name');
-            $post->text    = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
-            $post->type    = Post::TYPE;
-            $post->user_id = $user->id;
+            $post        = new Post;
+            $post->title = '欢迎使用 ' . config('app.name');
+            $post->text  = '如果您看到这篇文章, 表示您的 blog 已经安装成功.';
+            $post->type  = Post::TYPE;
+            $post->user()->associate($user->id);
             $post->save();
 
             // 初始化文章标签关系
             $post->tags()->sync($tag->id);
 
             // 初始化评论
-            $comment           = new Comment;
-            $comment->owner_id = $post->user_id;
-            $comment->text     = '欢迎加入 ' . config('app.name') . ' 大家族';
+            $comment       = new Comment;
+            $comment->text = '欢迎加入 ' . config('app.name') . ' 大家族';
+            $comment->user()->associate($user->id);
+            $comment->owner()->associate($post->user_id);
             $post->comments()->save($comment);
 
             DB::commit();
         } catch (Exception $e) {
+
             DB::rollBack();
+
+            $this->resetMigrations();
+
+            logger()->error(
+                $e->getMessage(),
+                [
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]
+            );
 
             throw new InstallException($e->getMessage());
         }

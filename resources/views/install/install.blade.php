@@ -20,8 +20,8 @@
                     <div class="ui body segment">
                         <div class="field">
                             <label for="app_url">站点地址</label>
-                            <input type="text" id="app_url" name="app_url" value="{{ old('app_url', 'https://one-piece.com') }}">
-                            <span class="help-block">您可能会使用 "https://one-piece.com"</span>
+                            <input type="text" id="app_url" name="app_url" value="{{ old('app_url', route('home')) }}">
+                            <span class="help-block">您可能会使用 "{{ route('home') }}"</span>
                         </div>
                     </div>
                 </div>

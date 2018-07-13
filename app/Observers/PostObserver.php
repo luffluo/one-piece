@@ -11,16 +11,16 @@ class PostObserver
     {
         // 设置文章 slug
         if (empty($post->slug)) {
-            DB::table($post->getTable())
-                ->where('id', $post->id)
+            $post->newQuery()
+                ->whereKey($post->id)
                 ->update(['slug' => $post->id]);
         }
     }
 
     public function saving(Post $post)
     {
-        if (! $post->exists) {
-            $post->user_id = auth()->user()->id;
+        if (! $post->user_id) {
+            $post->user()->associate(auth()->user()->id);
         }
 
         if (! empty($post->do)) {

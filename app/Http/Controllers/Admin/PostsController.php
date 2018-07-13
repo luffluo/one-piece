@@ -21,12 +21,9 @@ class PostsController extends Controller
         $query = Post::query();
 
         if ($tag = $request->get('tag')) {
-            $tagModel = Tag::where('id', $tag)
-                ->with('posts')
-                ->first();
-            $post_ids = $tagModel->posts->pluck('id')->all();
-
-            $query->whereIn('id', $post_ids);
+            $query->whereHas('tags', function ($q) use ($tag) {
+                $q->whereKey($tag);
+            });
         }
 
         if ($keywords = $request->get('keywords')) {
@@ -48,7 +45,7 @@ class PostsController extends Controller
             ->recent()
             ->paginate(20);
 
-        $tags = Tag::select('id', 'name')->get();
+        $tags = Tag::all('id', 'name');
 
         return admin_view(
             'posts.index',
@@ -102,20 +99,18 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         if (! $post || ! $post->exists) {
-            return redirect()->back()->withErrors('文章不存在.');
+            return back()->withErrors('文章不存在.');
         }
 
         $post->load([
-            'tags' => function ($query) {
-                $query->select('id', 'name');
-            },
+            'tags:id,name',
             'attachments' => function ($query) {
                 $query->select('id', 'parent_id', 'order')->orderBy('order');
             }
         ]);
 
         $selectedTagIds = $post->tags->pluck('id')->toArray();
-        $tags           = Tag::select('id', 'name')->get();
+        $tags           = Tag::all('id', 'name');
         $tags = $tags->map(function ($item) use ($selectedTagIds) {
             return [
                 'name'     => $item['name'],
@@ -141,7 +136,7 @@ class PostsController extends Controller
 
             DB::rollBack();
 
-            return redirect()->back()->withErrors("文章 {$post->title} 编辑失败");
+            return back()->withErrors("文章 {$post->title} 编辑失败");
         }
 
         DB::commit();
@@ -157,7 +152,7 @@ class PostsController extends Controller
 
             DB::rollBack();
 
-            return redirect()->back()->withErrors("文章 {$post->title} 删除失败");
+            return back()->withErrors("文章 {$post->title} 删除失败");
         }
 
         DB::commit();

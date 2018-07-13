@@ -33,7 +33,6 @@ class Post extends Content
         'title',
         'slug',
         'text',
-        'user_id',
         'type',
         'status',
         'allow_comment',
@@ -47,6 +46,7 @@ class Post extends Content
      */
     protected $casts = [
         'allow_feed' => 'boolean',
+        'allow_comment' => 'boolean',
     ];
 
     public $do;
@@ -68,7 +68,7 @@ class Post extends Content
         return $this->belongsToMany(Tag::class, 'content_meta', 'content_id', 'meta_id');
     }
 
-    public function setPostTags($post, $tags, $beforeCount = false, $afterCount = false)
+    public function setPostTags(Post $post, $tags, $beforeCount = false, $afterCount = false)
     {
         $tags = array_unique(array_map('trim', $tags));
 
@@ -92,7 +92,7 @@ class Post extends Content
 
         $insertTags = Tag::query()
             ->select('id', 'count')
-            ->whereIn('id', $tags)
+            ->whereKey($tags)
             ->get();
 
         // 添加新标签，更新标签文章数
