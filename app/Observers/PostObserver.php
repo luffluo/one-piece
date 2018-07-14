@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class PostObserver
 {
+    public function saving(Post $post)
+    {
+        if (! $post->user_id) {
+            $post->user()->associate(auth()->user()->id);
+        }
+
+        if ($post->do) {
+            $post->type = ('publish' === $post->do ? Post::TYPE : Post::TYPE_DRAFT);
+        }
+    }
+
     public function created(Post $post)
     {
         // 设置文章 slug
@@ -14,17 +25,6 @@ class PostObserver
             $post->newQuery()
                 ->whereKey($post->id)
                 ->update(['slug' => $post->id]);
-        }
-    }
-
-    public function saving(Post $post)
-    {
-        if (! $post->user_id) {
-            $post->user()->associate(auth()->user()->id);
-        }
-
-        if (! empty($post->do)) {
-            $post->type = 'publish' == $post->do ? Post::TYPE : Post::TYPE_DRAFT;
         }
     }
 
@@ -48,18 +48,18 @@ class PostObserver
                 if ('publish' == $post->do) {
 
                     // 是否是从草稿状态发布
-                    $isDraftToPublish = Post::TYPE_DRAFT == $originalAttributes['type'] && Post::TYPE == $post->type;
+                    $isDraftToPublish = Post::TYPE_DRAFT === $originalAttributes['type'] && Post::TYPE == $post->type;
 
                     // 以前是否是发布的
-                    $isBeforePublish = Post::TYPE == $originalAttributes['type'];
+                    $isBeforePublish = Post::TYPE === $originalAttributes['type'];
 
                     // 当前是否是发布
-                    $isAfterPublish = Post::TYPE == $post->type;
+                    $isAfterPublish = Post::TYPE === $post->type;
 
                 } else {
 
-                    $isDraftToPublish = Post::TYPE_DRAFT == $originalAttributes['type'] && Post::TYPE == $post->type;
-                    $isBeforePublish  = Post::TYPE == $originalAttributes['type'];
+                    $isDraftToPublish = Post::TYPE_DRAFT === $originalAttributes['type'] && Post::TYPE === $post->type;
+                    $isBeforePublish  = Post::TYPE === $originalAttributes['type'];
                     $isAfterPublish   = false;
 
                 }

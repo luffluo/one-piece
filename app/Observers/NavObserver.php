@@ -6,6 +6,11 @@ use App\Models\Nav;
 
 class NavObserver
 {
+    public function creating(Nav $nav)
+    {
+        $nav->type = Nav::TYPE;
+    }
+
     public function saving(Nav $nav)
     {
         $navCount = Nav::query()

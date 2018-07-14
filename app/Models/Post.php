@@ -75,10 +75,10 @@ class Post extends Content
         $existsTags = $post->tags()->get();
 
         // 清空已有的标签关系
-        count($existsTags) > 0 && $post->tags()->sync([]);
+        $existsTags->count() > 0 && $post->tags()->sync([]);
 
         // 重置标签文章数
-        if (count($existsTags) > 0 && $beforeCount) {
+        if ($existsTags->count() > 0 && $beforeCount) {
             foreach ($existsTags as $existsTag) {
 
                 if ($existsTag->count < 1) {
@@ -96,8 +96,8 @@ class Post extends Content
             ->get();
 
         // 添加新标签，更新标签文章数
-        if (count($insertTags) > 0) {
-            $post->tags()->sync($insertTags->pluck('id'));
+        if ($insertTags->count() > 0) {
+            $post->tags()->sync($insertTags->pluck('id')->all());
 
             if (! $afterCount) {
                 return;

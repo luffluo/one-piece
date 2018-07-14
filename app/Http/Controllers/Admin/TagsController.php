@@ -16,7 +16,8 @@ class TagsController extends Controller
 
     public function index()
     {
-        $lists = Tag::paginate(20);
+        $lists = Tag::query()
+            ->paginate(20);
 
         $defaultTag = option('defaultTag', 1);
 
@@ -30,14 +31,17 @@ class TagsController extends Controller
 
     public function store(TagRequest $request, Tag $tag)
     {
-        $tag->fill($request->except('slug'));
-        $tag->slug = slug_name($request->get('slug') ? $request->get('slug') : $request->get('name'));
+        $tag->fill($request->all());
 
         if (! $tag->save()) {
-            return redirect()->route('admin.tags.index')->withErrors("标签 {$tag->name} 添加失败");
+            return redirect()
+                ->route('admin.tags.index')
+                ->withErrors("标签 {$tag->name} 添加失败");
         }
 
-        return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被添加");
+        return redirect()
+            ->route('admin.tags.index')
+            ->with('message', "标签 {$tag->name} 已经被添加");
     }
 
     public function edit(Tag $tag)
@@ -48,10 +52,15 @@ class TagsController extends Controller
     public function update(TagRequest $request, Tag $tag)
     {
         if (! $tag->update($request->all())) {
-            return redirect()->route('admin.tags.index')->withErrors("标签 {$tag->name} 编辑失败");
+
+            return redirect()
+                ->route('admin.tags.index')
+                ->withErrors("标签 {$tag->name} 编辑失败");
         }
 
-        return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被更新");
+        return redirect()
+            ->route('admin.tags.index')
+            ->with('message', "标签 {$tag->name} 已经被更新");
     }
 
     public function setDefault(Request $request, Tag $tag)
@@ -64,7 +73,8 @@ class TagsController extends Controller
                 $returnUrl = route('admin.tags.index');
             }
 
-            return redirect()->to($returnUrl)->withSuccess("{$tag->name} 已经被设为默认标签");
+            return redirect()->to($returnUrl)
+                ->withSuccess("{$tag->name} 已经被设为默认标签");
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('设置默认标签失败，请重试.');
@@ -74,9 +84,13 @@ class TagsController extends Controller
     public function destroy(Tag $tag)
     {
         if (! $tag->delete()) {
-            return redirect()->route('admin.tags.index')->with('errors', "标签 {$tag->name} 删除失败");
+            return redirect()
+                ->route('admin.tags.index')
+                ->with('errors', "标签 {$tag->name} 删除失败");
         }
 
-        return redirect()->route('admin.tags.index')->with('message', "标签 {$tag->name} 已经被删除");
+        return redirect()
+            ->route('admin.tags.index')
+            ->with('message', "标签 {$tag->name} 已经被删除");
     }
 }

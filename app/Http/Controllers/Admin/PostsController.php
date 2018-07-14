@@ -78,7 +78,7 @@ class PostsController extends Controller
     public function store(PostRequest $request, Post $post)
     {
         $post->fill($request->all());
-        $post->do            = $request->get('do', null);
+        $post->do            = $request->get('do', 'save');
         $post->postTags      = $request->get('tags', []);
         $post->allow_feed    = $request->has('allow_feed');
         $post->allow_comment = $request->has('allow_comment');
@@ -88,12 +88,14 @@ class PostsController extends Controller
         if (! $post->save()) {
             DB::rollBack();
 
-            return redirect()->back()->withMessage("文章 {$post->title} 创建失败");
+            return back()->withMessage("文章 {$post->title} 创建失败");
         }
 
         DB::commit();
 
-        return redirect()->route('admin.posts.edit', [$post->id])->withMessage("文章 {$post->title} 已经被创建");
+        return redirect()
+            ->route('admin.posts.edit', [$post->id])
+            ->withMessage("文章 {$post->title} 已经被创建");
     }
 
     public function edit(Post $post)
@@ -141,7 +143,9 @@ class PostsController extends Controller
 
         DB::commit();
 
-        return redirect()->route('admin.posts.edit', [$post->id])->withMessage("文章 {$post->title} 已经被更新");
+        return redirect()
+            ->route('admin.posts.edit', [$post->id])
+            ->withMessage("文章 {$post->title} 已经被更新");
     }
 
     public function destroy(Post $post)
@@ -157,6 +161,8 @@ class PostsController extends Controller
 
         DB::commit();
 
-        return redirect()->route('admin.posts.index')->withMessage("文章 {$post->title} 已经被删除");
+        return redirect()
+            ->route('admin.posts.index')
+            ->withMessage("文章 {$post->title} 已经被删除");
     }
 }

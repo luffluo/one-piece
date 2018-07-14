@@ -31,15 +31,6 @@ abstract class Content extends Model
 
     protected $table = 'contents';
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($self) {
-            $self->type = static::TYPE;
-        });
-    }
-
     public function scopeOrderAsc($query)
     {
         return $query->orderBy('order', 'asc');
