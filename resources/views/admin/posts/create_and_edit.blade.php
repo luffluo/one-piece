@@ -26,9 +26,9 @@
                     </div>
 
                     <div class="field tags">
-                        <select id="tags" class="ui fluid search dropdown" name="tags[]" multiple="multiple">
+                        <select id="tags" name="tags[]" class="ui fluid search dropdown" multiple="multiple">
                             @foreach ($tags as $tag)
-                                <option {{ $tag['selected'] ? 'selected' : '' }} value="{{ $tag['value'] }}">
+                                <option value="{{ $tag['value'] }}">
                                     {{ $tag['name'] }}
                                 </option>
                             @endforeach
@@ -40,10 +40,10 @@
                     </div>
 
                     <div class="field submit">
-                        <button type="submit" name="do" value="publish" class="ui small primary right floated button">发布文章</button>
-                        <button type="submit" name="do" value="save" class="ui small right floated button">保存草稿</button>
+                        <button type="submit" name="do" value="publish" id="btn-submit" class="ui small primary right floated button">发布文章</button>
+                        <button type="submit" name="do" value="save" id="btn-save" class="ui small right floated button">保存草稿</button>
                         @if ($post->exists)
-                        <a title="浏览 {{ $post->headline() }}" href="{{ route('posts.show', $post->id) }}" class="ui small right floated button" target="_blank">
+                        <a id="btn-preview" title="浏览 {{ $post->headline() }}" href="{{ route('posts.show', $post->id) }}" class="ui small right floated button" target="_blank">
                             浏览文章 <i class="external link alternate icon"></i>
                         </a>
                         @endif
@@ -112,6 +112,8 @@
 
             $('#tags').dropdown({
                 values: @json($tags),
+                allowAdditions: true,
+                useLabels: true,
                 placeholder: '请选择标签',
             });
 
@@ -125,6 +127,13 @@
 
             var form = $('form').submit(function () {
                 submitted = true;
+            });
+
+          // 防止 input 里回车 自动提交表单
+            $('input', form).on('keypress', function (e) {
+                if (13 == e.keyCode) {
+                  return false;
+                }
             });
 
             $(':input', form).bind('input change', function (e) {
@@ -191,15 +200,6 @@
                 fullscreen: '全屏 - Ctrl+J',
                 exitFullscreen: '退出全屏 - Ctrl+E',
                 fullscreenUnsupport: '此浏览器不支持全屏操作',
-
-                // <div class="ui tabular menu">
-                // <a class="item active" data-tab="first">First</a>
-                // <a class="item" data-tab="second">Second</a>
-                // <a class="item" data-tab="third">Third</a>
-                // </div>
-                // <div class="ui tab active" data-tab="first">First </div>
-                // <div class="ui tab" data-tab="second">Second </div>
-                // <div class="ui tab" data-tab="third">Third </div>
 
                 imagedialog: '<div class="ui header">插入图片</div><div class="ui tabular menu"><a class="active item" data-tab="local">本地上传</a><a class="item" data-tab="remote">远程地址获取</a></div>',
                 imageLocalUploadUrl: '{{ route('upload', ['cid' => $post->id]) }}',

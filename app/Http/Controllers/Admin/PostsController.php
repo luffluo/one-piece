@@ -66,7 +66,7 @@ class PostsController extends Controller
             ->map(function ($item) use ($defaultTagId) {
                 return [
                     'name'     => $item['name'],
-                    'value'    => $item['id'],
+                    'value'    => $item['name'],
                     'selected' => $item['id'] == $defaultTagId ? true : false,
                 ];
             })
@@ -112,14 +112,14 @@ class PostsController extends Controller
         ]);
 
         $selectedTagIds = $post->tags->pluck('id')->toArray();
-        $tags           = Tag::all('id', 'name');
-        $tags = $tags->map(function ($item) use ($selectedTagIds) {
-            return [
-                'name'     => $item['name'],
-                'value'    => $item['id'],
-                'selected' => in_array($item['id'], $selectedTagIds),
-            ];
-        })->toArray();
+        $tags           = Tag::all('id', 'name')
+            ->map(function ($item) use ($selectedTagIds) {
+                return [
+                    'name'     => $item['name'],
+                    'value'    => $item['name'],
+                    'selected' => in_array($item['id'], $selectedTagIds),
+                ];
+            })->toArray();
 
         return admin_view('posts.create_and_edit', compact('post', 'tags'));
     }
@@ -127,7 +127,7 @@ class PostsController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $post->fill($request->all());
-        $post->do            = $request->get('do', null);
+        $post->do            = $request->get('do', 'save');
         $post->postTags      = $request->get('tags', []);
         $post->allow_feed    = $request->has('allow_feed');
         $post->allow_comment = $request->has('allow_comment');

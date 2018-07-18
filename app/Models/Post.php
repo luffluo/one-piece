@@ -68,32 +68,33 @@ class Post extends Content
         return $this->belongsToMany(Tag::class, 'content_meta', 'content_id', 'meta_id');
     }
 
-    public function setPostTags(Post $post, $tags, $beforeCount = false, $afterCount = false)
+    public function setTags(Post $post, $tags, $beforeCount = false, $afterCount = false)
     {
         $tags = array_unique(array_map('trim', $tags));
 
         $existsTags = $post->tags()->get();
 
-        // 清空已有的标签关系
-        $existsTags->count() > 0 && $post->tags()->sync([]);
+        if ($existsTags->count() > 0) {
 
-        // 重置标签文章数
-        if ($existsTags->count() > 0 && $beforeCount) {
-            foreach ($existsTags as $existsTag) {
+            // 清空已有的标签关系
+            $post->tags()->sync([]);
 
-                if ($existsTag->count < 1) {
-                    continue;
+            // 重置标签文章数
+            if ($beforeCount) {
+                foreach ($existsTags as $existsTag) {
+
+                    if ($existsTag->count < 1) {
+                        continue;
+                    }
+
+                    $existsTag->count += -1;
+                    $existsTag->save();
                 }
-
-                $existsTag->count += -1;
-                $existsTag->save();
             }
         }
 
-        $insertTags = Tag::query()
-            ->select('id', 'count')
-            ->whereKey($tags)
-            ->get();
+        // 取出插入 tag
+        $insertTags = Tag::scanTags($tags);
 
         // 添加新标签，更新标签文章数
         if ($insertTags->count() > 0) {

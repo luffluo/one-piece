@@ -65,7 +65,7 @@ class PostObserver
                 }
             }
 
-            $post->setPostTags(
+            $post->setTags(
                 $post,
                 $post->postTags,
                 ! $isDraftToPublish && $isBeforePublish,
