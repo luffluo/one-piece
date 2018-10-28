@@ -19,7 +19,7 @@ class UninstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Uninstall One Piece';
+    protected $description = 'Uninstall the One Piece';
 
     /**
      * @var \App\Services\Installer
@@ -45,12 +45,12 @@ class UninstallCommand extends Command
      */
     public function handle()
     {
-        $this->info('卸载开始 ...');
+        $this->info('Uninstall start...');
 
         $this->installer->removeInstalledFile();
 
         $this->call('migrate:reset');
 
-        $this->info('卸载成功');
+        $this->info('Uninstall Okay!');
     }
 }

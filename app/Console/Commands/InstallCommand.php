@@ -20,7 +20,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install One Piece';
+    protected $description = 'Install the One Piece';
 
     /**
      * @var \App\Services\Installer
@@ -48,12 +48,16 @@ class InstallCommand extends Command
     {
         if ($this->installer->installed()) {
 
-            $this->error('程序已安装 ...');
+            $this->comment('');
+            $this->error('The One Piece already installed...');
+            $this->comment('');
 
             return;
         }
 
-        $this->info('安装开始 ...');
+        $this->comment('');
+        $this->info('Install start...');
+        $this->comment('');
 
         try {
             // 从 console 中获取信息
@@ -72,7 +76,9 @@ class InstallCommand extends Command
             $this->call('db:seed');
         }
 
-        $this->info('One Piece 安装成功!');
+        $this->comment('');
+        $this->info('One Piece is Okay now!');
+        $this->comment('');
     }
 
     /**
@@ -80,17 +86,17 @@ class InstallCommand extends Command
      */
     protected function getData()
     {
-        $data['app_url'] = $this->ask('站点地址', 'https://one-piece.com');
+        $data['app_url'] = $this->ask('Site Url', 'https://one-piece.com');
 
-        $data['db_host']     = $this->ask('数据库地址：', 'localhost');
-        $data['db_username'] = $this->ask('数据库用户名：', 'root');
-        $data['db_password'] = $this->ask('数据库密码：');
-        $data['db_database'] = $this->ask('数据库：', 'one-piece');
-        $data['db_charset']  = $this->ask('数据库字符集：', 'utf8mb4');
+        $data['db_host']     = $this->ask('Database Host：', 'localhost');
+        $data['db_username'] = $this->ask('Database Username：', 'root');
+        $data['db_password'] = $this->ask('Database Password：');
+        $data['db_database'] = $this->ask('Database Name：', 'one-piece');
+        $data['db_charset']  = $this->ask('Database Charset：', 'utf8mb4');
 
-        $data['admin_username'] = $this->ask('管理员账号：', 'admin');
-        $data['admin_password'] = $this->ask('管理员密码：', 'admin123');
-        $data['admin_email']    = $this->ask('邮件地址：', 'webmaster@yourdomain.com');
+        $data['admin_username'] = $this->ask('Admin Username：', 'admin');
+        $data['admin_password'] = $this->ask('Admin Password：', 'admin123');
+        $data['admin_email']    = $this->ask('Email：', 'webmaster@yourdomain.com');
 
         return $data;
     }

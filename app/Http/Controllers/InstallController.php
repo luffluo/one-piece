@@ -6,6 +6,7 @@ use App\Services\Installer;
 use App\Contracts\Detectable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\InstallRequest;
+use Illuminate\Support\Facades\Schema;
 
 class InstallController extends Controller
 {
