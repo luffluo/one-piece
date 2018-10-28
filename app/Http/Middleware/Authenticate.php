@@ -12,7 +12,7 @@ class Authenticate
     {
         if (auth()->guard($guard)->guest()) {
 
-            if ($request->ajax()) {
+            if ($request->expectsJson()) {
                 return new JsonResponse('Unauthorized', 401);
             }
 
