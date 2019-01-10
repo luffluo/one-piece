@@ -60,8 +60,8 @@ class AppServiceProvider extends ServiceProvider
     protected function registerViewData()
     {
         View::composer('layouts.app', function ($view) {
-            $view->with('keywords', option('keywords', ''));
-            $view->with('description', option('description', ''));
+            $view->with('keywords', setting('keywords', ''));
+            $view->with('description', setting('description', ''));
         });
 
         View::composer('common._nav', function ($view) {
@@ -84,7 +84,7 @@ class AppServiceProvider extends ServiceProvider
                         ->select('id', 'title', 'created_at')
                         ->published()
                         ->recent()
-                        ->take(option('posts_list_size', 10))
+                        ->take(setting('posts_list_size', 10))
                         ->get();
                 });
 
@@ -98,7 +98,7 @@ class AppServiceProvider extends ServiceProvider
                         ->select('text', 'user_id')
                         ->with('user')
                         ->recent()
-                        ->take(option('comments_list_size', 10))
+                        ->take(setting('comments_list_size', 10))
                         ->get();
                 });
 

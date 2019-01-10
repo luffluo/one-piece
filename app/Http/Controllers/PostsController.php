@@ -52,7 +52,7 @@ class PostsController extends Controller
             ->published()
             ->recent()
             ->with('tags', 'user')
-            ->paginate(option('page_size', 20));
+            ->paginate(setting('page_size', 20));
 
         $data['posts'] = $posts;
 
@@ -138,7 +138,7 @@ class PostsController extends Controller
             ->published()
             ->recent()
             ->with('tags')
-            ->paginate(option('page_size', 20));
+            ->paginate(setting('page_size', 20));
 
         return view('posts.index', compact('posts', 'title'));
     }

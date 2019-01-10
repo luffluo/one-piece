@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8105414d74f89e06bd80d41575fbf4b6",
+    "content-hash": "1ad219b6db9579c045511a903ffa462e",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1127,6 +1127,59 @@
                 "storage"
             ],
             "time": "2018-11-23T23:41:29+00:00"
+        },
+        {
+            "name": "luffluo/laravel-settings",
+            "version": "v1.0.0-beta-2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luffluo/laravel-settings.git",
+                "reference": "3a5325cf1a2ab36ef23a43d47f5e6c641919e7b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luffluo/laravel-settings/zipball/3a5325cf1a2ab36ef23a43d47f5e6c641919e7b0",
+                "reference": "3a5325cf1a2ab36ef23a43d47f5e6c641919e7b0",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "laravel": {
+                    "providers": [
+                        "Luffluo\\LaravelSettings\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Luffluo\\LaravelSettings\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "luffluo",
+                    "email": "luffluo@outlook.com"
+                }
+            ],
+            "description": "Package description here.",
+            "time": "2019-01-01T08:36:51+00:00"
         },
         {
             "name": "mews/captcha",

@@ -58,7 +58,7 @@ class PostsController extends Controller
         $post->allow_feed    = true;
         $post->allow_comment = true;
 
-        $defaultTagId = option('defaultTag', 1);
+        $defaultTagId = setting('defaultTag', 1);
 
         $tags                = Tag::query()
             ->select('id', 'name')

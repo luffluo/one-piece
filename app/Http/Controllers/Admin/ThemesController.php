@@ -14,14 +14,14 @@ class ThemesController extends Controller
 
     public function showOption()
     {
-        $sidebarBlock = option('sidebar_block');
+        $sidebarBlock = setting('sidebar_block');
 
         return admin_view('themes.option', compact('sidebarBlock'));
     }
 
     public function handleOption(Request $request)
     {
-        option(['sidebar_block' => $request->get('sidebarBlock', [])]);
+        setting(['sidebar_block' => $request->get('sidebarBlock', [])]);
 
         return redirect()->route('admin.themes.option')->withMessage('外观设置已经保存');
     }

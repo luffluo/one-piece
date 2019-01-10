@@ -1,7 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>{{ option('title', config('app.name')) }}</title>
-        <description>{{ option('description', config('app.name')) }}</description>
+        <title>{{ setting('title', config('app.name')) }}</title>
+        <description>{{ setting('description', config('app.name')) }}</description>
         <link>{{ route('home') }}</link>
         <atom:link href="{{ route('feed') }}" rel="self" type="application/rss+xml"/>
         <?php

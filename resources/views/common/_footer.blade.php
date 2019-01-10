@@ -1,7 +1,7 @@
 <footer id="footer" class="ui footer center aligned basic segment" role="contentinfo">
     <div class="ui text container">
         <div>
-            &copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ option('title', config('app.name')) }}</a>.
+            &copy; {{ date('Y') }} <a href="{{ route('home') }}">{{ setting('title', config('app.name')) }}</a>.
         </div>
 
         <div>

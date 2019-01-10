@@ -74,8 +74,8 @@
                                            title="{{ $comment->post->headline() }}" class="remove-padding-left">
                                             {{ $comment->post->headline() }}
                                         </a>
-                                        <span class="date" title="{{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}">
-                                            {{ $comment->created_at->format(option('comment_date_format', 'Y-m-d H:i:s')) }}
+                                        <span class="date" title="{{ $comment->created_at->format(setting('comment_date_format', 'Y-m-d H:i:s')) }}">
+                                            {{ $comment->created_at->format(setting('comment_date_format', 'Y-m-d H:i:s')) }}
                                         </span>
 
                                         @if($comment->isWaiting())

@@ -32,7 +32,7 @@
                         </div>
                         <div class="item">
                             时间:
-                            <time datetime="{{ $post->created_at->format('c') }}" itemprop="datePublished">{{ $post->created_at->format(option('post_date_format', 'Y-m-d')) }}</time>
+                            <time datetime="{{ $post->created_at->format('c') }}" itemprop="datePublished">{{ $post->created_at->format(setting('post_date_format', 'Y-m-d')) }}</time>
                         </div>
 
                         @if(count($post->tags))

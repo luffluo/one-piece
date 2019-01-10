@@ -47,7 +47,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         // 判断是否允许注册
-        if (! option('allow_register')) {
+        if (! setting('allow_register')) {
             return abort(404);
         }
 

@@ -17,7 +17,7 @@
 
         <div class="metadata">
             <a href="{{ route('posts.show', $comment->content_id) . '#comment-' . $comment->id }}">
-                <time class="date" itemprop="commentTime" datetime="{{ $comment->created_at->format('c') }}">{{ $comment->created_at->format(option('comment_date_format')) }}</time>
+                <time class="date" itemprop="commentTime" datetime="{{ $comment->created_at->format('c') }}">{{ $comment->created_at->format(setting('comment_date_format')) }}</time>
             </a>
         </div>
 

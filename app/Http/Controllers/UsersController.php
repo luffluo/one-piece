@@ -41,7 +41,7 @@ class UsersController extends Controller
             ->where('user_id', $user->id)
             ->with('post')
             ->recent()
-            ->paginate(option('comments_page_size', 20));
+            ->paginate(setting('comments_page_size', 20));
 
         return view('users.center', compact('user', 'comments'));
     }

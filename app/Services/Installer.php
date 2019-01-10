@@ -264,22 +264,17 @@ class Installer
                 'comment_date_format' => 'Y-m-d H:i:s',
                 'comments_list_size'  => 10,
                 'comments_page_size'  => 20,
-                'comments_show'       => '["comments_page_break"]',
+                'comments_show'       => ['comments_page_break'],
                 'post_date_format'    => 'Y-m-d',
                 'posts_list_size'     => 10,
                 'page_size'           => 20,
-                'sidebar_block'       => '["show_recent_posts","show_recent_comments","show_tag","show_archive","show_other"]',
+                'sidebar_block'       => ['show_recent_posts', 'show_recent_comments', 'show_tag', 'show_archive', 'show_other'],
                 'defaultTag'          => 1,
             ];
 
-            $insert = [];
             foreach ($options as $key => $value) {
-                $insert[] = [
-                    'name'  => $key,
-                    'value' => $value,
-                ];
+                setting()->set($key, $value);
             }
-            option()->table()->insert($insert);
 
             // 初始用户
             $user = new User;

@@ -50,7 +50,7 @@
     </form>
 
     <div class="ui text menu">
-        @if(option('allow_register'))
+        @if(setting('allow_register'))
             <a class="ui link left floated item" href="{{ route('register') }}">
                 <i class="long arrow left icon"></i>
                 没有账号？注册

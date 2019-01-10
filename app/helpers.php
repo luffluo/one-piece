@@ -43,36 +43,6 @@ if (! function_exists('admin_view')) {
     }
 }
 
-if (! function_exists('option')) {
-
-    /**
-     * Get / set the specified option value.
-     *
-     * If an array is passed as the key, we will assume you want to set an array of values.
-     *
-     * @param array|string $key
-     * @param mixed        $default
-     * @param integer      $user_id
-     *
-     * @return \App\Services\Option|mixed
-     */
-    function option($key = null, $default = null)
-    {
-        /* @var \App\Services\Option $option */
-        $option = app('option');
-
-        if (is_null($key)) {
-            return $option;
-        }
-
-        if (is_array($key)) {
-            return $option->set(key($key), $key[key($key)]);
-        }
-
-        return $option->get($key, $default);
-    }
-}
-
 if (! function_exists('sidebar_block')) {
 
     /**
@@ -82,7 +52,7 @@ if (! function_exists('sidebar_block')) {
      */
     function sidebar_block()
     {
-        $sidebarBlock = option('sidebar_block');
+        $sidebarBlock = setting('sidebar_block');
 
         return is_array($sidebarBlock) ? $sidebarBlock : [];
     }

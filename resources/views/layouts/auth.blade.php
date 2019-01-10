@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ mix('assets/css/app.css') }}">
 
-    <title>@yield('title', option('title', config('app.name'))) - {{ option('title', config('app.name')) }}</title>
+    <title>@yield('title', setting('title', config('app.name'))) - {{ setting('title', config('app.name')) }}</title>
 
     <style>
         body {
@@ -41,7 +41,7 @@
         <div class="column">
             <h2 class="ui huge header">
                 <a href="{{ route('home') }}">
-                    {{ option('title', config('app.name')) }}
+                    {{ setting('title', config('app.name')) }}
                 </a>
             </h2>
 

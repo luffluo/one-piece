@@ -19,7 +19,7 @@ class TagsController extends Controller
         $lists = Tag::query()
             ->paginate(20);
 
-        $defaultTag = option('defaultTag', 1);
+        $defaultTag = setting('defaultTag', 1);
 
         return admin_view('tags.index', compact('lists', 'defaultTag'));
     }
@@ -66,7 +66,7 @@ class TagsController extends Controller
     public function setDefault(Request $request, Tag $tag)
     {
         try {
-            option(['defaultTag' => $tag->id]);
+            setting(['defaultTag' => $tag->id]);
 
             $returnUrl = $request->headers->get('referer');
             if (empty($returnUrl)) {

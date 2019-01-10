@@ -1,8 +1,8 @@
 <nav class="ui stackable mini borderless menu">
     <div class="ui container">
         <div class="header item">
-            <a title="{{ option('description') }}" href="{{ route('home') }}" class="navbar-brand">
-                <h2>{{ option('title', config('app.name')) }}</h2>
+            <a title="{{ setting('description') }}" href="{{ route('home') }}" class="navbar-brand">
+                <h2>{{ setting('title', config('app.name')) }}</h2>
             </a>
         </div>
 
@@ -23,7 +23,7 @@
 
             @guest
                 <a class="ui medium header item" href="{{ route('login') }}" role="button" aria-haspopup="true" aria-expanded="false">登录</a>
-                @if(option('allow_register'))
+                @if(setting('allow_register'))
                     <a class="ui medium header item" href="{{ route('register') }}" role="button" aria-haspopup="true" aria-expanded="false">注册</a>
                 @endif
             @else

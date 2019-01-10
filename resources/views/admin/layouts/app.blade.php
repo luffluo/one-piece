@@ -25,7 +25,7 @@ ______                            _              _                              
     <link rel="stylesheet" href="{{ asset('vendor/semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ mix('assets/css/app.css') }}">
 
-    <title>@yield('title')@if (! empty(option('title'))) - {{ option('title') }}@endif - Powered by Luff</title>
+    <title>@yield('title')@if (! empty(setting('title'))) - {{ setting('title') }}@endif - Powered by Luff</title>
 
     @section('css')
         <style>
@@ -79,7 +79,7 @@ ______                            _              _                              
         <div class="header item">
             <h3>
                 <a title="网站" href="{{ url('/') }}" target="_blank">
-                    {{ option('title', config('app.name')) }}
+                    {{ setting('title', config('app.name')) }}
                 </a>
             </h3>
         </div>

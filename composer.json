@@ -18,6 +18,7 @@
         "laravel/framework": "5.7.*",
         "laravel/telescope": "^1.0",
         "laravel/tinker": "^1.0",
+        "luffluo/laravel-settings": "~1.0",
         "mews/captcha": "~2.0",
         "mews/purifier": "~2.0"
     },

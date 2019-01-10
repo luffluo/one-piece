@@ -40,7 +40,7 @@ class TagsController extends Controller
             ->published()
             ->recent()
             ->with('tags')
-            ->paginate(option('page_size', 20));
+            ->paginate(setting('page_size', 20));
 
         return view('posts.index', compact('posts', 'tag'));
     }
