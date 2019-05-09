@@ -16,7 +16,7 @@ class PostsController extends Controller
     public function index()
     {
         $query = Post::query();
-        $data  = [];
+        $data = [];
 
         if ($search = request()->get('q')) {
 
@@ -63,7 +63,6 @@ class PostsController extends Controller
      * 查看单个文章
      *
      * @param $id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -77,8 +76,12 @@ class PostsController extends Controller
         $post->load('user', 'comments.user');
 
         // 每次浏览，浏览数 +1
-        $post->views_count += 1;
-        $post->save();
+        if (! session('post_viewed_' . $post->id)) {
+            $post->views_count += 1;
+            $post->save();
+
+            session(['post_viewed_' . $post->id => true]);
+        }
 
         $comments = $post->getCommentsGroupByParentId();
 
@@ -87,7 +90,17 @@ class PostsController extends Controller
             $view->with('description', $post->description);
         });
 
-        return view('posts.show', compact('post', 'comments'));
+        $prevPostId = Post::query()
+                ->where('id', '<', $post->id)
+                ->published()
+                ->max('id') ?? null;
+
+        $nextPostId = Post::query()
+                ->where('id', '>', $post->id)
+                ->published()
+                ->min('id') ?? null;
+
+        return view('posts.show', compact('post', 'comments', 'prevPostId', 'nextPostId'));
     }
 
     /**
@@ -96,7 +109,6 @@ class PostsController extends Controller
      * @param      $year
      * @param null $month
      * @param null $day
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function archive($year, $month = null, $day = null)
@@ -105,30 +117,30 @@ class PostsController extends Controller
 
             // 如果是按日期归档
             $searchDate = Carbon::create($year, $month, $day);
-            $startDate  = clone $searchDate;
-            $endDate    = clone $searchDate;
-            $from       = $startDate->startOfDay();
-            $to         = $endDate->endOfDay();
+            $startDate = $searchDate->copy();
+            $endDate = $searchDate->copy();
+            $from = $startDate->startOfDay();
+            $to = $endDate->endOfDay();
 
             $title = sprintf('%d年%d月%d日', $year, $month, $day);
         } elseif (! empty($year) && ! empty($month)) {
 
             // 如果按月归档
             $searchDate = Carbon::create($year, $month);
-            $startDate  = clone $searchDate;
-            $endDate    = clone $searchDate;
-            $from       = $startDate->startOfMonth();
-            $to         = $endDate->endOfMonth();
+            $startDate = $searchDate->copy();
+            $endDate = $searchDate->copy();
+            $from = $startDate->startOfMonth();
+            $to = $endDate->endOfMonth();
 
             $title = sprintf('%d年%d月', $year, $month);
         } elseif (! empty($year)) {
 
             // 如果按年归档
             $searchDate = Carbon::create($year);
-            $startDate  = clone $searchDate;
-            $endDate    = clone $searchDate;
-            $from       = $startDate->startOfYear();
-            $to         = $endDate->endOfYear();
+            $startDate = $searchDate->copy();
+            $endDate = $searchDate->copy();
+            $from = $startDate->startOfYear();
+            $to = $endDate->endOfYear();
 
             $title = sprintf('%d年', $year);
         }

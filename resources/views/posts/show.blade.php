@@ -49,6 +49,20 @@
 
         <div class="ui divider"></div>
 
+        <div class="ui text menu">
+            @if($prevPostId)
+                <a href="{{ route('posts.show', $prevPostId) }}" class="item left link">上一篇</a>
+            @else
+                <div class="item left">没有了</div>
+            @endif
+
+            @if($nextPostId)
+                <a href="{{ route('posts.show', $nextPostId) }}" class="item right link">下一篇</a>
+            @else
+                <div class="item right">没有了</div>
+            @endif
+        </div>
+
         @include('comments._list', ['collections' => $comments->first(null, [])])
     </div>
 
