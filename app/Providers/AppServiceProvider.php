@@ -7,18 +7,12 @@ use App\Models\Nav;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * 数据缓存时间
-     *
-     * @var int
-     */
-    protected $cacheTime = 360 * 24 * 60;
-
     /**
      * Bootstrap any application services.
      *
@@ -33,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         $this->registerObservers();
 
         $this->registerViewData();
+
+        Paginator::defaultView('vendor.pagination.default');
     }
 
     /**
@@ -65,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('common._nav', function ($view) {
-            $navigations = cache()->remember('navigations', $this->cacheTime, function () {
+            $navigations = cache()->rememberForever('navigations', function () {
                 return Nav::select('title', 'slug', 'text', 'order')
                     ->show()
                     ->orderAsc()
@@ -79,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (sidebar_block_open('show_recent_posts')) {
 
-                $posts = cache()->remember('post.recent', $this->cacheTime, function () {
+                $posts = cache()->rememberForever('post.recent', function () {
                     return Post::query()
                         ->select('id', 'title', 'created_at')
                         ->published()
@@ -93,7 +89,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (sidebar_block_open('show_recent_comments')) {
 
-                $comments = cache()->remember('comment.recent', $this->cacheTime, function () {
+                $comments = cache()->rememberForever('comment.recent', function () {
                     return Comment::query()
                         ->select('text', 'user_id')
                         ->with('user')
@@ -107,7 +103,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (sidebar_block_open('show_tag')) {
 
-                $tags = cache()->remember('tags.had_posts', $this->cacheTime, function () {
+                $tags = cache()->rememberForever('tags.had_posts', function () {
                     return Tag::query()
                         ->select('id', 'name', 'slug', 'count')
                         ->hadPosts()
@@ -119,7 +115,7 @@ class AppServiceProvider extends ServiceProvider
 
             if (sidebar_block_open('show_archive')) {
 
-                $result = cache()->remember('post.archive', $this->cacheTime, function () {
+                $result = cache()->rememberForever('post.archive', function () {
                     $posts = Post::select('created_at')->published()
                         ->recent()
                         ->get();
