@@ -380,3 +380,11 @@ code, pre, .mono {
   border: 1px solid #E9E9E9;
   border-width: 2px 0 0 0;
 }
+
+.page-top.message {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}

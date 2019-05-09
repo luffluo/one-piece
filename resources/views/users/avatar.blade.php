@@ -11,9 +11,6 @@
             <h2>修改头像</h2>
             <div class="ui divider"></div>
 
-            @include('common._message')
-            @include('common._error')
-
             <form class="ui form" action="{{ route('users.update_avatar', $user->name) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

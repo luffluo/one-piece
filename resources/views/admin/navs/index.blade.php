@@ -12,9 +12,6 @@
 
     <div class="ui container">
 
-        @include('common._message')
-        @include('common._error')
-
         <table class="ui very basic selectable table">
             <thead>
             <tr>

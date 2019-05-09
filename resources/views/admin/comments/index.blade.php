@@ -16,9 +16,6 @@
 
     <div class="ui container">
 
-        @include('common._message')
-        @include('common._error')
-
         <div class="option-tabs left">
             <div class="ui compact basic tiny buttons" role="group" aria-label="tabs">
                 @if (\App\Models\Comment::STATUS_APPROVED === $status)

@@ -7,7 +7,6 @@
 
     <div class="ui text container">
         <div class="ui basic segment">
-            @include('common._error')
 
             <form class="ui form" action="{{ route('install') }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

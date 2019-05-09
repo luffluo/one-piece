@@ -1,7 +1,7 @@
 @if(count($errors))
-    <div class="ui error message">
+    <div class="page-top ui error message center aligned container" style="width: auto;">
         <i class="close icon"></i>
-        <ul class="list">
+        <ul class="ui list">
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach

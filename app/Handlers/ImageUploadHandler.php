@@ -52,7 +52,7 @@ class ImageUploadHandler
         return [
             'name' => $file->getClientOriginalName(),
             'path' => $folderName . DIRECTORY_SEPARATOR . $filename,
-            'size' => $file->getClientSize(),
+            'size' => 0,
             'type' => $extension,
             'mime' => $file->getClientMimeType(),
         ];

@@ -35,6 +35,7 @@ ______                            _              _                              
             }
             .ui.nav.menu {
                 border-radius: 0;
+                margin-top: 0;
             }
             .main.container {
                 padding-top: 30px;
@@ -73,6 +74,9 @@ ______                            _              _                              
 </head>
 
 <body class="{{ route_class() }}-page">
+
+    @include('common._message')
+    @include('common._error')
 
     <div class="ui stackable mini inverted nav menu op-head-nav">
 

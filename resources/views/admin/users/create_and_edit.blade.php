@@ -8,9 +8,6 @@
 
     <div class="ui text content container">
 
-        @include('common._message')
-        @include('common._error')
-
         <form action="{{ $user->exists ? route('admin.users.update', [$user->id]) : route('admin.users.store') }}" class="ui form" method="post">
             @if ($user->exists)
                 <input type="hidden" name="_method" value="PATCH">

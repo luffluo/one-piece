@@ -10,9 +10,6 @@
 
     <div class="ui container">
 
-        @include('common._message')
-        @include('common._error')
-
         <div>
             <div class="option-tabs left">
                 <button class="ui negative button" href="{{ route('admin.attachments.clear') }}" data-method="post" data-confirm="您确认要清理未归档的文件吗?">

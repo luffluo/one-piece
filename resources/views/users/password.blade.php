@@ -12,9 +12,6 @@
             <h2>修改密码</h2>
             <div class="ui divider"></div>
 
-            @include('common._message')
-            @include('common._error')
-
             <form action="{{ route('users.update_password', $user->name) }}" class="ui form" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

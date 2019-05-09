@@ -11,9 +11,6 @@
 
     <div class="ui container">
 
-        @include('common._message')
-        @include('common._error')
-
         <table class="op-list-table ui very basic selectable table">
             <thead>
             <tr>

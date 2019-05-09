@@ -9,8 +9,6 @@
     </div>
 
     <div id="post-area-container" class="ui container op-post-area">
-        @include('common._message')
-        @include('common._error')
 
         <form action="{{ $attachment->exists ? route('admin.attachments.update', [$attachment->id]) : route('admin.attachments.store') }}" class="ui form" method="post">
             @if ($attachment->exists)

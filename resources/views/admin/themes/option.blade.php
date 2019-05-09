@@ -9,9 +9,6 @@
 
     <div class="ui text container">
 
-        @include('common._message')
-        @include('common._error')
-
         <form action="{{ route('admin.themes.option') }}" autocomplete="off" class="ui form" method="post">
             {{ csrf_field() }}
 

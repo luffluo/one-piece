@@ -42,6 +42,7 @@ ______                            _              _                              
                 border-radius: 0;
                 margin-bottom: 2.5em;
                 border: none;
+                margin-top: 0;
             }
             .ui.borderless.menu .row > a.header.item {
                 font-size: 1.2em;
@@ -80,6 +81,9 @@ ______                            _              _                              
 </head>
 
 <body id="app" class="{{ route_class() }}-page">
+
+    @include('common._message')
+    @include('common._error')
 
     @include('common._nav')
 
