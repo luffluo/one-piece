@@ -1,5 +1,5 @@
 @if (count(sidebar_block()) > 0)
-    <div id="secondary" class="four wide right floated column" role="complementary">
+    <div id="secondary" class="three wide column" role="complementary">
         @if (sidebar_block_open('show_recent_posts'))
             <section class="widget">
                 <h4 class="ui header">最新文章</h4>
