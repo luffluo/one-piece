@@ -76,11 +76,16 @@ class PostsController extends Controller
         $post->load('user', 'comments.user');
 
         // 每次浏览，浏览数 +1
-        if (! session('post_viewed_' . $post->id)) {
+        if (! cache('post_viewed_' . session()->getId() . '_' . $post->id)) {
+
             $post->views_count += 1;
             $post->save();
 
-            session(['post_viewed_' . $post->id => true]);
+            cache()->add(
+                'post_viewed_' . session()->getId() . '_' . $post->id,
+                true,
+                now()->addHours(3)
+            );
         }
 
         $comments = $post->getCommentsGroupByParentId();
